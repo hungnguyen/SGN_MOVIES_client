@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class ViewController;
+
+@class MoviesController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) MoviesController *viewController;
 
-@property (strong, nonatomic) UINavigationController *navigationController;
+@property (strong, nonatomic) UINavigationController *moviesNavigationController;
+
+@property (strong, nonatomic) UINavigationController *cinemasNavigationController;
 
 @property (strong, nonatomic) UITabBarController *tabbarController;
 

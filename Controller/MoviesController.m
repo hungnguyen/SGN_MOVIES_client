@@ -6,15 +6,15 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MoviesController.h"
 #import "AFNetworking.h"
 
 
-@interface ViewController ()
+@interface MoviesController ()
 
 @end
 
-@implementation ViewController
+@implementation MoviesController
 @synthesize scrollView;
 @synthesize pageControl;
 @synthesize nowShowingMovies;
@@ -28,23 +28,31 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     [self setTitle:@"NOW SHOWING"];
+    [scrollView setShowsHorizontalScrollIndicator:NO];
+    
+    
     nowShowingMovies = [[NSArray alloc] init];
     comingSoonMovies = [[NSArray alloc] init];
     
     UIScrollView * scrollview1 = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 450)];
     UIScrollView * scrollview2 = [[UIScrollView alloc]initWithFrame:CGRectMake(320, 0, 320, 450)];
+    
+   
+   self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]];        
    
     
     //Get now showing movies
     
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/nowshowing" moviesContainerIndex:0 scrollView:scrollview1];
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/nowshowing"       moviesContainerIndex:0 
+                             scrollView:scrollview1];
     
         
     
     
     //Get coming soon movies
 
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/comingsoon" moviesContainerIndex:1 scrollView:scrollview2];
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/comingsoon" moviesContainerIndex:1 
+                             scrollView:scrollview2];
     
     
     
@@ -136,22 +144,21 @@
 
 - (void)CreatePosters:(UIScrollView *)scrollView1 moviesContainer1:(NSArray *)moviesContainer1
 {
-    //Decorate Scrollview
+    
+    
+    //Add posters to Scrollview
     
     for (int i = 0; i<10;i++)
     {
         NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer1 objectAtIndex:i] valueForKey:@"ImageUrl"]];
         
-        int Ypos = (i/2)*150 + 10*(i/2) + 5;
+        int Ypos = (i/2)*150 + 15*(i/2) + 5;
         
-        int Xpos = (i - (i/2)*2)*150;
+        int Xpos = (i - (i/2)*2)*150 + 10;
         
         //Create poster
         
         UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,150,150)];
-        
-        
-        
         
         poster.tag = i;
         
@@ -176,9 +183,6 @@
         [scrollView1 addSubview:poster];
         
         
-        
-        
-        
         [[HJCache getHJObjManager] manage:asynchcImage];
         
         
@@ -190,8 +194,12 @@
     }
 }
 
-- (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString moviesContainerIndex:(int) moviesContainerindex scrollView:(UIScrollView *) scrollView1 
+- (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString 
+                  moviesContainerIndex:(int) moviesContainerindex 
+                            scrollView:(UIScrollView *) scrollView1 
 {
+    
+    
     
     
     //Get now showing movies

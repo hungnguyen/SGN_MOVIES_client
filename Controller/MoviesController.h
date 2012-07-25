@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HJCache.h"
 
-@interface ViewController : UIViewController <UIScrollViewDelegate>
+@interface MoviesController : UIViewController <UIScrollViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (retain, nonatomic) IBOutlet UIPageControl *pageControl;

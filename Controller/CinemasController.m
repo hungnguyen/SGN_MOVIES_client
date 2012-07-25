@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CinemaController.h"
+#import "CinemasController.h"
 
-@interface CinemaController ()
+@interface CinemasController ()
 
 @end
 
-@implementation CinemaController
+@implementation CinemasController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self setTitle:@"CINEMAS"];
 }
 
 - (void)viewDidUnload

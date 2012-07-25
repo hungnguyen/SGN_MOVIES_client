@@ -8,7 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
+#import "MoviesController.h"
+
+#import "CinemasController.h"
 
 #import "AFNetworking.h"
 
@@ -16,14 +18,16 @@
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
-@synthesize navigationController;
+@synthesize moviesNavigationController;
+@synthesize cinemasNavigationController;
 @synthesize tabbarController;
 
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
-    [navigationController release];
+    [moviesNavigationController release];
+    [cinemasNavigationController release];
     [tabbarController release];
     
     [super dealloc];
@@ -34,29 +38,53 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     
+    
+    
     tabbarController = [[UITabBarController alloc] init];
     
-    navigationController = [[UINavigationController alloc] init];
-    
-    [navigationController setTitle:@"NOW SHOWING"];
     
     
+    //Make Movies Screen
     
-    _viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    moviesNavigationController = [[UINavigationController alloc] init];
     
+    [moviesNavigationController setTitle:@"NOW SHOWING"];
     
+    moviesNavigationController.tabBarItem.image = [UIImage imageNamed:@"movie"];
         
-
+    _viewController = [[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil];
     
-    navigationController.viewControllers = [NSArray arrayWithObjects:_viewController,nil];
     
-    tabbarController.viewControllers = [NSArray arrayWithObjects:navigationController,nil];
+    
+    
+    moviesNavigationController.viewControllers = [NSArray arrayWithObjects:_viewController,nil];
+    
+    
+    
+    //Make Cinemas Screen
+    
+    cinemasNavigationController = [[UINavigationController alloc] init];
+    
+    [cinemasNavigationController setTitle:@"CINEMAS"];
+    
+    cinemasNavigationController.tabBarItem.image = [UIImage imageNamed:@"widescreen"];
+    
+    CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
+        
+    cinemasNavigationController.viewControllers = [NSArray arrayWithObjects:cinemasController, nil];
+    
+    
+    
+    tabbarController.viewControllers = [NSArray arrayWithObjects:moviesNavigationController,cinemasNavigationController,nil];
+    
+    
+    
     
     [self.window setRootViewController:tabbarController];
     
     [self.window makeKeyAndVisible];
     
-    
+    [cinemasController release];
         
      return YES;
 }

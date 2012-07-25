@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CinemaController : UIViewController
+@interface CinemasController : UIViewController
 
 @end
