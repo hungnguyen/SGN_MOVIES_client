@@ -27,7 +27,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self setTitle:@"NOW SHOWING"];
+    [self setTitle:@"MOVIES"];
     [scrollView setShowsHorizontalScrollIndicator:NO];
     
     
@@ -43,7 +43,7 @@
     
     //Get now showing movies
     
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/nowshowing"       moviesContainerIndex:0 
+    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=nowshowing" moviesContainerIndex:0 
                              scrollView:scrollview1];
     
         
@@ -51,7 +51,7 @@
     
     //Get coming soon movies
 
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnmoviesserver.apphb.com/movie/list/comingsoon" moviesContainerIndex:1 
+    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=comingsoon" moviesContainerIndex:1 
                              scrollView:scrollview2];
     
     
@@ -119,6 +119,8 @@
         self.title = @"NOW SHOWING";
     }
     
+    self.navigationController.title = @"MOVIES";
+    
     self.pageControl.currentPage = page;
     
     self.scrollView.pagingEnabled = true;
@@ -137,7 +139,14 @@
 
 - (void) tapPoster:(UIButton*) sender
 {
-    NSLog(@"%@",[[nowShowingMovies objectAtIndex:sender.tag] valueForKey:@"ImageUrl"]);
+    if(self.title == @"NOW SHOWING")
+    {
+        NSLog(@"NOW SHOWING:film %d",sender.tag);
+    }
+    else
+    {
+        NSLog(@"COMING SOON:film %d",sender.tag);
+    }
 }
 
 
@@ -148,8 +157,13 @@
     
     //Add posters to Scrollview
     
-    for (int i = 0; i<10;i++)
+   
+    
+    for (int i = 0; i<moviesContainer1.count;i++)
     {
+        
+       
+        
         NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer1 objectAtIndex:i] valueForKey:@"ImageUrl"]];
         
         int Ypos = (i/2)*150 + 15*(i/2) + 5;
@@ -214,23 +228,28 @@
         if(moviesContainerindex ==0 )
             
         {
-            nowShowingMovies = (NSArray*) JSON;
+            nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
             
+                       
             [nowShowingMovies retain];
         
         
             [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
+            
+            scrollView1.contentSize = CGSizeMake( 320, ((nowShowingMovies.count/2)*150)+300);
         }
         else
         {
-            comingSoonMovies = (NSArray*) JSON;
+            comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
             
             [comingSoonMovies retain];
             
             [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
+            
+             scrollView1.contentSize = CGSizeMake( 320, ((comingSoonMovies.count/2)*150)+300);
         }
         
-        scrollView1.contentSize = CGSizeMake( 320, 900);
+       // scrollView1.contentSize = CGSizeMake( 320, 900);
         
         [scrollView addSubview:scrollView1];
         
