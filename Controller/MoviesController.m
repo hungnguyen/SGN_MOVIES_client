@@ -20,7 +20,9 @@
 @synthesize nowShowingMovies;
 @synthesize comingSoonMovies;
 
+int imageWidth = 150;
 
+int imageHeight = 200;
 
 - (void)viewDidLoad
 {
@@ -177,13 +179,13 @@
         
         NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer1 objectAtIndex:i] valueForKey:@"ImageUrl"]];
         
-        int Ypos = (i/2)*150 + 15*(i/2) + 5;
+        int Ypos = (i/2)*imageHeight + 15*(i/2) + 5;
         
-        int Xpos = (i - (i/2)*2)*150 + 10;
+        int Xpos = (i - (i/2)*2)*imageWidth + 10;
         
         //Create  a poster
         
-        UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,150,150)];
+        UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,imageWidth,imageHeight)];
         
         poster.tag = i;
         
@@ -194,7 +196,7 @@
         
         
         
-        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,150,150)];
+        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,imageWidth,imageHeight)];
         
         asynchcImage.url = [NSURL URLWithString:[[NSString alloc] initWithFormat:@"http://www.galaxycine.vn/%@",urlString] ];
         
@@ -249,7 +251,7 @@
         
             [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
             
-            scrollView1.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*150)+150);
+            scrollView1.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
         }
         else
         {
@@ -259,7 +261,7 @@
             
             [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
             
-             scrollView1.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*150)+150);
+             scrollView1.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
         }
         
        // scrollView1.contentSize = CGSizeMake( 320, 900);
