@@ -33,18 +33,13 @@ int imageHeight = 200;
     
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
-    /*UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     
-    [self.navigationItem setRightBarButtonItem:barButton animated:YES];*/
-    
-    // create a toolbar to have two buttons in the right
     UIToolbar* tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 80, 44.01)];
     
     // create the array to hold the buttons, which then gets added to the toolbar
     NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];
     
-    // create a standard "add" button
-    
+      
     
     UIButton* infoButton1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     
