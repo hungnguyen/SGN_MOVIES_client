@@ -27,7 +27,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    [self setTitle:@"MOVIES"];
+    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    
+    [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    
+    [self.navigationItem setRightBarButtonItem:barButton animated:YES];
+
+    
+    
+    [self setTitle:@"NOW SHOWING"];
+    self.navigationController.title = @"MOVIES";
+
     [scrollView setShowsHorizontalScrollIndicator:NO];
     
     
@@ -68,7 +80,6 @@
     pageControl.numberOfPages = 2;
     
     pageControl.currentPage = 0;
-    
     
     self.scrollView.pagingEnabled = true;
     
@@ -170,7 +181,7 @@
         
         int Xpos = (i - (i/2)*2)*150 + 10;
         
-        //Create poster
+        //Create  a poster
         
         UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,150,150)];
         
@@ -218,7 +229,7 @@
     
     
     
-    //Get now showing movies
+    //Get  movies
     
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     
@@ -291,6 +302,10 @@
 
 }
 
+-(void) showInfo
+{
+    
+}
 
 
 @end

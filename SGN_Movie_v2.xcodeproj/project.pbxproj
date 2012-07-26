@@ -34,14 +34,14 @@
 		6FC91A1515BE8C6C003E5720 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC91A1315BE8C6C003E5720 /* CinemasView.xib */; };
 		6FC91A1615BE8C6C003E5720 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC91A1415BE8C6C003E5720 /* MoviesView.xib */; };
 		6FC91A1915BE8C85003E5720 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC91A1815BE8C85003E5720 /* HJCache.m */; };
-		6FC91A2915BE97B7003E5720 /* Background7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FC91A2815BE97B7003E5720 /* Background7.jpg */; };
-		6FC91A2B15BE97DD003E5720 /* Background8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FC91A2A15BE97DD003E5720 /* Background8.jpg */; };
 		6FCF7F7815BCEE9E002644F7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCF7F7715BCEE9E002644F7 /* UIKit.framework */; };
 		6FCF7F7A15BCEE9E002644F7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCF7F7915BCEE9E002644F7 /* Foundation.framework */; };
 		6FCF7F7C15BCEE9E002644F7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FCF7F7B15BCEE9E002644F7 /* CoreGraphics.framework */; };
 		6FCF7F8215BCEE9E002644F7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6FCF7F8015BCEE9E002644F7 /* InfoPlist.strings */; };
 		6FCF7F8415BCEE9E002644F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF7F8315BCEE9E002644F7 /* main.m */; };
 		6FCF7F8815BCEE9E002644F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF7F8715BCEE9E002644F7 /* AppDelegate.m */; };
+		6FEB722915C1196100B57309 /* Background7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB722715C1196100B57309 /* Background7.jpg */; };
+		6FEB722A15C1196100B57309 /* Background8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB722815C1196100B57309 /* Background8.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,8 +98,6 @@
 		6FC91A1415BE8C6C003E5720 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoviesView.xib; path = View/MoviesView.xib; sourceTree = "<group>"; };
 		6FC91A1715BE8C85003E5720 /* HJCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HJCache.h; path = Model/HJCache.h; sourceTree = "<group>"; };
 		6FC91A1815BE8C85003E5720 /* HJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HJCache.m; path = Model/HJCache.m; sourceTree = "<group>"; };
-		6FC91A2815BE97B7003E5720 /* Background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Background7.jpg; sourceTree = "<group>"; };
-		6FC91A2A15BE97DD003E5720 /* Background8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Background8.jpg; sourceTree = "<group>"; };
 		6FCF7F7315BCEE9E002644F7 /* SGN_Movie_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_Movie_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FCF7F7715BCEE9E002644F7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6FCF7F7915BCEE9E002644F7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,6 +108,8 @@
 		6FCF7F8515BCEE9E002644F7 /* SGN_Movie_v2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SGN_Movie_v2-Prefix.pch"; sourceTree = "<group>"; };
 		6FCF7F8615BCEE9E002644F7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6FCF7F8715BCEE9E002644F7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6FEB722715C1196100B57309 /* Background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Background7.jpg; path = Resources/images/Background7.jpg; sourceTree = "<group>"; };
+		6FEB722815C1196100B57309 /* Background8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Background8.jpg; path = Resources/images/Background8.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,8 +169,8 @@
 		6FC919C715BE8BF6003E5720 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				6FC91A2A15BE97DD003E5720 /* Background8.jpg */,
-				6FC91A2815BE97B7003E5720 /* Background7.jpg */,
+				6FEB722715C1196100B57309 /* Background7.jpg */,
+				6FEB722815C1196100B57309 /* Background8.jpg */,
 				6FC919C815BE8C0E003E5720 /* movie.png */,
 				6FC919C915BE8C0E003E5720 /* widescreen.png */,
 			);
@@ -350,8 +350,8 @@
 				6FC919CB15BE8C0E003E5720 /* widescreen.png in Resources */,
 				6FC91A1515BE8C6C003E5720 /* CinemasView.xib in Resources */,
 				6FC91A1615BE8C6C003E5720 /* MoviesView.xib in Resources */,
-				6FC91A2915BE97B7003E5720 /* Background7.jpg in Resources */,
-				6FC91A2B15BE97DD003E5720 /* Background8.jpg in Resources */,
+				6FEB722915C1196100B57309 /* Background7.jpg in Resources */,
+				6FEB722A15C1196100B57309 /* Background8.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
