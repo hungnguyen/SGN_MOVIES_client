@@ -42,6 +42,7 @@
 		6FCF7F8815BCEE9E002644F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCF7F8715BCEE9E002644F7 /* AppDelegate.m */; };
 		6FEB722915C1196100B57309 /* Background7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB722715C1196100B57309 /* Background7.jpg */; };
 		6FEB722A15C1196100B57309 /* Background8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB722815C1196100B57309 /* Background8.jpg */; };
+		6FEB723515C1562300B57309 /* Menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB723415C1562300B57309 /* Menu.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		6FCF7F8715BCEE9E002644F7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6FEB722715C1196100B57309 /* Background7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Background7.jpg; path = Resources/images/Background7.jpg; sourceTree = "<group>"; };
 		6FEB722815C1196100B57309 /* Background8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Background8.jpg; path = Resources/images/Background8.jpg; sourceTree = "<group>"; };
+		6FEB723415C1562300B57309 /* Menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Menu.png; path = Resources/images/Menu.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		6FC919C715BE8BF6003E5720 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6FEB723415C1562300B57309 /* Menu.png */,
 				6FEB722715C1196100B57309 /* Background7.jpg */,
 				6FEB722815C1196100B57309 /* Background8.jpg */,
 				6FC919C815BE8C0E003E5720 /* movie.png */,
@@ -352,6 +355,7 @@
 				6FC91A1615BE8C6C003E5720 /* MoviesView.xib in Resources */,
 				6FEB722915C1196100B57309 /* Background7.jpg in Resources */,
 				6FEB722A15C1196100B57309 /* Background8.jpg in Resources */,
+				6FEB723515C1562300B57309 /* Menu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +457,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_Movie_v2/SGN_Movie_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_Movie_v2/SGN_Movie_v2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -465,7 +469,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_Movie_v2/SGN_Movie_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_Movie_v2/SGN_Movie_v2-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

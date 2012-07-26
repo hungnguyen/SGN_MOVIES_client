@@ -33,12 +33,51 @@ int imageHeight = 200;
     
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    /*UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     
-    [self.navigationItem setRightBarButtonItem:barButton animated:YES];
+    [self.navigationItem setRightBarButtonItem:barButton animated:YES];*/
+    
+    // create a toolbar to have two buttons in the right
+    UIToolbar* tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 80, 44.01)];
+    
+    // create the array to hold the buttons, which then gets added to the toolbar
+    NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];
+    
+    // create a standard "add" button
+    
+    
+    UIButton* infoButton1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    
+    [infoButton1 addTarget:self action:@selector(showInfo1) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIImage* myButtonImage = [UIImage imageNamed:@"Menu.png"];
+    [infoButton1 setImage:myButtonImage forState:UIControlStateNormal];
+    
+    
+    
+    UIBarButtonItem* bi = [[UIBarButtonItem alloc]
+                           initWithCustomView:infoButton1];
+    bi.style = UIBarButtonItemStyleBordered;
+    [buttons addObject:bi];
+    [bi release];
 
     
+    bi = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+    bi.style = UIBarButtonSystemItemFixedSpace;
+    [buttons addObject:bi];
+    [bi release];
     
+    // stick the buttons in the toolbar
+    [tools setItems:buttons animated:NO];
+    
+    [buttons release];
+    
+    // and put the toolbar in the nav bar
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tools];
+    [tools release];
+    
+    
+        
     [self setTitle:@"NOW SHOWING"];
     self.navigationController.title = @"MOVIES";
 
@@ -309,5 +348,8 @@ int imageHeight = 200;
     
 }
 
-
+-(void) showInfo1
+{
+    
+}
 @end
