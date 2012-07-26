@@ -206,6 +206,8 @@
         
         
     }
+    
+    
 }
 
 - (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString 
@@ -236,7 +238,7 @@
         
             [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
             
-            scrollView1.contentSize = CGSizeMake( 320, ((nowShowingMovies.count/2)*150)+300);
+            scrollView1.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*150)+150);
         }
         else
         {
@@ -246,7 +248,7 @@
             
             [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
             
-             scrollView1.contentSize = CGSizeMake( 320, ((comingSoonMovies.count/2)*150)+300);
+             scrollView1.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*150)+150);
         }
         
        // scrollView1.contentSize = CGSizeMake( 320, 900);
@@ -258,16 +260,37 @@
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 320, 400.0)];
+        myLabel.font = [UIFont fontWithName:@"Arial" size: 12.0];
+        myLabel.textColor = [UIColor redColor];
+       
+        myLabel.textAlignment = UITextAlignmentCenter;
+        
+        
+        myLabel.text = @"SORRY,THE DEVICE CAN'T LOAD DATA";
+        
+
+        
+        
+        [scrollView addSubview:scrollView1];
+
+        [scrollView1 addSubview:myLabel];
+        
+        [myLabel release];
+        
+        [scrollView1 release];
+        
     }];
     
     [operation start];
     
     [url release];
-    
-   
-    
 
 }
+
+
 
 @end
