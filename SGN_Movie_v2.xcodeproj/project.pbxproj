@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6FD6807615C2419E00897E50 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807315C2419E00897E50 /* IIViewDeckController.m */; };
+		6FD6807715C2419E00897E50 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807515C2419E00897E50 /* WrapController.m */; };
+		6FD6807C15C2420900897E50 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807A15C2420900897E50 /* MenuController.m */; };
+		6FD6807D15C2420900897E50 /* MenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FD6807B15C2420900897E50 /* MenuController.xib */; };
 		F397E67415C159A100A92874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67315C159A100A92874 /* UIKit.framework */; };
 		F397E67615C159A100A92874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67515C159A100A92874 /* Foundation.framework */; };
 		F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67715C159A100A92874 /* CoreGraphics.framework */; };
@@ -46,6 +50,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6FD6807215C2419E00897E50 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		6FD6807315C2419E00897E50 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		6FD6807415C2419E00897E50 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
+		6FD6807515C2419E00897E50 /* WrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapController.m; sourceTree = "<group>"; };
+		6FD6807915C2420900897E50 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuController.h; path = SGN_Movie_v2/iPhone/Controllers/MenuController.h; sourceTree = SOURCE_ROOT; };
+		6FD6807A15C2420900897E50 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = SGN_Movie_v2/iPhone/Controllers/MenuController.m; sourceTree = SOURCE_ROOT; };
+		6FD6807B15C2420900897E50 /* MenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuController.xib; path = SGN_Movie_v2/iPhone/Controllers/MenuController.xib; sourceTree = SOURCE_ROOT; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F397E67315C159A100A92874 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F397E67515C159A100A92874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -128,6 +139,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FD6807115C2419E00897E50 /* ViewDeck */ = {
+			isa = PBXGroup;
+			children = (
+				6FD6807215C2419E00897E50 /* IIViewDeckController.h */,
+				6FD6807315C2419E00897E50 /* IIViewDeckController.m */,
+				6FD6807415C2419E00897E50 /* WrapController.h */,
+				6FD6807515C2419E00897E50 /* WrapController.m */,
+			);
+			path = ViewDeck;
+			sourceTree = "<group>";
+		};
 		F397E66415C159A000A92874 = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +217,9 @@
 				F397E71615C15D7200A92874 /* CinemasController.m */,
 				F397E71715C15D7200A92874 /* MoviesController.h */,
 				F397E71815C15D7200A92874 /* MoviesController.m */,
+				6FD6807915C2420900897E50 /* MenuController.h */,
+				6FD6807A15C2420900897E50 /* MenuController.m */,
+				6FD6807B15C2420900897E50 /* MenuController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -255,6 +280,7 @@
 		F397E6B415C15C5700A92874 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				6FD6807115C2419E00897E50 /* ViewDeck */,
 				F397E7D315C167CE00A92874 /* JSONKit */,
 				F397E6F715C15D3600A92874 /* HJCache */,
 				F397E6B915C15CEB00A92874 /* AFNetworking */,
@@ -356,7 +382,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */;
+			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -386,6 +412,7 @@
 				F397E6B315C15C0700A92874 /* widescreen.png in Resources */,
 				F397E71D15C15D8400A92874 /* CinemasView.xib in Resources */,
 				F397E71E15C15D8400A92874 /* MoviesView.xib in Resources */,
+				6FD6807D15C2420900897E50 /* MenuController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,6 +448,9 @@
 				F397E71A15C15D7200A92874 /* MoviesController.m in Sources */,
 				F397E72115C1604400A92874 /* HJCache.m in Sources */,
 				F397E7D615C167CE00A92874 /* JSONKit.m in Sources */,
+				6FD6807615C2419E00897E50 /* IIViewDeckController.m in Sources */,
+				6FD6807715C2419E00897E50 /* WrapController.m in Sources */,
+				6FD6807C15C2420900897E50 /* MenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,7 +544,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */ = {
+		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F397E68B15C159A100A92874 /* Debug */,

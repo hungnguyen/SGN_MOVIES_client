@@ -14,6 +14,9 @@
 
 #import "AFNetworking.h"
 
+#import "MenuController.h"
+
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -21,6 +24,13 @@
 @synthesize moviesNavigationController;
 @synthesize cinemasNavigationController;
 @synthesize tabbarController;
+@synthesize deckController;
+
+
++(AppDelegate*) currentDelegate
+{
+    return appDelegate;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,8 +40,10 @@
     
     
     
-    tabbarController = [[UITabBarController alloc] init];
+  //  tabbarController = [[UITabBarController alloc] init];
     
+    
+    appDelegate = self;
     
     
     //Make Movies Screen
@@ -65,12 +77,35 @@
     
     
     
-    tabbarController.viewControllers = [NSArray arrayWithObjects:moviesNavigationController,cinemasNavigationController,nil];
+   // tabbarController.viewControllers = [NSArray arrayWithObjects:moviesNavigationController,cinemasNavigationController,nil];
     
     
     
     
-    [self.window setRootViewController:tabbarController];
+    
+    
+   // [self.window setRootViewController:tabbarController];
+    
+    
+    //Make Menu View
+    
+    
+    MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuController" bundle:nil];
+    
+    IIViewDeckController* deckController1 = [[IIViewDeckController alloc] initWithCenterViewController:moviesNavigationController leftViewController:menuController];
+    
+    deckController1.rightLedge = 50;
+    
+    
+    
+    deckController = deckController1;
+    
+    
+    [deckController1 setEnabled:FALSE];
+    
+    
+    self.window.rootViewController = deckController;
+
     
     [self.window makeKeyAndVisible];
     

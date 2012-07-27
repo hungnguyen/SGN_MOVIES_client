@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IIViewDeckController.h"
 
 @class MoviesController;
 
@@ -22,4 +23,10 @@
 
 @property (strong, nonatomic) UITabBarController *tabbarController;
 
+@property (strong, nonatomic) IIViewDeckController* deckController;
+
++(AppDelegate *) currentDelegate;
+
 @end
+
+static AppDelegate * appDelegate;
