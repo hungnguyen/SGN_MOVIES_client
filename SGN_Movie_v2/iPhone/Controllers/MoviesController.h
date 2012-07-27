@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "HJCache.h"
 
+#define PROVIDER_URL @"http://www.galaxycine.vn/"
+
 @interface MoviesController : UIViewController <UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) NSArray * nowShowingMovies;
 @property (strong, nonatomic)  NSArray * comingSoonMovies;

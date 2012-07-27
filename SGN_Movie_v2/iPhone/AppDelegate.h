@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "IIViewDeckController.h"
+#import "MoviesController.h"
+#import "CinemasController.h"
+#import "AFNetworking.h"
+#import "MenuController.h"
 
 @class MoviesController;
 
@@ -16,9 +20,11 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) MoviesController *moviesController;
+//@property (strong, nonatomic) MoviesController *cinemasController;
+//@property (strong, nonatomic) MenuController *menuController;
 @property (strong, nonatomic) UINavigationController *moviesNavigationController;
-@property (strong, nonatomic) UINavigationController *cinemasNavigationController;
-@property (strong, nonatomic) IIViewDeckController* deckController;
+//@property (strong, nonatomic) UINavigationController *cinemasNavigationController;
+@property (strong, nonatomic) IIViewDeckController *deckController;
 
 +(AppDelegate *) currentDelegate;
 

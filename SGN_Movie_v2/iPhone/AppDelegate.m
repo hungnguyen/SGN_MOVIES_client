@@ -8,59 +8,49 @@
 
 #import "AppDelegate.h"
 
-#import "MoviesController.h"
-
-#import "CinemasController.h"
-
-#import "AFNetworking.h"
-
-#import "MenuController.h"
-
-
 static AppDelegate * appDelegate;
 
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize moviesController = _viewController;
+@synthesize moviesController = _moviesController;
+//@synthesize cinemasController = _cinemasController;
 @synthesize moviesNavigationController = _moviesNavigationController;
-@synthesize cinemasNavigationController = _cinemasNavigationController
-;
-@synthesize deckController;
+//@synthesize cinemasNavigationController = _cinemasNavigationController;
+@synthesize deckController = _deckController;
+//@synthesize menuController = _menuController;
 
-+(AppDelegate*) currentDelegate
++ (AppDelegate*)currentDelegate
 {
     return appDelegate;
 }
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
     // Override point for customization after application launch.
       appDelegate = self;
     
     //Make Movies Screen
-    _moviesNavigationController = [[UINavigationController alloc] init];
-    [_moviesNavigationController setTitle:@"NOW SHOWING"];
-    _moviesNavigationController.tabBarItem.image = [UIImage imageNamed:@"movie"];
-    _viewController = [[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil];
-    _moviesNavigationController.viewControllers = [NSArray arrayWithObjects:_viewController,nil];
+    [self setMoviesNavigationController:[[UINavigationController alloc] init]];
+    [self setMoviesController:[[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil]];
+    [_moviesNavigationController setViewControllers:[NSArray arrayWithObjects:_moviesController, nil]];
     
     //Make Cinemas Screen
-    _cinemasNavigationController = [[UINavigationController alloc] init];
-    [_cinemasNavigationController setTitle:@"CINEMAS"];
-    _cinemasNavigationController.tabBarItem.image = [UIImage imageNamed:@"widescreen"];
-    CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
-    _cinemasNavigationController.viewControllers = [NSArray arrayWithObjects:cinemasController, nil];
+//    [self setCinemasNavigationController:[[UINavigationController alloc] init]];
+//    CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
+//    [_cinemasNavigationController setViewControllers:[NSArray arrayWithObjects:cinemasController, nil]];
     
     //Make Menu View
     MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuView" bundle:nil];
     
     //Make View Deck
-    IIViewDeckController* deckController1 = [[IIViewDeckController alloc] initWithCenterViewController:_moviesNavigationController leftViewController:menuController];
-    deckController1.rightLedge = 50;
-    deckController = deckController1;
-    [deckController1 setEnabled:FALSE];
-    self.window.rootViewController = deckController;
+    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_moviesNavigationController leftViewController:menuController]];
+    [_deckController setRightLedge:50];
+    [_deckController setEnabled:FALSE];
+    
+    self.window.rootViewController = _deckController;
     [self.window makeKeyAndVisible];
     
     return YES;

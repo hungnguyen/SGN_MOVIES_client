@@ -12,94 +12,77 @@
 #import "AppDelegate.h"
 
 @interface MoviesController ()
+{
+    int imageWidth;
+    int imageHeight;
+    bool isToggled;
+}
+- (void) tapPoster:(UIButton*) sender;
+
 
 @end
 
 @implementation MoviesController
-@synthesize scrollView = _scrollView;
+@synthesize scrollViewMain = _scrollViewMain;
 @synthesize pageControl = _pageControl;
 @synthesize nowShowingMovies = _nowShowingMovies;
 @synthesize comingSoonMovies = _comingSoonMovies;
 
-int imageWidth = 150;
-int imageHeight = 200;
-
-bool isToggled = FALSE;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
+    [self setTitle:@"NOW SHOWING"];
+    
+    imageWidth = 150;
+    imageHeight = 200;
+    isToggled = FALSE;
+    
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton* infoButton1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [infoButton1 addTarget:self action:@selector(showInfo1) forControlEvents:UIControlEventTouchUpInside];
-    [infoButton1 setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [menuButton addTarget:self action:@selector(showInfo1) forControlEvents:UIControlEventTouchUpInside];
+    [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
     
     UINavigationItem *navigationItem = [self navigationItem];
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
-    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton1]];
-    
-    [self setTitle:@"NOW SHOWING"];
+    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
 
-    [_scrollView setShowsHorizontalScrollIndicator:NO];
+    CGRect parentView = [[self view] frame];
+    UIScrollView * scrollviewNoSh = [[UIScrollView alloc]initWithFrame:parentView];
+    parentView.origin.x = 320;
+    UIScrollView * scrollviewCoSo = [[UIScrollView alloc]initWithFrame:parentView];
     
-    
-    _nowShowingMovies = [[NSArray alloc] init];
-    _comingSoonMovies = [[NSArray alloc] init];
-    
-    UIScrollView * scrollview1 = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 450)];
-    UIScrollView * scrollview2 = [[UIScrollView alloc]initWithFrame:CGRectMake(320, 0, 320, 450)];
-    
+    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];        
    
-   self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]];        
-   
-    
     //Get now showing movies
-    
-    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=nowshowing" moviesContainerIndex:0 
-                             scrollView:scrollview1];
-    
-        
-    
+    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=nowshowing" 
+                   moviesContainerIndex:0 
+                             scrollView:scrollviewNoSh];
     
     //Get coming soon movies
+    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=comingsoon" 
+                   moviesContainerIndex:1 
+                             scrollView:scrollviewCoSo];
+    
+    [_scrollViewMain addSubview:scrollviewNoSh];
+    [_scrollViewMain addSubview:scrollviewCoSo];
 
-    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=comingsoon" moviesContainerIndex:1 
-                             scrollView:scrollview2];
-    
-    
-    
-    
     //modify main scrollview
-    
-    
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*2, 300);
-    
-    _scrollView.delegate = self;
-    
-    _pageControl.numberOfPages = 2;
-    
-    _pageControl.currentPage = 0;
-    
-    self.scrollView.pagingEnabled = true;
-    
-    self.scrollView.bounces = NO;
-
-    
-
+    [_scrollViewMain setContentSize:CGSizeMake(parentView.size.width * 2, parentView.size.height)];
 }
 
 
 
 - (void)viewDidUnload
 {
-    [self setScrollView:nil];
-    [self setPageControl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self setScrollViewMain:nil];
+    [self setPageControl:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -107,33 +90,17 @@ bool isToggled = FALSE;
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
-
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-	
-    CGFloat pageWidth = self.scrollView.frame.size.width;
+- (void)scrollViewDidScroll:(UIScrollView *)sender 
+{
+    CGFloat pageWidth = _scrollViewMain.frame.size.width;
+    int page = floor((_scrollViewMain.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-  //  NSLog(@"%f",self.scrollView.contentOffset.x);
+    if(page == 1)
+        [self setTitle:@"COMING SOON"];
+    else
+        [self setTitle:@"NOW SHOWING"];
     
-    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    
-    
-    if(page==1)
-        self.title = @"COMING SOON";
-    
-    else {
-        self.title = @"NOW SHOWING";
-    }
-    
-    self.navigationController.title = @"MOVIES";
-    
-    self.pageControl.currentPage = page;
-    
-    self.scrollView.pagingEnabled = true;
-
-    
-    
+    [_pageControl setCurrentPage:page];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -148,7 +115,7 @@ bool isToggled = FALSE;
 {
     if(!isToggled)
     {
-        if(self.title == @"NOW SHOWING")
+        if([self title] == @"NOW SHOWING")
         {
             NSLog(@"NOW SHOWING:film %d",sender.tag);
         }
@@ -173,129 +140,73 @@ bool isToggled = FALSE;
     }
 }
 
-- (void)CreatePosters:(UIScrollView *)scrollView1 moviesContainer1:(NSArray *)moviesContainer1
+- (void)CreatePosters:(UIScrollView *)scrollView moviesContainer:(NSArray *)moviesContainer
 {
-    
-    
     //Add posters to Scrollview
-    
-   
-    
-    for (int i = 0; i<moviesContainer1.count;i++)
+    for (int i = 0; i<moviesContainer.count; i++)
     {
-        
-       
-        
-        NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer1 objectAtIndex:i] valueForKey:@"ImageUrl"]];
+        NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer objectAtIndex:i] 
+                                                    valueForKey:@"ImageUrl"]];
         
         int Ypos = (i/2)*imageHeight + 15*(i/2) + 5;
-        
         int Xpos = (i - (i/2)*2)*imageWidth + 10;
         
         //Create  a poster
-        
         UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,imageWidth,imageHeight)];
-        
-        poster.tag = i;
-        
+        [poster setTag :i];
         [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
         
-        
-        
-        
-        
-        
         HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,imageWidth,imageHeight)];
-        
-        asynchcImage.url = [NSURL URLWithString:[[NSString alloc] initWithFormat:@"http://www.galaxycine.vn/%@",urlString] ];
-        
-        
+        [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [asynchcImage showLoadingWheel];
-        
-        
-        
         [poster addSubview:asynchcImage];
-        
-        [scrollView1 addSubview:poster];
-        
+        [scrollView addSubview:poster];
         
         [[HJCache getHJObjManager] manage:asynchcImage];
-        
-        
     }
-    
-    
 }
 
 - (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString 
                   moviesContainerIndex:(int) moviesContainerindex 
-                            scrollView:(UIScrollView *) scrollView1 
+                            scrollView:(UIScrollView *) scrollView 
 {
-    
-    
-    
-    
     //Get  movies
-    
     NSURL *url = [[NSURL alloc] initWithString:urlString];
-    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-        
-        if(moviesContainerindex ==0 )
-            
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) 
+    {
+        if(moviesContainerindex == 0)
         {
             [self setNowShowingMovies:(NSArray*) [JSON objectForKey:@"Data"]];
-        
-        
-            [self CreatePosters:scrollView1 moviesContainer1:_nowShowingMovies];
+
+            [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
             
-            scrollView1.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
+            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
         }
         else
         {
             [self setComingSoonMovies: (NSArray*) [JSON objectForKey:@"Data"]];
 
-            
-            [self CreatePosters:scrollView1 moviesContainer1:_comingSoonMovies];
-            
-             scrollView1.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
+            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
+             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
         }
         
-       // scrollView1.contentSize = CGSizeMake( 320, 900);
-        
-        [_scrollView addSubview:scrollView1];
-
-        
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        
+    } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) 
+    {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-        
         UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 320, 400.0)];
         myLabel.font = [UIFont fontWithName:@"Arial" size: 12.0];
         myLabel.textColor = [UIColor redColor];
-       
         myLabel.textAlignment = UITextAlignmentCenter;
-        
-        
         myLabel.text = @"SORRY,THE DEVICE CAN'T LOAD DATA";
         
-
-        
-        
-        [_scrollView addSubview:scrollView1];
-
-        [scrollView1 addSubview:myLabel];
-
-        
+        [_scrollViewMain addSubview:scrollView];
+        [scrollView addSubview:myLabel];
     }];
     
     [operation start];
-
-
 }
 
 -(void) showInfo
@@ -305,8 +216,6 @@ bool isToggled = FALSE;
 
 -(void) showInfo1
 {
-    
-  
     [[AppDelegate currentDelegate].deckController toggleLeftView];
     if(!isToggled)
     {
@@ -318,6 +227,5 @@ bool isToggled = FALSE;
         isToggled = FALSE;
     }
 }
-
 
 @end
