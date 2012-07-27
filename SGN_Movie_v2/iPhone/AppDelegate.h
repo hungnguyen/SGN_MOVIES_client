@@ -1,13 +1,13 @@
 //
 //  AppDelegate.h
-//  SGN_Movie_v2
+//  SGN_MOVIE_v2
 //
-//  Created by vnicon on 7/23/12.
+//  Created by TPL2806 on 7/26/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IIViewDeckController.h"
 
 @class MoviesController;
 
@@ -23,5 +23,10 @@
 
 @property (strong, nonatomic) UITabBarController *tabbarController;
 
+@property (strong, nonatomic) IIViewDeckController* deckController;
+
++(AppDelegate *) currentDelegate;
 
 @end
+
+static AppDelegate * appDelegate;

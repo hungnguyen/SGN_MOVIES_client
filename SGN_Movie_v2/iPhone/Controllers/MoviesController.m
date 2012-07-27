@@ -8,7 +8,8 @@
 
 #import "MoviesController.h"
 #import "AFNetworking.h"
-
+#import "MenuController.h"
+#import "AppDelegate.h"
 
 @interface MoviesController ()
 
@@ -24,6 +25,9 @@ int imageWidth = 150;
 
 int imageHeight = 200;
 
+
+bool isToggled = FALSE;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,12 +37,7 @@ int imageHeight = 200;
     
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    UIToolbar* tools = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 80, 44.01)];
-    
-    // create the array to hold the buttons, which then gets added to the toolbar
-    NSMutableArray* buttons = [[NSMutableArray alloc] initWithCapacity:2];
-    
+       
       
     
     UIButton* infoButton1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -50,26 +49,10 @@ int imageHeight = 200;
     
     
     
-    UIBarButtonItem* bi = [[UIBarButtonItem alloc]
-                           initWithCustomView:infoButton1];
-    bi.style = UIBarButtonItemStyleBordered;
-    [buttons addObject:bi];
-    [bi release];
-
+       
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     
-    bi = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-    bi.style = UIBarButtonSystemItemFixedSpace;
-    [buttons addObject:bi];
-    [bi release];
-    
-    // stick the buttons in the toolbar
-    [tools setItems:buttons animated:NO];
-    
-    [buttons release];
-    
-    // and put the toolbar in the nav bar
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tools];
-    [tools release];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton1];
     
     
         
@@ -111,12 +94,7 @@ int imageHeight = 200;
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*2, 300);
     
     
-    scrollView.delegate = self;
-    
-    pageControl.numberOfPages = 2;
-    
-    pageControl.currentPage = 0;
-    
+       
     self.scrollView.pagingEnabled = true;
     
     self.scrollView.bounces = NO;
@@ -131,8 +109,6 @@ int imageHeight = 200;
 {
     [self setScrollView:nil];
     [self setPageControl:nil];
-    [nowShowingMovies release];
-    [comingSoonMovies release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -142,11 +118,6 @@ int imageHeight = 200;
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)dealloc {
-    [scrollView release];
-    [pageControl release];
-    [super dealloc];
-}
 
 
 
@@ -186,17 +157,32 @@ int imageHeight = 200;
 
 - (void) tapPoster:(UIButton*) sender
 {
-    if(self.title == @"NOW SHOWING")
+    if(!isToggled)
     {
-        NSLog(@"NOW SHOWING:film %d",sender.tag);
+        if(self.title == @"NOW SHOWING")
+        {
+            NSLog(@"NOW SHOWING:film %d",sender.tag);
+        }
+        else
+        {
+            NSLog(@"COMING SOON:film %d",sender.tag);
+        }
     }
     else
     {
-        NSLog(@"COMING SOON:film %d",sender.tag);
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        isToggled = FALSE;
     }
 }
 
-
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(isToggled)
+    {
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        isToggled = FALSE;
+    }
+}
 
 - (void)CreatePosters:(UIScrollView *)scrollView1 moviesContainer1:(NSArray *)moviesContainer1
 {
@@ -247,11 +233,6 @@ int imageHeight = 200;
         [[HJCache getHJObjManager] manage:asynchcImage];
         
         
-        [poster release];
-        [urlString release];
-        [asynchcImage release];
-        
-        
     }
     
     
@@ -278,9 +259,6 @@ int imageHeight = 200;
             
         {
             nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
-            
-                       
-            [nowShowingMovies retain];
         
         
             [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
@@ -290,8 +268,7 @@ int imageHeight = 200;
         else
         {
             comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
-            
-            [comingSoonMovies retain];
+
             
             [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
             
@@ -301,9 +278,7 @@ int imageHeight = 200;
        // scrollView1.contentSize = CGSizeMake( 320, 900);
         
         [scrollView addSubview:scrollView1];
-        
-        [scrollView1 release];
-        
+
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -325,16 +300,12 @@ int imageHeight = 200;
         [scrollView addSubview:scrollView1];
 
         [scrollView1 addSubview:myLabel];
-        
-        [myLabel release];
-        
-        [scrollView1 release];
+
         
     }];
     
     [operation start];
-    
-    [url release];
+
 
 }
 
@@ -346,5 +317,18 @@ int imageHeight = 200;
 -(void) showInfo1
 {
     
+  
+    [[AppDelegate currentDelegate].deckController toggleLeftView];
+    if(!isToggled)
+    {
+        isToggled = TRUE;
+        
+    }
+    else 
+    {
+        isToggled = FALSE;
+    }
 }
+
+
 @end
