@@ -54,22 +54,17 @@ int imageHeight = 200;
                            initWithCustomView:infoButton1];
     bi.style = UIBarButtonItemStyleBordered;
     [buttons addObject:bi];
-    [bi release];
 
     
     bi = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
     bi.style = UIBarButtonSystemItemFixedSpace;
     [buttons addObject:bi];
-    [bi release];
     
     // stick the buttons in the toolbar
     [tools setItems:buttons animated:NO];
     
-    [buttons release];
-    
     // and put the toolbar in the nav bar
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:tools];
-    [tools release];
     
     
         
@@ -131,8 +126,6 @@ int imageHeight = 200;
 {
     [self setScrollView:nil];
     [self setPageControl:nil];
-    [nowShowingMovies release];
-    [comingSoonMovies release];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -142,11 +135,6 @@ int imageHeight = 200;
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)dealloc {
-    [scrollView release];
-    [pageControl release];
-    [super dealloc];
-}
 
 
 
@@ -247,11 +235,6 @@ int imageHeight = 200;
         [[HJCache getHJObjManager] manage:asynchcImage];
         
         
-        [poster release];
-        [urlString release];
-        [asynchcImage release];
-        
-        
     }
     
     
@@ -278,9 +261,6 @@ int imageHeight = 200;
             
         {
             nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
-            
-                       
-            [nowShowingMovies retain];
         
         
             [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
@@ -290,8 +270,7 @@ int imageHeight = 200;
         else
         {
             comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
-            
-            [comingSoonMovies retain];
+
             
             [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
             
@@ -301,9 +280,7 @@ int imageHeight = 200;
        // scrollView1.contentSize = CGSizeMake( 320, 900);
         
         [scrollView addSubview:scrollView1];
-        
-        [scrollView1 release];
-        
+
         
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -325,16 +302,12 @@ int imageHeight = 200;
         [scrollView addSubview:scrollView1];
 
         [scrollView1 addSubview:myLabel];
-        
-        [myLabel release];
-        
-        [scrollView1 release];
+
         
     }];
     
     [operation start];
-    
-    [url release];
+
 
 }
 

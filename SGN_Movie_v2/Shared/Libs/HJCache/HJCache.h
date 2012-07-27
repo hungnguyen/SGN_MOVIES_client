@@ -18,4 +18,4 @@
 +(HJObjManager *) getHJObjManager;
 
 @end
-static HJObjManager* imgMan;
+

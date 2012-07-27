@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SGN_Movie_v2.xcodeproj">
+      location = "self:SGN_MOVIE_v2.xcodeproj">
    </FileRef>
 </Workspace>

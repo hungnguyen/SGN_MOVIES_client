@@ -13,10 +13,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6FCF7F7215BCEE9E002644F7"
-               BuildableName = "SGN_Movie_v2.app"
-               BlueprintName = "SGN_Movie_v2"
-               ReferencedContainer = "container:SGN_Movie_v2.xcodeproj">
+               BlueprintIdentifier = "F397E66E15C159A100A92874"
+               BuildableName = "SGN_MOVIE_v2.app"
+               BlueprintName = "SGN_MOVIE_v2"
+               ReferencedContainer = "container:SGN_MOVIE_v2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,10 +31,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6FCF7F7215BCEE9E002644F7"
-            BuildableName = "SGN_Movie_v2.app"
-            BlueprintName = "SGN_Movie_v2"
-            ReferencedContainer = "container:SGN_Movie_v2.xcodeproj">
+            BlueprintIdentifier = "F397E66E15C159A100A92874"
+            BuildableName = "SGN_MOVIE_v2.app"
+            BlueprintName = "SGN_MOVIE_v2"
+            ReferencedContainer = "container:SGN_MOVIE_v2.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -50,10 +50,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6FCF7F7215BCEE9E002644F7"
-            BuildableName = "SGN_Movie_v2.app"
-            BlueprintName = "SGN_Movie_v2"
-            ReferencedContainer = "container:SGN_Movie_v2.xcodeproj">
+            BlueprintIdentifier = "F397E66E15C159A100A92874"
+            BuildableName = "SGN_MOVIE_v2.app"
+            BlueprintName = "SGN_MOVIE_v2"
+            ReferencedContainer = "container:SGN_MOVIE_v2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -68,10 +68,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6FCF7F7215BCEE9E002644F7"
-            BuildableName = "SGN_Movie_v2.app"
-            BlueprintName = "SGN_Movie_v2"
-            ReferencedContainer = "container:SGN_Movie_v2.xcodeproj">
+            BlueprintIdentifier = "F397E66E15C159A100A92874"
+            BuildableName = "SGN_MOVIE_v2.app"
+            BlueprintName = "SGN_MOVIE_v2"
+            ReferencedContainer = "container:SGN_MOVIE_v2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -22,20 +22,10 @@
 @synthesize cinemasNavigationController;
 @synthesize tabbarController;
 
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [moviesNavigationController release];
-    [cinemasNavigationController release];
-    [tabbarController release];
-    
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
     
@@ -51,7 +41,7 @@
     [moviesNavigationController setTitle:@"NOW SHOWING"];
     
     moviesNavigationController.tabBarItem.image = [UIImage imageNamed:@"movie"];
-        
+    
     _viewController = [[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil];
     
     
@@ -70,7 +60,7 @@
     cinemasNavigationController.tabBarItem.image = [UIImage imageNamed:@"widescreen"];
     
     CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
-        
+    
     cinemasNavigationController.viewControllers = [NSArray arrayWithObjects:cinemasController, nil];
     
     
@@ -84,9 +74,7 @@
     
     [self.window makeKeyAndVisible];
     
-    [cinemasController release];
-        
-     return YES;
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

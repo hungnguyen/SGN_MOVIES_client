@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SGN_Movie_v2.xcscheme</key>
+		<key>SGN_MOVIE_v2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>6FCF7F7215BCEE9E002644F7</key>
+		<key>F397E66E15C159A100A92874</key>
 		<dict>
 			<key>primary</key>
 			<true/>

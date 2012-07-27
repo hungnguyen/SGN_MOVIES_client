@@ -8,7 +8,7 @@
 
 #import "HJCache.h"
 
-
+static HJObjManager* imgMan;
 @implementation HJCache
 
 
