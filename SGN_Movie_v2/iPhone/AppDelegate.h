@@ -15,18 +15,12 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) MoviesController *viewController;
-
+@property (strong, nonatomic) MoviesController *moviesController;
 @property (strong, nonatomic) UINavigationController *moviesNavigationController;
-
 @property (strong, nonatomic) UINavigationController *cinemasNavigationController;
-
-@property (strong, nonatomic) UITabBarController *tabbarController;
-
 @property (strong, nonatomic) IIViewDeckController* deckController;
 
 +(AppDelegate *) currentDelegate;
 
 @end
 
-static AppDelegate * appDelegate;

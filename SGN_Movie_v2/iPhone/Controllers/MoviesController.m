@@ -16,54 +16,39 @@
 @end
 
 @implementation MoviesController
-@synthesize scrollView;
-@synthesize pageControl;
-@synthesize nowShowingMovies;
-@synthesize comingSoonMovies;
+@synthesize scrollView = _scrollView;
+@synthesize pageControl = _pageControl;
+@synthesize nowShowingMovies = _nowShowingMovies;
+@synthesize comingSoonMovies = _comingSoonMovies;
 
 int imageWidth = 150;
-
 int imageHeight = 200;
-
 
 bool isToggled = FALSE;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
-    
-    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    
+    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
-       
-      
-    
     UIButton* infoButton1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    
     [infoButton1 addTarget:self action:@selector(showInfo1) forControlEvents:UIControlEventTouchUpInside];
+    [infoButton1 setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
     
-    UIImage* myButtonImage = [UIImage imageNamed:@"Menu.png"];
-    [infoButton1 setImage:myButtonImage forState:UIControlStateNormal];
+    UINavigationItem *navigationItem = [self navigationItem];
+    [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
+    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton1]];
     
-    
-    
-       
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton1];
-    
-    
-        
     [self setTitle:@"NOW SHOWING"];
-    self.navigationController.title = @"MOVIES";
 
-    [scrollView setShowsHorizontalScrollIndicator:NO];
+    [_scrollView setShowsHorizontalScrollIndicator:NO];
     
     
-    nowShowingMovies = [[NSArray alloc] init];
-    comingSoonMovies = [[NSArray alloc] init];
+    _nowShowingMovies = [[NSArray alloc] init];
+    _comingSoonMovies = [[NSArray alloc] init];
     
     UIScrollView * scrollview1 = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 450)];
     UIScrollView * scrollview2 = [[UIScrollView alloc]initWithFrame:CGRectMake(320, 0, 320, 450)];
@@ -93,8 +78,12 @@ bool isToggled = FALSE;
     
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*2, 300);
     
+    _scrollView.delegate = self;
     
-       
+    _pageControl.numberOfPages = 2;
+    
+    _pageControl.currentPage = 0;
+    
     self.scrollView.pagingEnabled = true;
     
     self.scrollView.bounces = NO;
@@ -258,26 +247,26 @@ bool isToggled = FALSE;
         if(moviesContainerindex ==0 )
             
         {
-            nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
+            [self setNowShowingMovies:(NSArray*) [JSON objectForKey:@"Data"]];
         
         
-            [self CreatePosters:scrollView1 moviesContainer1:nowShowingMovies];
+            [self CreatePosters:scrollView1 moviesContainer1:_nowShowingMovies];
             
-            scrollView1.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
+            scrollView1.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
         }
         else
         {
-            comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
+            [self setComingSoonMovies: (NSArray*) [JSON objectForKey:@"Data"]];
 
             
-            [self CreatePosters:scrollView1 moviesContainer1:comingSoonMovies];
+            [self CreatePosters:scrollView1 moviesContainer1:_comingSoonMovies];
             
-             scrollView1.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
+             scrollView1.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
         }
         
        // scrollView1.contentSize = CGSizeMake( 320, 900);
         
-        [scrollView addSubview:scrollView1];
+        [_scrollView addSubview:scrollView1];
 
         
         
@@ -297,7 +286,7 @@ bool isToggled = FALSE;
 
         
         
-        [scrollView addSubview:scrollView1];
+        [_scrollView addSubview:scrollView1];
 
         [scrollView1 addSubview:myLabel];
 

@@ -11,9 +11,9 @@
 
 @interface MoviesController : UIViewController <UIScrollViewDelegate>
 
-@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (retain, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (retain, nonatomic) NSArray * nowShowingMovies;
-@property (retain,nonatomic)  NSArray * comingSoonMovies;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (strong, nonatomic) NSArray * nowShowingMovies;
+@property (strong, nonatomic)  NSArray * comingSoonMovies;
 
 @end

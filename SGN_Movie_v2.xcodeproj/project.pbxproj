@@ -7,16 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6FD6807615C2419E00897E50 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807315C2419E00897E50 /* IIViewDeckController.m */; };
-		6FD6807715C2419E00897E50 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807515C2419E00897E50 /* WrapController.m */; };
-		6FD6807C15C2420900897E50 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6807A15C2420900897E50 /* MenuController.m */; };
-		6FD6807D15C2420900897E50 /* MenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FD6807B15C2420900897E50 /* MenuController.xib */; };
+		6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */; };
+		6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847D15C27AA300A18A34 /* WrapController.m */; };
+		6FC7848315C27AD600A18A34 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7848215C27AD600A18A34 /* MenuController.m */; };
 		F397E67415C159A100A92874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67315C159A100A92874 /* UIKit.framework */; };
 		F397E67615C159A100A92874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67515C159A100A92874 /* Foundation.framework */; };
 		F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67715C159A100A92874 /* CoreGraphics.framework */; };
 		F397E67E15C159A100A92874 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F397E67C15C159A100A92874 /* InfoPlist.strings */; };
-		F397E68015C159A100A92874 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E67F15C159A100A92874 /* main.m */; };
-		F397E69F15C15B3D00A92874 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E69415C15B3D00A92874 /* AppDelegate.m */; };
+		F397E68015C159A100A92874 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E67F15C159A100A92874 /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F397E69F15C15B3D00A92874 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E69415C15B3D00A92874 /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E6AF15C15C0700A92874 /* Background7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F397E6AA15C15C0700A92874 /* Background7.jpg */; };
 		F397E6B015C15C0700A92874 /* Background8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F397E6AB15C15C0700A92874 /* Background8.jpg */; };
 		F397E6B115C15C0700A92874 /* Menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F397E6AC15C15C0700A92874 /* Menu.png */; };
@@ -41,22 +40,22 @@
 		F397E71215C15D3600A92874 /* HJMOUserBase.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70715C15D3600A92874 /* HJMOUserBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E71315C15D3600A92874 /* HJObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70915C15D3600A92874 /* HJObjManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E71415C15D3600A92874 /* HJWeakMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F397E71915C15D7200A92874 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E71615C15D7200A92874 /* CinemasController.m */; };
+		F397E71915C15D7200A92874 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E71615C15D7200A92874 /* CinemasController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E71A15C15D7200A92874 /* MoviesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E71815C15D7200A92874 /* MoviesController.m */; };
 		F397E71D15C15D8400A92874 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F397E71B15C15D8400A92874 /* CinemasView.xib */; };
-		F397E71E15C15D8400A92874 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F397E71C15C15D8400A92874 /* MoviesView.xib */; };
-		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; };
-		F397E7D615C167CE00A92874 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E7D515C167CE00A92874 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F3C22A2B15C284C800927FB4 /* MenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C22A2A15C284C800927FB4 /* MenuController.xib */; };
+		F3C22A2D15C284D900927FB4 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C22A2C15C284D900927FB4 /* MoviesView.xib */; };
+		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6FD6807215C2419E00897E50 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
-		6FD6807315C2419E00897E50 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
-		6FD6807415C2419E00897E50 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
-		6FD6807515C2419E00897E50 /* WrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapController.m; sourceTree = "<group>"; };
-		6FD6807915C2420900897E50 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuController.h; path = SGN_Movie_v2/iPhone/Controllers/MenuController.h; sourceTree = SOURCE_ROOT; };
-		6FD6807A15C2420900897E50 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = SGN_Movie_v2/iPhone/Controllers/MenuController.m; sourceTree = SOURCE_ROOT; };
-		6FD6807B15C2420900897E50 /* MenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MenuController.xib; path = SGN_Movie_v2/iPhone/Controllers/MenuController.xib; sourceTree = SOURCE_ROOT; };
+		6FC7847A15C27AA300A18A34 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
+		6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
+		6FC7847C15C27AA300A18A34 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
+		6FC7847D15C27AA300A18A34 /* WrapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrapController.m; sourceTree = "<group>"; };
+		6FC7848115C27AD600A18A34 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		6FC7848215C27AD600A18A34 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F397E67315C159A100A92874 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F397E67515C159A100A92874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,11 +117,12 @@
 		F397E71715C15D7200A92874 /* MoviesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesController.h; sourceTree = "<group>"; };
 		F397E71815C15D7200A92874 /* MoviesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviesController.m; sourceTree = "<group>"; };
 		F397E71B15C15D8400A92874 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
-		F397E71C15C15D8400A92874 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F397E71F15C1604400A92874 /* HJCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCache.h; sourceTree = "<group>"; };
 		F397E72015C1604400A92874 /* HJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCache.m; sourceTree = "<group>"; };
-		F397E7D415C167CE00A92874 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		F397E7D515C167CE00A92874 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		F3C22A2A15C284C800927FB4 /* MenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuController.xib; sourceTree = "<group>"; };
+		F3C22A2C15C284D900927FB4 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
+		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,13 +139,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6FD6807115C2419E00897E50 /* ViewDeck */ = {
+		6FC7847915C27AA300A18A34 /* ViewDeck */ = {
 			isa = PBXGroup;
 			children = (
-				6FD6807215C2419E00897E50 /* IIViewDeckController.h */,
-				6FD6807315C2419E00897E50 /* IIViewDeckController.m */,
-				6FD6807415C2419E00897E50 /* WrapController.h */,
-				6FD6807515C2419E00897E50 /* WrapController.m */,
+				6FC7847A15C27AA300A18A34 /* IIViewDeckController.h */,
+				6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */,
+				6FC7847C15C27AA300A18A34 /* WrapController.h */,
+				6FC7847D15C27AA300A18A34 /* WrapController.m */,
 			);
 			path = ViewDeck;
 			sourceTree = "<group>";
@@ -213,13 +213,12 @@
 		F397E69515C15B3D00A92874 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6FC7848115C27AD600A18A34 /* MenuController.h */,
+				6FC7848215C27AD600A18A34 /* MenuController.m */,
 				F397E71515C15D7200A92874 /* CinemasController.h */,
 				F397E71615C15D7200A92874 /* CinemasController.m */,
 				F397E71715C15D7200A92874 /* MoviesController.h */,
 				F397E71815C15D7200A92874 /* MoviesController.m */,
-				6FD6807915C2420900897E50 /* MenuController.h */,
-				6FD6807A15C2420900897E50 /* MenuController.m */,
-				6FD6807B15C2420900897E50 /* MenuController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -227,8 +226,9 @@
 		F397E69815C15B3D00A92874 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3C22A2C15C284D900927FB4 /* MoviesView.xib */,
+				F3C22A2A15C284C800927FB4 /* MenuController.xib */,
 				F397E71B15C15D8400A92874 /* CinemasView.xib */,
-				F397E71C15C15D8400A92874 /* MoviesView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,8 +280,8 @@
 		F397E6B415C15C5700A92874 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				6FD6807115C2419E00897E50 /* ViewDeck */,
-				F397E7D315C167CE00A92874 /* JSONKit */,
+				6FC7847915C27AA300A18A34 /* ViewDeck */,
+				F3DDF9A215C2753500A47C57 /* JSONKit */,
 				F397E6F715C15D3600A92874 /* HJCache */,
 				F397E6B915C15CEB00A92874 /* AFNetworking */,
 			);
@@ -345,11 +345,11 @@
 			path = HJCache;
 			sourceTree = "<group>";
 		};
-		F397E7D315C167CE00A92874 /* JSONKit */ = {
+		F3DDF9A215C2753500A47C57 /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				F397E7D415C167CE00A92874 /* JSONKit.h */,
-				F397E7D515C167CE00A92874 /* JSONKit.m */,
+				F3DDF9A315C2753500A47C57 /* JSONKit.h */,
+				F3DDF9A415C2753500A47C57 /* JSONKit.m */,
 			);
 			path = JSONKit;
 			sourceTree = "<group>";
@@ -382,7 +382,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */;
+			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -411,8 +411,8 @@
 				F397E6B215C15C0700A92874 /* movie.png in Resources */,
 				F397E6B315C15C0700A92874 /* widescreen.png in Resources */,
 				F397E71D15C15D8400A92874 /* CinemasView.xib in Resources */,
-				F397E71E15C15D8400A92874 /* MoviesView.xib in Resources */,
-				6FD6807D15C2420900897E50 /* MenuController.xib in Resources */,
+				F3C22A2B15C284C800927FB4 /* MenuController.xib in Resources */,
+				F3C22A2D15C284D900927FB4 /* MoviesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,10 +447,10 @@
 				F397E71915C15D7200A92874 /* CinemasController.m in Sources */,
 				F397E71A15C15D7200A92874 /* MoviesController.m in Sources */,
 				F397E72115C1604400A92874 /* HJCache.m in Sources */,
-				F397E7D615C167CE00A92874 /* JSONKit.m in Sources */,
-				6FD6807615C2419E00897E50 /* IIViewDeckController.m in Sources */,
-				6FD6807715C2419E00897E50 /* WrapController.m in Sources */,
-				6FD6807C15C2420900897E50 /* MenuController.m in Sources */,
+				F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */,
+				6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */,
+				6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */,
+				6FC7848315C27AD600A18A34 /* MenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +544,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */ = {
+		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F397E68B15C159A100A92874 /* Debug */,
