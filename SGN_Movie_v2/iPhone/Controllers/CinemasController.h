@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CinemasController : UIViewController
+@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *listCinemas;
 
 @end
