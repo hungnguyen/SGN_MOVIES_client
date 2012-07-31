@@ -57,7 +57,7 @@
     [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
     [asynchcImage showLoadingWheel];
     [self.scrollView addSubview:asynchcImage];
-    [[HJCache getHJObjManager] manage:asynchcImage];
+    [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
         
     [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
     [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
