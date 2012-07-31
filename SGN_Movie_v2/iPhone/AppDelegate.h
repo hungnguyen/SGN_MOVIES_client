@@ -12,6 +12,7 @@
 #import "CinemasController.h"
 #import "AFNetworking.h"
 #import "MenuController.h"
+#define PROVIDER_URL @"http://www.galaxycine.vn/"
 
 @class MoviesController;
 
