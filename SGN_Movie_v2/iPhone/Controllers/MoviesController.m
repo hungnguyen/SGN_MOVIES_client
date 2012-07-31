@@ -15,7 +15,7 @@
 {
     int imageWidth;
     int imageHeight;
-    bool isToggled;
+
 }
 - (void) tapPoster:(UIButton*) sender;
 
@@ -35,6 +35,7 @@
     
 	// Do any additional setup after loading the view, typically from a nib.
     [self setTitle:@"NOW SHOWING"];
+    [self.navigationController setTitle:@"NOW SHOWING"];
     
     imageWidth = 150;
     imageHeight = 200;
@@ -51,7 +52,7 @@
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
 
-    CGRect parentView = [[self view] frame];
+    CGRect parentView = self.scrollViewMain.frame;
     UIScrollView * scrollviewNoSh = [[UIScrollView alloc]initWithFrame:parentView];
     parentView.origin.x = 320;
     UIScrollView * scrollviewCoSo = [[UIScrollView alloc]initWithFrame:parentView];
@@ -96,9 +97,13 @@
     int page = floor((_scrollViewMain.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
     if(page == 1)
+    {
         [self setTitle:@"COMING SOON"];
+    }
     else
+    {
         [self setTitle:@"NOW SHOWING"];
+    }
     
     [_pageControl setCurrentPage:page];
 }
@@ -115,14 +120,31 @@
 {
     if(!isToggled)
     {
+       
+        
+        MovieDetailController *movieDetailController = [[MovieDetailController alloc] initWithNibName:@"MovieDetailView" bundle:nil];
+        
         if([self title] == @"NOW SHOWING")
-        {
-            NSLog(@"NOW SHOWING:film %d",sender.tag);
-        }
-        else
-        {
-            NSLog(@"COMING SOON:film %d",sender.tag);
-        }
+         {
+             movieDetailController.movieInfo = [_nowShowingMovies objectAtIndex:sender.tag];
+          //   NSLog(@"%@",[movieDetailController.movieInfo valueForKey:@"Id"]);
+                                                
+         }
+         else
+         {
+             movieDetailController.movieInfo = [_comingSoonMovies objectAtIndex:sender.tag];
+         
+         }
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                       initWithTitle: @"Back" 
+                                       style: UIBarButtonItemStyleBordered
+                                       target: nil action: nil];
+        
+        [self.navigationItem setBackBarButtonItem: backButton];
+        [self.navigationController pushViewController:movieDetailController animated:YES];
+
+        
     }
     else
     {
@@ -211,7 +233,14 @@
 
 -(void) showInfo
 {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
     
+    [self.navigationItem setBackBarButtonItem: backButton];
+
+    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
 -(void) showInfo1

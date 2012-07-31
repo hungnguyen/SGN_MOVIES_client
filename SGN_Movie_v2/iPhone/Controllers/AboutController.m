@@ -20,6 +20,8 @@
     if (self) {
         // Custom initialization
     }
+   
+    
     return self;
 }
 
@@ -27,6 +29,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setTitle:@"ABOUT"];
+     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"about.png"]]];   
 }
 
 - (void)viewDidUnload

@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "AboutController.h"
 
 @interface CinemasController : UIViewController
-
+{
+@public
+    
+    bool isToggled;
+}
 @end

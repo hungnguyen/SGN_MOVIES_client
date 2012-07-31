@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HJCache.h"
+#import "MoviesController.h"
+#import "AppDelegate.h"
 
-@interface MovieDetailController : UIViewController
+@interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+{
+   
+}
+
+@property (strong, nonatomic) IBOutlet UIButton *trailerButton;
+- (IBAction)showTrailer:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *showTimeButton;
+- (IBAction)showShowTime:(id)sender;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSDictionary * movieInfo;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
 
 @end
