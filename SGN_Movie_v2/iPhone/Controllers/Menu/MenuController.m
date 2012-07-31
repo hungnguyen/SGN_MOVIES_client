@@ -13,7 +13,7 @@
 @end
 
 @implementation MenuController
-@synthesize tableView;
+@synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

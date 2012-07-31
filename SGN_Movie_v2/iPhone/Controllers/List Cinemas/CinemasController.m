@@ -90,7 +90,7 @@
     return 1;
 }
 
-- (UITableViewCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SGNCinemasListCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SGNCinemasListCell *cell= [objTableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil)
