@@ -12,10 +12,10 @@
 
 
 @interface HJCache : NSObject
-{
-    
-}
-+(HJObjManager *) getHJObjManager;
+
+@property (strong, nonatomic) HJObjManager *hjObjManager;
+
++ (HJCache *)sharedInstance;
 
 @end
 
