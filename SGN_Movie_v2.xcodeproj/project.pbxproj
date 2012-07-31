@@ -46,6 +46,8 @@
 		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F3C22A2B15C284C800927FB4 /* MenuController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C22A2A15C284C800927FB4 /* MenuController.xib */; };
 		F3C22A2D15C284D900927FB4 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C22A2C15C284D900927FB4 /* MoviesView.xib */; };
+		F3C24D3215C7BFDA0077C801 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24D3015C7BFDA0077C801 /* SGNCinemasListCell.m */; };
+		F3C24D3315C7BFDA0077C801 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24D3115C7BFDA0077C801 /* SGNCinemasListCell.xib */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -121,6 +123,9 @@
 		F397E72015C1604400A92874 /* HJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCache.m; sourceTree = "<group>"; };
 		F3C22A2A15C284C800927FB4 /* MenuController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuController.xib; sourceTree = "<group>"; };
 		F3C22A2C15C284D900927FB4 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
+		F3C24D2F15C7BFDA0077C801 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
+		F3C24D3015C7BFDA0077C801 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
+		F3C24D3115C7BFDA0077C801 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,6 +231,7 @@
 		F397E69815C15B3D00A92874 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3C24D2D15C7BFDA0077C801 /* Performers */,
 				F3C22A2C15C284D900927FB4 /* MoviesView.xib */,
 				F3C22A2A15C284C800927FB4 /* MenuController.xib */,
 				F397E71B15C15D8400A92874 /* CinemasView.xib */,
@@ -345,6 +351,24 @@
 			path = HJCache;
 			sourceTree = "<group>";
 		};
+		F3C24D2D15C7BFDA0077C801 /* Performers */ = {
+			isa = PBXGroup;
+			children = (
+				F3C24D2E15C7BFDA0077C801 /* Cinemas */,
+			);
+			path = Performers;
+			sourceTree = "<group>";
+		};
+		F3C24D2E15C7BFDA0077C801 /* Cinemas */ = {
+			isa = PBXGroup;
+			children = (
+				F3C24D2F15C7BFDA0077C801 /* SGNCinemasListCell.h */,
+				F3C24D3015C7BFDA0077C801 /* SGNCinemasListCell.m */,
+				F3C24D3115C7BFDA0077C801 /* SGNCinemasListCell.xib */,
+			);
+			path = Cinemas;
+			sourceTree = "<group>";
+		};
 		F3DDF9A215C2753500A47C57 /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +437,7 @@
 				F397E71D15C15D8400A92874 /* CinemasView.xib in Resources */,
 				F3C22A2B15C284C800927FB4 /* MenuController.xib in Resources */,
 				F3C22A2D15C284D900927FB4 /* MoviesView.xib in Resources */,
+				F3C24D3315C7BFDA0077C801 /* SGNCinemasListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +476,7 @@
 				6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */,
 				6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */,
 				6FC7848315C27AD600A18A34 /* MenuController.m in Sources */,
+				F3C24D3215C7BFDA0077C801 /* SGNCinemasListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
