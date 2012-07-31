@@ -8,23 +8,32 @@
 
 #import "HJCache.h"
 
-static HJObjManager* imgMan;
 @implementation HJCache
 
+@synthesize hjObjManager = _hjObjManager;
 
-+(HJObjManager *)getHJObjManager
++ (HJCache *)sharedInstance
 {
-    if(imgMan==nil)
-    {
-        imgMan = [[HJObjManager alloc] init];
-        //if you are using for full screen images, you'll need a smaller memory cache:
-        //HJObjManager* objMan = [[HJObjManager alloc] initWithLoadingBufferSize:2 memCacheSize:2];
+    static HJCache *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[HJCache alloc] init];
+        // Do any other initialisation stuff here
+        if([sharedInstance hjObjManager]==nil)
+        {
+            [sharedInstance setHjObjManager:[[HJObjManager alloc] initWithLoadingBufferSize:5000 memCacheSize:5000]];
         
-        NSString* cacheDirectory = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches"] ;
-        HJMOFileCache* fileCache = [[HJMOFileCache alloc] initWithRootPath:cacheDirectory];
-        imgMan.fileCache = fileCache;
-    }
-    return imgMan;
+            NSString* cacheDirectory = [NSHomeDirectory() stringByAppendingString:@"/Library/Caches/Images"];
+            HJMOFileCache* fileCache = [[HJMOFileCache alloc] initWithRootPath:cacheDirectory];
+            // Have the file cache trim itself down to a size & age limit, so it doesn't grow forever
+            fileCache.fileCountLimit = 1000;
+            fileCache.fileAgeLimit = 60*60*24; //1 day caching
+            [fileCache trimCacheUsingBackgroundThread];
+
+            [sharedInstance.hjObjManager setFileCache:fileCache];
+        }
+    });
+    return sharedInstance;
 }
 
 @end

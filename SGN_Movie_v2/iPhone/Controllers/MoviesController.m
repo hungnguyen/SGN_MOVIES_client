@@ -162,7 +162,7 @@
         [poster addSubview:asynchcImage];
         [scrollView addSubview:poster];
         
-        [[HJCache getHJObjManager] manage:asynchcImage];
+        [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
     }
 }
 
