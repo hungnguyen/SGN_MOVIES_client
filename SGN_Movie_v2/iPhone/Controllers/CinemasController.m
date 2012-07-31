@@ -13,7 +13,7 @@
 
 @interface CinemasController ()
 {
-    bool isToggled;
+
 }
 
 -(void) showMenu;
@@ -39,6 +39,7 @@
 {
     [super viewDidLoad];
     
+    isToggled = FALSE;
     // Do any additional setup after loading the view from its nib.
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -54,6 +55,7 @@
     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
     
     [self setTitle:@"CINEMAS"];
+    [self.navigationController setTitle:@"CINEMAS"];
 
     [self getListCinemas:@"http://sgn-m.apphb.com/cinema/list"];
     [[self tableView]setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
@@ -132,8 +134,15 @@
 
 - (void)showInfo
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About" message:@"This is About box" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
+    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
+
 }
 
 @end

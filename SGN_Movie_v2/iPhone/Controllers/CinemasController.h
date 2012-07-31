@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-
+{
+    @public
+    bool isToggled;
+}
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *listCinemas;
 
