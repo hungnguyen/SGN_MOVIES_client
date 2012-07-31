@@ -27,6 +27,10 @@ static AppDelegate * appDelegate;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: 0.5];
+    //[NSThread sleepUntilDate:future];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Override point for customization after application launch.
@@ -36,7 +40,7 @@ static AppDelegate * appDelegate;
     [self setMoviesNavigationController:[[UINavigationController alloc] init]];
     [self setMoviesController:[[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil]];
     [_moviesNavigationController setViewControllers:[NSArray arrayWithObjects:_moviesController, nil]];
-    
+     
     //Make Cinemas Screen
 //    [self setCinemasNavigationController:[[UINavigationController alloc] init]];
 //    CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
@@ -47,11 +51,13 @@ static AppDelegate * appDelegate;
     
     //Make View Deck
     [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_moviesNavigationController leftViewController:menuController]];
-    [_deckController setRightLedge:50];
+    [_deckController setRightLedge:40];
     [_deckController setEnabled:FALSE];
     
     self.window.rootViewController = _deckController;
     [self.window makeKeyAndVisible];
+    
+    
     
     return YES;
 }

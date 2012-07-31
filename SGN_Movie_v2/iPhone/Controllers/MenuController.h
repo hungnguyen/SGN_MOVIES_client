@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
+#import "MoviesController.h"
+#import "CinemasController.h"
 
-@interface MenuController : UIViewController
+@interface MenuController : UIViewController <UITableViewDelegate,UITableViewDataSource>
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
