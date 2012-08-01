@@ -45,17 +45,17 @@
 		F397E71315C15D3600A92874 /* HJObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70915C15D3600A92874 /* HJObjManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E71415C15D3600A92874 /* HJWeakMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		F3C24E0E15C7FD380077C801 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24DF515C7FD380077C801 /* AboutController.m */; };
-		F3C24E0F15C7FD380077C801 /* MovieDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24DF815C7FD380077C801 /* MovieDetailController.m */; };
-		F3C24E1015C7FD380077C801 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24DFB15C7FD380077C801 /* CinemasController.m */; };
-		F3C24E1115C7FD380077C801 /* MoviesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24DFE15C7FD380077C801 /* MoviesController.m */; };
-		F3C24E1215C7FD380077C801 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E0115C7FD380077C801 /* MenuController.m */; };
-		F3C24E1315C7FD380077C801 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E0415C7FD380077C801 /* MovieDetailView.xib */; };
-		F3C24E1415C7FD380077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E0615C7FD380077C801 /* CinemasView.xib */; };
-		F3C24E1515C7FD380077C801 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E0815C7FD380077C801 /* SGNCinemasListCell.m */; };
-		F3C24E1615C7FD380077C801 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E0915C7FD380077C801 /* SGNCinemasListCell.xib */; };
-		F3C24E1715C7FD380077C801 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E0B15C7FD380077C801 /* MoviesView.xib */; };
-		F3C24E1815C7FD380077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E0D15C7FD380077C801 /* MenuView.xib */; };
+		F3C24E5315C8027B0077C801 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3A15C8027B0077C801 /* AboutController.m */; };
+		F3C24E5415C8027B0077C801 /* MovieDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3D15C8027B0077C801 /* MovieDetailController.m */; };
+		F3C24E5515C8027B0077C801 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4015C8027B0077C801 /* CinemasController.m */; };
+		F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4315C8027B0077C801 /* MoviesController.m */; };
+		F3C24E5715C8027B0077C801 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4615C8027B0077C801 /* MenuController.m */; };
+		F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4915C8027B0077C801 /* MovieDetailView.xib */; };
+		F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */; };
+		F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */; };
+		F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5015C8027B0077C801 /* MoviesView.xib */; };
+		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
+		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -127,23 +127,23 @@
 		F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJWeakMutableArray.m; sourceTree = "<group>"; };
 		F397E71F15C1604400A92874 /* HJCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCache.h; sourceTree = "<group>"; };
 		F397E72015C1604400A92874 /* HJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCache.m; sourceTree = "<group>"; };
-		F3C24DF415C7FD380077C801 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
-		F3C24DF515C7FD380077C801 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
-		F3C24DF715C7FD380077C801 /* MovieDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailController.h; sourceTree = "<group>"; };
-		F3C24DF815C7FD380077C801 /* MovieDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailController.m; sourceTree = "<group>"; };
-		F3C24DFA15C7FD380077C801 /* CinemasController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemasController.h; sourceTree = "<group>"; };
-		F3C24DFB15C7FD380077C801 /* CinemasController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemasController.m; sourceTree = "<group>"; };
-		F3C24DFD15C7FD380077C801 /* MoviesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesController.h; sourceTree = "<group>"; };
-		F3C24DFE15C7FD380077C801 /* MoviesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviesController.m; sourceTree = "<group>"; };
-		F3C24E0015C7FD380077C801 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
-		F3C24E0115C7FD380077C801 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
-		F3C24E0415C7FD380077C801 /* MovieDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieDetailView.xib; sourceTree = "<group>"; };
-		F3C24E0615C7FD380077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
-		F3C24E0715C7FD380077C801 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
-		F3C24E0815C7FD380077C801 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
-		F3C24E0915C7FD380077C801 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
-		F3C24E0B15C7FD380077C801 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
-		F3C24E0D15C7FD380077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		F3C24E3915C8027B0077C801 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		F3C24E3A15C8027B0077C801 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
+		F3C24E3C15C8027B0077C801 /* MovieDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailController.h; sourceTree = "<group>"; };
+		F3C24E3D15C8027B0077C801 /* MovieDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailController.m; sourceTree = "<group>"; };
+		F3C24E3F15C8027B0077C801 /* CinemasController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemasController.h; sourceTree = "<group>"; };
+		F3C24E4015C8027B0077C801 /* CinemasController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemasController.m; sourceTree = "<group>"; };
+		F3C24E4215C8027B0077C801 /* MoviesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoviesController.h; sourceTree = "<group>"; };
+		F3C24E4315C8027B0077C801 /* MoviesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoviesController.m; sourceTree = "<group>"; };
+		F3C24E4515C8027B0077C801 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		F3C24E4615C8027B0077C801 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
+		F3C24E4915C8027B0077C801 /* MovieDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieDetailView.xib; sourceTree = "<group>"; };
+		F3C24E4C15C8027B0077C801 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
+		F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
+		F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
+		F3C24E5015C8027B0077C801 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
+		F3C24E5215C8027B0077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -231,8 +231,8 @@
 		F397E69215C15B3D00A92874 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DF215C7FD380077C801 /* Controllers */,
-				F3C24E0215C7FD380077C801 /* Views */,
+				F3C24E3715C8027B0077C801 /* Controllers */,
+				F3C24E4715C8027B0077C801 /* Views */,
 				F397E69315C15B3D00A92874 /* AppDelegate.h */,
 				F397E69415C15B3D00A92874 /* AppDelegate.m */,
 			);
@@ -353,105 +353,105 @@
 			path = HJCache;
 			sourceTree = "<group>";
 		};
-		F3C24DF215C7FD380077C801 /* Controllers */ = {
+		F3C24E3715C8027B0077C801 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DF315C7FD380077C801 /* About */,
-				F3C24DF615C7FD380077C801 /* Detail Movie */,
-				F3C24DF915C7FD380077C801 /* List Cinemas */,
-				F3C24DFC15C7FD380077C801 /* List Movies */,
-				F3C24DFF15C7FD380077C801 /* Menu */,
+				F3C24E3815C8027B0077C801 /* About */,
+				F3C24E3B15C8027B0077C801 /* Detail Movie */,
+				F3C24E3E15C8027B0077C801 /* List Cinemas */,
+				F3C24E4115C8027B0077C801 /* List Movies */,
+				F3C24E4415C8027B0077C801 /* Menu */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		F3C24DF315C7FD380077C801 /* About */ = {
+		F3C24E3815C8027B0077C801 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DF415C7FD380077C801 /* AboutController.h */,
-				F3C24DF515C7FD380077C801 /* AboutController.m */,
+				F3C24E3915C8027B0077C801 /* AboutController.h */,
+				F3C24E3A15C8027B0077C801 /* AboutController.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
 		};
-		F3C24DF615C7FD380077C801 /* Detail Movie */ = {
+		F3C24E3B15C8027B0077C801 /* Detail Movie */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DF715C7FD380077C801 /* MovieDetailController.h */,
-				F3C24DF815C7FD380077C801 /* MovieDetailController.m */,
+				F3C24E3C15C8027B0077C801 /* MovieDetailController.h */,
+				F3C24E3D15C8027B0077C801 /* MovieDetailController.m */,
 			);
 			path = "Detail Movie";
 			sourceTree = "<group>";
 		};
-		F3C24DF915C7FD380077C801 /* List Cinemas */ = {
+		F3C24E3E15C8027B0077C801 /* List Cinemas */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DFA15C7FD380077C801 /* CinemasController.h */,
-				F3C24DFB15C7FD380077C801 /* CinemasController.m */,
+				F3C24E3F15C8027B0077C801 /* CinemasController.h */,
+				F3C24E4015C8027B0077C801 /* CinemasController.m */,
 			);
 			path = "List Cinemas";
 			sourceTree = "<group>";
 		};
-		F3C24DFC15C7FD380077C801 /* List Movies */ = {
+		F3C24E4115C8027B0077C801 /* List Movies */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24DFD15C7FD380077C801 /* MoviesController.h */,
-				F3C24DFE15C7FD380077C801 /* MoviesController.m */,
+				F3C24E4215C8027B0077C801 /* MoviesController.h */,
+				F3C24E4315C8027B0077C801 /* MoviesController.m */,
 			);
 			path = "List Movies";
 			sourceTree = "<group>";
 		};
-		F3C24DFF15C7FD380077C801 /* Menu */ = {
+		F3C24E4415C8027B0077C801 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0015C7FD380077C801 /* MenuController.h */,
-				F3C24E0115C7FD380077C801 /* MenuController.m */,
+				F3C24E4515C8027B0077C801 /* MenuController.h */,
+				F3C24E4615C8027B0077C801 /* MenuController.m */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
 		};
-		F3C24E0215C7FD380077C801 /* Views */ = {
+		F3C24E4715C8027B0077C801 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0315C7FD380077C801 /* Detail Movie */,
-				F3C24E0515C7FD380077C801 /* List Cinemas */,
-				F3C24E0A15C7FD380077C801 /* List Movies  */,
-				F3C24E0C15C7FD380077C801 /* Menu */,
+				F3C24E4815C8027B0077C801 /* Detail Movie */,
+				F3C24E4A15C8027B0077C801 /* List Cinemas */,
+				F3C24E4F15C8027B0077C801 /* List Movies  */,
+				F3C24E5115C8027B0077C801 /* Menu */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		F3C24E0315C7FD380077C801 /* Detail Movie */ = {
+		F3C24E4815C8027B0077C801 /* Detail Movie */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0415C7FD380077C801 /* MovieDetailView.xib */,
+				F3C24E4915C8027B0077C801 /* MovieDetailView.xib */,
 			);
 			path = "Detail Movie";
 			sourceTree = "<group>";
 		};
-		F3C24E0515C7FD380077C801 /* List Cinemas */ = {
+		F3C24E4A15C8027B0077C801 /* List Cinemas */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0615C7FD380077C801 /* CinemasView.xib */,
-				F3C24E0715C7FD380077C801 /* SGNCinemasListCell.h */,
-				F3C24E0815C7FD380077C801 /* SGNCinemasListCell.m */,
-				F3C24E0915C7FD380077C801 /* SGNCinemasListCell.xib */,
+				F3C24E5E15C802ED0077C801 /* CinemasView.xib */,
+				F3C24E4C15C8027B0077C801 /* SGNCinemasListCell.h */,
+				F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */,
+				F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */,
 			);
 			path = "List Cinemas";
 			sourceTree = "<group>";
 		};
-		F3C24E0A15C7FD380077C801 /* List Movies  */ = {
+		F3C24E4F15C8027B0077C801 /* List Movies  */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0B15C7FD380077C801 /* MoviesView.xib */,
+				F3C24E5015C8027B0077C801 /* MoviesView.xib */,
 			);
 			path = "List Movies ";
 			sourceTree = "<group>";
 		};
-		F3C24E0C15C7FD380077C801 /* Menu */ = {
+		F3C24E5115C8027B0077C801 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				F3C24E0D15C7FD380077C801 /* MenuView.xib */,
+				F3C24E5215C8027B0077C801 /* MenuView.xib */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -523,11 +523,11 @@
 				F397E6B315C15C0700A92874 /* widescreen.png in Resources */,
 				6F420CE815C662F100319B83 /* Default.png in Resources */,
 				6F420D0015C68F5500319B83 /* about.png in Resources */,
-				F3C24E1315C7FD380077C801 /* MovieDetailView.xib in Resources */,
-				F3C24E1415C7FD380077C801 /* CinemasView.xib in Resources */,
-				F3C24E1615C7FD380077C801 /* SGNCinemasListCell.xib in Resources */,
-				F3C24E1715C7FD380077C801 /* MoviesView.xib in Resources */,
-				F3C24E1815C7FD380077C801 /* MenuView.xib in Resources */,
+				F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */,
+				F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */,
+				F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */,
+				F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */,
+				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,12 +563,12 @@
 				F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */,
 				6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */,
 				6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */,
-				F3C24E0E15C7FD380077C801 /* AboutController.m in Sources */,
-				F3C24E0F15C7FD380077C801 /* MovieDetailController.m in Sources */,
-				F3C24E1015C7FD380077C801 /* CinemasController.m in Sources */,
-				F3C24E1115C7FD380077C801 /* MoviesController.m in Sources */,
-				F3C24E1215C7FD380077C801 /* MenuController.m in Sources */,
-				F3C24E1515C7FD380077C801 /* SGNCinemasListCell.m in Sources */,
+				F3C24E5315C8027B0077C801 /* AboutController.m in Sources */,
+				F3C24E5415C8027B0077C801 /* MovieDetailController.m in Sources */,
+				F3C24E5515C8027B0077C801 /* CinemasController.m in Sources */,
+				F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */,
+				F3C24E5715C8027B0077C801 /* MenuController.m in Sources */,
+				F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

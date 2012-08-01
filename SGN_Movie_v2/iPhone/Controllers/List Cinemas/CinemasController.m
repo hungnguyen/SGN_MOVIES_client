@@ -58,7 +58,13 @@
     [self.navigationController setTitle:@"CINEMAS"];
 
     [self getListCinemas:@"http://sgn-m.apphb.com/cinema/list"];
-    [[self tableView]setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
+    
+    //set rowheight for custom view cell: SGNCinemaListCell
+    [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
+    
+    //for problem in iOS4.3: when choose UITableGroupView
+    //table still has 4 black rectangle corner instead of round one's
+    [_tableView setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)viewDidUnload
