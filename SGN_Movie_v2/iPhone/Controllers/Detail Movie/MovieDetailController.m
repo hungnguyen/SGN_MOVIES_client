@@ -136,53 +136,38 @@
     if(0 == indexPath.row)
     {
         NSString * genreStr = [[NSString alloc] initWithFormat:@"GENRE: %@",[_movieInfo valueForKey:@"Genre"]];
-        UITextView * textView1 = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        textView1.text = genreStr;
-        [textView1 setFont:[UIFont fontWithName:fontName size:fonSize]];
-        [textView1 setEditable:NO];
-        [textView1 setBackgroundColor:[UIColor clearColor]];
-        [cell addSubview:textView1];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:genreStr]];
 
     }
     if(1 == indexPath.row)
     {
         NSString * castStr = [[NSString alloc] initWithFormat:@"CAST: %@",[_movieInfo valueForKey:@"Cast"]];
-        UITextView * textView1 = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        textView1.text = castStr;
-        [textView1 setFont:[UIFont fontWithName:fontName size:fonSize]];
-        [textView1 setEditable:NO];
-        [textView1 setBackgroundColor:[UIColor clearColor]];
-        [cell addSubview:textView1];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
     }
     if(2 == indexPath.row)
     {
         NSString * durationStr = [[NSString alloc] initWithFormat:@"DURATION: %@",[_movieInfo valueForKey:@"Duration"]];
-        UITextView * textView1 = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        textView1.text = durationStr;
-        [textView1 setFont:[UIFont fontWithName:fontName size:fonSize]];
-        [textView1 setEditable:NO];
-        [textView1 setBackgroundColor:[UIColor clearColor]];
-        [cell addSubview:textView1];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:durationStr]];
     }
     if(3 == indexPath.row)
     {
         NSString * versionStr = [[NSString alloc] initWithFormat:@"VERSION: %@",[_movieInfo valueForKey:@"Version"]];
-        UITextView * textView1 = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        textView1.text = versionStr;
-        [textView1 setFont:[UIFont fontWithName:fontName size:fonSize]];
-        [textView1 setEditable:NO];
-        [textView1 setBackgroundColor:[UIColor clearColor]];
-        [cell addSubview:textView1];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:versionStr]];
     }
     if(4 == indexPath.row)
     {
         NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"Description"]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 250)];
-        cellTextView.text = descriptionStr;
-        [cellTextView setFont:[UIFont fontWithName:fontName size:fonSize]];
-        [cellTextView setEditable:NO];
-        [cellTextView setBackgroundColor:[UIColor clearColor]];
-        [cell addSubview:cellTextView];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:descriptionStr]];
     }
     return cell;
 }
@@ -205,6 +190,14 @@
     return CELL_HEIGHT;
 }
 
-
+-(UITextView *) modifyTextViewOfACell:(UITextView *) cellTextView withText:(NSString *) text
+{
+    cellTextView.text = text;
+    [cellTextView setFont:[UIFont fontWithName:fontName size:fonSize]];
+    [cellTextView setEditable:NO];
+    [cellTextView setBackgroundColor:[UIColor clearColor]];
+    [cellTextView setScrollEnabled:NO];
+    return cellTextView;
+}
 
 @end

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6F420CE815C662F100319B83 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F420CE715C662F100319B83 /* Default.png */; };
 		6F420D0015C68F5500319B83 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F420CFF15C68F5500319B83 /* about.png */; };
+		6F8F10A715CA36CD00138AA8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8F10A415CA36CD00138AA8 /* Default@2x.png */; };
+		6F8F10A815CA36CD00138AA8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8F10A515CA36CD00138AA8 /* Icon.png */; };
+		6F8F10A915CA36CD00138AA8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8F10A615CA36CD00138AA8 /* Icon@2x.png */; };
 		6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */; };
 		6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847D15C27AA300A18A34 /* WrapController.m */; };
 		6FE28E6515C78A6F00BB7A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E6415C78A6F00BB7A4E /* QuartzCore.framework */; };
@@ -62,6 +65,9 @@
 /* Begin PBXFileReference section */
 		6F420CE715C662F100319B83 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6F420CFF15C68F5500319B83 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
+		6F8F10A415CA36CD00138AA8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../../../VNMovies/samples/TTTwitter/Default@2x.png"; sourceTree = "<group>"; };
+		6F8F10A515CA36CD00138AA8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../../../VNMovies/samples/TTTwitter/Icon.png; sourceTree = "<group>"; };
+		6F8F10A615CA36CD00138AA8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../../../../../VNMovies/samples/TTTwitter/Icon@2x.png"; sourceTree = "<group>"; };
 		6FC7847A15C27AA300A18A34 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		6FC7847C15C27AA300A18A34 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
@@ -252,6 +258,9 @@
 		F397E69B15C15B3D00A92874 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6F8F10A415CA36CD00138AA8 /* Default@2x.png */,
+				6F8F10A515CA36CD00138AA8 /* Icon.png */,
+				6F8F10A615CA36CD00138AA8 /* Icon@2x.png */,
 				6F420CFF15C68F5500319B83 /* about.png */,
 				6F420CE715C662F100319B83 /* Default.png */,
 				F397E6AA15C15C0700A92874 /* Background7.jpg */,
@@ -493,7 +502,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */;
+			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -528,6 +537,9 @@
 				F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */,
 				F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */,
 				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
+				6F8F10A715CA36CD00138AA8 /* Default@2x.png in Resources */,
+				6F8F10A815CA36CD00138AA8 /* Icon.png in Resources */,
+				6F8F10A915CA36CD00138AA8 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +674,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */ = {
+		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F397E68B15C159A100A92874 /* Debug */,
