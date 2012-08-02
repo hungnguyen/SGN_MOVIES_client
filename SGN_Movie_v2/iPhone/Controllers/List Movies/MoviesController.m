@@ -210,8 +210,7 @@
         {
             [self setComingSoonMovies: (NSArray*) [JSON objectForKey:@"Data"]];
 
-            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
-            
+            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
              scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
         }
         
