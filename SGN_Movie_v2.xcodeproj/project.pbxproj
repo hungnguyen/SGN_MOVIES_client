@@ -14,9 +14,6 @@
 		6FE28E6515C78A6F00BB7A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E6415C78A6F00BB7A4E /* QuartzCore.framework */; };
 		6FE28E6815C7B38100BB7A4E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E6715C7B38100BB7A4E /* MediaPlayer.framework */; };
 		6FE28E8115C7BD0D00BB7A4E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E8015C7BD0D00BB7A4E /* AVFoundation.framework */; };
-		F35E733615CA40910030D161 /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F35E733515CA40910030D161 /* CinemaDetailController.m */; };
-		F35E733B15CA40A30030D161 /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35E733915CA40A30030D161 /* CinemaDetailView.xib */; };
-		F35E733C15CA40A30030D161 /* DetailCinemaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F35E733A15CA40A30030D161 /* DetailCinemaView.xib */; };
 		F397E67415C159A100A92874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67315C159A100A92874 /* UIKit.framework */; };
 		F397E67615C159A100A92874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67515C159A100A92874 /* Foundation.framework */; };
 		F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67715C159A100A92874 /* CoreGraphics.framework */; };
@@ -48,6 +45,8 @@
 		F397E71315C15D3600A92874 /* HJObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70915C15D3600A92874 /* HJObjManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E71415C15D3600A92874 /* HJWeakMutableArray.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */; };
+		F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */; };
 		F3C24E5315C8027B0077C801 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3A15C8027B0077C801 /* AboutController.m */; };
 		F3C24E5415C8027B0077C801 /* MovieDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3D15C8027B0077C801 /* MovieDetailController.m */; };
 		F3C24E5515C8027B0077C801 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4015C8027B0077C801 /* CinemasController.m */; };
@@ -72,10 +71,6 @@
 		6FE28E6415C78A6F00BB7A4E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6FE28E6715C7B38100BB7A4E /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		6FE28E8015C7BD0D00BB7A4E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		F35E733415CA40910030D161 /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
-		F35E733515CA40910030D161 /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
-		F35E733915CA40A30030D161 /* CinemaDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemaDetailView.xib; sourceTree = "<group>"; };
-		F35E733A15CA40A30030D161 /* DetailCinemaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCinemaView.xib; sourceTree = "<group>"; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F397E67315C159A100A92874 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F397E67515C159A100A92874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,6 +129,9 @@
 		F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJWeakMutableArray.m; sourceTree = "<group>"; };
 		F397E71F15C1604400A92874 /* HJCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCache.h; sourceTree = "<group>"; };
 		F397E72015C1604400A92874 /* HJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCache.m; sourceTree = "<group>"; };
+		F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemaDetailView.xib; sourceTree = "<group>"; };
+		F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
+		F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
 		F3C24E3915C8027B0077C801 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F3C24E3A15C8027B0077C801 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F3C24E3C15C8027B0077C801 /* MovieDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailController.h; sourceTree = "<group>"; };
@@ -186,8 +184,8 @@
 		F35E733315CA40910030D161 /* Detail Cinema */ = {
 			isa = PBXGroup;
 			children = (
-				F35E733415CA40910030D161 /* CinemaDetailController.h */,
-				F35E733515CA40910030D161 /* CinemaDetailController.m */,
+				F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */,
+				F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */,
 			);
 			path = "Detail Cinema";
 			sourceTree = "<group>";
@@ -195,8 +193,7 @@
 		F35E733815CA40A30030D161 /* Detail Cinema */ = {
 			isa = PBXGroup;
 			children = (
-				F35E733915CA40A30030D161 /* CinemaDetailView.xib */,
-				F35E733A15CA40A30030D161 /* DetailCinemaView.xib */,
+				F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */,
 			);
 			path = "Detail Cinema";
 			sourceTree = "<group>";
@@ -555,8 +552,7 @@
 				F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */,
 				F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */,
 				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
-				F35E733B15CA40A30030D161 /* CinemaDetailView.xib in Resources */,
-				F35E733C15CA40A30030D161 /* DetailCinemaView.xib in Resources */,
+				F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +594,7 @@
 				F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */,
 				F3C24E5715C8027B0077C801 /* MenuController.m in Sources */,
 				F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */,
-				F35E733615CA40910030D161 /* CinemaDetailController.m in Sources */,
+				F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

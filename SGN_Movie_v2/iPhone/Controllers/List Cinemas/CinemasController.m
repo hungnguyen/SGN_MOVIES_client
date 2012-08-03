@@ -11,10 +11,11 @@
 #import "AppDelegate.h"
 #import "HJCache.h"
 #import "SGNCinemasListCell.h"
+#import "AFNetworking.h"
 
 @interface CinemasController ()
 {
-
+    
 }
 
 -(void) showMenu;
@@ -56,8 +57,8 @@
     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
     
     [self setTitle:@"CINEMAS"];
-    [self.navigationController setTitle:@"CINEMAS"];
-
+    [[self navigationController] setTitle:@"CINEMAS"];
+    
     [self getListCinemas:@"http://sgn-m.apphb.com/cinema/list"];
     
     //set rowheight for custom view cell: SGNCinemaListCell
@@ -114,7 +115,8 @@
 {
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
-    [self.navigationController pushViewController:cinemaDetailController animated:YES];
+    [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
+    [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
 - (void) getListCinemas:(NSString*)urlString
@@ -123,7 +125,7 @@
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            self.listCinemas = (NSMutableArray*) [JSON objectForKey:@"Data"];
+                                                                                            [self setListCinemas: (NSMutableArray*) [JSON objectForKey:@"Data"]];
                                                                                             [[self tableView] reloadData];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -153,10 +155,10 @@
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
     
-    [self.navigationItem setBackBarButtonItem: backButton];
+    [[self navigationItem] setBackBarButtonItem: backButton];
     
-    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
-
+    [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
+    
 }
 
 @end
