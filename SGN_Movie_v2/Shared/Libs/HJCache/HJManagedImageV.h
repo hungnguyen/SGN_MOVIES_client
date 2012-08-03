@@ -54,6 +54,7 @@
 @property int index;
 @property (nonatomic, retain) UIImage* image;
 @property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, assign) UIViewContentMode imageContentMode;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 @property (nonatomic, retain) id <HJManagedImageVDelegate> callbackOnSetImage;
 @property (nonatomic, retain) id <HJManagedImageVDelegate> callbackOnCancel;

@@ -38,7 +38,7 @@
 					<object class="IBUITableView" id="950785429">
 						<reference key="NSNextResponder" ref="296697845"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrameSize">{320, 436}</string>
+						<string key="NSFrameSize">{320, 416}</string>
 						<reference key="NSSuperview" ref="296697845"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIAutoresizesSubviews">NO</bool>
@@ -53,7 +53,7 @@
 						<float key="IBUISectionFooterHeight">10</float>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 44}, {320, 436}}</string>
+				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="950785429"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -61,6 +61,7 @@
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC4yNDM5OTc4NDY0IDEgMC40MDIyOTY1Mjk1IDAAA</bytes>
 				</object>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
 					<bool key="IBUIPrompted">NO</bool>
 				</object>

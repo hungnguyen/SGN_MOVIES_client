@@ -11,11 +11,11 @@
 #import "MenuController.h"
 #import "AppDelegate.h"
 
+#define POSTER_HEIGHT 200
+#define POSTER_WIDTH 150
+
 @interface MoviesController ()
 {
-    int imageWidth;
-    int imageHeight;
-
 }
 - (void) tapPoster:(UIButton*) sender;
 
@@ -37,8 +37,6 @@
     [self setTitle:@"NOW SHOWING"];
     [self.navigationController setTitle:@"NOW SHOWING"];
     
-    imageWidth = 150;
-    imageHeight = 200;
     isToggled = FALSE;
     
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
@@ -170,15 +168,15 @@
         NSString * urlString = [[NSString alloc] initWithString:[[moviesContainer objectAtIndex:i] 
                                                     valueForKey:@"ImageUrl"]];
         
-        int Ypos = (i/2)*imageHeight + 15*(i/2) + 5;
-        int Xpos = (i - (i/2)*2)*imageWidth + 10;
+        int Ypos = (i/2)* POSTER_HEIGHT + 15*(i/2) + 5;
+        int Xpos = (i - (i/2)*2)* POSTER_WIDTH + 10;
         
         //Create  a poster
-        UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,imageWidth,imageHeight)];
+        UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,POSTER_WIDTH,POSTER_HEIGHT)];
         [poster setTag :i];
         [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
         
-        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,imageWidth,imageHeight)];
+        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
         [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [asynchcImage showLoadingWheel];
         [poster addSubview:asynchcImage];
@@ -204,14 +202,14 @@
 
             [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
             
-            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*imageWidth)+imageHeight+200);
+            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         else
         {
             [self setComingSoonMovies: (NSArray*) [JSON objectForKey:@"Data"]];
 
             [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
-             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*imageWidth)+imageHeight+200);
+             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         
     } 
