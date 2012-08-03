@@ -7,6 +7,7 @@
 //
 
 #import "CinemasController.h"
+#import "CinemaDetailController.h"
 #import "AppDelegate.h"
 #import "HJCache.h"
 #import "SGNCinemasListCell.h"
@@ -107,6 +108,13 @@
     NSArray *cinema = [_listCinemas objectAtIndex:[indexPath section]];
     [cell fillWithData:cinema];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
+                                                                                             bundle:nil];
+    [self.navigationController pushViewController:cinemaDetailController animated:YES];
 }
 
 - (void) getListCinemas:(NSString*)urlString
