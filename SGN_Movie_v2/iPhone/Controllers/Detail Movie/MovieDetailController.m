@@ -58,10 +58,10 @@
     [asynchcImage showLoadingWheel];
     [self.scrollView addSubview:asynchcImage];
     [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
-        
+    
     [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
     [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
-        
+    
     [_textView setText:[_movieInfo valueForKey:@"Title"]];
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
@@ -73,7 +73,7 @@
 
 - (void)viewDidUnload
 {
-  
+    
     [self setTrailerButton:nil];
     [self setShowTimeButton:nil];
     [self setScrollView:nil];
@@ -91,13 +91,10 @@
 
 - (IBAction)showTrailer:(id)sender 
 {
-    /*NSString * filepath = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"TrailerUrl"]];
-    NSURL * url = [NSURL fileURLWithPath:filepath];
-    MPMoviePlayerController *moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:url];
-    [moviePlayer.view setFrame:self.view.bounds];
-    moviePlayer.useApplicationAudioSession=YES;
-    [self.view addSubview:moviePlayer.view];    
-    [moviePlayer play];*/
+    NSString * urlText = [[NSString alloc] initWithString:[_movieInfo valueForKey:@"TrailerUrl"]];
+    //NSString * urlText = [[NSString alloc] initWithString:@"http://www.youtube.com/watch?v=NnEfklFXQC4&feature=player_embedded"];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
 }
 
 - (IBAction)showShowTime:(id)sender 
@@ -131,21 +128,21 @@
                 reuseIdentifier:CellIdentifier];
     }
     
-
+    
     // Configure the cell...
     if(0 == indexPath.row)
     {
         NSString * genreStr = [[NSString alloc] initWithFormat:@"GENRE: %@",[_movieInfo valueForKey:@"Genre"]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-             
+        
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:genreStr]];
-
+        
     }
     if(1 == indexPath.row)
     {
         NSString * castStr = [[NSString alloc] initWithFormat:@"CAST: %@",[_movieInfo valueForKey:@"Cast"]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-     
+        
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
     }
     if(2 == indexPath.row)
@@ -159,7 +156,7 @@
     {
         NSString * versionStr = [[NSString alloc] initWithFormat:@"VERSION: %@",[_movieInfo valueForKey:@"Version"]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-            
+        
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:versionStr]];
     }
     if(4 == indexPath.row)
@@ -184,7 +181,7 @@
     
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
-   
+    
     if(4 == indexPath.row)
         return 250.0f;
     return CELL_HEIGHT;
@@ -197,7 +194,7 @@
     [cellTextView setEditable:NO];
     [cellTextView setBackgroundColor:[UIColor clearColor]];
     [cellTextView setScrollEnabled:NO];
-
+    
     return cellTextView;
 }
 
