@@ -74,6 +74,7 @@
 
     //create content size for scroll view
     CGRect frame = _scrollView.frame;
+
     poster_width = (frame.size.width) / POSTERS_PER_PAGE;
     poster_height = (frame.size.height); 
     [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
