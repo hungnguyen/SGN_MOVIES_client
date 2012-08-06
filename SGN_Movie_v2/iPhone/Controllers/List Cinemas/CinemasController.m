@@ -54,7 +54,7 @@
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
     
-    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
+   // [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
     
     [self setTitle:@"CINEMAS"];
     [[self navigationController] setTitle:@"CINEMAS"];
@@ -129,7 +129,7 @@
                                                                                             [[self tableView] reloadData];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
                                                                                         }
                                          ];
     [operation start];

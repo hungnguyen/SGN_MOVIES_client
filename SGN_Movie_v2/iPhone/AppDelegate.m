@@ -13,12 +13,8 @@ static AppDelegate * appDelegate;
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize moviesController = _moviesController;
-//@synthesize cinemasController = _cinemasController;
-@synthesize moviesNavigationController = _moviesNavigationController;
-//@synthesize cinemasNavigationController = _cinemasNavigationController;
+@synthesize navigationController = _navigationController;
 @synthesize deckController = _deckController;
-//@synthesize menuController = _menuController;
 
 + (AppDelegate*)currentDelegate
 {
@@ -32,25 +28,23 @@ static AppDelegate * appDelegate;
     //[NSThread sleepUntilDate:future];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    UIImage *backgroundImage = [UIImage imageNamed:@"Background8.jpg"];
+    [self.window setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];      
+   
     // Override point for customization after application launch.
       appDelegate = self;
     
     //Make Movies Screen
-    [self setMoviesNavigationController:[[UINavigationController alloc] init]];
-    [self setMoviesController:[[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil]];
-    [_moviesNavigationController setViewControllers:[NSArray arrayWithObjects:_moviesController, nil]];
+    [self setNavigationController:[[UINavigationController alloc] init]];
+    MoviesController *moviesController = [[MoviesController alloc] initWithNibName:@"MoviesView"
+                                                                           bundle:nil];
+    [_navigationController setViewControllers:[NSArray arrayWithObjects:moviesController, nil]];
      
-    //Make Cinemas Screen
-//    [self setCinemasNavigationController:[[UINavigationController alloc] init]];
-//    CinemasController * cinemasController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
-//    [_cinemasNavigationController setViewControllers:[NSArray arrayWithObjects:cinemasController, nil]];
-    
     //Make Menu View
     MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuView" bundle:nil];
     
     //Make View Deck
-    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_moviesNavigationController leftViewController:menuController]];
+    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_navigationController leftViewController:menuController]];
     [_deckController setRightLedge:40];
     [_deckController setEnabled:FALSE];
     

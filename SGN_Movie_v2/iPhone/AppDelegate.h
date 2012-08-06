@@ -20,11 +20,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) MoviesController *moviesController;
-//@property (strong, nonatomic) MoviesController *cinemasController;
-//@property (strong, nonatomic) MenuController *menuController;
-@property (strong, nonatomic) UINavigationController *moviesNavigationController;
-//@property (strong, nonatomic) UINavigationController *cinemasNavigationController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) IIViewDeckController *deckController;
 
 +(AppDelegate *) currentDelegate;

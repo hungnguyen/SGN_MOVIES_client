@@ -73,7 +73,7 @@
     int count = [_movieObjects count];
 
     //create content size for scroll view
-    CGRect frame = self.scrollView.frame;
+    CGRect frame = _scrollView.frame;
     poster_width = (frame.size.width) / POSTERS_PER_PAGE;
     poster_height = (frame.size.height); 
     [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
@@ -142,7 +142,7 @@
                                                                                             [self setPosterList];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
                                                                                         }
                                          ];
     [operation start];
