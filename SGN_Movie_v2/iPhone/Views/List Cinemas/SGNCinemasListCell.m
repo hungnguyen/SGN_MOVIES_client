@@ -40,7 +40,8 @@
     [_cinemaName setText:[data valueForKey:@"Name"]];
     [_cinemaPhone setText:[data valueForKey:@"Phone"]];
     [_cinemaAddress setText:[data valueForKey:@"Address"]];
-    
+
+    [_cinemaImage clear];
     [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
     [_cinemaImage showLoadingWheel];
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
