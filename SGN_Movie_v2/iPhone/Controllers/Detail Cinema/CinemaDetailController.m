@@ -6,8 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CinemaDetailController.h"
 #import <QuartzCore/QuartzCore.h> 
+#import "CinemaDetailController.h"
+#import "ShowtimesController.h"
 #import "AFNetworking.h"
 
 //define width height of each poster in list view
@@ -34,6 +35,7 @@
 @synthesize cinemaView = _cinemaView;
 @synthesize scrollView = _scrollView;
 
+#pragma mark Initialization
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -68,6 +70,18 @@
     [self getListCinemas:url];
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark List Posters
 - (void) setPosterList 
 {
     int count = [_movieObjects count];
@@ -100,10 +114,10 @@
         //set for button
         frame.origin.x = poster_width * i + POSTER_OFFSET_WIDTH;
         frame.origin.y = 0.0f;
-        int movieId = (int)[[_movieObjects objectAtIndex:i] valueForKey:@"Id"];
+        //int movieId = (int)[[_movieObjects objectAtIndex:i] valueForKey:@"Id"];
         UIButton *poster = [[UIButton alloc] initWithFrame:frame];
         [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
-        [poster setTag:movieId];
+        [poster setTag:i];
         [poster addSubview:posterImage];
         
         [_scrollView addSubview:poster];
@@ -112,27 +126,15 @@
 
 - (void) tapPoster:(UIButton*) sender
 {
-    NSLog(@"tag: %@", [sender tag]);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" 
-                                                    message:@"not figure"
-                                                   delegate:self 
-                                          cancelButtonTitle:@"OK" 
-                                          otherButtonTitles:nil];
-    [alert show];
-
+    ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
+                                                                                     bundle:nil];
+    [showtimesController setCinemaObject:_cinemaObject];
+    NSArray *movieObject = [_movieObjects objectAtIndex:[sender tag]];
+    [showtimesController setMovieObject:movieObject];
+    [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
+#pragma mark JSON
 - (void) getListCinemas:(NSString*)urlString
 {
     NSURL *url = [[NSURL alloc] initWithString:urlString];
