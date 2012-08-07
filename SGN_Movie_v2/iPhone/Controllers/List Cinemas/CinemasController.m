@@ -28,6 +28,8 @@
 @synthesize tableView = _tableView;
 @synthesize listCinemas = _listCinemas;
 
+#pragma mark Init
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -81,6 +83,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark TableView
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
 	if (_listCinemas && [_listCinemas count]) 
@@ -119,6 +123,8 @@
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
+#pragma mark JSON
+
 - (void) getListCinemas:(NSString*)urlString
 {
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -134,6 +140,8 @@
                                          ];
     [operation start];
 }
+
+#pragma mark Action
 
 - (void)showMenu
 {
