@@ -52,4 +52,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL
+{
+    
+}
+-(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller failedExtractingYouTubeURLWithError:(NSError *)error
+{
+    
+}
 @end
