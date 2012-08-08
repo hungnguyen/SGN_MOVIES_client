@@ -10,6 +10,7 @@
 #import "HJCache.h"
 #import "MoviesController.h"
 #import "AppDelegate.h"
+#import "TrailerController.h"
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 {

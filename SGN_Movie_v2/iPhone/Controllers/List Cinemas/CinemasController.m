@@ -116,6 +116,13 @@
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
+
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
