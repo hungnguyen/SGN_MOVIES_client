@@ -59,6 +59,8 @@
 		F397E72115C1604400A92874 /* HJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F397E72015C1604400A92874 /* HJCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */; };
 		F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */; };
+		F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7529215D240E800D29207 /* SGNCustomPopup.m */; };
+		F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B7529315D240E800D29207 /* SGNCustomPopup.xib */; };
 		F3C24E5315C8027B0077C801 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3A15C8027B0077C801 /* AboutController.m */; };
 		F3C24E5415C8027B0077C801 /* MovieDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3D15C8027B0077C801 /* MovieDetailController.m */; };
 		F3C24E5515C8027B0077C801 /* CinemasController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4015C8027B0077C801 /* CinemasController.m */; };
@@ -86,7 +88,7 @@
 		F3951C1415CFC51B00BCF4D8 /* ShowtimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowtimesController.h; sourceTree = "<group>"; };
 		F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowtimesController.m; sourceTree = "<group>"; };
 		F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTimesView.xib; sourceTree = "<group>"; };
-		F3951C4F15CFD72800BCF4D8 /* SGNCinemaMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SGNCinemaMovieCell.h; sourceTree = "<group>"; };
+		F3951C4F15CFD72800BCF4D8 /* SGNCinemaMovieCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemaMovieCell.h; sourceTree = "<group>"; };
 		F3951C5015CFD72800BCF4D8 /* SGNCinemaMovieCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemaMovieCell.m; sourceTree = "<group>"; };
 		F3951C5215CFD73F00BCF4D8 /* SGNCinemaMovieCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemaMovieCell.xib; sourceTree = "<group>"; };
 		6FE32C1615D2177300F344E0 /* MapKitDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapKitDisplayController.h; path = SGN_Movie_v2/iPhone/Controllers/Map/MapKitDisplayController.h; sourceTree = SOURCE_ROOT; };
@@ -163,6 +165,9 @@
 		F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemaDetailView.xib; sourceTree = "<group>"; };
 		F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
 		F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
+		F3B7529115D240E800D29207 /* SGNCustomPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCustomPopup.h; sourceTree = "<group>"; };
+		F3B7529215D240E800D29207 /* SGNCustomPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCustomPopup.m; sourceTree = "<group>"; };
+		F3B7529315D240E800D29207 /* SGNCustomPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCustomPopup.xib; sourceTree = "<group>"; };
 		F3C24E3915C8027B0077C801 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F3C24E3A15C8027B0077C801 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F3C24E3C15C8027B0077C801 /* MovieDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailController.h; sourceTree = "<group>"; };
@@ -409,6 +414,7 @@
 		F397E69E15C15B3D00A92874 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F3B7528F15D240E800D29207 /* Views */,
 				F397E6B415C15C5700A92874 /* Libs */,
 			);
 			path = Shared;
@@ -482,6 +488,24 @@
 				F397E70B15C15D3600A92874 /* HJWeakMutableArray.m */,
 			);
 			path = HJCache;
+			sourceTree = "<group>";
+		};
+		F3B7528F15D240E800D29207 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3B7529015D240E800D29207 /* SGNCustomPopup */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3B7529015D240E800D29207 /* SGNCustomPopup */ = {
+			isa = PBXGroup;
+			children = (
+				F3B7529115D240E800D29207 /* SGNCustomPopup.h */,
+				F3B7529215D240E800D29207 /* SGNCustomPopup.m */,
+				F3B7529315D240E800D29207 /* SGNCustomPopup.xib */,
+			);
+			path = SGNCustomPopup;
 			sourceTree = "<group>";
 		};
 		F3C24E3715C8027B0077C801 /* Controllers */ = {
@@ -672,6 +696,7 @@
 				F3951C5315CFD73F00BCF4D8 /* SGNCinemaMovieCell.xib in Resources */,
 				6FFFC0DD15CF669E003D9326 /* TrailerView.xib in Resources */,
 				6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */,
+				F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +746,7 @@
 				6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */,
 				6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */,
 				6FE32C1815D2177300F344E0 /* MapKitDisplayController.m in Sources */,
+				F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
