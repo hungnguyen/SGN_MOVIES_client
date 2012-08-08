@@ -11,8 +11,9 @@
 #import "DisplayMap.h"
 
 @interface MapKitDisplayController : UIViewController <MKMapViewDelegate>
-
-@property (strong, nonatomic) MKMapView * mapView;
+{
+    MKMapView * mapView;
+}
 @property (strong, nonatomic) NSArray *cinemaObject;
 
 @end

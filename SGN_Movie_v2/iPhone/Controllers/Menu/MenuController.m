@@ -15,6 +15,8 @@
 @implementation MenuController
 @synthesize tableView = _tableView;
 
+#pragma mark - Init
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

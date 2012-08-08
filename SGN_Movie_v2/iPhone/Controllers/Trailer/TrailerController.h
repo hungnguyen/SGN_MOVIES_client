@@ -10,6 +10,8 @@
 #import "LBYouTubePlayerViewController.h"
 
 @interface TrailerController : UIViewController <LBYouTubePlayerControllerDelegate>
+{
+    LBYouTubePlayerViewController *youTubePlayerController;
+}
 -(void) createYouTubePlayer:(NSURL*) youTubeURL;
-@property (strong,nonatomic) LBYouTubePlayerViewController *youTubePlayerController;
 @end

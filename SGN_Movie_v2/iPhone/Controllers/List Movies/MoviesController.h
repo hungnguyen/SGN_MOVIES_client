@@ -15,14 +15,12 @@
 
 @interface MoviesController : UIViewController <UIScrollViewDelegate>
 {
+    NSArray * nowShowingMovies;
+    NSArray * comingSoonMovies;
     @public
-    
     bool isToggled;
 }
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) NSArray * nowShowingMovies;
-@property (strong, nonatomic)  NSArray * comingSoonMovies;
-
 @end

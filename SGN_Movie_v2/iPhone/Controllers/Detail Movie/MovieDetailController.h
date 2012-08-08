@@ -14,7 +14,7 @@
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 {
-   
+   UITableView *tableView;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *trailerButton;
@@ -22,7 +22,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *showTimeButton;
 - (IBAction)showShowTime:(id)sender;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSDictionary * movieInfo;
 @property (strong, nonatomic) IBOutlet UITextView *textView;
 

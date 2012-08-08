@@ -14,7 +14,9 @@
 
 @implementation TrailerController
 
-@synthesize youTubePlayerController = _youTubePlayerController;
+//@synthesize youTubePlayerController = _youTubePlayerController;
+
+#pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
 {
@@ -28,10 +30,10 @@
 
 -(void) createYouTubePlayer:(NSURL*) youTubeURL
 {
-    _youTubePlayerController = [[LBYouTubePlayerViewController alloc] initWithYouTubeURL:youTubeURL];
-    [_youTubePlayerController setDelegate:self];
-    [_youTubePlayerController.view setFrame:CGRectMake(0, 0, 320, 400)];
-    [self.view addSubview:_youTubePlayerController.view];
+    youTubePlayerController = [[LBYouTubePlayerViewController alloc] initWithYouTubeURL:youTubeURL];
+    [youTubePlayerController setDelegate:self];
+    [youTubePlayerController.view setFrame:CGRectMake(0, 0, 320, 400)];
+    [self.view addSubview:youTubePlayerController.view];
 }
 
 - (void)viewDidLoad
@@ -42,6 +44,7 @@
 
 - (void)viewDidUnload
 {
+    youTubePlayerController = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -51,6 +54,8 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+#pragma mark - LBYouTubePlayerControllerDelegate
 
 -(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL
 {

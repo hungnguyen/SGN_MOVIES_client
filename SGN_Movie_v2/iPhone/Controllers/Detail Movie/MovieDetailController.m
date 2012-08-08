@@ -31,11 +31,11 @@
 @synthesize scrollView = _scrollView;
 @synthesize showTimeButton = _showTimeButton;
 @synthesize trailerButton = _trailerButton;
-@synthesize tableView = _tableView;
 @synthesize movieInfo = _movieInfo;
 @synthesize textView = _textView;
 
 
+#pragma mark - Init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,7 +67,7 @@
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
     
-    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
+    [tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
     [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*4 + 250))];
     [_scrollView setBounces:NO];
 }
@@ -79,6 +79,7 @@
     [self setShowTimeButton:nil];
     [self setScrollView:nil];
     [self setTextView:nil];
+    tableView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -89,6 +90,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - actions of buttons
 
 - (IBAction)showTrailer:(id)sender 
 {
@@ -126,7 +128,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [self->tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil)
     {

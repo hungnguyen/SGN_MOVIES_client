@@ -25,9 +25,6 @@
 @implementation MoviesController
 @synthesize scrollViewMain = _scrollViewMain;
 @synthesize pageControl = _pageControl;
-@synthesize nowShowingMovies = _nowShowingMovies;
-@synthesize comingSoonMovies = _comingSoonMovies;
-
 
 - (void)viewDidLoad
 {
@@ -43,7 +40,7 @@
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [menuButton addTarget:self action:@selector(showInfo1) forControlEvents:UIControlEventTouchUpInside];
+    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
     [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
     
     UINavigationItem *navigationItem = [self navigationItem];
@@ -78,10 +75,13 @@
 
 - (void)viewDidUnload
 {
+    nowShowingMovies = nil;
+    comingSoonMovies = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self setScrollViewMain:nil];
     [self setPageControl:nil];
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -89,6 +89,8 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+
+#pragma mark - Scrollview Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender 
 {
     CGFloat pageWidth = _scrollViewMain.frame.size.width;
@@ -114,6 +116,7 @@
 }
 
 
+#pragma mark - actions of buttons
 - (void) tapPoster:(UIButton*) sender
 {
     if(!isToggled)
@@ -124,13 +127,13 @@
         
         if([self title] == @"NOW SHOWING")
          {
-             movieDetailController.movieInfo = [_nowShowingMovies objectAtIndex:sender.tag];
+             movieDetailController.movieInfo = [nowShowingMovies objectAtIndex:sender.tag];
           //   NSLog(@"%@",[movieDetailController.movieInfo valueForKey:@"Id"]);
                                                 
          }
          else
          {
-             movieDetailController.movieInfo = [_comingSoonMovies objectAtIndex:sender.tag];
+             movieDetailController.movieInfo = [comingSoonMovies objectAtIndex:sender.tag];
          
          }
         
@@ -160,6 +163,8 @@
     }
 }
 
+
+#pragma mark - Create posters
 - (void)CreatePosters:(UIScrollView *)scrollView moviesContainer:(NSArray *)moviesContainer
 {
     //Add posters to Scrollview
@@ -186,6 +191,9 @@
     }
 }
 
+
+#pragma mark - get movies from JSON
+
 - (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString 
                   moviesContainerIndex:(int) moviesContainerindex 
                             scrollView:(UIScrollView *) scrollView 
@@ -198,18 +206,18 @@
     {
         if(moviesContainerindex == 0)
         {
-            [self setNowShowingMovies:(NSArray*) [JSON objectForKey:@"Data"]];
+            nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
 
-            [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
+            [self CreatePosters:scrollView moviesContainer:nowShowingMovies];
             
-            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+            scrollView.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         else
         {
-            [self setComingSoonMovies: (NSArray*) [JSON objectForKey:@"Data"]];
+            comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
 
-            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
-             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+            [self CreatePosters:scrollView moviesContainer:comingSoonMovies];            
+             scrollView.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         
     } 
@@ -229,6 +237,8 @@
     [operation start];
 }
 
+#pragma mark - action of navigation bar 's buttons
+
 -(void) showInfo
 {
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
@@ -241,7 +251,7 @@
     [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
--(void) showInfo1
+-(void) showMenu
 {
     [[AppDelegate currentDelegate].deckController toggleLeftView];
     if(!isToggled)
