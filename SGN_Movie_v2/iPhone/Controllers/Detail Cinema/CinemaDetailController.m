@@ -10,6 +10,7 @@
 #import "CinemaDetailController.h"
 #import "ShowtimesController.h"
 #import "AFNetworking.h"
+#import "MapKitDisplayController.h"
 
 //define width height of each poster in list view
 #define POSTER_OFFSET_WIDTH 10
@@ -151,4 +152,9 @@
     [operation start];
 }
 
+- (IBAction)showMap:(id)sender {
+    MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
+    [mapKitController setCinemaObject:_cinemaObject];
+    [self.navigationController pushViewController:mapKitController animated:YES];
+}
 @end

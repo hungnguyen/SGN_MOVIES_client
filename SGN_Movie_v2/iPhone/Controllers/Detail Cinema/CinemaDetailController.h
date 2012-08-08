@@ -19,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *cinemaAddress;
 @property (strong, nonatomic) IBOutlet UIView *cinemaView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+- (IBAction)showMap:(id)sender;
 
 @end

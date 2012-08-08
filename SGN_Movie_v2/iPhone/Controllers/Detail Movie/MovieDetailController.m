@@ -13,6 +13,7 @@
 #import <AVFoundation/AVAnimation.h>
 #import <AVFoundation/AVPlayer.h>
 #import <AVFoundation/AVPlayerLayer.h>
+#import "LBYouTubePlayerViewController.h"
 
 #define CELL_WIDTH 320
 #define CELL_HEIGHT 60
@@ -91,11 +92,17 @@
 
 - (IBAction)showTrailer:(id)sender 
 {
-    NSString * urlText = [[NSString alloc] initWithString:[_movieInfo valueForKey:@"TrailerUrl"]];
-    //NSString * urlText = [[NSString alloc] initWithString:@"http://www.youtube.com/watch?v=NnEfklFXQC4&feature=player_embedded"];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlText]];
-}
+    //Create a view to play trailer    
+    TrailerController * trailerController = [[TrailerController alloc] initWithNibName:@"TrailerView" bundle:nil];
+    NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"TrailerUrl"]];
+    [trailerController createYouTubePlayer:[NSURL URLWithString:trailerUrl]];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [self.navigationController pushViewController:trailerController animated:YES];
+    }
 
 - (IBAction)showShowTime:(id)sender 
 {
