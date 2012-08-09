@@ -10,7 +10,7 @@
 
 @class SGNCustomPopup;
 
-@protocol SGNCustomPopupDelegate
+@protocol SGNCustomPopupDelegate <NSObject>
 @optional
 - (void)SGNCustomPopup:(SGNCustomPopup*)customPopup withObjectId:(int)ObjectId;
 @end

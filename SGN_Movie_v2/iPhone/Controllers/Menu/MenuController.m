@@ -130,13 +130,13 @@
         if(navigationController.title == @"CINEMAS")
         {
             CinemasController * cinemasController = (CinemasController *) [navigationController.viewControllers objectAtIndex:0];
-            if(!cinemasController->isToggled)
+            if(![cinemasController isToggled])
             {
-                cinemasController->isToggled = TRUE;
+                [cinemasController setIsToggled:TRUE];
             }
             else 
             {
-                cinemasController->isToggled = FALSE;
+                [cinemasController setIsToggled:FALSE];
             }
             [[AppDelegate currentDelegate].deckController toggleLeftView];
         }
