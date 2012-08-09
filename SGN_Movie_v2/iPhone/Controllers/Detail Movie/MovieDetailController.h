@@ -11,17 +11,21 @@
 #import "MoviesController.h"
 #import "AppDelegate.h"
 #import "TrailerController.h"
+#import "SGNCustomPopup.h"
 
-@interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource>
-{
-}
+@interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource,
+                                                        SGNCustomPopupDelegate>
 
+@property (strong, nonatomic) NSArray *listCinemas;
+@property (strong, nonatomic) NSArray * movieInfo;
+@property (strong, nonatomic)  SGNCustomPopup *popupView;
+@property (strong, nonatomic) IBOutlet UIView *maskView;
 @property (strong, nonatomic) IBOutlet UIButton *trailerButton;
-- (IBAction)showTrailer:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *showTimeButton;
-- (IBAction)showShowTime:(id)sender;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) NSDictionary * movieInfo;
 @property (strong, nonatomic) IBOutlet UITextView *textView;
+
+- (IBAction)showTrailer:(id)sender;
+- (IBAction)showShowTime:(id)sender;
 
 @end
