@@ -6,20 +6,45 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SGNCinemaMovieCell.h"
+#import "SGNComboView.h"
 
-@implementation SGNCinemaMovieCell
+@implementation SGNComboView
 
 @synthesize cinemaName = _cinemaName;
 @synthesize movieImage = _movieImage;
 @synthesize cinemaImage = _cinemaImage;
 @synthesize movieTitle = _movieTitle;
-- (id)initWithFrame:(CGRect)frame
+@synthesize mainView = _mainView;
+
+- (id)initWithCoder:(NSCoder*)coder 
 {
-    //self = [super initWithFrame:frame];
-    self = [[[NSBundle mainBundle] loadNibNamed:@"SGNCinemaMovieCell" owner:self options:nil] objectAtIndex:0];
-    if (self) {
-        // Initialization code
+    //init self as place holder, without any sub view in it (in XIB file, this is mainView)
+    if ((self = [super initWithCoder:coder])) 
+    {
+        //get mainView from XIB file
+        UIView *mainView = [[[NSBundle mainBundle] loadNibNamed:@"SGNComboView" 
+                                                          owner:self 
+                                                        options:nil] objectAtIndex:0];
+        //add mainView as subview for self
+        [self addSubview:mainView];
+    }
+    return self; 
+}
+
+- (id)initWithNibName:(NSString*)nibNameOrNil
+{
+    if(self)
+    {
+        //Load all views in XIB file
+        if(nibNameOrNil == nil || [nibNameOrNil isEqualToString:@""])
+            nibNameOrNil = @"SGNComboView";
+        UIView *myMainView = [[[NSBundle mainBundle] loadNibNamed:nibNameOrNil 
+                                                            owner:self 
+                                                          options:nil] objectAtIndex:0];
+        //init SGNCinemaMovieCell view based on mainView
+        //then add mainView as sub view of self
+        self = [super initWithFrame:myMainView.frame];
+        [self addSubview:myMainView];
     }
     return self;
 }

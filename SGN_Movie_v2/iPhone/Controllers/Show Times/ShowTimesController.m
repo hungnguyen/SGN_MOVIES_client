@@ -9,7 +9,6 @@
 #import <QuartzCore/QuartzCore.h> 
 #import "ShowtimesController.h"
 #import "HJCache.h"
-#import "SGNCinemaMovieCell.h"
 #import "AFNetworking.h"
 
 @interface ShowtimesController ()
@@ -21,9 +20,9 @@
 
 @implementation ShowtimesController
 
+@synthesize comboView = _comboView;
 @synthesize cinemaObject = _cinemaObject;
 @synthesize movieObject = _movieObject;
-@synthesize buttonCinemaMovie = _buttonCinemaMovie;
 @synthesize tableViewShowtimes = _tableViewShowtimes;
 @synthesize showtimesObjects = _showtimesObjects;
 
@@ -41,12 +40,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    CGRect rect = _buttonCinemaMovie.bounds;
-    SGNCinemaMovieCell *cinemaMovieButton = [[SGNCinemaMovieCell alloc]initWithFrame:rect];
-    [cinemaMovieButton fillWithCinema:_cinemaObject andMovie:_movieObject];
-    cinemaMovieButton.userInteractionEnabled = NO;
-    [_buttonCinemaMovie addSubview:cinemaMovieButton];
+    [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
     [_tableViewShowtimes setRowHeight:60];
     
     int cinemaId = (int)[_cinemaObject valueForKey:@"Id"];
@@ -60,6 +54,11 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self setCinemaObject:nil];
+    [self setMovieObject:nil];
+    [self setTableViewShowtimes:nil];
+    [self setShowtimesObjects:nil];
+    [self setComboView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -67,7 +66,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark Manage Tableview
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
@@ -86,6 +85,8 @@
     }
 }
 
+#pragma mark UITableViewDelegate
+
 - (UITableViewCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -99,14 +100,6 @@
     [[cell detailTextLabel]setText:[showtime objectForKey:@"Time"]];
     
     return cell;
-}
-
-#pragma mark Action
-
-- (IBAction)setCinemaMovie:(id)sender 
-{
-    UIAlertView *alert= [[UIAlertView alloc]initWithTitle:@"set data" message:@"set movie cinema" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [alert show];
 }
 
 #pragma mark JSON
