@@ -12,13 +12,14 @@
 
 @protocol SGNCustomPopupDelegate <NSObject>
 @optional
-- (void)SGNCustomPopup:(SGNCustomPopup*)customPopup withObjectId:(int)ObjectId;
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex;
 @end
 
 @interface SGNCustomPopup : UIView
 
 @property (nonatomic, assign) id<SGNCustomPopupDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UIScrollView *srollView;
+@property (nonatomic, strong) IBOutlet UILabel *title;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 - (void)setScrollViewData:(NSArray*)data;

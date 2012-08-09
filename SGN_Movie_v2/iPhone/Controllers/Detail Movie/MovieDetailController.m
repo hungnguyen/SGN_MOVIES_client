@@ -14,17 +14,19 @@
 #import <AVFoundation/AVPlayer.h>
 #import <AVFoundation/AVPlayerLayer.h>
 #import "LBYouTubePlayerViewController.h"
+#import "AFNetworking.h"
+#import "SGNCustomPopup.h"
+#import "ShowtimesController.h"
 
 #define CELL_WIDTH 320
 #define CELL_HEIGHT 60
 #define TABLEVIEW_Ypos 293
 
 @interface MovieDetailController ()
-{
-    int fonSize;
-    NSString * fontName;
-}
+
 @property (strong, nonatomic) UITableView *tableView;
+@property (assign, nonatomic) int fontSize;
+@property (strong, nonatomic) NSString *fontName;
 
 @end
 
@@ -35,9 +37,14 @@
 @synthesize movieInfo = _movieInfo;
 @synthesize textView = _textView;
 @synthesize tableView = _tableView;
-
+@synthesize listCinemas = _listCinemas;
+@synthesize fontName = _fontName;
+@synthesize fontSize = _fontSize;
+@synthesize popupView = _popupView;
+@synthesize maskView = _maskView;
 
 #pragma mark - Init
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,8 +59,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"MOVIE DETAIL"];
-    fonSize = 14;
-    fontName = @"Arial-BoldMT";
+    [self setFontSize:14];
+    [self setFontName:@"Arial-BoldMT"];
     
     NSString * urlString = [[NSString alloc] initWithString:[_movieInfo valueForKey:@"ImageUrl"]];
     HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(-39,43,200,190)];
@@ -72,20 +79,33 @@
     [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
     [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*4 + 250))];
     [_scrollView setBounces:NO];
+    
+    [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
+    [_popupView setDelegate:self];
+    [[_popupView title] setText:@"SELECT CINEMA"];
+    
+    int movieId = (int)[_movieInfo valueForKey:@"Id"];
+    NSString *url = [NSString stringWithFormat:@"http://sgn-m.apphb.com/cinema/movie?movieid=%@",movieId];
+    NSLog(@"%@", url);
+    [self getListCinemas:url];
+    
+    if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
+    {
+        [_showTimeButton setHidden:YES];
+    }
 }
 
 - (void)viewDidUnload
 {
-    
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
     [self setTrailerButton:nil];
     [self setShowTimeButton:nil];
     [self setScrollView:nil];
     [self setTextView:nil];
     [self setTableView:nil];
     [self setMovieInfo:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -111,10 +131,20 @@
 
 - (IBAction)showShowTime:(id)sender 
 {
-    
+    if([_listCinemas count] >0)
+    {
+        [[self view] addSubview:_maskView];
+        [[self view] addSubview:_popupView];
+        [_popupView popUp];
+    }
+    else 
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Sorry, there is no cinema show this movie" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
-#pragma mark - Table view data source
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -127,6 +157,26 @@
     // Return the number of rows in the section.
     return 5;
 }
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
+    
+    if(4 == indexPath.row)
+        return 250.0f;
+    return CELL_HEIGHT;
+}
+
+-(UITextView *) modifyTextViewOfACell:(UITextView *) cellTextView withText:(NSString *) text
+{
+    [cellTextView setText:text];
+    [cellTextView setFont:[UIFont fontWithName:_fontName size:_fontSize]];
+    [cellTextView setEditable:NO];
+    [cellTextView setBackgroundColor:[UIColor clearColor]];
+    [cellTextView setScrollEnabled:NO];
+    
+    return cellTextView;
+}
+
+#pragma mark UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -192,22 +242,35 @@
      */
     
 }
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
-    
-    if(4 == indexPath.row)
-        return 250.0f;
-    return CELL_HEIGHT;
+
+#pragma mark JSON
+
+- (void) getListCinemas:(NSString*)urlString
+{
+    NSURL *url = [[NSURL alloc] initWithString:urlString];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
+                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                            [self setListCinemas: (NSMutableArray*) [JSON objectForKey:@"Data"]];
+                                                                                            [_popupView setScrollViewData:_listCinemas];
+                                                                                        } 
+                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
+                                                                                        }
+                                         ];
+    [operation start];
 }
 
--(UITextView *) modifyTextViewOfACell:(UITextView *) cellTextView withText:(NSString *) text
+#pragma mark SGNCustomPopupDelegate
+
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex
 {
-    cellTextView.text = text;
-    [cellTextView setFont:[UIFont fontWithName:fontName size:fonSize]];
-    [cellTextView setEditable:NO];
-    [cellTextView setBackgroundColor:[UIColor clearColor]];
-    [cellTextView setScrollEnabled:NO];
-    
-    return cellTextView;
+    [_maskView removeFromSuperview];
+    ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
+                                                                                     bundle:nil];
+    [showtimesController setCinemaObject:[_listCinemas objectAtIndex:ObjectIndex]];
+    [showtimesController setMovieObject:_movieInfo];
+    [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
 @end

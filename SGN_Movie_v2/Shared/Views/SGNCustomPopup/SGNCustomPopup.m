@@ -17,6 +17,7 @@
 
 @synthesize delegate = _delegate;
 @synthesize srollView  = _scrollView;
+@synthesize title = _title;
 
 #pragma mark Init
 - (id)initWithFrame:(CGRect)frame
@@ -49,34 +50,34 @@
     
     for (int i=0; i < [data count]; i++) 
     {
+        //set for button
         CGRect frame = _scrollView.bounds;
+        frame.origin.x = i * _scrollView.bounds.size.width;
+        frame = CGRectInset(frame, 10.0f, 0.0f);
+        
+        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
+        [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
+        [poster setTag:i];
         
         //set for image
         frame.origin.x = 0.0f;
-        frame.origin.y = 0.0f;
-        frame = CGRectInset(frame, 10.0f, 0.0f);
         NSString * urlString = [[NSString alloc] initWithString:[[data objectAtIndex:i] 
                                                                  valueForKey:@"ImageUrl"]];
         
         HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
         [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [posterImage showLoadingWheel];
-        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
-        [[HJCache sharedInstance].hjObjManager manage:posterImage];        
-
-        //set for button
-        frame.origin.x = i * _scrollView.bounds.size.width;
-        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
-        [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
-        [poster setTag:i];
-        [poster addSubview:posterImage];
+        //[posterImage setImageContentMode:UIViewContentModeScaleToFill];
+        [[HJCache sharedInstance].hjObjManager manage:posterImage];     
         
+        [poster addSubview:posterImage];
         [_scrollView addSubview:poster];
     }
 
 }
 
 #pragma Ultil Methods
+
 //return scrollView when hit on view self
 - (UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
     UIView *view = [super hitTest:point withEvent:event];
@@ -86,12 +87,12 @@
     return view;
 }
 
-- (void)SGNCustomPopup:(SGNCustomPopup*)customView withObjectId:(int)objectId
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customView withObjectIndex:(int)objectIndex
 {
     
-    if(_delegate != nil)// && [self.delegate respondsToSelector:@selector(CustomViewTap:withValueId:)])
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNCustomPopupTap:withObjectIndex:)])
     {
-        [_delegate SGNCustomPopup:self withObjectId:objectId];
+        [_delegate SGNCustomPopupTap:self withObjectIndex:objectIndex];
     }
 }
 
@@ -121,14 +122,14 @@
     frame.origin.y = [self superview].bounds.size.height;
     self.frame = frame;
     [UIView commitAnimations];
-    [self SGNCustomPopup:self withObjectId:[sender tag]];
+    [self SGNCustomPopupTap:self withObjectIndex:[sender tag]];
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context 
 {
     if ([animationID isEqualToString:@"popdownView"]) 
     {
-        [self removeFromSuperview];
+       [self removeFromSuperview];
     }
 }
      
