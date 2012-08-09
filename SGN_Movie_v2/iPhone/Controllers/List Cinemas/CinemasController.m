@@ -13,11 +13,12 @@
 #import "SGNCinemasListCell.h"
 #import "AFNetworking.h"
 
-@interface CinemasController ()
-{
-    
-}
+//define height of cell in view List Cinemas
+#define HEIGHT_CINEMAS_LIST_CELL 130
 
+@interface CinemasController ()
+
+@property (strong, nonatomic) NSMutableArray *listCinemas;
 -(void) showMenu;
 -(void) showInfo;
 
@@ -25,8 +26,9 @@
 
 @implementation CinemasController
 
-@synthesize tableView = _tableView;
 @synthesize listCinemas = _listCinemas;
+@synthesize tableView = _tableView;
+@synthesize isToggled = _isToggled;
 
 #pragma mark Init
 
@@ -43,7 +45,7 @@
 {
     [super viewDidLoad];
     
-    isToggled = FALSE;
+    [self setIsToggled:FALSE];
     // Do any additional setup after loading the view from its nib.
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -76,6 +78,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self setTableView:nil];
+    [self setIsToggled:nil];
+    [self setListCinemas:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -83,7 +87,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark TableView
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
@@ -101,6 +105,8 @@
 {
     return 1;
 }
+
+#pragma mark UITableViewDelegate
 
 - (SGNCinemasListCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -120,13 +126,7 @@
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
-
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
-    
+ 
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
@@ -139,7 +139,7 @@
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [self setListCinemas: (NSMutableArray*) [JSON objectForKey:@"Data"]];
-                                                                                            [[self tableView] reloadData];
+                                                                                            [_tableView reloadData];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
@@ -153,25 +153,18 @@
 - (void)showMenu
 {
     [[AppDelegate currentDelegate].deckController toggleLeftView];
-    if(!isToggled)
+    if(!_isToggled)
     {
-        isToggled = TRUE;
+        [self setIsToggled:TRUE];
     }
     else 
     {
-        isToggled = FALSE;
+        [self setIsToggled:FALSE];
     }
 }
 
 - (void)showInfo
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    
-    [[self navigationItem] setBackBarButtonItem: backButton];
-    
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
     
 }

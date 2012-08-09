@@ -13,11 +13,4 @@
     #import <Foundation/Foundation.h>
 #endif
 
-//define ledge of IIViewDeckController
-#define SLIDER_LEFT_LEDGE_WIDTH 56
-#define SLIDER_RIGHT_LEDGE_WIDTH 56
-
-//define height of cell in view List Cinemas
-#define HEIGHT_CINEMAS_LIST_CELL 130
-
 #define PROVIDER_URL @"http://www.galaxycine.vn/"
