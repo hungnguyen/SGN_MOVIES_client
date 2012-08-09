@@ -17,6 +17,8 @@
 @interface MoviesController ()
 {
 }
+@property (strong,nonatomic)  NSArray * nowShowingMovies;
+@property (strong,nonatomic)  NSArray * comingSoonMovies;
 - (void) tapPoster:(UIButton*) sender;
 
 
@@ -25,6 +27,8 @@
 @implementation MoviesController
 @synthesize scrollViewMain = _scrollViewMain;
 @synthesize pageControl = _pageControl;
+@synthesize nowShowingMovies = _nowShowingMovies;
+@synthesize comingSoonMovies = _comingSoonMovies;
 
 - (void)viewDidLoad
 {
@@ -75,8 +79,8 @@
 
 - (void)viewDidUnload
 {
-    nowShowingMovies = nil;
-    comingSoonMovies = nil;
+    [self setNowShowingMovies:nil];
+    [self setComingSoonMovies:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self setScrollViewMain:nil];
@@ -127,13 +131,13 @@
         
         if([self title] == @"NOW SHOWING")
          {
-             movieDetailController.movieInfo = [nowShowingMovies objectAtIndex:sender.tag];
+             movieDetailController.movieInfo = [_nowShowingMovies objectAtIndex:sender.tag];
           //   NSLog(@"%@",[movieDetailController.movieInfo valueForKey:@"Id"]);
                                                 
          }
          else
          {
-             movieDetailController.movieInfo = [comingSoonMovies objectAtIndex:sender.tag];
+             movieDetailController.movieInfo = [_comingSoonMovies objectAtIndex:sender.tag];
          
          }
         
@@ -206,18 +210,18 @@
     {
         if(moviesContainerindex == 0)
         {
-            nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
+            _nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
 
-            [self CreatePosters:scrollView moviesContainer:nowShowingMovies];
+            [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
             
-            scrollView.contentSize = CGSizeMake( 320, (((nowShowingMovies.count/2)+(nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         else
         {
-            comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
+            _comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
 
-            [self CreatePosters:scrollView moviesContainer:comingSoonMovies];            
-             scrollView.contentSize = CGSizeMake( 320, (((comingSoonMovies.count/2)+(comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
+             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
         }
         
     } 

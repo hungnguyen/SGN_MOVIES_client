@@ -24,6 +24,7 @@
     int fonSize;
     NSString * fontName;
 }
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 
@@ -33,6 +34,7 @@
 @synthesize trailerButton = _trailerButton;
 @synthesize movieInfo = _movieInfo;
 @synthesize textView = _textView;
+@synthesize tableView = _tableView;
 
 
 #pragma mark - Init
@@ -67,7 +69,7 @@
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
     
-    [tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
+    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
     [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*4 + 250))];
     [_scrollView setBounces:NO];
 }
@@ -79,7 +81,8 @@
     [self setShowTimeButton:nil];
     [self setScrollView:nil];
     [self setTextView:nil];
-    tableView = nil;
+    [self setTableView:nil];
+    [self setMovieInfo:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -128,7 +131,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [self->tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if(cell == nil)
     {

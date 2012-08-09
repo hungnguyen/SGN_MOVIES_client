@@ -9,12 +9,12 @@
 #import "TrailerController.h"
 
 @interface TrailerController ()
-
+@property (strong,nonatomic) LBYouTubePlayerViewController *youTubePlayerController;
 @end
 
 @implementation TrailerController
 
-//@synthesize youTubePlayerController = _youTubePlayerController;
+@synthesize youTubePlayerController = _youTubePlayerController;
 
 #pragma mark - Init
 
@@ -30,10 +30,10 @@
 
 -(void) createYouTubePlayer:(NSURL*) youTubeURL
 {
-    youTubePlayerController = [[LBYouTubePlayerViewController alloc] initWithYouTubeURL:youTubeURL];
-    [youTubePlayerController setDelegate:self];
-    [youTubePlayerController.view setFrame:CGRectMake(0, 0, 320, 400)];
-    [self.view addSubview:youTubePlayerController.view];
+    _youTubePlayerController = [[LBYouTubePlayerViewController alloc] initWithYouTubeURL:youTubeURL];
+    [_youTubePlayerController setDelegate:self];
+    [_youTubePlayerController.view setFrame:CGRectMake(0, 0, 320, 400)];
+    [self.view addSubview:_youTubePlayerController.view];
 }
 
 - (void)viewDidLoad
@@ -44,7 +44,7 @@
 
 - (void)viewDidUnload
 {
-    youTubePlayerController = nil;
+    [self setYouTubePlayerController:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

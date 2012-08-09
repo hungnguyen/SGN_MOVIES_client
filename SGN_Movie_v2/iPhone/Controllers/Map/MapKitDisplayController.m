@@ -9,12 +9,16 @@
 #import "MapKitDisplayController.h"
 
 @interface MapKitDisplayController ()
-
+{
+    
+}
+@property (strong,nonatomic) MKMapView * mapView;
 @end
 
 @implementation MapKitDisplayController
 
 @synthesize cinemaObject = _cinemaObject;
+@synthesize mapView = _mapView;
 
 
 #pragma mark - Init
@@ -33,9 +37,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:[_cinemaObject valueForKey:@"Name"]];
-    [mapView setMapType:MKMapTypeStandard];
-	[mapView setZoomEnabled:YES];
-	[mapView setScrollEnabled:YES];
+    [_mapView setMapType:MKMapTypeStandard];
+	[_mapView setZoomEnabled:YES];
+	[_mapView setScrollEnabled:YES];
 	MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } }; 
   
     //Convert from NSString to NSNumber
@@ -48,27 +52,27 @@
 	region.center.longitude = longitudeNumber.floatValue;
     region.span.longitudeDelta = 0.01f;
 	region.span.latitudeDelta = 0.01f;
-	[mapView setRegion:region animated:YES]; 
-    mapView.showsUserLocation = YES;
-	[mapView setDelegate:self];
+	[_mapView setRegion:region animated:YES]; 
+    _mapView.showsUserLocation = YES;
+	[_mapView setDelegate:self];
     
     //Add a ann to map
 	DisplayMap *ann = [[DisplayMap alloc] init]; 
 	ann.title = [_cinemaObject valueForKey:@"Name"];
 	ann.subtitle = [_cinemaObject valueForKey:@"Address"]; 
 	ann.coordinate = region.center; 
-	[mapView addAnnotation:ann];
+	[_mapView addAnnotation:ann];
     
-    [self.view addSubview:mapView];
+    [self.view addSubview:_mapView];
     
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:
 (id <MKAnnotation>)annotation {
 	MKPinAnnotationView *pinView = nil; 
-	if(annotation != mapView.userLocation) 
+	if(annotation != _mapView.userLocation) 
 	{
 		static NSString *defaultPinID = @"com.invasivecode.pin";
-		pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+		pinView = (MKPinAnnotationView *)[_mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
 		if ( pinView == nil ) pinView = [[MKPinAnnotationView alloc]
                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID];
         
@@ -77,7 +81,7 @@
 		pinView.animatesDrop = YES;
     } 
 	else {
-		[mapView.userLocation setTitle:@"I am here"];
+		[_mapView.userLocation setTitle:@"I am here"];
 	}
     
     return pinView;
@@ -86,8 +90,9 @@
 
 - (void)viewDidUnload
 {
-    mapView = nil;
+    
     [self setCinemaObject:nil];
+    [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

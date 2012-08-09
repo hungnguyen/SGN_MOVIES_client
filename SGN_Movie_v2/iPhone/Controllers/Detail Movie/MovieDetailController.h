@@ -14,7 +14,6 @@
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 {
-   UITableView *tableView;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *trailerButton;

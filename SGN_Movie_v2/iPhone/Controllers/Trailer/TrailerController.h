@@ -11,7 +11,6 @@
 
 @interface TrailerController : UIViewController <LBYouTubePlayerControllerDelegate>
 {
-    LBYouTubePlayerViewController *youTubePlayerController;
 }
 -(void) createYouTubePlayer:(NSURL*) youTubeURL;
 @end

@@ -12,7 +12,6 @@
 
 @interface MapKitDisplayController : UIViewController <MKMapViewDelegate>
 {
-    MKMapView * mapView;
 }
 @property (strong, nonatomic) NSArray *cinemaObject;
 

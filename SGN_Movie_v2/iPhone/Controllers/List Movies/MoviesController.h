@@ -15,8 +15,6 @@
 
 @interface MoviesController : UIViewController <UIScrollViewDelegate>
 {
-    NSArray * nowShowingMovies;
-    NSArray * comingSoonMovies;
     @public
     bool isToggled;
 }
