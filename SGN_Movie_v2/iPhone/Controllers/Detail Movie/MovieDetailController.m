@@ -84,8 +84,8 @@
     [_popupView setDelegate:self];
     [[_popupView title] setText:@"SELECT CINEMA"];
     
-    int movieId = (int)[_movieInfo valueForKey:@"Id"];
-    NSString *url = [NSString stringWithFormat:@"http://sgn-m.apphb.com/cinema/movie?movieid=%@",movieId];
+    int movieId = (int)[_movieInfo valueForKey:@"MovieId"];
+    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%@",movieId];
     NSLog(@"%@", url);
     [self getListCinemas:url];
     

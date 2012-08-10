@@ -59,12 +59,12 @@
     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];        
    
     //Get now showing movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=nowshowing" 
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=nowshowing" 
                    moviesContainerIndex:0 
                              scrollView:scrollviewNoSh];
     
     //Get coming soon movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgn-m.apphb.com/movie/list?type=comingsoon" 
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=comingsoon" 
                    moviesContainerIndex:1 
                              scrollView:scrollviewCoSo];
     

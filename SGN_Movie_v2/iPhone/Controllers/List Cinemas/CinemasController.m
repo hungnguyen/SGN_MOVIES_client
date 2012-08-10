@@ -63,7 +63,7 @@
     [self setTitle:@"CINEMAS"];
     [[self navigationController] setTitle:@"CINEMAS"];
     
-    [self getListCinemas:@"http://sgn-m.apphb.com/cinema/list"];
+    [self getListCinemas:@"http://sgnm-server.apphb.com/cinema/list"];
     
     //set rowheight for custom view cell: SGNCinemaListCell
     [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
