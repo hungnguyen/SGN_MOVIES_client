@@ -22,6 +22,17 @@
 		6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFFC0FE15CF9E71003D9326 /* MapKit.framework */; };
 		6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC11B15CFA73C003D9326 /* DisplayMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FFFC11D15CFA7A1003D9326 /* MapKitDisplayView.xib */; };
+		F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38DA8F315D8F05300C40810 /* CoreData.framework */; };
+		F38DA93915D91CD300C40810 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* DataService.m */; };
+		F38DA93A15D91CD300C40810 /* Cinema.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92F15D91CD300C40810 /* Cinema.m */; };
+		F38DA93B15D91CD300C40810 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93115D91CD300C40810 /* Movie.m */; };
+		F38DA93C15D91CD300C40810 /* Provider.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93315D91CD300C40810 /* Provider.m */; };
+		F38DA93D15D91CD300C40810 /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93515D91CD300C40810 /* Sessiontime.m */; };
+		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
+		F38DA94115D91D1E00C40810 /* ProviderRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA94015D91D1E00C40810 /* ProviderRepository.m */; };
+		F38DA94415D91D2D00C40810 /* CinemaRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA94315D91D2D00C40810 /* CinemaRepository.m */; };
+		F38DA94715D91D3A00C40810 /* MovieRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA94615D91D3A00C40810 /* MovieRepository.m */; };
+		F38DA94A15D91D6000C40810 /* SessiontimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA94915D91D6000C40810 /* SessiontimeRepository.m */; };
 		F3951C1615CFC51B00BCF4D8 /* ShowtimesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */; };
 		F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */; };
 		F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C5015CFD72800BCF4D8 /* SGNComboView.m */; };
@@ -72,12 +83,6 @@
 		F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5015C8027B0077C801 /* MoviesView.xib */; };
 		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
 		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
-		F3C89C6B15D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */; };
-		F3C89C7215D8E8C500E4B28C /* Cinema.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7115D8E8C500E4B28C /* Cinema.m */; };
-		F3C89C7515D8E8C500E4B28C /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7415D8E8C500E4B28C /* Movie.m */; };
-		F3C89C7815D8E8C500E4B28C /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7715D8E8C500E4B28C /* Sessiontime.m */; };
-		F3C89C7B15D8E8C600E4B28C /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7A15D8E8C600E4B28C /* Setting.m */; };
-		F3C89C7E15D8E8C600E4B28C /* Provider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7D15D8E8C600E4B28C /* Provider.m */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -104,6 +109,26 @@
 		6FFFC11A15CFA73C003D9326 /* DisplayMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayMap.h; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.h; sourceTree = SOURCE_ROOT; };
 		6FFFC11B15CFA73C003D9326 /* DisplayMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayMap.m; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.m; sourceTree = SOURCE_ROOT; };
 		6FFFC11D15CFA7A1003D9326 /* MapKitDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapKitDisplayView.xib; sourceTree = "<group>"; };
+		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F38DA92B15D91CD300C40810 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
+		F38DA92C15D91CD300C40810 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
+		F38DA92E15D91CD300C40810 /* Cinema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cinema.h; sourceTree = "<group>"; };
+		F38DA92F15D91CD300C40810 /* Cinema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cinema.m; sourceTree = "<group>"; };
+		F38DA93015D91CD300C40810 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		F38DA93115D91CD300C40810 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		F38DA93215D91CD300C40810 /* Provider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Provider.h; sourceTree = "<group>"; };
+		F38DA93315D91CD300C40810 /* Provider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Provider.m; sourceTree = "<group>"; };
+		F38DA93415D91CD300C40810 /* Sessiontime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sessiontime.h; sourceTree = "<group>"; };
+		F38DA93515D91CD300C40810 /* Sessiontime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sessiontime.m; sourceTree = "<group>"; };
+		F38DA93715D91CD300C40810 /* SGN_Movie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SGN_Movie.xcdatamodel; sourceTree = "<group>"; };
+		F38DA93F15D91D1E00C40810 /* ProviderRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProviderRepository.h; sourceTree = "<group>"; };
+		F38DA94015D91D1E00C40810 /* ProviderRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProviderRepository.m; sourceTree = "<group>"; };
+		F38DA94215D91D2D00C40810 /* CinemaRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaRepository.h; sourceTree = "<group>"; };
+		F38DA94315D91D2D00C40810 /* CinemaRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaRepository.m; sourceTree = "<group>"; };
+		F38DA94515D91D3A00C40810 /* MovieRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieRepository.h; sourceTree = "<group>"; };
+		F38DA94615D91D3A00C40810 /* MovieRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieRepository.m; sourceTree = "<group>"; };
+		F38DA94815D91D6000C40810 /* SessiontimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessiontimeRepository.h; sourceTree = "<group>"; };
+		F38DA94915D91D6000C40810 /* SessiontimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessiontimeRepository.m; sourceTree = "<group>"; };
 		F3951C1415CFC51B00BCF4D8 /* ShowtimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowtimesController.h; sourceTree = "<group>"; };
 		F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowtimesController.m; sourceTree = "<group>"; };
 		F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTimesView.xib; sourceTree = "<group>"; };
@@ -191,17 +216,6 @@
 		F3C24E5015C8027B0077C801 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F3C24E5215C8027B0077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
-		F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SGN_Movie.xcdatamodel; sourceTree = "<group>"; };
-		F3C89C7015D8E8C500E4B28C /* Cinema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cinema.h; sourceTree = "<group>"; };
-		F3C89C7115D8E8C500E4B28C /* Cinema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cinema.m; sourceTree = "<group>"; };
-		F3C89C7315D8E8C500E4B28C /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
-		F3C89C7415D8E8C500E4B28C /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
-		F3C89C7615D8E8C500E4B28C /* Sessiontime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sessiontime.h; sourceTree = "<group>"; };
-		F3C89C7715D8E8C500E4B28C /* Sessiontime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sessiontime.m; sourceTree = "<group>"; };
-		F3C89C7915D8E8C600E4B28C /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
-		F3C89C7A15D8E8C600E4B28C /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
-		F3C89C7C15D8E8C600E4B28C /* Provider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Provider.h; sourceTree = "<group>"; };
-		F3C89C7D15D8E8C600E4B28C /* Provider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Provider.m; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -211,6 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */,
 				6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */,
 				6FE28E8115C7BD0D00BB7A4E /* AVFoundation.framework in Frameworks */,
 				6FE28E6815C7B38100BB7A4E /* MediaPlayer.framework in Frameworks */,
@@ -306,6 +321,46 @@
 			path = "Detail Cinema";
 			sourceTree = "<group>";
 		};
+		F38DA92A15D91CD300C40810 /* DataSerivce */ = {
+			isa = PBXGroup;
+			children = (
+				F38DA92B15D91CD300C40810 /* DataService.h */,
+				F38DA92C15D91CD300C40810 /* DataService.m */,
+			);
+			path = DataSerivce;
+			sourceTree = "<group>";
+		};
+		F38DA92D15D91CD300C40810 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				F38DA92E15D91CD300C40810 /* Cinema.h */,
+				F38DA92F15D91CD300C40810 /* Cinema.m */,
+				F38DA93015D91CD300C40810 /* Movie.h */,
+				F38DA93115D91CD300C40810 /* Movie.m */,
+				F38DA93215D91CD300C40810 /* Provider.h */,
+				F38DA93315D91CD300C40810 /* Provider.m */,
+				F38DA93415D91CD300C40810 /* Sessiontime.h */,
+				F38DA93515D91CD300C40810 /* Sessiontime.m */,
+				F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		F38DA93815D91CD300C40810 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F38DA93F15D91D1E00C40810 /* ProviderRepository.h */,
+				F38DA94015D91D1E00C40810 /* ProviderRepository.m */,
+				F38DA94215D91D2D00C40810 /* CinemaRepository.h */,
+				F38DA94315D91D2D00C40810 /* CinemaRepository.m */,
+				F38DA94515D91D3A00C40810 /* MovieRepository.h */,
+				F38DA94615D91D3A00C40810 /* MovieRepository.m */,
+				F38DA94815D91D6000C40810 /* SessiontimeRepository.h */,
+				F38DA94915D91D6000C40810 /* SessiontimeRepository.m */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		F3951C1115CFC4D200BCF4D8 /* Show Times */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +384,7 @@
 		F397E66415C159A000A92874 = {
 			isa = PBXGroup;
 			children = (
+				F38DA8F315D8F05300C40810 /* CoreData.framework */,
 				F397E67915C159A100A92874 /* SGN_MOVIE_v2 */,
 				F397E67215C159A100A92874 /* Frameworks */,
 				F397E67015C159A100A92874 /* Products */,
@@ -640,17 +696,9 @@
 		F3C89C6715D8D88900E4B28C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */,
-				F3C89C7C15D8E8C600E4B28C /* Provider.h */,
-				F3C89C7D15D8E8C600E4B28C /* Provider.m */,
-				F3C89C7915D8E8C600E4B28C /* Setting.h */,
-				F3C89C7A15D8E8C600E4B28C /* Setting.m */,
-				F3C89C7615D8E8C500E4B28C /* Sessiontime.h */,
-				F3C89C7715D8E8C500E4B28C /* Sessiontime.m */,
-				F3C89C7315D8E8C500E4B28C /* Movie.h */,
-				F3C89C7415D8E8C500E4B28C /* Movie.m */,
-				F3C89C7015D8E8C500E4B28C /* Cinema.h */,
-				F3C89C7115D8E8C500E4B28C /* Cinema.m */,
+				F38DA92A15D91CD300C40810 /* DataSerivce */,
+				F38DA92D15D91CD300C40810 /* Entities */,
+				F38DA93815D91CD300C40810 /* Repository */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -783,12 +831,16 @@
 				6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */,
 				6FE32C1815D2177300F344E0 /* MapKitDisplayController.m in Sources */,
 				F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */,
-				F3C89C6B15D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld in Sources */,
-				F3C89C7215D8E8C500E4B28C /* Cinema.m in Sources */,
-				F3C89C7515D8E8C500E4B28C /* Movie.m in Sources */,
-				F3C89C7815D8E8C500E4B28C /* Sessiontime.m in Sources */,
-				F3C89C7B15D8E8C600E4B28C /* Setting.m in Sources */,
-				F3C89C7E15D8E8C600E4B28C /* Provider.m in Sources */,
+				F38DA93915D91CD300C40810 /* DataService.m in Sources */,
+				F38DA93A15D91CD300C40810 /* Cinema.m in Sources */,
+				F38DA93B15D91CD300C40810 /* Movie.m in Sources */,
+				F38DA93C15D91CD300C40810 /* Provider.m in Sources */,
+				F38DA93D15D91CD300C40810 /* Sessiontime.m in Sources */,
+				F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */,
+				F38DA94115D91D1E00C40810 /* ProviderRepository.m in Sources */,
+				F38DA94415D91D2D00C40810 /* CinemaRepository.m in Sources */,
+				F38DA94715D91D3A00C40810 /* MovieRepository.m in Sources */,
+				F38DA94A15D91D6000C40810 /* SessiontimeRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,12 +955,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */ = {
+		F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */,
+				F38DA93715D91CD300C40810 /* SGN_Movie.xcdatamodel */,
 			);
-			currentVersion = F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */;
+			currentVersion = F38DA93715D91CD300C40810 /* SGN_Movie.xcdatamodel */;
 			path = SGN_Movie.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

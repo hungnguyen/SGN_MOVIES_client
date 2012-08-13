@@ -11,11 +11,11 @@
 
 @implementation Sessiontime
 
-@dynamic sessiontimeId;
-@dynamic providerId;
-@dynamic movieId;
 @dynamic cinemaId;
-@dynamic time;
 @dynamic date;
+@dynamic movieId;
+@dynamic providerId;
+@dynamic sessiontimeId;
+@dynamic time;
 
 @end

@@ -12,6 +12,8 @@
 #import "CinemasController.h"
 #import "AFNetworking.h"
 #import "MenuController.h"
+#import <CoreData/CoreData.h>
+
 #define PROVIDER_URL @"http://www.galaxycine.vn/"
 
 @class MoviesController;
@@ -24,6 +26,7 @@
 @property (strong, nonatomic) IIViewDeckController *deckController;
 
 +(AppDelegate *) currentDelegate;
+- (NSURL *)applicationDocumentsDirectory;
 
 @end
 
