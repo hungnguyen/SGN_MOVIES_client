@@ -72,6 +72,12 @@
 		F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5015C8027B0077C801 /* MoviesView.xib */; };
 		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
 		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
+		F3C89C6B15D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */; };
+		F3C89C7215D8E8C500E4B28C /* Cinema.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7115D8E8C500E4B28C /* Cinema.m */; };
+		F3C89C7515D8E8C500E4B28C /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7415D8E8C500E4B28C /* Movie.m */; };
+		F3C89C7815D8E8C500E4B28C /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7715D8E8C500E4B28C /* Sessiontime.m */; };
+		F3C89C7B15D8E8C600E4B28C /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7A15D8E8C600E4B28C /* Setting.m */; };
+		F3C89C7E15D8E8C600E4B28C /* Provider.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C89C7D15D8E8C600E4B28C /* Provider.m */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -101,7 +107,7 @@
 		F3951C1415CFC51B00BCF4D8 /* ShowtimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowtimesController.h; sourceTree = "<group>"; };
 		F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowtimesController.m; sourceTree = "<group>"; };
 		F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTimesView.xib; sourceTree = "<group>"; };
-		F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SGNComboView.h; sourceTree = "<group>"; };
+		F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNComboView.h; sourceTree = "<group>"; };
 		F3951C5015CFD72800BCF4D8 /* SGNComboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNComboView.m; sourceTree = "<group>"; };
 		F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNComboView.xib; sourceTree = "<group>"; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +191,17 @@
 		F3C24E5015C8027B0077C801 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F3C24E5215C8027B0077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
+		F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SGN_Movie.xcdatamodel; sourceTree = "<group>"; };
+		F3C89C7015D8E8C500E4B28C /* Cinema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cinema.h; sourceTree = "<group>"; };
+		F3C89C7115D8E8C500E4B28C /* Cinema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cinema.m; sourceTree = "<group>"; };
+		F3C89C7315D8E8C500E4B28C /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		F3C89C7415D8E8C500E4B28C /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		F3C89C7615D8E8C500E4B28C /* Sessiontime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sessiontime.h; sourceTree = "<group>"; };
+		F3C89C7715D8E8C500E4B28C /* Sessiontime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sessiontime.m; sourceTree = "<group>"; };
+		F3C89C7915D8E8C600E4B28C /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
+		F3C89C7A15D8E8C600E4B28C /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		F3C89C7C15D8E8C600E4B28C /* Provider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Provider.h; sourceTree = "<group>"; };
+		F3C89C7D15D8E8C600E4B28C /* Provider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Provider.m; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -365,6 +382,7 @@
 		F397E69215C15B3D00A92874 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				F3C89C6715D8D88900E4B28C /* Models */,
 				F3C24E3715C8027B0077C801 /* Controllers */,
 				F3C24E4715C8027B0077C801 /* Views */,
 				F397E69315C15B3D00A92874 /* AppDelegate.h */,
@@ -619,6 +637,24 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		F3C89C6715D8D88900E4B28C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */,
+				F3C89C7C15D8E8C600E4B28C /* Provider.h */,
+				F3C89C7D15D8E8C600E4B28C /* Provider.m */,
+				F3C89C7915D8E8C600E4B28C /* Setting.h */,
+				F3C89C7A15D8E8C600E4B28C /* Setting.m */,
+				F3C89C7615D8E8C500E4B28C /* Sessiontime.h */,
+				F3C89C7715D8E8C500E4B28C /* Sessiontime.m */,
+				F3C89C7315D8E8C500E4B28C /* Movie.h */,
+				F3C89C7415D8E8C500E4B28C /* Movie.m */,
+				F3C89C7015D8E8C500E4B28C /* Cinema.h */,
+				F3C89C7115D8E8C500E4B28C /* Cinema.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F3DDF9A215C2753500A47C57 /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +783,12 @@
 				6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */,
 				6FE32C1815D2177300F344E0 /* MapKitDisplayController.m in Sources */,
 				F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */,
+				F3C89C6B15D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld in Sources */,
+				F3C89C7215D8E8C500E4B28C /* Cinema.m in Sources */,
+				F3C89C7515D8E8C500E4B28C /* Movie.m in Sources */,
+				F3C89C7815D8E8C500E4B28C /* Sessiontime.m in Sources */,
+				F3C89C7B15D8E8C600E4B28C /* Setting.m in Sources */,
+				F3C89C7E15D8E8C600E4B28C /* Provider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,6 +901,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F3C89C6915D8D8CF00E4B28C /* SGN_Movie.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */,
+			);
+			currentVersion = F3C89C6A15D8D8CF00E4B28C /* SGN_Movie.xcdatamodel */;
+			path = SGN_Movie.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F397E66615C159A000A92874 /* Project object */;
 }
