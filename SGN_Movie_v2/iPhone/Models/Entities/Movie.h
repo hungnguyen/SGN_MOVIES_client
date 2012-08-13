@@ -12,21 +12,21 @@
 
 @interface Movie : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * movieId;
-@property (nonatomic, retain) NSNumber * providerId;
+@property (nonatomic, retain) NSString * cast;
 @property (nonatomic, retain) NSString * director;
-@property (nonatomic, retain) NSString * movieWebId;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * genre;
 @property (nonatomic, retain) NSString * duration;
+@property (nonatomic, retain) NSString * genre;
+@property (nonatomic, retain) NSString * imageUrl;
+@property (nonatomic, retain) NSString * infoUrl;
+@property (nonatomic, retain) NSNumber * isNowShowing;
 @property (nonatomic, retain) NSString * language;
 @property (nonatomic, retain) NSString * movieDescription;
-@property (nonatomic, retain) NSString * cast;
-@property (nonatomic, retain) NSNumber * isNowShowing;
+@property (nonatomic, retain) NSNumber * movieId;
+@property (nonatomic, retain) NSString * movieWebId;
 @property (nonatomic, retain) NSString * producer;
-@property (nonatomic, retain) NSString * version;
-@property (nonatomic, retain) NSString * infoUrl;
-@property (nonatomic, retain) NSString * imageUrl;
+@property (nonatomic, retain) NSNumber * providerId;
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * trailerUrl;
+@property (nonatomic, retain) NSString * version;
 
 @end

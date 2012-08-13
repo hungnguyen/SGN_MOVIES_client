@@ -11,21 +11,21 @@
 
 @implementation Movie
 
-@dynamic movieId;
-@dynamic providerId;
+@dynamic cast;
 @dynamic director;
-@dynamic movieWebId;
-@dynamic title;
-@dynamic genre;
 @dynamic duration;
+@dynamic genre;
+@dynamic imageUrl;
+@dynamic infoUrl;
+@dynamic isNowShowing;
 @dynamic language;
 @dynamic movieDescription;
-@dynamic cast;
-@dynamic isNowShowing;
+@dynamic movieId;
+@dynamic movieWebId;
 @dynamic producer;
-@dynamic version;
-@dynamic infoUrl;
-@dynamic imageUrl;
+@dynamic providerId;
+@dynamic title;
 @dynamic trailerUrl;
+@dynamic version;
 
 @end

@@ -12,8 +12,8 @@
 
 @interface Provider : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * providerId;
 @property (nonatomic, retain) NSString * hostUrl;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * providerId;
 
 @end

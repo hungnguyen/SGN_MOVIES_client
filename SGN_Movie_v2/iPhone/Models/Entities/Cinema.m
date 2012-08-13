@@ -11,15 +11,15 @@
 
 @implementation Cinema
 
+@dynamic address;
 @dynamic cinemaId;
 @dynamic cinemaWebId;
-@dynamic providerId;
-@dynamic name;
-@dynamic address;
-@dynamic phone;
+@dynamic imageUrl;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic imageUrl;
 @dynamic mapUrl;
+@dynamic name;
+@dynamic phone;
+@dynamic providerId;
 
 @end
