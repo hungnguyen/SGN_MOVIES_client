@@ -40,6 +40,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self setTitle:@"SHOWTIMES"];
     [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
     [_tableViewShowtimes setRowHeight:60];
     

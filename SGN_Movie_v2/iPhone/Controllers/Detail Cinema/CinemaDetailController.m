@@ -50,6 +50,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self setTitle:@"DETAIL CINEMA"];
     NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject valueForKey:@"ImageUrl"]];
     
     //set round border
