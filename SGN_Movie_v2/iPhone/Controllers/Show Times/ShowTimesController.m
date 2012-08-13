@@ -43,9 +43,9 @@
     [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
     [_tableViewShowtimes setRowHeight:60];
     
-    int cinemaId = (int)[_cinemaObject valueForKey:@"Id"];
-    int movieId = (int)[_movieObject valueForKey:@"Id"];
-    NSString *url = [NSString stringWithFormat:@"http://sgn-m.apphb.com/session/list?cinemaid=%@&movieid=%@",cinemaId, movieId]; 
+    int cinemaId = (int)[_cinemaObject valueForKey:@"CinemaId"];
+    int movieId = (int)[_movieObject valueForKey:@"MovieId"];
+    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/session/list?cinemaid=%@&movieid=%@",cinemaId, movieId]; 
     [self getShowtimesFromUrl:url];
     
 }

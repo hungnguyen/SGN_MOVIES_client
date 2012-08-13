@@ -66,8 +66,8 @@
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
     
     //get list movie-objects
-    int cinemaId = (int)[_cinemaObject valueForKey:@"Id"];
-    NSString *url = [NSString stringWithFormat:@"http://sgn-m.apphb.com/movie/cinema?cinemaid=%@",cinemaId]; 
+    int cinemaId = (int)[_cinemaObject valueForKey:@"CinemaId"];
+    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/movie/cinema?cinemaid=%@",cinemaId]; 
     [self getListCinemas:url];
 }
 
