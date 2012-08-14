@@ -29,4 +29,7 @@
 @property (nonatomic, retain) NSString * trailerUrl;
 @property (nonatomic, retain) NSString * version;
 
++ (NSString*)entityName;
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
+
 @end

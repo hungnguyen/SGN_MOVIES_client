@@ -2,7 +2,7 @@
 //  Cinema.m
 //  SGN_MOVIE_v2
 //
-//  Created by TPL2806 on 8/13/12.
+//  Created by TPL2806 on 8/14/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -21,5 +21,17 @@
 @dynamic name;
 @dynamic phone;
 @dynamic providerId;
+
++ (NSString*)entityName
+{
+    return @"Cinema";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSParameterAssert(context);
+    return [NSEntityDescription entityForName:[Cinema entityName]
+                       inManagedObjectContext:context];
+}
 
 @end

@@ -15,4 +15,15 @@
 @dynamic name;
 @dynamic providerId;
 
++ (NSString*)entityName
+{
+    return @"Provider";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSParameterAssert(context);
+    return [NSEntityDescription entityForName:[Provider entityName]
+                       inManagedObjectContext:context];
+}
 @end

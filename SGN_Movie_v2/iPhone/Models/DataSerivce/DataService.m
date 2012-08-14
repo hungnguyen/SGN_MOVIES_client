@@ -17,13 +17,13 @@
 #pragma mark - Util
 + (DataService *) sharedInstance
 {
-    static DataService *sharedRepository;
+    static DataService *sharedDataService;
     static dispatch_once_t onceToken;
       dispatch_once(&onceToken, ^{
-            sharedRepository = [[DataService alloc] init];
+            sharedDataService = [[DataService alloc] init];
         
     });
-    return sharedRepository;
+    return sharedDataService;
 }
 
 + (NSManagedObjectContext *) defaultContext
@@ -48,29 +48,29 @@
     }
 }
 
--(BOOL) updateDatabase
-{
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CINEMA" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSError * error;
-    NSArray *fetchObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  
-       
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"dd.MM.YYYY"];
-
-    NSString *lastModifyDateString = [dateFormatter stringFromDate:[[fetchObjects objectAtIndex:0] valueForKey:@"lastModify"]];
-    NSLog(@"LAST MODIFY: %@",lastModifyDateString);
-    
-    NSString *currentDate = [dateFormatter stringFromDate:[NSDate date]];
-
-    NSLog(@"CURRENT DATE: %@",currentDate);
-    
-    if(lastModifyDateString==currentDate)
-        return FALSE;
-    return TRUE;    
-}
+//-(BOOL) updateDatabase
+//{
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CINEMA" inManagedObjectContext:self.managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//    NSError * error;
+//    NSArray *fetchObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+//  
+//       
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+//    [dateFormatter setDateFormat:@"dd.MM.YYYY"];
+//
+//    NSString *lastModifyDateString = [dateFormatter stringFromDate:[[fetchObjects objectAtIndex:0] valueForKey:@"lastModify"]];
+//    NSLog(@"LAST MODIFY: %@",lastModifyDateString);
+//    
+//    NSString *currentDate = [dateFormatter stringFromDate:[NSDate date]];
+//
+//    NSLog(@"CURRENT DATE: %@",currentDate);
+//    
+//    if(lastModifyDateString==currentDate)
+//        return FALSE;
+//    return TRUE;    
+//}
 
 #pragma mark - Core Data stack
 
@@ -84,11 +84,11 @@
     {
         return _managedObjectContext;
     }
-    
-    if (_persistentStoreCoordinator != nil)
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil)
     {
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:_persistentStoreCoordinator];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
     return _managedObjectContext;
 }
@@ -138,15 +138,15 @@
         }
     }
     
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];	
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_managedObjectModel];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-           // Update to handle the error appropriately.
-           NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-           exit(-1);  // Fail
-       }    
-    return _persistentStoreCoordinator;
+    NSError *error;
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+        // Update to handle the error appropriately.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }        return _persistentStoreCoordinator;
 }
 
 @end

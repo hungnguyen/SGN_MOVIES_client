@@ -28,4 +28,16 @@
 @dynamic trailerUrl;
 @dynamic version;
 
++ (NSString*)entityName
+{
+    return @"Movie";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSParameterAssert(context);
+    return [NSEntityDescription entityForName:[Movie entityName]
+                       inManagedObjectContext:context];
+}
+
 @end
