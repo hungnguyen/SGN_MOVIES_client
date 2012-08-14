@@ -17,6 +17,6 @@
 + (DataService*) sharedInstance;
 + (NSManagedObjectContext*) defaultContext;
 - (void) saveContext;
--(BOOL) updateDatabase;
+//-(BOOL) updateDatabase;
 
 @end

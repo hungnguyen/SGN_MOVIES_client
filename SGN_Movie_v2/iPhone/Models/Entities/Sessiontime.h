@@ -19,4 +19,7 @@
 @property (nonatomic, retain) NSNumber * sessiontimeId;
 @property (nonatomic, retain) NSString * time;
 
++ (NSString*)entityName;
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
+
 @end

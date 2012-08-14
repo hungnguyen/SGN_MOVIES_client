@@ -18,4 +18,15 @@
 @dynamic sessiontimeId;
 @dynamic time;
 
++ (NSString*)entityName
+{
+    return @"Sessiontime";
+}
+
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSParameterAssert(context);
+    return [NSEntityDescription entityForName:[Sessiontime entityName]
+                       inManagedObjectContext:context];
+}
 @end
