@@ -24,6 +24,7 @@
 @property (nonatomic, retain) NSNumber * providerId;
 
 + (NSString*)entityName;
++ (NSString*)idAttributeName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
 
 @end

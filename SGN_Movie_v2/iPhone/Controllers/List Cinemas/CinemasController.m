@@ -165,7 +165,10 @@
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
-    NSArray *items = [[Repository sharedInstance] selectObjectsWithEntity:entityDescription andPredicateOrNil:nil];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema idAttributeName] ascending:YES];
+    NSArray *items = [[Repository sharedInstance] selectObjectsWithEntity:entityDescription
+                                                                predicate:nil
+                                                           sortDescriptor:[NSArray arrayWithObject:sort]];
     [self setListCinemas: items];
     [_tableView reloadData];
 }

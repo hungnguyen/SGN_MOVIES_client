@@ -23,9 +23,10 @@
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 
 + (Repository*)sharedInstance;
+
 - (void) updateEntity:(NSEntityDescription*)entity withUrlString:(NSString*)urlString;
 - (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity;
 - (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity;
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity andPredicateOrNil:(NSPredicate*)predicate;
+- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
 
 @end
