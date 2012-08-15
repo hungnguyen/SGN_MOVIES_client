@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Repository.h"
 
-@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource, SGNRepositoryDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (assign, nonatomic) bool isToggled;
+
 
 @end

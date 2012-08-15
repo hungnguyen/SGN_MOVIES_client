@@ -8,6 +8,7 @@
 
 #import "SGNCinemasListCell.h"
 #import <QuartzCore/QuartzCore.h> 
+#import "Cinema.h"
 
 @implementation SGNCinemasListCell
 
@@ -33,13 +34,13 @@
     return self;
 }
 
-- (void)fillWithData:(NSArray*)data
+- (void)fillWithData:(Cinema*)cinema
 {
-    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [data valueForKey:@"ImageUrl"]];
+    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", cinema.imageUrl];
     
-    [_cinemaName setText:[data valueForKey:@"Name"]];
-    [_cinemaPhone setText:[data valueForKey:@"Phone"]];
-    [_cinemaAddress setText:[data valueForKey:@"Address"]];
+    [_cinemaName setText:cinema.name];
+    [_cinemaPhone setText:cinema.phone];
+    [_cinemaAddress setText:cinema.address];
 
     [_cinemaImage clear];
     [_cinemaImage setUrl:[NSURL URLWithString:image_url]];

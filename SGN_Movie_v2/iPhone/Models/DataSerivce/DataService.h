@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AppDelegate.h"
 
 @interface DataService : NSObject
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -15,8 +14,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 + (DataService*) sharedInstance;
-+ (NSManagedObjectContext*) defaultContext;
+//+ (NSManagedObjectContext*) defaultContext;
 - (void) saveContext;
-//-(BOOL) updateDatabase;
 
 @end

@@ -12,13 +12,15 @@
 #import "HJCache.h"
 #import "SGNCinemasListCell.h"
 #import "AFNetworking.h"
+#import "Cinema.h"
+#import "DataService.h"
 
 //define height of cell in view List Cinemas
 #define HEIGHT_CINEMAS_LIST_CELL 130
 
 @interface CinemasController ()
 
-@property (strong, nonatomic) NSMutableArray *listCinemas;
+@property (strong, nonatomic) NSArray *listCinemas;
 -(void) showMenu;
 -(void) showInfo;
 
@@ -63,14 +65,20 @@
     [self setTitle:@"CINEMAS"];
     [[self navigationController] setTitle:@"CINEMAS"];
     
-    [self getListCinemas:@"http://sgnm-server.apphb.com/cinema/list"];
-    
     //set rowheight for custom view cell: SGNCinemaListCell
     [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
     
     //for problem in iOS4.3: when choose UITableGroupView
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
+    
+    //set delegate to start and finish update
+    [[Repository sharedInstance] setDelegate:self];
+    
+    //get list cinemas from database
+    [self selectDataFromDB];
+    //update list cinemas to database
+    [self updateDataToDB];
 }
 
 - (void)viewDidUnload
@@ -116,7 +124,7 @@
         cell = [[SGNCinemasListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                          reuseIdentifier:@"cell"];
     }
-    NSArray *cinema = [_listCinemas objectAtIndex:[indexPath section]];
+    Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
     [cell fillWithData:cinema];
     return cell;
 }
@@ -128,24 +136,6 @@
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
  
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
-}
-
-#pragma mark JSON
-
-- (void) getListCinemas:(NSString*)urlString
-{
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [self setListCinemas: (NSMutableArray*) [JSON objectForKey:@"Data"]];
-                                                                                            [_tableView reloadData];
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
-                                                                                        }
-                                         ];
-    [operation start];
 }
 
 #pragma mark Action
@@ -166,7 +156,39 @@
 - (void)showInfo
 {
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
-    
+}
+
+
+#pragma mark CoreData
+
+- (void) selectDataFromDB
+{
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
+    NSArray *items = [[Repository sharedInstance] selectObjectsWithEntity:entityDescription andPredicateOrNil:nil];
+    [self setListCinemas: items];
+    [_tableView reloadData];
+}
+
+- (void) updateDataToDB
+{
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
+    [[Repository sharedInstance]updateEntity:entityDescription 
+                               withUrlString:@"http://sgnm-server.apphb.com/cinema/list"];
+}
+
+#pragma mark SGNRepositoryDelegate
+
+- (void)SGNRepositoryStartUpdate:(Repository *)repository
+{
+    NSLog(@"DELEGATE START");
+}
+
+- (void)SGNRepositoryFinishUpdate:(Repository *)repository
+{
+    [self selectDataFromDB];
+    NSLog(@"DELEGATE FINISH");
 }
 
 @end
