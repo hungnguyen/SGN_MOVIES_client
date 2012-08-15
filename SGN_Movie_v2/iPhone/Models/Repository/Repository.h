@@ -8,8 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+
 @class Repository;
+
+@protocol SGNRepositoryDelegate <NSObject>
+@required
+- (void)SGNRepositoryStartUpdate:(Repository*)repository;
+- (void)SGNRepositoryFinishUpdate:(Repository *)repository;
+@end
+
 @interface Repository : NSObject
+
+@property (nonatomic, assign) id<SGNRepositoryDelegate> delegate;
+@property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 
 + (Repository*)sharedInstance;
 - (void) updateEntity:(NSEntityDescription*)entity withUrlString:(NSString*)urlString;

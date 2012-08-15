@@ -26,13 +26,13 @@
     return sharedDataService;
 }
 
-+ (NSManagedObjectContext *) defaultContext
-{
-    @synchronized (self)
-    {
-        return [[DataService sharedInstance] managedObjectContext];
-    }
-}
+//+ (NSManagedObjectContext *) defaultContext
+//{
+//    @synchronized (self)
+//    {
+//        return [[DataService sharedInstance] managedObjectContext];
+//    }
+//}
 
 - (void) saveContext
 {
@@ -48,29 +48,11 @@
     }
 }
 
-//-(BOOL) updateDatabase
-//{
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CINEMA" inManagedObjectContext:self.managedObjectContext];
-//    [fetchRequest setEntity:entity];
-//    NSError * error;
-//    NSArray *fetchObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//  
-//       
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-//    [dateFormatter setDateFormat:@"dd.MM.YYYY"];
-//
-//    NSString *lastModifyDateString = [dateFormatter stringFromDate:[[fetchObjects objectAtIndex:0] valueForKey:@"lastModify"]];
-//    NSLog(@"LAST MODIFY: %@",lastModifyDateString);
-//    
-//    NSString *currentDate = [dateFormatter stringFromDate:[NSDate date]];
-//
-//    NSLog(@"CURRENT DATE: %@",currentDate);
-//    
-//    if(lastModifyDateString==currentDate)
-//        return FALSE;
-//    return TRUE;    
-//}
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory 
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
 
 #pragma mark - Core Data stack
 
@@ -125,7 +107,7 @@
         return _persistentStoreCoordinator;
     }
     
-    NSURL *url = [[AppDelegate currentDelegate] applicationDocumentsDirectory];
+    NSURL *url = [self applicationDocumentsDirectory];
     NSURL *storeURL = [url URLByAppendingPathComponent:@"SGN_Movie.sqlite"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if(![fileManager fileExistsAtPath:[storeURL path]])

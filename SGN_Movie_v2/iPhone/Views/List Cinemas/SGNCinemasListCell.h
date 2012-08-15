@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import"HJCache.h"
 
+@class Cinema;
 @interface SGNCinemasListCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UIView *mainView;
@@ -17,6 +18,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *cinemaAddress;
 @property (nonatomic, strong) IBOutlet UILabel *cinemaPhone;
 
-- (void)fillWithData:(NSArray*)data;
+- (void)fillWithData:(Cinema*)data;
 
 @end
