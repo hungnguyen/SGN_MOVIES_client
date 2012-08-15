@@ -27,6 +27,11 @@
     return @"Cinema";
 }
 
++ (NSString*)idAttributeName
+{
+    return @"cinemaId";
+}
+
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSParameterAssert(context);

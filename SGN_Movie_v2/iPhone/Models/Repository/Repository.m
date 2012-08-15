@@ -107,11 +107,12 @@
 
 #pragma mark Query from Database
 
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity andPredicateOrNil:(NSPredicate*)predicate
+- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
+    [fetchRequest setSortDescriptors:sortDescriptors];
     if(predicate != nil)
         [fetchRequest setPredicate:predicate];
     NSError *error;
