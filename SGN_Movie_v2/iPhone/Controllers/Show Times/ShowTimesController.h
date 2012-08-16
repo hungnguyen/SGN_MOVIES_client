@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SGNComboView.h"
+#import "Cinema.h"
 
 @interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *cinemaObject;
+@property (strong, nonatomic) Cinema *cinemaObject;
 @property (strong, nonatomic) NSArray *movieObject;
 @property (strong, nonatomic) IBOutlet UITableView *tableViewShowtimes;
 @property (strong, nonatomic) IBOutlet SGNComboView *comboView;

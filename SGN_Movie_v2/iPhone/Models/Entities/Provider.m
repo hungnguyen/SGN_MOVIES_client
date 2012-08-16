@@ -20,6 +20,11 @@
     return @"Provider";
 }
 
++ (NSString*)idAttributeName
+{
+    return @"providerId";
+}
+
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSParameterAssert(context);

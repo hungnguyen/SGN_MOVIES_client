@@ -153,9 +153,11 @@
     [operation start];
 }
 
+#pragma mark Action
+
 - (IBAction)showMap:(id)sender {
     MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
     [mapKitController setCinemaObject:_cinemaObject];
-    [self.navigationController pushViewController:mapKitController animated:YES];
+    [[self navigationController] pushViewController:mapKitController animated:YES];
 }
 @end

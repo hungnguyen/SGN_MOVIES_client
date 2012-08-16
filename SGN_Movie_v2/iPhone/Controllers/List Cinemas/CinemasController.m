@@ -76,9 +76,16 @@
     [[Repository sharedInstance] setDelegate:self];
     
     //get list cinemas from database
-    [self selectDataFromDB];
+    [self reloadData];
+    
     //update list cinemas to database
-    [self updateDataToDB];
+    [self updateData];
+}
+
+//auto update data when re-show view
+- (void)viewWillAppear:(BOOL)animated
+{
+        [self reloadData];
 }
 
 - (void)viewDidUnload
@@ -161,24 +168,26 @@
 
 #pragma mark CoreData
 
-- (void) selectDataFromDB
+- (void) reloadData
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema idAttributeName] ascending:YES];
-    NSArray *items = [[Repository sharedInstance] selectObjectsWithEntity:entityDescription
+    NSArray *sort = [Cinema sortIdAscending];
+    NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
                                                                 predicate:nil
-                                                           sortDescriptor:[NSArray arrayWithObject:sort]];
+                                                           sortDescriptor:sort];
     [self setListCinemas: items];
     [_tableView reloadData];
 }
 
-- (void) updateDataToDB
+- (void) updateData
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
+    NSPredicate *predicate = [Cinema predicateSelectByProviderId:1];
     [[Repository sharedInstance]updateEntity:entityDescription 
-                               withUrlString:@"http://sgnm-server.apphb.com/cinema/list"];
+                                   predicate:predicate 
+                                   urlString:@"http://sgnm-server.apphb.com/cinema/list"];
 }
 
 #pragma mark SGNRepositoryDelegate
@@ -190,7 +199,7 @@
 
 - (void)SGNRepositoryFinishUpdate:(Repository *)repository
 {
-    [self selectDataFromDB];
+    [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }
 
