@@ -17,7 +17,7 @@
 - (void)SGNRepositoryFinishUpdate:(Repository *)repository;
 @end
 
-@interface Repository : NSObject
+@interface Repository : NSObject <UIAlertViewDelegate>
 
 @property (nonatomic, assign) id<SGNRepositoryDelegate> delegate;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;

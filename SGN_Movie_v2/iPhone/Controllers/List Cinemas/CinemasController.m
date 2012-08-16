@@ -138,6 +138,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[Repository sharedInstance] setDelegate:nil];
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
