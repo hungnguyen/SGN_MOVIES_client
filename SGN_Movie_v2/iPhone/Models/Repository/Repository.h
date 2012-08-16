@@ -24,9 +24,9 @@
 
 + (Repository*)sharedInstance;
 
-- (void) updateEntity:(NSEntityDescription*)entity withUrlString:(NSString*)urlString;
-- (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity;
-- (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity;
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
+- (void) updateEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate urlString:(NSString*)urlString;
+- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate;
+- (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity;
+- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
 
 @end

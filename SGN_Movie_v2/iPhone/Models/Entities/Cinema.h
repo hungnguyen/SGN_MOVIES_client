@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import "Provider.h"
 
 @interface Cinema : NSManagedObject
 
@@ -26,5 +26,7 @@
 + (NSString*)entityName;
 + (NSString*)idAttributeName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
++ (NSArray*)sortIdAscending;
++ (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
 
 @end

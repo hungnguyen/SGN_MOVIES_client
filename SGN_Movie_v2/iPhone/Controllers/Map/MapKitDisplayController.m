@@ -45,8 +45,8 @@
     //Convert from NSString to NSNumber
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber * latitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject valueForKey:@"Latitude"]]];
-    NSNumber * longitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject valueForKey:@"Longitude"]]];
+    NSNumber * latitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject latitude]]];
+    NSNumber * longitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject longitude]]];
 
     region.center.latitude = latitudeNumber.floatValue;
 	region.center.longitude = longitudeNumber.floatValue;

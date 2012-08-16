@@ -9,8 +9,7 @@
 #import "Repository.h"
 #import "AFNetworking.h"
 #import "DataService.h"
-
-#define API_CINEMA_UPDATE @"http://sgnm-server.apphb.com/cinema/list"
+#import "AppDelegate.h"
 
 @implementation Repository
 
@@ -29,16 +28,18 @@
     return sharedRepository;
 }
 
-- (void) updateEntity:(NSEntityDescription*)entity withUrlString:(NSString*)urlString
+//auto get data base on Url
+- (void) updateEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate urlString:(NSString*)urlString
 {
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [self SGNRepositoryStartUpdate:self];
-                                                                                            [self deleteAllObjectWithEntity:entity];
-                                                                                            [self insertObjects:(NSArray*)[JSON objectForKey:@"Data"] 
-                                                                                                     withEntity:entity];
+                                                                                            [self deleteDataInEntity:entity 
+                                                                                                                  predicate:predicate];
+                                                                                            [self insertData:(NSArray*)[JSON objectForKey:@"Data"] 
+                                                                                                     InEntity:entity];
                                                                                             [self SGNRepositoryFinishUpdate:self];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -48,13 +49,14 @@
     [operation start];
 }
 
-#pragma mark Delegate
+#pragma mark Self Delegate
 
+//raise before update new data 
 - (void)SGNRepositoryStartUpdate:(Repository*)repository
 {
     [_loadingWheel removeFromSuperview];
 	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
-	_loadingWheel.hidesWhenStopped=YES;
+	[_loadingWheel setHidesWhenStopped:YES];
     UIView *superView = [(UIViewController*)_delegate view];
     _loadingWheel.center = superView.center;
 	[superView addSubview:_loadingWheel];
@@ -65,6 +67,7 @@
     }
 }
 
+//raise after update new data
 - (void)SGNRepositoryFinishUpdate:(Repository*)repository
 {
     [_loadingWheel stopAnimating];
@@ -76,13 +79,15 @@
     }
 }
 
-#pragma mark Delete from Database
+#pragma mark Database Query
 
-- (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity
+//delete 
+- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items) 
@@ -92,22 +97,19 @@
    // NSLog(@"DONE DELETE");
 }
 
-#pragma mark Insert into Database
-- (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity
+- (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     for(NSDictionary *dict in JSON)
     {
-        NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name 
+        NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:[entity name] 
                                                                 inManagedObjectContext:context];
         [object setValuesForKeysWithDictionary:dict];
     }
    // NSLog(@"DONE INSERT");
 }
 
-#pragma mark Query from Database
-
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
+- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

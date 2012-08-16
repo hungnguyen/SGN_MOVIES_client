@@ -39,4 +39,15 @@
                        inManagedObjectContext:context];
 }
 
++ (NSArray*)sortIdAscending
+{
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema idAttributeName] ascending:YES];
+    return [NSArray arrayWithObjects:sort, nil];
+}
+
++ (NSPredicate*)predicateSelectByProviderId:(int)_providerId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider idAttributeName], _providerId];
+    return predicate;
+}
 @end

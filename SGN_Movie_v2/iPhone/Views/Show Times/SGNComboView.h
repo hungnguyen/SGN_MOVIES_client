@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HJCache.h"
+#import "Cinema.h"
 
 @class SGNComboView;
 @interface SGNComboView : UIView
@@ -18,6 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;
 @property (strong, nonatomic) IBOutlet UILabel *movieTitle;
 
-- (void)fillWithCinema:(NSArray*)cinemaObj andMovie:(NSArray*)movieObj;
+- (void)fillWithCinema:(Cinema*)cinemaObj andMovie:(NSArray*)movieObj;
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 @end
