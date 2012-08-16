@@ -37,9 +37,9 @@
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [self SGNRepositoryStartUpdate:self];
                                                                                             [self deleteDataInEntity:entity 
-                                                                                                                  predicate:predicate];
+                                                                                                           predicate:predicate];
                                                                                             [self insertData:(NSArray*)[JSON objectForKey:@"Data"] 
-                                                                                                     InEntity:entity];
+                                                                                                    InEntity:entity];
                                                                                             [self SGNRepositoryFinishUpdate:self];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -56,7 +56,7 @@
 {
     [_loadingWheel removeFromSuperview];
 	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
-	[_loadingWheel setHidesWhenStopped:YES];
+	_loadingWheel.hidesWhenStopped=YES;
     UIView *superView = [(UIViewController*)_delegate view];
     _loadingWheel.center = superView.center;
 	[superView addSubview:_loadingWheel];
@@ -64,6 +64,18 @@
     if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNRepositoryStartUpdate:)])
     {
         [_delegate SGNRepositoryStartUpdate:repository];
+    }
+    else 
+    {
+        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
+        if ([navigation viewControllers].count == 1) 
+        {
+            return;
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" message:@"New Data was updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        
     }
 }
 
@@ -77,6 +89,15 @@
     {
         [_delegate SGNRepositoryFinishUpdate:repository];
     }
+}
+
+#pragma mark UIAlertViewDelegate
+
+//after click on alert notice "data were updated"
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    
 }
 
 #pragma mark Database Query
@@ -94,7 +115,7 @@
     {
         [context deleteObject:managedObject];
     }
-   // NSLog(@"DONE DELETE");
+    // NSLog(@"DONE DELETE");
 }
 
 - (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity
@@ -102,11 +123,11 @@
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     for(NSDictionary *dict in JSON)
     {
-        NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:[entity name] 
+        NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name 
                                                                 inManagedObjectContext:context];
         [object setValuesForKeysWithDictionary:dict];
     }
-   // NSLog(@"DONE INSERT");
+    // NSLog(@"DONE INSERT");
 }
 
 - (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
@@ -119,7 +140,7 @@
         [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
-   // NSLog(@"DONE SELECT");
+    // NSLog(@"DONE SELECT");
     return items;
 }
 
