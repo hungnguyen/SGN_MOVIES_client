@@ -13,6 +13,7 @@
 #import "MapKitDisplayController.h"
 #import "Cinema.h"
 #import "Movie.h"
+#import "Sessiontime.h"
 #import "DataService.h"
 #import "Repository.h"
 #import "AppDelegate.h"
@@ -87,22 +88,6 @@
 
 - (void)reloadView
 {
-    if(_cinemaObject == nil)
-    {
-        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
-        if ([navigation topViewController] != self) 
-        {
-            return;
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
-                                                        message:@"New Data was updated" 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"OK" 
-                                              otherButtonTitles: nil];
-        
-        [alert show];
-    }
-    
     NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
     [_cinemaName setText:[_cinemaObject name]];
     [_cinemaPhone setText:[_cinemaObject phone]];
@@ -149,8 +134,8 @@
         //set for image
         frame.origin.x = 0.0f;
         frame.origin.y = 0.0f;
-        NSString * urlString = [[NSString alloc] initWithString:[[_movieObjects objectAtIndex:i] 
-                                                                 valueForKey:@"ImageUrl"]];
+        Movie *movieObject = [_movieObjects objectAtIndex:i];
+        NSString * urlString = [[NSString alloc] initWithString:[movieObject imageUrl]];
         
         HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
         [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
@@ -212,12 +197,20 @@
                                                            predicate:predicate 
                                                       sortDescriptor:nil] objectAtIndex:0];
 
-    description = [Movie entityInManagedObjectContext:context];
-    predicate = [Movie predicateSelectByProviderId:1];
-    NSArray *sort = [Movie sortIdAscending];
-    _movieObjects = [[Repository sharedInstance] selectDataInEntity:description 
-                                                          predicate:predicate 
-                                                     sortDescriptor:sort];
+    if(_cinemaObject == nil)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        
+        [alert show];
+        return;
+    }
+    
+    NSArray *movieIds = [Sessiontime selectMovieIdsByCinemaId:[_cinemaObject cinemaId].intValue context:context];
+    [self setMovieObjects:[Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context]];
     [self reloadView];
 }
 
