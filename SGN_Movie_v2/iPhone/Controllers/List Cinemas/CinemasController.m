@@ -79,7 +79,7 @@
     [self selectDataFromDB];
     //update list cinemas to database
     [self updateDataToDB];
-}
+   }
 
 - (void)viewDidUnload
 {
@@ -135,6 +135,11 @@
                                                                                              bundle:nil];
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
  
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
@@ -155,6 +160,11 @@
 
 - (void)showInfo
 {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
@@ -175,10 +185,10 @@
 
 - (void) updateDataToDB
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
-    [[Repository sharedInstance]updateEntity:entityDescription 
-                               withUrlString:@"http://sgnm-server.apphb.com/cinema/list"];
+        
+    NSString * urlStr = [[NSString alloc] initWithFormat:@"%@",UPDATE_ALL_URL];
+    
+    [[Repository sharedInstance]updateEntitywithUrlString:urlStr];
 }
 
 #pragma mark SGNRepositoryDelegate
@@ -193,5 +203,6 @@
     [self selectDataFromDB];
     NSLog(@"DELEGATE FINISH");
 }
+
 
 @end

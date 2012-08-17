@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Cinema.h"
+#import "Movie.h"
+#import "Sessiontime.h"
+#import "Provider.h"
 
 @class Repository;
 
@@ -24,7 +27,7 @@
 
 + (Repository*)sharedInstance;
 
-- (void) updateEntity:(NSEntityDescription*)entity withUrlString:(NSString*)urlString;
+- (void) updateEntitywithUrlString:(NSString*)urlString;
 - (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity;
 - (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity;
 - (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;

@@ -223,7 +223,7 @@
     }
     if(4 == indexPath.row)
     {
-        NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"Description"]];
+        NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"MovieDescription"]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 250)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:descriptionStr]];

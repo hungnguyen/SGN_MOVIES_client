@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6F420CE815C662F100319B83 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F420CE715C662F100319B83 /* Default.png */; };
 		6F420D0015C68F5500319B83 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F420CFF15C68F5500319B83 /* about.png */; };
+		6FA3253615DCE8F600C1CD32 /* Data.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3253515DCE8F600C1CD32 /* Data.plist */; };
 		6FC7847E15C27AA300A18A34 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */; };
 		6FC7847F15C27AA300A18A34 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC7847D15C27AA300A18A34 /* WrapController.m */; };
 		6FE28E6515C78A6F00BB7A4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E6415C78A6F00BB7A4E /* QuartzCore.framework */; };
@@ -86,6 +87,7 @@
 /* Begin PBXFileReference section */
 		6F420CE715C662F100319B83 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6F420CFF15C68F5500319B83 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
+		6FA3253515DCE8F600C1CD32 /* Data.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Data.plist; path = SGN_Movie_v2/Data.plist; sourceTree = SOURCE_ROOT; };
 		6FC7847A15C27AA300A18A34 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		6FC7847B15C27AA300A18A34 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		6FC7847C15C27AA300A18A34 /* WrapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrapController.h; sourceTree = "<group>"; };
@@ -340,8 +342,8 @@
 		F38DA93815D91CD300C40810 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				F3B1007B15DBA07A00F67674 /* Repository.m */,
 				F38DA94215D91D2D00C40810 /* Repository.h */,
+				F3B1007B15DBA07A00F67674 /* Repository.m */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -416,6 +418,7 @@
 				F397E67C15C159A100A92874 /* InfoPlist.strings */,
 				F397E67F15C159A100A92874 /* main.m */,
 				F397E68115C159A100A92874 /* SGN_MOVIE_v2-Prefix.pch */,
+				6FA3253515DCE8F600C1CD32 /* Data.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -725,7 +728,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */;
+			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -766,6 +769,7 @@
 				6FFFC0DD15CF669E003D9326 /* TrailerView.xib in Resources */,
 				6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */,
 				F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */,
+				6FA3253615DCE8F600C1CD32 /* Data.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,7 +920,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */ = {
+		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F397E68B15C159A100A92874 /* Debug */,
