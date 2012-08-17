@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cinema.h"
-#import "Movie.h"
-#import "Sessiontime.h"
-#import "Provider.h"
+
 
 @class Repository;
 
@@ -20,16 +17,16 @@
 - (void)SGNRepositoryFinishUpdate:(Repository *)repository;
 @end
 
-@interface Repository : NSObject
+@interface Repository : NSObject <UIAlertViewDelegate>
 
 @property (nonatomic, assign) id<SGNRepositoryDelegate> delegate;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 
 + (Repository*)sharedInstance;
 
-- (void) updateEntitywithUrlString:(NSString*)urlString;
-- (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity;
-- (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity;
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
+- (void) updateEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate urlString:(NSString*)urlString;
+- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate;
+- (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity;
+- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
 
 @end

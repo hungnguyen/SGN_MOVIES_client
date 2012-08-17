@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HJCache.h"
+#import "Cinema.h"
 
 @interface CinemaDetailController : UIViewController <UIScrollViewDelegate>
 
-@property (strong, nonatomic) NSArray *cinemaObject;
+@property (strong, nonatomic) Cinema *cinemaObject;
 
 @property (strong, nonatomic) IBOutlet HJManagedImageV *cinemaImage;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;

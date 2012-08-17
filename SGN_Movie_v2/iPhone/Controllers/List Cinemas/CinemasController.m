@@ -76,10 +76,17 @@
     [[Repository sharedInstance] setDelegate:self];
     
     //get list cinemas from database
-    [self selectDataFromDB];
+    [self reloadData];
+    
     //update list cinemas to database
-    [self updateDataToDB];
-   }
+    [self updateData];
+}
+
+//auto update data when re-show view
+- (void)viewWillAppear:(BOOL)animated
+{
+        [self reloadData];
+}
 
 - (void)viewDidUnload
 {
@@ -131,15 +138,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [[Repository sharedInstance] setDelegate:nil];
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
     [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
  
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
@@ -160,35 +163,32 @@
 
 - (void)showInfo
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
 
 #pragma mark CoreData
 
-- (void) selectDataFromDB
+- (void) reloadData
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema idAttributeName] ascending:YES];
-    NSArray *items = [[Repository sharedInstance] selectObjectsWithEntity:entityDescription
+    NSArray *sort = [Cinema sortIdAscending];
+    NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
                                                                 predicate:nil
-                                                           sortDescriptor:[NSArray arrayWithObject:sort]];
+                                                           sortDescriptor:sort];
     [self setListCinemas: items];
     [_tableView reloadData];
 }
 
-- (void) updateDataToDB
+- (void) updateData
 {
-        
-    NSString * urlStr = [[NSString alloc] initWithFormat:@"%@",UPDATE_ALL_URL];
-    
-    [[Repository sharedInstance]updateEntitywithUrlString:urlStr];
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
+    NSPredicate *predicate = [Cinema predicateSelectByProviderId:1];
+    [[Repository sharedInstance]updateEntity:entityDescription 
+                                   predicate:predicate 
+                                   urlString:@"http://sgnm-server.apphb.com/cinema/list"];
 }
 
 #pragma mark SGNRepositoryDelegate
@@ -200,9 +200,8 @@
 
 - (void)SGNRepositoryFinishUpdate:(Repository *)repository
 {
-    [self selectDataFromDB];
+    [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }
-
 
 @end

@@ -133,11 +133,6 @@
     [showtimesController setCinemaObject:_cinemaObject];
     NSArray *movieObject = [_movieObjects objectAtIndex:[sender tag]];
     [showtimesController setMovieObject:movieObject];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
@@ -158,14 +153,11 @@
     [operation start];
 }
 
+#pragma mark Action
+
 - (IBAction)showMap:(id)sender {
     MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
     [mapKitController setCinemaObject:_cinemaObject];
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
-    [self.navigationController pushViewController:mapKitController animated:YES];
+    [[self navigationController] pushViewController:mapKitController animated:YES];
 }
 @end

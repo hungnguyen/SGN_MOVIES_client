@@ -9,8 +9,7 @@
 #import "Repository.h"
 #import "AFNetworking.h"
 #import "DataService.h"
-
-#define API_CINEMA_UPDATE @"http://sgnm-server.apphb.com/cinema/list"
+#import "AppDelegate.h"
 
 @implementation Repository
 
@@ -29,18 +28,18 @@
     return sharedRepository;
 }
 
-- (void) updateEntitywithUrlString:(NSString*)urlString
+//auto get data base on Url
+- (void) updateEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate urlString:(NSString*)urlString
 {
-    urlString = [urlString stringByAppendingFormat:@"=%@",[self ReadLastUpdated]];
-    NSLog(@"URL - Get All: %@",urlString);
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [self SGNRepositoryStartUpdate:self];
-                                                                                                                                                        
-                                                                                            [self CheckNeedToUpdateFromJSON:JSON];                                                                                                       
-                                                                                            
+                                                                                            [self deleteDataInEntity:entity 
+                                                                                                           predicate:predicate];
+                                                                                            [self insertData:(NSArray*)[JSON objectForKey:@"Data"] 
+                                                                                                    InEntity:entity];
                                                                                             [self SGNRepositoryFinishUpdate:self];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -50,8 +49,9 @@
     [operation start];
 }
 
-#pragma mark Delegate
+#pragma mark Self Delegate
 
+//raise before update new data 
 - (void)SGNRepositoryStartUpdate:(Repository*)repository
 {
     [_loadingWheel removeFromSuperview];
@@ -65,8 +65,21 @@
     {
         [_delegate SGNRepositoryStartUpdate:repository];
     }
+    else 
+    {
+        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
+        if ([navigation viewControllers].count == 1) 
+        {
+            return;
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" message:@"New Data was updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        
+        [alert show];
+        
+    }
 }
 
+//raise after update new data
 - (void)SGNRepositoryFinishUpdate:(Repository*)repository
 {
     [_loadingWheel stopAnimating];
@@ -78,24 +91,34 @@
     }
 }
 
-#pragma mark Delete from Database
+#pragma mark UIAlertViewDelegate
 
-- (void)deleteAllObjectWithEntity:(NSEntityDescription*)entity
+//after click on alert notice "data were updated"
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
+#pragma mark Database Query
+
+//delete 
+- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items) 
     {
         [context deleteObject:managedObject];
     }
-   // NSLog(@"DONE DELETE");
+    // NSLog(@"DONE DELETE");
 }
 
-#pragma mark Insert into Database
-- (void)insertObjects:(NSArray*)JSON withEntity:(NSEntityDescription*)entity
+- (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     for(NSDictionary *dict in JSON)
@@ -104,12 +127,10 @@
                                                                 inManagedObjectContext:context];
         [object setValuesForKeysWithDictionary:dict];
     }
-   // NSLog(@"DONE INSERT");
+    // NSLog(@"DONE INSERT");
 }
 
-#pragma mark Query from Database
-
-- (NSArray*)selectObjectsWithEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
+- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -119,105 +140,8 @@
         [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
-   // NSLog(@"DONE SELECT");
+    // NSLog(@"DONE SELECT");
     return items;
-}
-
-#pragma mark Check  need to update
-
--(void) CheckNeedToUpdateFromJSON:(id) JSON
-{
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    
-    if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]!= [NSNull null])             
-    {
-        NSLog(@"Update Cinema");
-        NSEntityDescription * cinemaEntity = [Cinema entityInManagedObjectContext:context];
-        [self deleteAllObjectWithEntity:cinemaEntity];
-        [self insertObjects:(NSArray*)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] withEntity:cinemaEntity];
-    }
-    
-    if([[JSON objectForKey:@"Data"] objectForKey:@"Movie"]!=[NSNull null])
-    {
-        NSLog(@"Update Movie");
-        NSEntityDescription * movieEntity = [Movie entityInManagedObjectContext:context];
-        [self deleteAllObjectWithEntity:movieEntity];
-        [self insertObjects:(NSArray*)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"] withEntity:movieEntity];
-    }
-    if([[JSON objectForKey:@"Data"] objectForKey:@"Provider"]!=[NSNull null])
-    {
-        NSLog(@"Update Provider");
-        NSEntityDescription * providerEntity = [Provider entityInManagedObjectContext:context];
-        [self deleteAllObjectWithEntity:providerEntity];
-        [self insertObjects:(NSArray*)[[JSON objectForKey:@"Data"] objectForKey:@"Provider"] withEntity:providerEntity];
-        
-    }
-    if([[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"]!=[NSNull null])
-    {
-        NSLog(@"Update Sessiontime");
-        NSEntityDescription * sessionEntity = [Sessiontime entityInManagedObjectContext:context];
-        [self deleteAllObjectWithEntity:sessionEntity];
-        [self insertObjects:(NSArray*)[[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"] withEntity:sessionEntity];
-    }
-    
-    //Update LastUpdated
-    
-    [self WriteLastUpdated];
-}
-#pragma mark Read & Write Last update
-
-- (NSString *) ReadLastUpdated
-{
-    NSString *errorDesc = nil;
-    NSPropertyListFormat format;
-    NSString *plistPath;
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
-    }
-    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
-                                          propertyListFromData:plistXML
-                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                          format:&format
-                                          errorDescription:&errorDesc];
-    if (!temp) {
-        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
-    }
-    
-    NSString * lastUpdatedStr = [[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"LastUpdated"]];
-    
-    return lastUpdatedStr;
-    
-}
-
-- (void) WriteLastUpdated
-{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"dd.MM.YYYY%20hh.mm.ss%20zzz"];
-    NSString *currentDate = [dateFormatter stringFromDate:[NSDate date]];
-    
-    NSString *error;
-    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
-    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
-                               [NSArray arrayWithObjects: currentDate, nil]
-                                                          forKeys:[NSArray arrayWithObjects: @"LastUpdated", nil]];
-    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
-                                                                   format:NSPropertyListXMLFormat_v1_0
-                                                         errorDescription:&error];
-    if(plistData) {
-        [plistData writeToFile:plistPath atomically:YES];
-    }
-    else 
-    {
-        NSLog(@"%@",error);
-        
-    }
-    
 }
 
 @end
