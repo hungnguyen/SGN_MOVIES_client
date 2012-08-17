@@ -59,7 +59,7 @@
 	// Do any additional setup after loading the view.
     [self setTitle:@"DETAIL CINEMA"];
     
-    [[Repository sharedInstance] setDelegate:self];
+    //[[Repository sharedInstance] setDelegate:self];
     
     //set round border
     [[_cinemaView layer] setMasksToBounds:YES];
@@ -70,9 +70,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    //[[Repository sharedInstance] setDelegate:self];
     [self reloadData];
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
-
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -108,6 +107,7 @@
     [_cinemaName setText:[_cinemaObject name]];
     [_cinemaPhone setText:[_cinemaObject phone]];
     [_cinemaAddress setText:[_cinemaObject address]];
+    [_cinemaImage clear];
     [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
     [_cinemaImage showLoadingWheel];
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
@@ -203,20 +203,21 @@
 
 - (void)reloadData
 {
+            NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+
     NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
     NSPredicate *predicate = [Cinema predicateSelectByCinemaId:_cinemaObjectId];
     _cinemaObject = [[[Repository sharedInstance] selectDataInEntity:description 
                                                            predicate:predicate 
                                                       sortDescriptor:nil] objectAtIndex:0];
-    
+
     description = [Movie entityInManagedObjectContext:context];
     predicate = [Movie predicateSelectByProviderId:1];
     NSArray *sort = [Movie sortIdAscending];
     _movieObjects = [[Repository sharedInstance] selectDataInEntity:description 
                                                           predicate:predicate 
                                                      sortDescriptor:sort];
-    
     [self reloadView];
 }
 
@@ -234,11 +235,13 @@
 - (void)RepositoryStartUpdate:(Repository *)repository
 {
     NSLog(@"DELEGATE START");
+    
 }
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    [self reloadData];
+    if([Repository sharedInstance].isUpdateMovie == YES || [Repository sharedInstance].isUpdateCinema == YES)
+        [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }
 

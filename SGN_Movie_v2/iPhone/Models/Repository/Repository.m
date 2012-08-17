@@ -15,10 +15,19 @@
 #import "Sessiontime.h"
 #import "Provider.h"
 
+@interface Repository()
+@property (assign, nonatomic) BOOL isUpdating;
+@end
+
 @implementation Repository
 
-@synthesize delegate = _delegate;
+//@synthesize delegate = _delegate;
 @synthesize loadingWheel = _loadingWheel;
+@synthesize isUpdating = _isUpdating;
+@synthesize isUpdateProvider = _isUpdateProvider;
+@synthesize isUpdateCinema = _isUpdateCinema;
+@synthesize isUpdateMovie = _isUpdateMovie;
+@synthesize isUpdateSessiontime = _isUpdateSessiontime;
 
 #pragma mark - Util
 
@@ -35,6 +44,17 @@
 //auto get data base on Url
 - (void) updateEntityWithUrlString:(NSString*)urlString;
 {
+    //only allow one updating a time
+    if(_isUpdating == YES) 
+        return;
+    else
+    {
+        [self setIsUpdating:YES];
+        [self setIsUpdateProvider:NO];
+        [self setIsUpdateCinema:NO];
+        [self setIsUpdateMovie:NO];
+        [self setIsUpdateSessiontime:NO];
+    }
     urlString = [urlString stringByAppendingFormat:@"%@",[self readLastUpdated]];
     NSLog(@"URL TO UPDATE ALL: %@",urlString);
     NSURL *url = [[NSURL alloc] initWithString:urlString];
@@ -44,9 +64,11 @@
                                                                                             [self RepositoryStartUpdate:self];
                                                                                             [self checkNeedToUpdateFromJSON:JSON];
                                                                                             [self RepositoryFinishUpdate:self];
+                                                                                            [self setIsUpdating:NO];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
+                                                                                            [self setIsUpdating:NO];
                                                                                         }
                                          ];
     [operation start];
@@ -57,16 +79,19 @@
 //raise before update new data 
 - (void)RepositoryStartUpdate:(Repository*)repository
 {
+    id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
+    
     [_loadingWheel removeFromSuperview];
 	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
 	_loadingWheel.hidesWhenStopped=YES;
-    UIView *superView = [(UIViewController*)_delegate view];
+    UIView *superView = [(UIViewController*)delegate view];
     _loadingWheel.center = superView.center;
 	[superView addSubview:_loadingWheel];
 	[_loadingWheel startAnimating];
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(RepositoryStartUpdate:)])
+
+    if(delegate != nil && [delegate respondsToSelector:@selector(RepositoryStartUpdate:)])
     {
-        [_delegate RepositoryStartUpdate:repository];
+        [delegate RepositoryStartUpdate:repository];
     }
     //    else 
     //    {
@@ -85,12 +110,15 @@
 //raise after update new data
 - (void)RepositoryFinishUpdate:(Repository*)repository
 {
+        id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
+    
     [_loadingWheel stopAnimating];
     [_loadingWheel removeFromSuperview];
+    
     [[DataService sharedInstance] saveContext];
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(RepositoryFinishUpdate:)])
+    if(delegate != nil && [delegate respondsToSelector:@selector(RepositoryFinishUpdate:)])
     {
-        [_delegate RepositoryFinishUpdate:repository];
+        [delegate RepositoryFinishUpdate:repository];
     }
 }
 
@@ -157,6 +185,7 @@
         NSEntityDescription *cinemaEntity = [Cinema entityInManagedObjectContext:context];
         [self deleteDataInEntity:cinemaEntity predicate:nil];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]  InEntity:cinemaEntity];
+        [self setIsUpdateCinema:YES];
     }
     if([[JSON objectForKey:@"Data"] objectForKey:@"Movie"] != [NSNull null])
     {
@@ -164,6 +193,7 @@
         NSEntityDescription *movieEntity = [Movie entityInManagedObjectContext:context];
         [self deleteDataInEntity:movieEntity predicate:nil];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"]  InEntity:movieEntity];
+        [self setIsUpdateMovie:YES];
     }
     if([[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"] != [NSNull null])
     {
@@ -171,6 +201,7 @@
         NSEntityDescription *sessiontimeEntity = [Sessiontime entityInManagedObjectContext:context];
         [self deleteDataInEntity:sessiontimeEntity predicate:nil];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"]  InEntity:sessiontimeEntity];
+        [self setIsUpdateSessiontime:YES];
     }
     if([[JSON objectForKey:@"Data"] objectForKey:@"Provider"] != [NSNull null])
     {
@@ -178,6 +209,7 @@
         NSEntityDescription *providerEntity = [Provider entityInManagedObjectContext:context];
         [self deleteDataInEntity:providerEntity predicate:nil];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Provider"]  InEntity:providerEntity];
+        [self setIsUpdateProvider:YES];
     }
     //Write LastUpdated
     [self writeLastUpdated];
