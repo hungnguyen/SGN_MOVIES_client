@@ -27,7 +27,7 @@
     return @"Cinema";
 }
 
-+ (NSString*)idAttributeName
++ (NSString*)entityIdName
 {
     return @"cinemaId";
 }
@@ -41,13 +41,20 @@
 
 + (NSArray*)sortIdAscending
 {
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema idAttributeName] ascending:YES];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema entityIdName] ascending:YES];
     return [NSArray arrayWithObjects:sort, nil];
 }
 
 + (NSPredicate*)predicateSelectByProviderId:(int)_providerId
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider idAttributeName], _providerId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider entityIdName], _providerId];
     return predicate;
 }
+
++ (NSPredicate*)predicateSelectByCinemaId:(int)_cinemaId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
+    return predicate;  
+}
+
 @end

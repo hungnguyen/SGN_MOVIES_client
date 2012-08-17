@@ -60,7 +60,7 @@
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
     
-   // [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
+    // [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
     
     [self setTitle:@"CINEMAS"];
     [[self navigationController] setTitle:@"CINEMAS"];
@@ -75,8 +75,8 @@
     //set delegate to start and finish update
     [[Repository sharedInstance] setDelegate:self];
     
-    //get list cinemas from database
-    [self reloadData];
+    //    //get list cinemas from database
+    //    [self reloadData];
     
     //update list cinemas to database
     [self updateData];
@@ -85,7 +85,7 @@
 //auto update data when re-show view
 - (void)viewWillAppear:(BOOL)animated
 {
-        [self reloadData];
+    [self reloadData];
 }
 
 - (void)viewDidUnload
@@ -138,11 +138,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[Repository sharedInstance] setDelegate:nil];
     CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
-    [cinemaDetailController setCinemaObject: [_listCinemas objectAtIndex:[indexPath section]]];
- 
+    Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
+    [cinemaDetailController setCinemaObjectId:[cinema cinemaId].intValue];
+    
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
@@ -172,29 +172,28 @@
 - (void) reloadData
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
+    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
     NSArray *sort = [Cinema sortIdAscending];
-    NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
-                                                                predicate:nil
-                                                           sortDescriptor:sort];
+    NSArray *items = [[Repository sharedInstance] selectDataInEntity:description
+                                                           predicate:nil
+                                                      sortDescriptor:sort];
     [self setListCinemas: items];
     [_tableView reloadData];
 }
 
 - (void) updateData
 {
-    
-    [[Repository sharedInstance]updateEntityWithurlString:UPDATE_ALL_URL];
+    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)SGNRepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(Repository *)repository
 {
     NSLog(@"DELEGATE START");
 }
 
-- (void)SGNRepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(Repository *)repository
 {
     [self reloadData];
     NSLog(@"DELEGATE FINISH");

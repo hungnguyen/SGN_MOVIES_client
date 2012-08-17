@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HJCache.h"
-#import "Cinema.h"
+#import "Repository.h"
 
-@interface CinemaDetailController : UIViewController <UIScrollViewDelegate>
+@interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate, RepositoryDelegate>
 
-@property (strong, nonatomic) Cinema *cinemaObject;
+@property (assign, nonatomic) int cinemaObjectId;
 
 @property (strong, nonatomic) IBOutlet HJManagedImageV *cinemaImage;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;
@@ -21,5 +21,6 @@
 @property (strong, nonatomic) IBOutlet UIView *cinemaView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 - (IBAction)showMap:(id)sender;
+- (IBAction)showTicket:(id)sender;
 
 @end

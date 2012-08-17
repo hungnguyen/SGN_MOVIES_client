@@ -7,27 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Cinema.h"
-#import "Movie.h"
-#import "Sessiontime.h"
-#import "Provider.h"
+
 
 @class Repository;
 
-@protocol SGNRepositoryDelegate <NSObject>
+@protocol RepositoryDelegate <NSObject>
 @required
-- (void)SGNRepositoryStartUpdate:(Repository*)repository;
-- (void)SGNRepositoryFinishUpdate:(Repository *)repository;
+- (void)RepositoryStartUpdate:(Repository*)repository;
+- (void)RepositoryFinishUpdate:(Repository *)repository;
 @end
 
 @interface Repository : NSObject <UIAlertViewDelegate>
 
-@property (nonatomic, assign) id<SGNRepositoryDelegate> delegate;
+@property (nonatomic, assign) id<RepositoryDelegate> delegate;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 
 + (Repository*)sharedInstance;
 
-- (void) updateEntityWithurlString:(NSString*)urlString;
+- (void) updateEntityWithUrlString:(NSString*)urlString;
 - (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate;
 - (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity;
 - (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;

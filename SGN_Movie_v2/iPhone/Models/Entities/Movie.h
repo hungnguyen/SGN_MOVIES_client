@@ -30,6 +30,9 @@
 @property (nonatomic, retain) NSString * version;
 
 + (NSString*)entityName;
++ (NSString*)entityIdName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
-
++ (NSArray*)sortIdAscending;
++ (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
++ (NSPredicate*)predicateSelectByMovieId:(int)_movieId;
 @end

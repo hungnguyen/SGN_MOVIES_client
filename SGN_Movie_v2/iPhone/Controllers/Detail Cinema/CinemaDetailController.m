@@ -11,6 +11,11 @@
 #import "ShowtimesController.h"
 #import "AFNetworking.h"
 #import "MapKitDisplayController.h"
+#import "Cinema.h"
+#import "Movie.h"
+#import "DataService.h"
+#import "Repository.h"
+#import "AppDelegate.h"
 
 //define width height of each poster in list view
 #define POSTER_OFFSET_WIDTH 10
@@ -21,12 +26,14 @@
     int poster_width;
     int poster_height;
 }
-    @property (strong, nonatomic) NSArray *movieObjects;
+@property (strong, nonatomic) NSArray *movieObjects;
+@property (strong, nonatomic) Cinema *cinemaObject;
 @end
 
 
 @implementation CinemaDetailController
 
+@synthesize cinemaObjectId = _cinemaObjectId;
 @synthesize movieObjects = _movieObjects;
 @synthesize cinemaObject = _cinemaObject;
 @synthesize cinemaImage = _cinemaImage;
@@ -51,31 +58,69 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@"DETAIL CINEMA"];
-    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject valueForKey:@"ImageUrl"]];
+    
+    [[Repository sharedInstance] setDelegate:self];
     
     //set round border
     [[_cinemaView layer] setMasksToBounds:YES];
     [[_cinemaView layer] setCornerRadius:10.0f];
     [[_cinemaImage layer] setMasksToBounds:YES];
     [[_cinemaImage layer] setCornerRadius:10.0f];
+}
 
-    [_cinemaName setText:[_cinemaObject valueForKey:@"Name"]];
-    [_cinemaPhone setText:[_cinemaObject valueForKey:@"Phone"]];
-    [_cinemaAddress setText:[_cinemaObject valueForKey:@"Address"]];
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self reloadData];
+    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self setMovieObjects:nil];
+    [self setCinemaObject:nil];
+    [self setCinemaImage:nil];
+    [self setCinemaName:nil];
+    [self setCinemaPhone:nil];
+    [self setCinemaAddress:nil];
+    [self setScrollView:nil];
+}
+
+- (void)reloadView
+{
+    if(_cinemaObject == nil)
+    {
+        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
+        if ([navigation topViewController] != self) 
+        {
+            return;
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        
+        [alert show];
+    }
+    
+    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
+    [_cinemaName setText:[_cinemaObject name]];
+    [_cinemaPhone setText:[_cinemaObject phone]];
+    [_cinemaAddress setText:[_cinemaObject address]];
     [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
     [_cinemaImage showLoadingWheel];
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
     
-    //get list movie-objects
-    int cinemaId = (int)[_cinemaObject valueForKey:@"CinemaId"];
-    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/movie/cinema?cinemaid=%@",cinemaId]; 
-    [self getListCinemas:url];
+    //reload Data for list poster movies
+    [self loadPosterList];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self setCinemaView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -84,17 +129,17 @@
 }
 
 #pragma mark List Posters
-- (void) setPosterList 
+- (void) loadPosterList 
 {
     int count = [_movieObjects count];
-
+    
     //create content size for scroll view
     CGRect frame = _scrollView.frame;
-
+    
     poster_width = (frame.size.width) / POSTERS_PER_PAGE;
     poster_height = (frame.size.height); 
     [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
-
+    
     //create poster for each movie
     for(NSInteger i = 0; i < count; i++)
     {
@@ -126,6 +171,24 @@
     }
 }
 
+#pragma mark Action
+
+- (IBAction)showTicket:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ticket" 
+                                                    message:@"feature in next release" 
+                                                   delegate:self 
+                                          cancelButtonTitle:@"OK" 
+                                          otherButtonTitles: nil];
+    [alert show];
+}
+
+- (IBAction)showMap:(id)sender {
+    MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
+    [mapKitController setCinemaObject:_cinemaObject];
+    [[self navigationController] pushViewController:mapKitController animated:YES];
+}
+
 - (void) tapPoster:(UIButton*) sender
 {
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
@@ -136,28 +199,47 @@
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
-#pragma mark JSON
-- (void) getListCinemas:(NSString*)urlString
+#pragma mark CoreData
+
+- (void)reloadData
 {
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [self setMovieObjects: (NSArray*) [JSON objectForKey:@"Data"]];
-                                                                                            [self setPosterList];
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
-                                                                                        }
-                                         ];
-    [operation start];
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
+    NSPredicate *predicate = [Cinema predicateSelectByCinemaId:_cinemaObjectId];
+    _cinemaObject = [[[Repository sharedInstance] selectDataInEntity:description 
+                                                           predicate:predicate 
+                                                      sortDescriptor:nil] objectAtIndex:0];
+    
+    description = [Movie entityInManagedObjectContext:context];
+    predicate = [Movie predicateSelectByProviderId:1];
+    NSArray *sort = [Movie sortIdAscending];
+    _movieObjects = [[Repository sharedInstance] selectDataInEntity:description 
+                                                          predicate:predicate 
+                                                     sortDescriptor:sort];
+    
+    [self reloadView];
 }
 
-#pragma mark Action
+#pragma mark UIAlertViewDelegate
 
-- (IBAction)showMap:(id)sender {
-    MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
-    [mapKitController setCinemaObject:_cinemaObject];
-    [[self navigationController] pushViewController:mapKitController animated:YES];
+//after click on alert notice "data were updated"
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    
 }
+
+#pragma mark SGNRepositoryDelegate
+
+- (void)RepositoryStartUpdate:(Repository *)repository
+{
+    NSLog(@"DELEGATE START");
+}
+
+- (void)RepositoryFinishUpdate:(Repository *)repository
+{
+    [self reloadData];
+    NSLog(@"DELEGATE FINISH");
+}
+
 @end
