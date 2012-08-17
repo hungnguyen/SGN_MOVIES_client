@@ -38,7 +38,7 @@
     return @"movieId";
 }
 
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context
 {
     NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Movie entityName]
@@ -62,5 +62,9 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
     return predicate;  
 }
-
++ (NSPredicate*)predicateSelectByIsNowShowing:(BOOL)_isNowShowing
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isNowShowing = %@", _isNowShowing];
+    return predicate;  
+}
 @end

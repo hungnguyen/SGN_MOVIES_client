@@ -56,7 +56,10 @@
     parentView.origin.x = 320;
     UIScrollView * scrollviewCoSo = [[UIScrollView alloc]initWithFrame:parentView];
     
-    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];        
+    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];
+    
+    //Update Data
+    [self updateData];
    
     //Get now showing movies
     [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=nowshowing" 
@@ -131,13 +134,11 @@
         
         if([self title] == @"NOW SHOWING")
          {
-             movieDetailController.movieInfo = [_nowShowingMovies objectAtIndex:sender.tag];
-          //   NSLog(@"%@",[movieDetailController.movieInfo valueForKey:@"Id"]);
-                                                
+             [movieDetailController setMovieObjectId:sender.tag];
          }
          else
          {
-             movieDetailController.movieInfo = [_comingSoonMovies objectAtIndex:sender.tag];
+             [movieDetailController setMovieObjectId:sender.tag];
          
          }
         
@@ -182,7 +183,14 @@
         
         //Create  a poster
         UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,POSTER_WIDTH,POSTER_HEIGHT)];
-        [poster setTag :i];
+        
+        //Convert movieId to int NSNumber type
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber * myNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[[moviesContainer objectAtIndex:i] valueForKey:@"movieId"]]];
+        int movieId = myNumber.intValue;
+        
+        [poster setTag :movieId];
         [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
         
         HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
@@ -202,43 +210,32 @@
                   moviesContainerIndex:(int) moviesContainerindex 
                             scrollView:(UIScrollView *) scrollView 
 {
-    //Get  movies
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) 
-    {
-        if(moviesContainerindex == 0)
-        {
-            _nowShowingMovies = (NSArray*) [JSON objectForKey:@"Data"];
-
-            [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
-            
-            scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
-        }
-        else
-        {
-            _comingSoonMovies = (NSArray*) [JSON objectForKey:@"Data"];
-
-            [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];            
-             scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
-        }
-        
-    } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) 
-    {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0, 320, 400.0)];
-        myLabel.font = [UIFont fontWithName:@"Arial" size: 12.0];
-        myLabel.textColor = [UIColor redColor];
-        myLabel.textAlignment = UITextAlignmentCenter;
-        myLabel.text = @"SORRY,THE DEVICE CAN'T LOAD DATA";
-        
-        [_scrollViewMain addSubview:scrollView];
-        [scrollView addSubview:myLabel];
-    }];
+       
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *entityDescription = [Movie entityInManagedObjectContext:context];
+    NSArray *sort = [Movie sortIdAscending];
     
-    [operation start];
+    if(moviesContainerindex == 0)
+    {
+        NSPredicate * pred = [NSPredicate predicateWithFormat:@"isNowShowing = TRUE"];
+        NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
+                                                               predicate:pred
+                                                          sortDescriptor:sort];
+        [self setNowShowingMovies:items];
+        [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
+        scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+    }
+    if(moviesContainerindex == 1)
+    {
+        NSPredicate * pred = [NSPredicate predicateWithFormat:@"isNowShowing = FALSE"];
+        NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
+                                                               predicate:pred
+                                                          sortDescriptor:sort];
+        [self setComingSoonMovies:items];
+        [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
+        scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+    }
+
 }
 
 #pragma mark - action of navigation bar 's buttons
@@ -269,4 +266,54 @@
     }
 }
 
+#pragma mark SGNRepositoryDelegate
+
+- (void)RepositoryStartUpdate:(Repository *)repository
+{
+    NSLog(@"DELEGATE START");
+}
+
+- (void)RepositoryFinishUpdate:(Repository *)repository
+{
+    if([Repository sharedInstance].isUpdateMovie == YES)
+        [self reloadView];
+    NSLog(@"DELEGATE FINISH");
+}
+
+#pragma mark Update Data
+- (void) updateData
+{
+    [[Repository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
+}
+
+#pragma mark ReloadView
+-(void) reloadView
+{
+
+    CGRect parentView = self.scrollViewMain.frame;
+    UIScrollView * scrollviewNoSh = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:0];
+    parentView.origin.x = 320;
+    UIScrollView * scrollviewCoSo = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:1];
+    
+    for(UIView * subview in [scrollviewNoSh subviews])
+    {
+        [subview removeFromSuperview]; 
+    }
+    for(UIView * subview in [scrollviewCoSo subviews])
+    {
+        [subview removeFromSuperview]; 
+    }
+    
+    
+    //Get now showing movies
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=nowshowing" 
+                   moviesContainerIndex:0 
+                             scrollView:scrollviewNoSh];
+    
+    //Get coming soon movies
+    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=comingsoon" 
+                   moviesContainerIndex:1 
+                             scrollView:scrollviewCoSo];
+
+}
 @end

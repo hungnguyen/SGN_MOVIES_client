@@ -10,10 +10,12 @@
 #import "HJCache.h"
 #import "AboutController.h"
 #import "MovieDetailController.h"
-
+#import "Repository.h"
+#import "DataService.h"
+#import "Movie.h"
 #define PROVIDER_URL @"http://www.galaxycine.vn/"
 
-@interface MoviesController : UIViewController <UIScrollViewDelegate>
+@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate>
 {
     @public
     bool isToggled;

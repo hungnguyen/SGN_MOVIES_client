@@ -12,12 +12,13 @@
 #import "AppDelegate.h"
 #import "TrailerController.h"
 #import "SGNCustomPopup.h"
+#import "Repository.h"
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource,
-                                                        SGNCustomPopupDelegate>
+                                                        SGNCustomPopupDelegate,RepositoryDelegate>
 
 @property (strong, nonatomic) NSArray *listCinemas;
-@property (strong, nonatomic) NSArray * movieInfo;
+@property (assign, nonatomic) int movieObjectId;
 @property (strong, nonatomic)  SGNCustomPopup *popupView;
 @property (strong, nonatomic) IBOutlet UIView *maskView;
 @property (strong, nonatomic) IBOutlet UIButton *trailerButton;
