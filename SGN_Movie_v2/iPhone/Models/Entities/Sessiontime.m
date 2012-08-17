@@ -7,7 +7,8 @@
 //
 
 #import "Sessiontime.h"
-
+#import "Cinema.h"
+#import "Movie.h"
 
 @implementation Sessiontime
 
@@ -22,11 +23,29 @@
 {
     return @"Sessiontime";
 }
-
+//remove
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Sessiontime entityName]
                        inManagedObjectContext:context];
 }
+
++ (NSArray*) selectMovieIdsByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Sessiontime entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setReturnsDistinctResults:YES];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:[Movie entityIdName]]];
+    
+    NSError *error;
+    return [context executeFetchRequest:fetchRequest error:&error];
+}
+
 @end

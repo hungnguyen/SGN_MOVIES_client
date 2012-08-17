@@ -35,4 +35,6 @@
 + (NSArray*)sortIdAscending;
 + (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
 + (NSPredicate*)predicateSelectByMovieId:(int)_movieId;
++ (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context;
+
 @end
