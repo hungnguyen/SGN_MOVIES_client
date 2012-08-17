@@ -7,7 +7,7 @@
 //
 
 #import "Movie.h"
-
+#import "Provider.h"
 
 @implementation Movie
 
@@ -33,11 +33,34 @@
     return @"Movie";
 }
 
++ (NSString*)entityIdName
+{
+    return @"movieId";
+}
+
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
     NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Movie entityName]
                        inManagedObjectContext:context];
+}
+
++ (NSArray*)sortIdAscending
+{
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Movie entityIdName] ascending:YES];
+    return [NSArray arrayWithObjects:sort, nil];
+}
+
++ (NSPredicate*)predicateSelectByProviderId:(int)_providerId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider entityIdName], _providerId];
+    return predicate;
+}
+
++ (NSPredicate*)predicateSelectByMovieId:(int)_movieId
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
+    return predicate;  
 }
 
 @end

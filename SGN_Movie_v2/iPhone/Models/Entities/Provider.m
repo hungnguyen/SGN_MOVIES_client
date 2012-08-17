@@ -20,7 +20,7 @@
     return @"Provider";
 }
 
-+ (NSString*)idAttributeName
++ (NSString*)entityIdName
 {
     return @"providerId";
 }

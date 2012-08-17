@@ -10,6 +10,10 @@
 #import "AFNetworking.h"
 #import "DataService.h"
 #import "AppDelegate.h"
+#import "Cinema.h"
+#import "Movie.h"
+#import "Sessiontime.h"
+#import "Provider.h"
 
 @implementation Repository
 
@@ -29,17 +33,17 @@
 }
 
 //auto get data base on Url
-- (void) updateEntityWithurlString:(NSString*)urlString;
+- (void) updateEntityWithUrlString:(NSString*)urlString;
 {
-    urlString = [urlString stringByAppendingFormat:@"%@",[self ReadLastUpdated]];
+    urlString = [urlString stringByAppendingFormat:@"%@",[self readLastUpdated]];
     NSLog(@"URL TO UPDATE ALL: %@",urlString);
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [self SGNRepositoryStartUpdate:self];
-                                                                                            [self CheckNeedToUpdateFromJSON:JSON];
-                                                                                            [self SGNRepositoryFinishUpdate:self];
+                                                                                            [self RepositoryStartUpdate:self];
+                                                                                            [self checkNeedToUpdateFromJSON:JSON];
+                                                                                            [self RepositoryFinishUpdate:self];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                                                                                             NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
@@ -51,7 +55,7 @@
 #pragma mark Self Delegate
 
 //raise before update new data 
-- (void)SGNRepositoryStartUpdate:(Repository*)repository
+- (void)RepositoryStartUpdate:(Repository*)repository
 {
     [_loadingWheel removeFromSuperview];
 	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
@@ -60,44 +64,44 @@
     _loadingWheel.center = superView.center;
 	[superView addSubview:_loadingWheel];
 	[_loadingWheel startAnimating];
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNRepositoryStartUpdate:)])
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(RepositoryStartUpdate:)])
     {
-        [_delegate SGNRepositoryStartUpdate:repository];
+        [_delegate RepositoryStartUpdate:repository];
     }
-    else 
-    {
-        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
-        if ([navigation viewControllers].count == 1) 
-        {
-            return;
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" message:@"New Data was updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        
-        [alert show];
-        
-    }
+    //    else 
+    //    {
+    //        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
+    //        if ([navigation viewControllers].count == 1) 
+    //        {
+    //            return;
+    //        }
+    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" message:@"New Data was updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //        
+    //        [alert show];
+    //        
+    //    }
 }
 
 //raise after update new data
-- (void)SGNRepositoryFinishUpdate:(Repository*)repository
+- (void)RepositoryFinishUpdate:(Repository*)repository
 {
     [_loadingWheel stopAnimating];
     [_loadingWheel removeFromSuperview];
     [[DataService sharedInstance] saveContext];
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNRepositoryFinishUpdate:)])
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(RepositoryFinishUpdate:)])
     {
-        [_delegate SGNRepositoryFinishUpdate:repository];
+        [_delegate RepositoryFinishUpdate:repository];
     }
 }
 
-#pragma mark UIAlertViewDelegate
-
-//after click on alert notice "data were updated"
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
-    
-}
+//#pragma mark UIAlertViewDelegate
+//
+////after click on alert notice "data were updated"
+//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+//    
+//}
 
 #pragma mark Database Query
 
@@ -144,7 +148,7 @@
 }
 #pragma mark Check Need To Update
 
--(void) CheckNeedToUpdateFromJSON:(id) JSON
+-(void) checkNeedToUpdateFromJSON:(id) JSON
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] != [NSNull null])
@@ -176,38 +180,38 @@
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Provider"]  InEntity:providerEntity];
     }
     //Write LastUpdated
-[self WriteLastUpdated];
-
+    [self writeLastUpdated];
+    
 }
 
 #pragma mark Read & Write LastUpdate 
-- (NSString *) ReadLastUpdated
+- (NSString *) readLastUpdated
 {
-   
-        NSString *errorDesc = nil;
-        NSPropertyListFormat format;
-        NSString *plistPath;
-        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                  NSUserDomainMask, YES) objectAtIndex:0];
-        plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-            plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
-        }
-        NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-        NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
-                                              propertyListFromData:plistXML
-                                              mutabilityOption:NSPropertyListMutableContainersAndLeaves
-                                              format:&format
-                                              errorDescription:&errorDesc];
-        if (!temp) {
-            NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
-        }
-        
-        NSString * LastUpdated = [[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"LastUpdated"]];
-        return  LastUpdated;
+    
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    NSString *plistPath;
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+    }
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
+                                          propertyListFromData:plistXML
+                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                          format:&format
+                                          errorDescription:&errorDesc];
+    if (!temp) {
+        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+    }
+    
+    NSString * LastUpdated = [[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"LastUpdated"]];
+    return  LastUpdated;
 }
 
-- (void) WriteLastUpdated
+- (void) writeLastUpdated
 {
     
     NSDate * currentDate = [NSDate date];
