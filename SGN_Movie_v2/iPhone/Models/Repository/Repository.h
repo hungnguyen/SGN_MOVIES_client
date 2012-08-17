@@ -19,8 +19,12 @@
 
 @interface Repository : NSObject <UIAlertViewDelegate>
 
-@property (nonatomic, assign) id<RepositoryDelegate> delegate;
+//@property (nonatomic, assign) id<RepositoryDelegate> delegate;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
+@property (nonatomic, assign) BOOL isUpdateProvider;
+@property (nonatomic, assign) BOOL isUpdateCinema;
+@property (nonatomic, assign) BOOL isUpdateMovie;
+@property (nonatomic, assign) BOOL isUpdateSessiontime;
 
 + (Repository*)sharedInstance;
 

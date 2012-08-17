@@ -48,6 +48,10 @@
     [super viewDidLoad];
     
     [self setIsToggled:FALSE];
+    //set delegate to start and finish update
+    //[[Repository sharedInstance] setDelegate:self];
+
+    
     // Do any additional setup after loading the view from its nib.
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -72,12 +76,6 @@
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
     
-    //set delegate to start and finish update
-    [[Repository sharedInstance] setDelegate:self];
-    
-    //    //get list cinemas from database
-    //    [self reloadData];
-    
     //update list cinemas to database
     [self updateData];
 }
@@ -85,6 +83,7 @@
 //auto update data when re-show view
 - (void)viewWillAppear:(BOOL)animated
 {
+    //[[Repository sharedInstance] setDelegate:self];
     [self reloadData];
 }
 
@@ -171,6 +170,7 @@
 
 - (void) reloadData
 {
+    NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
     NSArray *sort = [Cinema sortIdAscending];
@@ -195,7 +195,8 @@
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    [self reloadData];
+    if([Repository sharedInstance].isUpdateMovie == YES || [Repository sharedInstance].isUpdateCinema == YES)
+        [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }
 
