@@ -27,7 +27,7 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (assign, nonatomic) int fontSize;
 @property (strong, nonatomic) NSString *fontName;
-
+@property (strong, nonatomic) Movie * movieInfo;
 @end
 
 @implementation MovieDetailController
@@ -42,6 +42,7 @@
 @synthesize fontSize = _fontSize;
 @synthesize popupView = _popupView;
 @synthesize maskView = _maskView;
+@synthesize movieObjectId = _movieObjectId;
 
 #pragma mark - Init
 
@@ -57,12 +58,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+        
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *description = [Movie entityInManagedObjectContext:context];
+    NSPredicate *predicate = [Movie predicateSelectByMovieId:_movieObjectId];
+    _movieInfo = [[[Repository sharedInstance] selectDataInEntity:description 
+                                                           predicate:predicate 
+                                                      sortDescriptor:nil] objectAtIndex:0];
+    
     [self setTitle:@"MOVIE DETAIL"];
     [self setFontSize:14];
     [self setFontName:@"Arial-BoldMT"];
     
-    NSString * urlString = [[NSString alloc] initWithString:[_movieInfo valueForKey:@"ImageUrl"]];
+    NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
     HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(-39,43,200,190)];
     [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
     [asynchcImage showLoadingWheel];
@@ -76,16 +84,15 @@
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
     
-    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*4 + 250)];
-    [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*4 + 250))];
+    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 250)];
+    [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 250))];
     [_scrollView setBounces:NO];
     
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
     [_popupView setDelegate:self];
     [[_popupView title] setText:@"SELECT CINEMA"];
     
-    int movieId = (int)[_movieInfo valueForKey:@"MovieId"];
-    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%@",movieId];
+    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%d",[_movieInfo movieId]];
     NSLog(@"%@", url);
     [self getListCinemas:url];
     
@@ -93,6 +100,7 @@
     {
         [_showTimeButton setHidden:YES];
     }
+
 }
 
 - (void)viewDidUnload
@@ -105,7 +113,6 @@
     [self setScrollView:nil];
     [self setTextView:nil];
     [self setTableView:nil];
-    [self setMovieInfo:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -119,7 +126,7 @@
 {
     //Create a view to play trailer    
     TrailerController * trailerController = [[TrailerController alloc] initWithNibName:@"TrailerView" bundle:nil];
-    NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"TrailerUrl"]];
+    NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieInfo trailerUrl]];
     [trailerController createYouTubePlayer:[NSURL URLWithString:trailerUrl]];
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
@@ -127,7 +134,7 @@
                                    target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
     [self.navigationController pushViewController:trailerController animated:YES];
-    }
+}
 
 - (IBAction)showShowTime:(id)sender 
 {
@@ -155,12 +162,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 5;
+    return 6;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
     
-    if(4 == indexPath.row)
+    if(5 == indexPath.row)
         return 250.0f;
     return CELL_HEIGHT;
 }
@@ -194,7 +201,7 @@
     // Configure the cell...
     if(0 == indexPath.row)
     {
-        NSString * genreStr = [[NSString alloc] initWithFormat:@"GENRE: %@",[_movieInfo valueForKey:@"Genre"]];
+        NSString * genreStr = [[NSString alloc] initWithFormat:@"GENRE: %@",[_movieInfo genre]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:genreStr]];
@@ -202,28 +209,35 @@
     }
     if(1 == indexPath.row)
     {
-        NSString * castStr = [[NSString alloc] initWithFormat:@"CAST: %@",[_movieInfo valueForKey:@"Cast"]];
+        NSString * castStr = [[NSString alloc] initWithFormat:@"DIRECTOR: %@",[_movieInfo director]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
     }
     if(2 == indexPath.row)
     {
-        NSString * durationStr = [[NSString alloc] initWithFormat:@"DURATION: %@",[_movieInfo valueForKey:@"Duration"]];
+        NSString * castStr = [[NSString alloc] initWithFormat:@"CAST: %@",[_movieInfo cast]];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
+        
+        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
+    }
+    if(3 == indexPath.row)
+    {
+        NSString * durationStr = [[NSString alloc] initWithFormat:@"DURATION: %@",[_movieInfo duration]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:durationStr]];
     }
-    if(3 == indexPath.row)
+    if(4 == indexPath.row)
     {
-        NSString * versionStr = [[NSString alloc] initWithFormat:@"VERSION: %@",[_movieInfo valueForKey:@"Version"]];
+        NSString * versionStr = [[NSString alloc] initWithFormat:@"VERSION: %@",[_movieInfo version]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:versionStr]];
     }
-    if(4 == indexPath.row)
+    if(5 == indexPath.row)
     {
-        NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo valueForKey:@"MovieDescription"]];
+        NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo movieDescription]];
         UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 250)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:descriptionStr]];
@@ -271,6 +285,92 @@
     [showtimesController setCinemaObject:[_listCinemas objectAtIndex:ObjectIndex]];
     [showtimesController setMovieObject:_movieInfo];
     [[self navigationController]pushViewController:showtimesController animated:YES];
+}
+
+#pragma mark ReloadView
+-(void) ReloadView
+{
+    NSLog(@"RELOAD DATA");
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSEntityDescription *description = [Movie entityInManagedObjectContext:context];
+    NSPredicate *predicate = [Movie predicateSelectByMovieId:_movieObjectId];
+    _movieInfo = [[[Repository sharedInstance] selectDataInEntity:description 
+                                                        predicate:predicate 
+                                                   sortDescriptor:nil] objectAtIndex:0];
+    
+    if(_movieInfo != nil)
+    {
+        NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
+        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(-39,43,200,190)];
+        [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
+        [asynchcImage showLoadingWheel];
+        
+        //Remove old HJManageImageV
+        UIView * subview = [[_scrollView subviews] objectAtIndex:4];
+        {
+            [subview removeFromSuperview];
+        }
+        
+        [self.scrollView addSubview:asynchcImage];
+        [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
+    
+        [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
+        [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
+    
+        [_textView setText:[_movieInfo valueForKey:@"Title"]];
+        [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
+        [_textView setEditable:NO];
+    
+        [_tableView reloadData];
+    
+        [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
+        [_popupView setDelegate:self];
+        [[_popupView title] setText:@"SELECT CINEMA"];
+        NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%d",[_movieInfo movieId]];
+        NSLog(@"%@", url);
+        [self getListCinemas:url];
+    
+        if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
+        {
+            [_showTimeButton setHidden:YES];
+        }
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        
+        [alert show];
+
+    }
+
+}
+
+#pragma mark SGNRepositoryDelegate
+
+- (void)RepositoryStartUpdate:(Repository *)repository
+{
+    NSLog(@"DELEGATE START");
+    
+}
+
+- (void)RepositoryFinishUpdate:(Repository *)repository
+{
+    if([Repository sharedInstance].isUpdateMovie == YES)
+        [self ReloadView];
+    NSLog(@"DELEGATE FINISH");
+}
+
+#pragma mark UIAlertViewDelegate
+
+//after click on alert notice "data were updated"
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    
 }
 
 @end
