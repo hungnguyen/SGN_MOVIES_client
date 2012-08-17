@@ -29,17 +29,16 @@
 }
 
 //auto get data base on Url
-- (void) updateEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate urlString:(NSString*)urlString
+- (void) updateEntityWithurlString:(NSString*)urlString;
 {
+    urlString = [urlString stringByAppendingFormat:@"%@",[self ReadLastUpdated]];
+    NSLog(@"URL TO UPDATE ALL: %@",urlString);
     NSURL *url = [[NSURL alloc] initWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                                                                                             [self SGNRepositoryStartUpdate:self];
-                                                                                            [self deleteDataInEntity:entity 
-                                                                                                           predicate:predicate];
-                                                                                            [self insertData:(NSArray*)[JSON objectForKey:@"Data"] 
-                                                                                                    InEntity:entity];
+                                                                                            [self CheckNeedToUpdateFromJSON:JSON];
                                                                                             [self SGNRepositoryFinishUpdate:self];
                                                                                         } 
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -142,6 +141,92 @@
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
     // NSLog(@"DONE SELECT");
     return items;
+}
+#pragma mark Check Need To Update
+
+-(void) CheckNeedToUpdateFromJSON:(id) JSON
+{
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] != [NSNull null])
+    {
+        NSLog(@"Update Cinemas");
+        NSEntityDescription *cinemaEntity = [Cinema entityInManagedObjectContext:context];
+        [self deleteDataInEntity:cinemaEntity predicate:nil];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]  InEntity:cinemaEntity];
+    }
+    if([[JSON objectForKey:@"Data"] objectForKey:@"Movie"] != [NSNull null])
+    {
+        NSLog(@"Update Movies");
+        NSEntityDescription *movieEntity = [Movie entityInManagedObjectContext:context];
+        [self deleteDataInEntity:movieEntity predicate:nil];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"]  InEntity:movieEntity];
+    }
+    if([[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"] != [NSNull null])
+    {
+        NSLog(@"Update Sessiontime");
+        NSEntityDescription *sessiontimeEntity = [Sessiontime entityInManagedObjectContext:context];
+        [self deleteDataInEntity:sessiontimeEntity predicate:nil];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"]  InEntity:sessiontimeEntity];
+    }
+    if([[JSON objectForKey:@"Data"] objectForKey:@"Provider"] != [NSNull null])
+    {
+        NSLog(@"Update Provider");
+        NSEntityDescription *providerEntity = [Provider entityInManagedObjectContext:context];
+        [self deleteDataInEntity:providerEntity predicate:nil];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Provider"]  InEntity:providerEntity];
+    }
+    //Write LastUpdated
+[self WriteLastUpdated];
+
+}
+
+#pragma mark Read & Write LastUpdate 
+- (NSString *) ReadLastUpdated
+{
+   
+        NSString *errorDesc = nil;
+        NSPropertyListFormat format;
+        NSString *plistPath;
+        NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                  NSUserDomainMask, YES) objectAtIndex:0];
+        plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+            plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
+        }
+        NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+        NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
+                                              propertyListFromData:plistXML
+                                              mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                              format:&format
+                                              errorDescription:&errorDesc];
+        if (!temp) {
+            NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+        }
+        
+        NSString * LastUpdated = [[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"LastUpdated"]];
+        return  LastUpdated;
+}
+
+- (void) WriteLastUpdated
+{
+    
+    NSDate * currentDate = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
+    NSString *stringFromDate = [formatter stringFromDate:currentDate];
+    NSString *error;
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
+    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
+                               [NSArray arrayWithObjects: stringFromDate, nil]
+                                                          forKeys:[NSArray arrayWithObjects: @"LastUpdated",nil]];
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
+                                                                   format:NSPropertyListXMLFormat_v1_0
+                                                         errorDescription:&error];
+    if(plistData) {
+        [plistData writeToFile:plistPath atomically:YES];
+    }
+    
 }
 
 @end

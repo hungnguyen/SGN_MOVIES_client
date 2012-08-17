@@ -183,12 +183,8 @@
 
 - (void) updateData
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *entityDescription = [Cinema entityInManagedObjectContext:context];
-    NSPredicate *predicate = [Cinema predicateSelectByProviderId:1];
-    [[Repository sharedInstance]updateEntity:entityDescription 
-                                   predicate:predicate 
-                                   urlString:@"http://sgnm-server.apphb.com/cinema/list"];
+    
+    [[Repository sharedInstance]updateEntityWithurlString:UPDATE_ALL_URL];
 }
 
 #pragma mark SGNRepositoryDelegate
