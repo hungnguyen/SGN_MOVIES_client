@@ -170,14 +170,8 @@
 
 - (void) reloadData
 {
-    NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
-    NSArray *sort = [Cinema sortIdAscending];
-    NSArray *items = [[Repository sharedInstance] selectDataInEntity:description
-                                                           predicate:nil
-                                                      sortDescriptor:sort];
-    [self setListCinemas: items];
+    [self setListCinemas: [Cinema selectByProviderId:1 context:context]];
     [_tableView reloadData];
 }
 
@@ -195,7 +189,7 @@
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    if([Repository sharedInstance].isUpdateMovie == YES || [Repository sharedInstance].isUpdateCinema == YES)
+    if([Repository sharedInstance].isUpdateCinema == YES)
         [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }
