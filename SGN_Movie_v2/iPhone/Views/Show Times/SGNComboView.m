@@ -49,13 +49,13 @@
     return self;
 }
 
-- (void)fillWithCinema:(Cinema*)cinemaObj andMovie:(NSArray*)movieObj
+- (void)fillWithCinema:(Cinema*)cinemaObj andMovie:(Movie*)movieObj
 {
     NSString *cinemaImage_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [cinemaObj imageUrl]];
-    NSString *movieImage_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [movieObj valueForKey:@"ImageUrl"]];
+    NSString *movieImage_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [movieObj imageUrl]];
     
-    [_cinemaName setText:[cinemaObj valueForKey:@"Name"]];
-    [_movieTitle setText:[movieObj valueForKey:@"Title"]];
+    [_cinemaName setText:[cinemaObj name]];
+    [_movieTitle setText:[movieObj title]];
     
     [_cinemaImage clear];
     [_cinemaImage setUrl:[NSURL URLWithString:cinemaImage_url]];

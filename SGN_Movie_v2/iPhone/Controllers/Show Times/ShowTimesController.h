@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "SGNComboView.h"
-#import "Cinema.h"
+#import "Repository.h"
 
-@interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate, RepositoryDelegate,
+                                                        UIAlertViewDelegate>
 
-@property (strong, nonatomic) Cinema *cinemaObject;
-@property (strong, nonatomic) NSArray *movieObject;
-@property (strong, nonatomic) IBOutlet UITableView *tableViewShowtimes;
+@property (assign, nonatomic) int cinemaObjectId;
+@property (assign, nonatomic) int movieObjectId;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet SGNComboView *comboView;
 
 @end

@@ -62,7 +62,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
     return predicate;  
 }
-
+//end remove
 + (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context
 {
     NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
@@ -78,6 +78,30 @@
 
     NSError *error;
     return [context executeFetchRequest:fetchRequest error:&error];
+}
+
++ (Movie*) selectByMovieId:(int)_movieId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
+    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:[Movie entityIdName] ascending:YES];
+    NSArray *sort = [NSArray arrayWithObjects:sortDecriptor, nil];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setSortDescriptors:sort];
+    
+    NSError *error;
+    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+    if (items != nil && [items count] > 0) 
+    {
+        return [items objectAtIndex:0];
+    }
+    else {
+        return nil;
+    }
 }
 
 @end
