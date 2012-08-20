@@ -76,4 +76,27 @@
     return [context executeFetchRequest:fetchRequest error:&error];
 }
 
++ (Cinema*) selectByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:[Cinema entityIdName] ascending:YES];
+    NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setSortDescriptors:sort];
+    
+    NSError *error;
+    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+    if (items != nil && [items count] > 0) 
+    {
+        return [items objectAtIndex:0];
+    }
+    else {
+        return nil;
+    }
+}
+
 @end

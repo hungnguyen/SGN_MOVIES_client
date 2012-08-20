@@ -48,9 +48,6 @@
     [super viewDidLoad];
     
     [self setIsToggled:FALSE];
-    //set delegate to start and finish update
-    //[[Repository sharedInstance] setDelegate:self];
-
     
     // Do any additional setup after loading the view from its nib.
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
@@ -64,10 +61,7 @@
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
     
-    // [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];      
-    
     [self setTitle:@"CINEMAS"];
-    [[self navigationController] setTitle:@"CINEMAS"];
     
     //set rowheight for custom view cell: SGNCinemaListCell
     [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
@@ -76,15 +70,18 @@
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
     
-    //update list cinemas to database
     [self updateData];
 }
 
 //auto update data when re-show view
 - (void)viewWillAppear:(BOOL)animated
 {
-    //[[Repository sharedInstance] setDelegate:self];
     [self reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self setListCinemas:nil];
 }
 
 - (void)viewDidUnload
@@ -93,7 +90,6 @@
     // Release any retained subviews of the main view.
     [self setTableView:nil];
     [self setIsToggled:nil];
-    [self setListCinemas:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -165,9 +161,9 @@
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
-
 #pragma mark CoreData
 
+//query data from db
 - (void) reloadData
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
@@ -175,6 +171,7 @@
     [_tableView reloadData];
 }
 
+//get new data from sever
 - (void) updateData
 {
     [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
@@ -187,6 +184,7 @@
     NSLog(@"DELEGATE START");
 }
 
+//check if has new data of cinemas
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
     if([Repository sharedInstance].isUpdateCinema == YES)

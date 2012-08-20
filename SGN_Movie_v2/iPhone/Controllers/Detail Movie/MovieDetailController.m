@@ -282,8 +282,9 @@
     [_maskView removeFromSuperview];
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
-    [showtimesController setCinemaObject:[_listCinemas objectAtIndex:ObjectIndex]];
-    [showtimesController setMovieObject:_movieInfo];
+    Cinema *cinema = [_listCinemas objectAtIndex:ObjectIndex];
+    [showtimesController setCinemaObjectId:1001];
+    [showtimesController setMovieObjectId:1001];
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
