@@ -88,11 +88,7 @@
     [_popupView setDelegate:self];
     [[_popupView title] setText:@"SELECT CINEMA"];
     
-    if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
-    {
-        [_showTimeButton setHidden:YES];
-    }
-
+ 
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -130,11 +126,13 @@
     TrailerController * trailerController = [[TrailerController alloc] initWithNibName:@"TrailerView" bundle:nil];
     NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieInfo trailerUrl]];
     [trailerController createYouTubePlayer:[NSURL URLWithString:trailerUrl]];
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
+    
     [self.navigationController pushViewController:trailerController animated:YES];
 }
 
@@ -269,6 +267,13 @@
     Cinema *cinema = [_listCinemas objectAtIndex:ObjectIndex];
     [showtimesController setCinemaObjectId:[cinema cinemaId].intValue];
     [showtimesController setMovieObjectId:[_movieInfo movieId].intValue];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
@@ -307,11 +312,7 @@
     
         [_tableView reloadData];
 
-        if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
-        {
-            [_showTimeButton setHidden:YES];
-        }
-    }
+      }
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
@@ -346,7 +347,10 @@
 //after click on alert notice "data were updated"
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    if(_movieInfo == nil)
+    {
+        [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    }
     
 }
 
