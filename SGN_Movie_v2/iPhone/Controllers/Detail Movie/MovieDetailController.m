@@ -307,10 +307,6 @@
         [_textView setEditable:NO];
     
         [_tableView reloadData];
-    
-        [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
-        [_popupView setDelegate:self];
-        [[_popupView title] setText:@"SELECT CINEMA"];
 
         if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
         {
