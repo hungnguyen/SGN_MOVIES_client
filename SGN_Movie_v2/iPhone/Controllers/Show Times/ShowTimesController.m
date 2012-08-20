@@ -10,20 +10,32 @@
 #import "ShowtimesController.h"
 #import "HJCache.h"
 #import "AFNetworking.h"
+#import "Cinema.h"
+#import "Movie.h"
+#import "DataService.h"
+#import "Sessiontime.h"
+#import "AppDelegate.h"
 
 @interface ShowtimesController ()
 
 @property (strong, nonatomic) NSMutableArray *showtimesObjects;
-- (void)CreateShowtimesFromJSON:(NSArray*)data;
+@property (strong, nonatomic) Cinema *cinemaObject;
+@property (strong, nonatomic) Movie *movieObject;
+@property (strong, nonatomic) NSString *cinemaWebId;
+@property (strong, nonatomic) NSString *movieWebId;
 
 @end
 
 @implementation ShowtimesController
 
 @synthesize comboView = _comboView;
-@synthesize cinemaObject = _cinemaObject;
+@synthesize cinemaObjectId = _cinemaObjectId;
+@synthesize movieObjectId = _movieObjectId;
 @synthesize movieObject = _movieObject;
-@synthesize tableViewShowtimes = _tableViewShowtimes;
+@synthesize cinemaObject = _cinemaObject;
+@synthesize movieWebId = _movieWebId;
+@synthesize cinemaWebId = _cinemaWebId;
+@synthesize tableView = _tableView;
 @synthesize showtimesObjects = _showtimesObjects;
 
 #pragma mark Init
@@ -41,24 +53,32 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@"SHOWTIMES"];
-    [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
-    [_tableViewShowtimes setRowHeight:60];
+    [_tableView setRowHeight:60];
     
-    int cinemaId = (int)[_cinemaObject valueForKey:@"CinemaId"];
-    int movieId = (int)[_movieObject valueForKey:@"MovieId"];
-    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/session/list?cinemaid=%@&movieid=%@",cinemaId, movieId]; 
-    [self getShowtimesFromUrl:url];
-    
+    [self setCinemaWebId:nil];
+    [self setMovieWebId:nil];
+    [self updateData];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self reloadData];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self setMovieObject:nil];
+    [self setCinemaObject:nil];
+    [self setShowtimesObjects:nil];
+    [self setCinemaWebId:nil];
+    [self setMovieWebId:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    [self setCinemaObject:nil];
-    [self setMovieObject:nil];
-    [self setTableViewShowtimes:nil];
-    [self setShowtimesObjects:nil];
+    [self setTableView:nil];
     [self setComboView:nil];
 }
 
@@ -103,26 +123,10 @@
     return cell;
 }
 
-#pragma mark JSON
+#pragma mark Utils
 
-- (void)getShowtimesFromUrl:(NSString*)urlString
-{
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [self CreateShowtimesFromJSON:(NSArray*) [JSON objectForKey:@"Data"]];
-                                                                                            [_tableViewShowtimes reloadData];
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
-                                                                                        }
-                                         ];
-    [operation start];
-
-}
-
-- (void)CreateShowtimesFromJSON:(NSArray*)data
+//create showtimes format to show in view 
+- (void)createShowtimes:(NSArray*)data
 {
     self.showtimesObjects = [[NSMutableArray alloc]init];
     NSString *date = @"";
@@ -130,15 +134,16 @@
     NSString *curDate = @"";
     for (NSInteger i = 0; i < [data count]; ++i) 
     {
-        curDate = [[data objectAtIndex:i] objectForKey:@"Date"];
+        Sessiontime *item = [data objectAtIndex:i];
+        curDate = [item date];
         if([date isEqualToString: @""] == YES)
         {
             date = curDate;
-            time = [[data objectAtIndex:i] objectForKey:@"Time"];
+            time = [item time];
         }
         else if([date isEqualToString:curDate] == YES)
         {
-            time  = [NSString stringWithFormat:@"%@ | %@", time,[[data objectAtIndex:i] objectForKey:@"Time"]];
+            time  = [NSString stringWithFormat:@"%@ | %@", time,[item time]];
         }
         else
         {
@@ -150,6 +155,70 @@
     }
     NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys: date, @"Date", time, @"Time", nil];
     [_showtimesObjects addObject:dict];
+}
+
+- (void)reloadView
+{
+    [_tableView reloadData];
+    [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
+}
+#pragma mark CoreData
+
+//get data from db, in case data was not exist in db or not map with data on view, show alert and rollback to root view
+- (void)reloadData
+{
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
+    [self setMovieObject:[Movie selectByMovieId:_movieObjectId context:context]];
+    if(_cinemaObject == nil || _movieObject == nil 
+       || (_cinemaWebId != nil && ![_cinemaWebId isEqualToString:[_cinemaObject cinemaWebId]])
+       || (_movieWebId != nil && ![_movieWebId isEqualToString:[_movieObject movieWebId]]))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    //add webid to compare in next time reload
+    [self setCinemaWebId:[_cinemaObject cinemaWebId]];
+    [self setMovieWebId:[_movieObject movieWebId]];
+    
+    NSArray *items = [Sessiontime selectByMovieId:_movieObjectId cinemaId:_cinemaObjectId context:context];
+    [self createShowtimes:items];
+    
+    [self reloadView];
+}
+
+//update new data from server
+- (void)updateData
+{
+    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+}
+
+#pragma mark SGNRepositoryDelegate
+
+- (void)RepositoryStartUpdate:(Repository *)repository
+{
+    NSLog(@"DELEGATE START");
+}
+
+- (void)RepositoryFinishUpdate:(Repository *)repository
+{
+    if([repository isUpdateCinema] == YES || [repository isUpdateMovie] == YES || [repository isUpdateSessiontime] == YES)
+        [self reloadData];
+    NSLog(@"DELEGATE FINISH");
+}
+
+#pragma mark UIAlertViewDelegate
+
+//after click on alert notice "data were updated"
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
+    
 }
 
 @end

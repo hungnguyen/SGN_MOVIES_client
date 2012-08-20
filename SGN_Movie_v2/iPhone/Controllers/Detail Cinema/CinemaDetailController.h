@@ -13,13 +13,13 @@
 @interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate, RepositoryDelegate>
 
 @property (assign, nonatomic) int cinemaObjectId;
-
 @property (strong, nonatomic) IBOutlet HJManagedImageV *cinemaImage;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaPhone;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaAddress;
 @property (strong, nonatomic) IBOutlet UIView *cinemaView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
 - (IBAction)showMap:(id)sender;
 - (IBAction)showTicket:(id)sender;
 

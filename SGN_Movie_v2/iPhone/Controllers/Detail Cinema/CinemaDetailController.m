@@ -29,12 +29,14 @@
 }
 @property (strong, nonatomic) NSArray *movieObjects;
 @property (strong, nonatomic) Cinema *cinemaObject;
+@property (strong, nonatomic) NSString *cinemaWebId;
 @end
 
 
 @implementation CinemaDetailController
 
 @synthesize cinemaObjectId = _cinemaObjectId;
+@synthesize cinemaWebId = _cinemaWebId;
 @synthesize movieObjects = _movieObjects;
 @synthesize cinemaObject = _cinemaObject;
 @synthesize cinemaImage = _cinemaImage;
@@ -59,14 +61,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self setTitle:@"DETAIL CINEMA"];
-    
-    //[[Repository sharedInstance] setDelegate:self];
-    
+
     //set round border
     [[_cinemaView layer] setMasksToBounds:YES];
     [[_cinemaView layer] setCornerRadius:10.0f];
     [[_cinemaImage layer] setMasksToBounds:YES];
     [[_cinemaImage layer] setCornerRadius:10.0f];
+    
+    [self setCinemaWebId:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -79,32 +81,18 @@
 {
     [self setMovieObjects:nil];
     [self setCinemaObject:nil];
-    [self setCinemaImage:nil];
-    [self setCinemaName:nil];
-    [self setCinemaPhone:nil];
-    [self setCinemaAddress:nil];
-    [self setScrollView:nil];
-}
-
-- (void)reloadView
-{
-    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
-    [_cinemaName setText:[_cinemaObject name]];
-    [_cinemaPhone setText:[_cinemaObject phone]];
-    [_cinemaAddress setText:[_cinemaObject address]];
-    [_cinemaImage clear];
-    [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
-    [_cinemaImage showLoadingWheel];
-    [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
-    
-    //reload Data for list poster movies
-    [self loadPosterList];
+    [self setCinemaWebId:nil];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self setCinemaImage:nil];
+    [self setCinemaName:nil];
+    [self setCinemaPhone:nil];
+    [self setCinemaAddress:nil];
+    [self setScrollView:nil];
     [self setCinemaView:nil];
 }
 
@@ -113,7 +101,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark List Posters
+#pragma mark Utils
+
 - (void) loadPosterList 
 {
     int count = [_movieObjects count];
@@ -156,6 +145,21 @@
     }
 }
 
+- (void)reloadView
+{
+    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
+    [_cinemaName setText:[_cinemaObject name]];
+    [_cinemaPhone setText:[_cinemaObject phone]];
+    [_cinemaAddress setText:[_cinemaObject address]];
+    [_cinemaImage clear];
+    [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
+    [_cinemaImage showLoadingWheel];
+    [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
+    
+    //reload Data for list poster movies
+    [self loadPosterList];
+}
+
 #pragma mark Action
 
 - (IBAction)showTicket:(id)sender
@@ -178,33 +182,29 @@
 {
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
-    [showtimesController setCinemaObject:_cinemaObject];
-    NSArray *movieObject = [_movieObjects objectAtIndex:[sender tag]];
-    [showtimesController setMovieObject:movieObject];
+    [showtimesController setCinemaObjectId:[_cinemaObject cinemaId].intValue];
+    Movie *movie = [_movieObjects objectAtIndex:[sender tag]];
+    [showtimesController setMovieObjectId:[movie movieId].intValue];
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
 #pragma mark CoreData
 
+//get data from server, in case data was not exist, show alert view and rollback to root view
 - (void)reloadData
 {
-            NSLog(@"RELOAD DATA");
+    NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
 
-    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
-    NSPredicate *predicate = [Cinema predicateSelectByCinemaId:_cinemaObjectId];
-    _cinemaObject = [[[Repository sharedInstance] selectDataInEntity:description 
-                                                           predicate:predicate 
-                                                      sortDescriptor:nil] objectAtIndex:0];
-
-    if(_cinemaObject == nil)
+    [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
+    if(_cinemaObject == nil 
+       || (_cinemaWebId != nil && ![_cinemaWebId isEqualToString:[_cinemaObject cinemaWebId]]))
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
                                                         message:@"New Data was updated" 
                                                        delegate:self 
                                               cancelButtonTitle:@"OK" 
                                               otherButtonTitles: nil];
-        
         [alert show];
         return;
     }
@@ -233,7 +233,7 @@
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    if([Repository sharedInstance].isUpdateMovie == YES || [Repository sharedInstance].isUpdateCinema == YES)
+    if([repository isUpdateMovie] == YES || [repository isUpdateCinema] == YES)
         [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }

@@ -14,5 +14,4 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (assign, nonatomic) bool isToggled;
 
-
 @end

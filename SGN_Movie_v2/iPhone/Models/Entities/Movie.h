@@ -36,5 +36,6 @@
 + (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
 + (NSPredicate*)predicateSelectByMovieId:(int)_movieId;
 + (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context;
++ (Movie*) selectByMovieId:(int)_movieId context:(NSManagedObjectContext*)context;
 
 @end
