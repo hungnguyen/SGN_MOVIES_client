@@ -103,6 +103,16 @@
 
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self reloadView];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self setMovieInfo:nil];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -288,7 +298,7 @@
 }
 
 #pragma mark ReloadView
--(void) ReloadView
+-(void) reloadView
 {
     NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
@@ -360,7 +370,7 @@
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
     if([Repository sharedInstance].isUpdateMovie == YES)
-        [self ReloadView];
+        [self reloadView];
     NSLog(@"DELEGATE FINISH");
 }
 

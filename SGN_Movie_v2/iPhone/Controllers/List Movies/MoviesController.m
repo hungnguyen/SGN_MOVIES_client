@@ -78,7 +78,10 @@
     [_scrollViewMain setContentSize:CGSizeMake(parentView.size.width * 2, parentView.size.height)];
 }
 
-
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self reloadView];
+}
 
 - (void)viewDidUnload
 {
@@ -139,7 +142,6 @@
          else
          {
              [movieDetailController setMovieObjectId:sender.tag];
-         
          }
         
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
@@ -148,9 +150,7 @@
                                        target: nil action: nil];
         
         [self.navigationItem setBackBarButtonItem: backButton];
-        [self.navigationController pushViewController:movieDetailController animated:YES];
-
-        
+        [self.navigationController pushViewController:movieDetailController animated:YES];        
     }
     else
     {
@@ -290,6 +290,7 @@
 -(void) reloadView
 {
 
+    NSLog(@"RELOAD VIEW");
     CGRect parentView = self.scrollViewMain.frame;
     UIScrollView * scrollviewNoSh = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:0];
     parentView.origin.x = 320;
