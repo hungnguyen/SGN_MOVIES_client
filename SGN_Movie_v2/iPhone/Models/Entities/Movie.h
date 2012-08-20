@@ -30,12 +30,11 @@
 @property (nonatomic, retain) NSString * version;
 
 + (NSString*)entityName;
-+ (NSString*)entityIdName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
-+ (NSArray*)sortIdAscending;
-+ (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
-+ (NSPredicate*)predicateSelectByMovieId:(int)_movieId;
-+ (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context;
+
 + (Movie*) selectByMovieId:(int)_movieId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context;
++ (NSArray*) selectByProviderId:(int)_providerId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectByProviderId:(int)_providerId isNowShowing:(bool)_isShowing context:(NSManagedObjectContext*)context;
 
 @end

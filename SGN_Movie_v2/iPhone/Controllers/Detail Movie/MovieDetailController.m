@@ -17,6 +17,7 @@
 #import "AFNetworking.h"
 #import "SGNCustomPopup.h"
 #import "ShowtimesController.h"
+#import "Sessiontime.h"
 
 #define CELL_WIDTH 320
 #define CELL_HEIGHT 60
@@ -60,11 +61,7 @@
     [super viewDidLoad];
         
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *description = [Movie entityInManagedObjectContext:context];
-    NSPredicate *predicate = [Movie predicateSelectByMovieId:_movieObjectId];
-    _movieInfo = [[[Repository sharedInstance] selectDataInEntity:description 
-                                                           predicate:predicate 
-                                                      sortDescriptor:nil] objectAtIndex:0];
+    _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
     
     [self setTitle:@"MOVIE DETAIL"];
     [self setFontSize:14];
@@ -91,10 +88,6 @@
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
     [_popupView setDelegate:self];
     [[_popupView title] setText:@"SELECT CINEMA"];
-    
-    NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%d",[_movieInfo movieId]];
-    NSLog(@"%@", url);
-    [self getListCinemas:url];
     
     if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
     {
@@ -257,24 +250,6 @@
     
 }
 
-#pragma mark JSON
-
-- (void) getListCinemas:(NSString*)urlString
-{
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                            [self setListCinemas: (NSMutableArray*) [JSON objectForKey:@"Data"]];
-                                                                                            [_popupView setScrollViewData:_listCinemas];
-                                                                                        } 
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                            NSLog(@"Request Failed with Error: %@, %@", error, [error userInfo]);
-                                                                                        }
-                                         ];
-    [operation start];
-}
-
 #pragma mark SGNCustomPopupDelegate
 
 - (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex
@@ -283,8 +258,8 @@
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
     Cinema *cinema = [_listCinemas objectAtIndex:ObjectIndex];
-    [showtimesController setCinemaObjectId:1001];
-    [showtimesController setMovieObjectId:1001];
+    [showtimesController setCinemaObjectId:[cinema cinemaId].intValue];
+    [showtimesController setMovieObjectId:[_movieInfo movieId].intValue];
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
@@ -293,12 +268,11 @@
 {
     NSLog(@"RELOAD DATA");
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *description = [Movie entityInManagedObjectContext:context];
-    NSPredicate *predicate = [Movie predicateSelectByMovieId:_movieObjectId];
-    _movieInfo = [[[Repository sharedInstance] selectDataInEntity:description 
-                                                        predicate:predicate 
-                                                   sortDescriptor:nil] objectAtIndex:0];
+    _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
     
+    NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieInfo movieId].intValue context:context];
+    [self setListCinemas:[Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context]];
+    [_popupView setScrollViewData:_listCinemas];
     if(_movieInfo != nil)
     {
         NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
@@ -327,10 +301,7 @@
         [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
         [_popupView setDelegate:self];
         [[_popupView title] setText:@"SELECT CINEMA"];
-        NSString *url = [NSString stringWithFormat:@"http://sgnm-server.apphb.com/cinema/movie?movieid=%d",[_movieInfo movieId]];
-        NSLog(@"%@", url);
-        [self getListCinemas:url];
-    
+
         if([[_movieInfo valueForKey:@"IsNowShowing"]boolValue] == NO)
         {
             [_showTimeButton setHidden:YES];

@@ -212,25 +212,17 @@
 {
        
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSEntityDescription *entityDescription = [Movie entityInManagedObjectContext:context];
-    NSArray *sort = [Movie sortIdAscending];
     
     if(moviesContainerindex == 0)
     {
-        NSPredicate * pred = [NSPredicate predicateWithFormat:@"isNowShowing = TRUE"];
-        NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
-                                                               predicate:pred
-                                                          sortDescriptor:sort];
+        NSArray *items = [Movie selectByProviderId:1 isNowShowing:YES context:context];
         [self setNowShowingMovies:items];
         [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
         scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
     }
     if(moviesContainerindex == 1)
     {
-        NSPredicate * pred = [NSPredicate predicateWithFormat:@"isNowShowing = FALSE"];
-        NSArray *items = [[Repository sharedInstance] selectDataInEntity:entityDescription
-                                                               predicate:pred
-                                                          sortDescriptor:sort];
+        NSArray *items = [Movie selectByProviderId:1 isNowShowing:NO context:context];
         [self setComingSoonMovies:items];
         [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
         scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);

@@ -93,24 +93,12 @@
     {
         [delegate RepositoryStartUpdate:repository];
     }
-    //    else 
-    //    {
-    //        UINavigationController *navigation = [AppDelegate currentDelegate].navigationController;
-    //        if ([navigation viewControllers].count == 1) 
-    //        {
-    //            return;
-    //        }
-    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" message:@"New Data was updated" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    //        
-    //        [alert show];
-    //        
-    //    }
 }
 
 //raise after update new data
 - (void)RepositoryFinishUpdate:(Repository*)repository
 {
-        id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
+    id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
     
     [_loadingWheel stopAnimating];
     [_loadingWheel removeFromSuperview];
@@ -122,24 +110,15 @@
     }
 }
 
-//#pragma mark UIAlertViewDelegate
-//
-////after click on alert notice "data were updated"
-//- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//    [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
-//    
-//}
-
 #pragma mark Database Query
 
 //delete 
-- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate
+- (void)deleteDataInEntity:(NSEntityDescription*)entity 
 {
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
+
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items) 
@@ -161,19 +140,6 @@
     // NSLog(@"DONE INSERT");
 }
 
-- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors
-{
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    if(predicate != nil)
-        [fetchRequest setPredicate:predicate];
-    NSError *error;
-    NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
-    // NSLog(@"DONE SELECT");
-    return items;
-}
 #pragma mark Check Need To Update
 
 -(void) checkNeedToUpdateFromJSON:(id) JSON
@@ -183,7 +149,7 @@
     {
         NSLog(@"Update Cinemas");
         NSEntityDescription *cinemaEntity = [Cinema entityInManagedObjectContext:context];
-        [self deleteDataInEntity:cinemaEntity predicate:nil];
+        [self deleteDataInEntity:cinemaEntity];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]  InEntity:cinemaEntity];
         [self setIsUpdateCinema:YES];
     }
@@ -191,7 +157,7 @@
     {
         NSLog(@"Update Movies");
         NSEntityDescription *movieEntity = [Movie entityInManagedObjectContext:context];
-        [self deleteDataInEntity:movieEntity predicate:nil];
+        [self deleteDataInEntity:movieEntity];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"]  InEntity:movieEntity];
         [self setIsUpdateMovie:YES];
     }
@@ -199,7 +165,7 @@
     {
         NSLog(@"Update Sessiontime");
         NSEntityDescription *sessiontimeEntity = [Sessiontime entityInManagedObjectContext:context];
-        [self deleteDataInEntity:sessiontimeEntity predicate:nil];
+        [self deleteDataInEntity:sessiontimeEntity];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"]  InEntity:sessiontimeEntity];
         [self setIsUpdateSessiontime:YES];
     }
@@ -207,7 +173,7 @@
     {
         NSLog(@"Update Provider");
         NSEntityDescription *providerEntity = [Provider entityInManagedObjectContext:context];
-        [self deleteDataInEntity:providerEntity predicate:nil];
+        [self deleteDataInEntity:providerEntity];
         [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Provider"]  InEntity:providerEntity];
         [self setIsUpdateProvider:YES];
     }
