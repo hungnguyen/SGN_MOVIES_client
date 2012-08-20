@@ -24,12 +24,10 @@
 @property (nonatomic, retain) NSNumber * providerId;
 
 + (NSString*)entityName;
-+ (NSString*)entityIdName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
-+ (NSArray*)sortIdAscending;
-+ (NSPredicate*)predicateSelectByProviderId:(int)_providerId;
-+ (NSPredicate*)predicateSelectByCinemaId:(int)_cinemaId;
-+ (NSArray*) selectByProviderId:(int)_providerId context:(NSManagedObjectContext*)context;
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Cinema*) selectByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectByProviderId:(int)_providerId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectByArrayIds:(NSArray*)_cinemaIds context:(NSManagedObjectContext*)context;
 
 @end

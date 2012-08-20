@@ -8,7 +8,6 @@
 
 #import "Cinema.h"
 
-
 @implementation Cinema
 
 @dynamic address;
@@ -27,44 +26,20 @@
     return @"Cinema";
 }
 
-+ (NSString*)entityIdName
-{
-    return @"cinemaId";
-}
-
-
-//remove
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Cinema entityName]
                        inManagedObjectContext:context];
 }
 
-+ (NSArray*)sortIdAscending
-{
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Cinema entityIdName] ascending:YES];
-    return [NSArray arrayWithObjects:sort, nil];
-}
-
-+ (NSPredicate*)predicateSelectByProviderId:(int)_providerId
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider entityIdName], _providerId];
-    return predicate;
-}
-
-+ (NSPredicate*)predicateSelectByCinemaId:(int)_cinemaId
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
-    return predicate;  
-}
-//end remove
+#pragma mark Query
 
 + (NSArray*) selectByProviderId:(int)_providerId context:(NSManagedObjectContext*)context
 {
-    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider entityIdName], _providerId];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:[Cinema entityIdName] ascending:YES];
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"providerId = %i", _providerId];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"cinemaId" ascending:YES];
     NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
 
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -76,17 +51,32 @@
     return [context executeFetchRequest:fetchRequest error:&error];
 }
 
-+ (Cinema*) selectByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context
++ (NSArray*) selectByArrayIds:(NSArray*)_cinemaIds context:(NSManagedObjectContext*)context
 {
-    NSEntityDescription *description = [Cinema entityInManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:[Cinema entityIdName] ascending:YES];
-    NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
-    
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cinemaId IN %@", _cinemaIds];
+    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:@"cinemaId" ascending:YES];
+    NSArray *sort = [NSArray arrayWithObjects:sortDecriptor, nil];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];
     [fetchRequest setSortDescriptors:sort];
+    
+    NSError *error;
+    return [context executeFetchRequest:fetchRequest error:&error];
+}
+
++ (Cinema*) selectByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cinemaId = %i", _cinemaId];
+
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
     
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];

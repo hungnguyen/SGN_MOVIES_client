@@ -187,7 +187,7 @@
 //check if has new data of cinemas
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    if([Repository sharedInstance].isUpdateCinema == YES)
+    if([repository isUpdateCinema] == YES)
         [self reloadData];
     NSLog(@"DELEGATE FINISH");
 }

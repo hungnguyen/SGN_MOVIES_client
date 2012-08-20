@@ -7,8 +7,6 @@
 //
 
 #import "Sessiontime.h"
-#import "Cinema.h"
-#import "Movie.h"
 
 @implementation Sessiontime
 
@@ -24,36 +22,42 @@
     return @"Sessiontime";
 }
 
-+ (NSString*)entityDateName
-{
-    return @"date";
-}
-
-+(NSString*)entityTimeName
-{
-    return @"time";
-}
-
-//remove
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Sessiontime entityName]
                        inManagedObjectContext:context];
 }
 
+#pragma mark Query
 + (NSArray*) selectMovieIdsByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context
 {
     NSEntityDescription *description = [NSEntityDescription entityForName:[Sessiontime entityName]
                                                    inManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Cinema entityIdName], _cinemaId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cinemaId = %i", _cinemaId];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setResultType:NSDictionaryResultType];
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];
     [fetchRequest setReturnsDistinctResults:YES];
-    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:[Movie entityIdName]]];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:@"movieId"]];
+    
+    NSError *error;
+    return [context executeFetchRequest:fetchRequest error:&error];
+}
+
++ (NSArray*) selectCinemaIdsByMovieId:(int)_movieId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Sessiontime entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieId = %i", _movieId];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setResultType:NSDictionaryResultType];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setReturnsDistinctResults:YES];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObject:@"cinemaId"]];
     
     NSError *error;
     return [context executeFetchRequest:fetchRequest error:&error];
@@ -63,9 +67,9 @@
 {
     NSEntityDescription *description = [NSEntityDescription entityForName:[Sessiontime entityName]
                                                    inManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K = %i) AND (%K = %i)", [Movie entityIdName], _movieId, [Cinema entityIdName], _cinemaId];
-    NSSortDescriptor *sortDate = [[NSSortDescriptor alloc]initWithKey:[Sessiontime entityDateName] ascending:YES];
-    NSSortDescriptor *sortTime = [[NSSortDescriptor alloc]initWithKey:[Sessiontime entityTimeName] ascending:YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(movieId = %i) AND (cinemaId = %i)", _movieId, _cinemaId];
+    NSSortDescriptor *sortDate = [[NSSortDescriptor alloc]initWithKey:@"date" ascending:YES];
+    NSSortDescriptor *sortTime = [[NSSortDescriptor alloc]initWithKey:@"time" ascending:YES];
     NSArray *sort = [NSArray arrayWithObjects:sortDate, sortTime, nil];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

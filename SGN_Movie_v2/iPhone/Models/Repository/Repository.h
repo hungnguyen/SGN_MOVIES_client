@@ -19,7 +19,6 @@
 
 @interface Repository : NSObject <UIAlertViewDelegate>
 
-//@property (nonatomic, assign) id<RepositoryDelegate> delegate;
 @property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 @property (nonatomic, assign) BOOL isUpdateProvider;
 @property (nonatomic, assign) BOOL isUpdateCinema;
@@ -29,8 +28,5 @@
 + (Repository*)sharedInstance;
 
 - (void) updateEntityWithUrlString:(NSString*)urlString;
-- (void)deleteDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate;
-- (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity;
-- (NSArray*)selectDataInEntity:(NSEntityDescription*)entity predicate:(NSPredicate*)predicate sortDescriptor:(NSArray*)sortDescriptors;
 
 @end

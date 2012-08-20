@@ -20,8 +20,10 @@
 @property (nonatomic, retain) NSString * time;
 
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)context;
-+ (NSArray*) selectMovieIdsByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context;
++ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (NSArray*) selectByMovieId:(int)_movieId cinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectMovieIdsByCinemaId:(int)_cinemaId context:(NSManagedObjectContext*)context;
++ (NSArray*) selectCinemaIdsByMovieId:(int)_movieId context:(NSManagedObjectContext*)context;
 
 @end

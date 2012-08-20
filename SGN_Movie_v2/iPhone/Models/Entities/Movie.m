@@ -7,7 +7,6 @@
 //
 
 #import "Movie.h"
-#import "Provider.h"
 
 @implementation Movie
 
@@ -33,42 +32,19 @@
     return @"Movie";
 }
 
-+ (NSString*)entityIdName
-{
-    return @"movieId";
-}
-//remove
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSParameterAssert(context);
     return [NSEntityDescription entityForName:[Movie entityName]
                        inManagedObjectContext:context];
 }
 
-+ (NSArray*)sortIdAscending
-{
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]initWithKey:[Movie entityIdName] ascending:YES];
-    return [NSArray arrayWithObjects:sort, nil];
-}
-
-+ (NSPredicate*)predicateSelectByProviderId:(int)_providerId
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Provider entityIdName], _providerId];
-    return predicate;
-}
-
-+ (NSPredicate*)predicateSelectByMovieId:(int)_movieId
-{
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
-    return predicate;  
-}
-//end remove
+#pragma mark Query
 + (NSArray*) selectByArrayIds:(NSArray*)_movieIds context:(NSManagedObjectContext*)context
 {
     NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
                                                    inManagedObjectContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieId IN %@", _movieIds];
-    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:[Movie entityIdName] ascending:YES];
+    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:@"movieId" ascending:YES];
     NSArray *sort = [NSArray arrayWithObjects:sortDecriptor, nil];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
@@ -84,14 +60,11 @@
 {
     NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
                                                    inManagedObjectContext:context];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K = %i", [Movie entityIdName], _movieId];
-    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:[Movie entityIdName] ascending:YES];
-    NSArray *sort = [NSArray arrayWithObjects:sortDecriptor, nil];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"movieId = %i", _movieId];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];
-    [fetchRequest setSortDescriptors:sort];
     
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
@@ -102,6 +75,40 @@
     else {
         return nil;
     }
+}
+
++ (NSArray*) selectByProviderId:(int)_providerId context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"providerId = %i", _providerId];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"movieId" ascending:YES];
+    NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setSortDescriptors:sort];
+    
+    NSError *error;
+    return [context executeFetchRequest:fetchRequest error:&error];
+}
+
++ (NSArray*) selectByProviderId:(int)_providerId isNowShowing:(bool)_isShowing context:(NSManagedObjectContext*)context
+{
+    NSEntityDescription *description = [NSEntityDescription entityForName:[Movie entityName]
+                                                   inManagedObjectContext:context];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(providerId = %i) AND (isNowShowing = %i)", _providerId, _isShowing];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"movieId" ascending:YES];
+    NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:description];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setSortDescriptors:sort];
+    
+    NSError *error;
+    return [context executeFetchRequest:fetchRequest error:&error];
 }
 
 @end
