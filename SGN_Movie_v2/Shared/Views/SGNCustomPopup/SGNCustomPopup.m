@@ -9,6 +9,9 @@
 #import "SGNCustomPopup.h"
 #import "HJCache.h"
 
+#define POSTER_OFFSET_WIDTH 10
+#define POSTERS_PER_PAGE 2
+
 @interface SGNCustomPopup ()
 - (void)popDown:(id)sender;
 @end
@@ -43,37 +46,48 @@
     return self;
 }
 
-- (void)setScrollViewData:(NSArray*)data
+- (void)loadViewWithData:(NSArray*)data
 {
-    //set scrollview content
-    [_scrollView setContentSize:CGSizeMake(_scrollView.bounds.size.width * [data count], _scrollView.bounds.size.height)];
+    int count = [data count];
     
-    for (int i=0; i < [data count]; i++) 
+    //create content size for scroll view
+    CGRect frame = _scrollView.frame;
+    
+    int poster_width = (frame.size.width) / POSTERS_PER_PAGE;
+    int poster_height = (frame.size.height); 
+    [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
+
+    //create poster for each movie
+    for(NSInteger i = 0; i < count; i++)
     {
-        //set for button
-        CGRect frame = _scrollView.bounds;
-        frame.origin.x = i * _scrollView.bounds.size.width;
-        frame = CGRectInset(frame, 10.0f, 0.0f);
-        
-        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
-        [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
-        [poster setTag:i];
+        frame.size.width = poster_width - POSTER_OFFSET_WIDTH * 2;
+        frame.size.height = poster_height;
         
         //set for image
         frame.origin.x = 0.0f;
+        frame.origin.y = 0.0f;
         NSString * urlString = [[NSString alloc] initWithString:[[data objectAtIndex:i] 
-                                                                 valueForKey:@"ImageUrl"]];
+                                                    valueForKey:@"ImageUrl"]];
         
         HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
         [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [posterImage showLoadingWheel];
-        //[posterImage setImageContentMode:UIViewContentModeScaleToFill];
-        [[HJCache sharedInstance].hjObjManager manage:posterImage];     
+        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
+        [[HJCache sharedInstance].hjObjManager manage:posterImage];        
         
+        //set for button
+        frame.origin.x = poster_width * i + POSTER_OFFSET_WIDTH;
+        frame.origin.y = 0.0f;
+        //int movieId = (int)[[_movieObjects objectAtIndex:i] valueForKey:@"Id"];
+        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
+        [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
+        [poster setTag:i];
         [poster addSubview:posterImage];
+        
         [_scrollView addSubview:poster];
     }
-
+    if(count > 2)
+        [_scrollView setContentOffset:CGPointMake(poster_width / 2, 0) animated:NO];
 }
 
 #pragma Ultil Methods
