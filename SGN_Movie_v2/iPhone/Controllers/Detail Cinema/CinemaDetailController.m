@@ -18,15 +18,7 @@
 #import "Repository.h"
 #import "AppDelegate.h"
 
-//define width height of each poster in list view
-#define POSTER_OFFSET_WIDTH 10
-#define POSTERS_PER_PAGE 2
-
 @interface CinemaDetailController ()
-{
-    int poster_width;
-    int poster_height;
-}
 @property (strong, nonatomic) NSArray *movieObjects;
 @property (strong, nonatomic) Cinema *cinemaObject;
 @property (strong, nonatomic) NSString *cinemaWebId;
@@ -35,6 +27,7 @@
 
 @implementation CinemaDetailController
 
+@synthesize popupView = _popupView;
 @synthesize cinemaObjectId = _cinemaObjectId;
 @synthesize cinemaWebId = _cinemaWebId;
 @synthesize movieObjects = _movieObjects;
@@ -69,12 +62,17 @@
     [[_cinemaImage layer] setCornerRadius:10.0f];
     
     [self setCinemaWebId:nil];
+    [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
+    [_popupView setDelegate:self];
+    [[_popupView title] setText:@"SELECT MOVIES"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     //[[Repository sharedInstance] setDelegate:self];
     [self reloadData];
+    [[self view] addSubview:_popupView];
+    [_popupView popUp];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -103,48 +101,6 @@
 
 #pragma mark Utils
 
-- (void) loadPosterList 
-{
-    int count = [_movieObjects count];
-    
-    //create content size for scroll view
-    CGRect frame = _scrollView.frame;
-    
-    poster_width = (frame.size.width) / POSTERS_PER_PAGE;
-    poster_height = (frame.size.height); 
-    [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
-    
-    //create poster for each movie
-    for(NSInteger i = 0; i < count; i++)
-    {
-        frame.size.width = poster_width - POSTER_OFFSET_WIDTH * 2;
-        frame.size.height = poster_height;
-        
-        //set for image
-        frame.origin.x = 0.0f;
-        frame.origin.y = 0.0f;
-        Movie *movieObject = [_movieObjects objectAtIndex:i];
-        NSString * urlString = [[NSString alloc] initWithString:[movieObject imageUrl]];
-        
-        HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
-        [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
-        [posterImage showLoadingWheel];
-        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
-        [[HJCache sharedInstance].hjObjManager manage:posterImage];        
-        
-        //set for button
-        frame.origin.x = poster_width * i + POSTER_OFFSET_WIDTH;
-        frame.origin.y = 0.0f;
-        //int movieId = (int)[[_movieObjects objectAtIndex:i] valueForKey:@"Id"];
-        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
-        [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
-        [poster setTag:i];
-        [poster addSubview:posterImage];
-        
-        [_scrollView addSubview:poster];
-    }
-}
-
 - (void)reloadView
 {
     NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
@@ -157,7 +113,7 @@
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
     
     //reload Data for list poster movies
-    [self loadPosterList];
+    [_popupView loadViewWithData:_movieObjects];
 }
 
 #pragma mark Action
@@ -176,16 +132,6 @@
     MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
     [mapKitController setCinemaObject:_cinemaObject];
     [[self navigationController] pushViewController:mapKitController animated:YES];
-}
-
-- (void) tapPoster:(UIButton*) sender
-{
-    ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
-                                                                                     bundle:nil];
-    [showtimesController setCinemaObjectId:[_cinemaObject cinemaId].intValue];
-    Movie *movie = [_movieObjects objectAtIndex:[sender tag]];
-    [showtimesController setMovieObjectId:[movie movieId].intValue];
-    [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
 #pragma mark CoreData
@@ -236,6 +182,18 @@
     if([repository isUpdateMovie] == YES || [repository isUpdateCinema] == YES)
         [self reloadData];
     NSLog(@"DELEGATE FINISH");
+}
+
+#pragma mark SGNCustomPopupDelegate
+
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex
+{
+    ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
+                                                                                     bundle:nil];
+    [showtimesController setCinemaObjectId:[_cinemaObject cinemaId].intValue];
+    Movie *movie = [_movieObjects objectAtIndex:ObjectIndex];
+    [showtimesController setMovieObjectId:[movie movieId].intValue];
+    [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 
 @end

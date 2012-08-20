@@ -22,6 +22,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *title;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
-- (void)setScrollViewData:(NSArray*)data;
+- (void)loadViewWithData:(NSArray*)data;
 - (void)popUp;
 @end

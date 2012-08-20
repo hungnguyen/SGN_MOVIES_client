@@ -15,7 +15,6 @@
 #import <AVFoundation/AVPlayerLayer.h>
 #import "LBYouTubePlayerViewController.h"
 #import "AFNetworking.h"
-#import "SGNCustomPopup.h"
 #import "ShowtimesController.h"
 #import "Sessiontime.h"
 
@@ -282,7 +281,7 @@
     
     NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieInfo movieId].intValue context:context];
     [self setListCinemas:[Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context]];
-    [_popupView setScrollViewData:_listCinemas];
+    [_popupView loadViewWithData:_listCinemas];
     if(_movieInfo != nil)
     {
         NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
