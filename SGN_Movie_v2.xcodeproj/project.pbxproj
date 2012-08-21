@@ -16,6 +16,8 @@
 		6FE28E6815C7B38100BB7A4E /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E6715C7B38100BB7A4E /* MediaPlayer.framework */; };
 		6FE28E8115C7BD0D00BB7A4E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE28E8015C7BD0D00BB7A4E /* AVFoundation.framework */; };
 		6FE32C1815D2177300F344E0 /* MapKitDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE32C1715D2177300F344E0 /* MapKitDisplayController.m */; };
+		6FFEEE9C15E3953800322710 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FFEEE9A15E3953800322710 /* Icon.png */; };
+		6FFEEE9D15E3953800322710 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FFEEE9B15E3953800322710 /* Icon@2x.png */; };
 		6FFFC0D515CF614B003D9326 /* LBYouTubePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0D215CF614B003D9326 /* LBYouTubePlayerController.m */; };
 		6FFFC0D615CF614B003D9326 /* LBYouTubePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0D415CF614B003D9326 /* LBYouTubePlayerViewController.m */; };
 		6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0DA15CF669E003D9326 /* TrailerController.m */; };
@@ -97,6 +99,8 @@
 		6FE28E8015C7BD0D00BB7A4E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6FE32C1615D2177300F344E0 /* MapKitDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapKitDisplayController.h; path = SGN_Movie_v2/iPhone/Controllers/Map/MapKitDisplayController.h; sourceTree = SOURCE_ROOT; };
 		6FE32C1715D2177300F344E0 /* MapKitDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapKitDisplayController.m; path = SGN_Movie_v2/iPhone/Controllers/Map/MapKitDisplayController.m; sourceTree = SOURCE_ROOT; };
+		6FFEEE9A15E3953800322710 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		6FFEEE9B15E3953800322710 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		6FFFC0D115CF614B003D9326 /* LBYouTubePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTubePlayerController.h; sourceTree = "<group>"; };
 		6FFFC0D215CF614B003D9326 /* LBYouTubePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBYouTubePlayerController.m; sourceTree = "<group>"; };
 		6FFFC0D315CF614B003D9326 /* LBYouTubePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTubePlayerViewController.h; sourceTree = "<group>"; };
@@ -414,6 +418,8 @@
 		F397E67A15C159A100A92874 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6FFEEE9A15E3953800322710 /* Icon.png */,
+				6FFEEE9B15E3953800322710 /* Icon@2x.png */,
 				F397E67B15C159A100A92874 /* SGN_MOVIE_v2-Info.plist */,
 				F397E67C15C159A100A92874 /* InfoPlist.strings */,
 				F397E67F15C159A100A92874 /* main.m */,
@@ -770,6 +776,8 @@
 				6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */,
 				F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */,
 				6FA3253615DCE8F600C1CD32 /* Data.plist in Resources */,
+				6FFEEE9C15E3953800322710 /* Icon.png in Resources */,
+				6FFEEE9D15E3953800322710 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
