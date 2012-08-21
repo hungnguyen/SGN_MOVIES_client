@@ -62,14 +62,14 @@
     [self updateData];
    
     //Get now showing movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=nowshowing" 
-                   moviesContainerIndex:0 
+    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:0 
                              scrollView:scrollviewNoSh];
     
     //Get coming soon movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=comingsoon" 
-                   moviesContainerIndex:1 
-                             scrollView:scrollviewCoSo];
+    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
+                                                     scrollView:scrollviewCoSo];
+    
+
     
     [_scrollViewMain addSubview:scrollviewNoSh];
     [_scrollViewMain addSubview:scrollviewCoSo];
@@ -206,8 +206,7 @@
 
 #pragma mark - get movies from JSON
 
-- (void) getSpecifiedMoviesAndShowThem:(NSString*) urlString 
-                  moviesContainerIndex:(int) moviesContainerindex 
+- (void) getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:(int) moviesContainerindex 
                             scrollView:(UIScrollView *) scrollView 
 {
        
@@ -299,14 +298,13 @@
     
     
     //Get now showing movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=nowshowing" 
-                   moviesContainerIndex:0 
-                             scrollView:scrollviewNoSh];
+    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:0 
+                                                     scrollView:scrollviewNoSh];
     
     //Get coming soon movies
-    [self getSpecifiedMoviesAndShowThem:@"http://sgnm-server.apphb.com/movie/list?type=comingsoon" 
-                   moviesContainerIndex:1 
-                             scrollView:scrollviewCoSo];
+    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
+                                                     scrollView:scrollviewCoSo];
+    
 
 }
 @end
