@@ -85,8 +85,8 @@
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
     
-    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 250)];
-    [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 250))];
+    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 300)];
+    [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 300))];
     [_scrollView setBounces:NO];
     
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
@@ -173,7 +173,7 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
     
     if(5 == indexPath.row)
-        return 250.0f;
+        return 300.0f;
     return CELL_HEIGHT;
 }
 
@@ -243,7 +243,7 @@
     if(5 == indexPath.row)
     {
         NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo movieDescription]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 250)];
+        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 300)];
         
         [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:descriptionStr]];
     }
