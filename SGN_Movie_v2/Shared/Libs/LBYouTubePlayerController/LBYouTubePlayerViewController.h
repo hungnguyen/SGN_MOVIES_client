@@ -29,7 +29,7 @@ typedef enum {
     LBYouTubePlayerController* view;
     id <LBYouTubePlayerControllerDelegate> __unsafe_unretained delegate;
 }
-
+-(void) stopVideo;
 @property (nonatomic) LBYouTubePlayerQuality quality;
 @property (nonatomic, strong, readonly) NSURL* youTubeURL;
 @property (nonatomic, strong, readonly) NSURL *extractedURL;
@@ -44,5 +44,6 @@ typedef enum {
 
 -(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL;
 -(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller failedExtractingYouTubeURLWithError:(NSError *)error;
+
 
 @end

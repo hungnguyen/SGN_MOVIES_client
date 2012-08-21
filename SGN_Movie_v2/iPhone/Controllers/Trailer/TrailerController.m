@@ -40,11 +40,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
 }
-
+- (void ) viewWillDisappear:(BOOL)animated
+{
+    [_youTubePlayerController stopVideo];
+}
 - (void)viewDidUnload
 {
-    [self setYouTubePlayerController:nil];
+   
+   // [self.youTubePlayerController.view removeFromSuperview];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -62,6 +67,10 @@
     
 }
 -(void)youTubePlayerViewController:(LBYouTubePlayerViewController *)controller failedExtractingYouTubeURLWithError:(NSError *)error
+{
+    
+}
+-(void) stopVideo
 {
     
 }

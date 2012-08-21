@@ -274,5 +274,8 @@ NSInteger const LBYouTubePlayerControllerErrorCodeNoJSONData   =    3;
 }
 
 #pragma mark -
-
+-(void) stopVideo
+{
+    [self.view.controller stop];
+}
 @end
