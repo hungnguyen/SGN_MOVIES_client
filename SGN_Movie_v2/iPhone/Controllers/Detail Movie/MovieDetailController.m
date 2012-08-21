@@ -84,6 +84,7 @@
     [_textView setText:[_movieInfo valueForKey:@"Title"]];
     [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
     [_textView setEditable:NO];
+    [_textView setScrollEnabled:NO];
     
     [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 300)];
     [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 300))];
@@ -314,6 +315,7 @@
         [_textView setText:[_movieInfo valueForKey:@"Title"]];
         [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
         [_textView setEditable:NO];
+         [_textView setScrollEnabled:NO];
     
         [_tableView reloadData];
 
