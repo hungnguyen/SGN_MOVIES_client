@@ -214,7 +214,13 @@
     
     NSDate * currentDate = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
+        
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss"];
+    
+    //Time with GMT
+    //[formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
+    
     NSString *stringFromDate = [formatter stringFromDate:currentDate];
     NSString *error;
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
