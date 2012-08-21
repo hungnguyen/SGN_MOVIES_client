@@ -133,18 +133,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
+    if(!_isToggled)
+    {
+        CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
                                                                                              bundle:nil];
-    Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
-    [cinemaDetailController setCinemaObjectId:[cinema cinemaId].intValue];
+        Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
+        [cinemaDetailController setCinemaObjectId:[cinema cinemaId].intValue];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
+        [self.navigationItem setBackBarButtonItem: backButton];
     
-    [[self navigationController] pushViewController:cinemaDetailController animated:YES];
+        [[self navigationController] pushViewController:cinemaDetailController animated:YES];
+    }
+    else
+    {
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        [self setIsToggled:FALSE];
+    }
 }
 
 #pragma mark Action
