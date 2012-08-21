@@ -70,8 +70,5 @@
 {
     
 }
--(void) stopVideo
-{
-    
-}
+
 @end
