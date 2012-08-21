@@ -138,6 +138,12 @@
     Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
     [cinemaDetailController setCinemaObjectId:[cinema cinemaId].intValue];
     
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
     [[self navigationController] pushViewController:cinemaDetailController animated:YES];
 }
 
@@ -158,6 +164,12 @@
 
 - (void)showInfo
 {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+
     [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
 }
 

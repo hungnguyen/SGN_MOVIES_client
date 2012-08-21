@@ -117,12 +117,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     NSDictionary *showtime = (NSDictionary*)[_showtimesObjects objectAtIndex:[indexPath row]];
-   // [[cell textLabel]setText:[showtime objectForKey:@"Date"]];
-   // [[cell detailTextLabel]setText:[showtime objectForKey:@"Time"]];
-    UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
-    UITextView * cellDetailTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 320, 60)];
-    
+   
     //Add text view for Date
+    UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     [cellTextView setText:[showtime objectForKey:@"Date"]];
     [cellTextView setFont:[UIFont boldSystemFontOfSize:19]];
     [cellTextView setEditable:NO];
@@ -130,6 +127,7 @@
     [cell addSubview:cellTextView];
     
     //Add text view for Time
+    UITextView * cellDetailTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 320, 60)];
     [cellDetailTextView setText:[showtime objectForKey:@"Time"]];
     [cellDetailTextView setFont:[UIFont fontWithName:@"Times New Roman" size:19]];
     [cellDetailTextView setEditable:NO];
@@ -142,9 +140,7 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
     
-  //  if(5 == indexPath.row)
-        return 91;
-   
+    return 91;
 }
 
 
