@@ -15,6 +15,7 @@
 #import "DataService.h"
 #import "Sessiontime.h"
 #import "AppDelegate.h"
+#define CELL_HEIGHT 91
 
 @interface ShowtimesController ()
 
@@ -140,7 +141,7 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
     
-    return 91;
+    return CELL_HEIGHT;
 }
 
 

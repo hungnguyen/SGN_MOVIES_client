@@ -175,7 +175,6 @@
     [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
     
 }
-
 #pragma mark SGNRepositoryDelegate
 
 - (void)RepositoryStartUpdate:(Repository *)repository
@@ -200,6 +199,13 @@
     [showtimesController setCinemaObjectId:[_cinemaObject cinemaId].intValue];
     Movie *movie = [_movieObjects objectAtIndex:ObjectIndex];
     [showtimesController setMovieObjectId:[movie movieId].intValue];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
     [[self navigationController]pushViewController:showtimesController animated:YES];
 }
 

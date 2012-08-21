@@ -20,7 +20,6 @@
     @public
     bool isToggled;
 }
-
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @end

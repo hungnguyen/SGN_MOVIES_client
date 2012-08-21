@@ -215,11 +215,11 @@
     NSDate * currentDate = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss"];
+    //[formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    //[formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss"];
     
     //Time with GMT
-    //[formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
+    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
     
     NSString *stringFromDate = [formatter stringFromDate:currentDate];
     NSString *error;

@@ -22,6 +22,11 @@
 #define CELL_HEIGHT 60
 #define TABLEVIEW_Ypos 293
 
+#define ImageX -39
+#define ImageY 43
+#define ImageWidth 200
+#define ImageHeight  190
+
 @interface MovieDetailController ()
 
 @property (strong, nonatomic) UITableView *tableView;
@@ -290,7 +295,7 @@
     if(_movieInfo != nil)
     {
         NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
-        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(-39,43,200,190)];
+        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(ImageX,ImageY,ImageWidth,ImageHeight)];
         [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [asynchcImage showLoadingWheel];
         
@@ -320,7 +325,6 @@
                                                        delegate:self 
                                               cancelButtonTitle:@"OK" 
                                               otherButtonTitles: nil];
-        
         [alert show];
 
     }
@@ -332,7 +336,6 @@
 - (void)RepositoryStartUpdate:(Repository *)repository
 {
     NSLog(@"DELEGATE START");
-    
 }
 
 - (void)RepositoryFinishUpdate:(Repository *)repository

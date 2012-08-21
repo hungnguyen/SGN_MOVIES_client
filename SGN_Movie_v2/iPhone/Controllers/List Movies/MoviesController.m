@@ -69,8 +69,6 @@
     [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
                                                      scrollView:scrollviewCoSo];
     
-
-    
     [_scrollViewMain addSubview:scrollviewNoSh];
     [_scrollViewMain addSubview:scrollviewCoSo];
 
@@ -91,7 +89,6 @@
     // Release any retained subviews of the main view.
     [self setScrollViewMain:nil];
     [self setPageControl:nil];
-    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -237,7 +234,6 @@
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
-    
     [self.navigationItem setBackBarButtonItem: backButton];
 
     [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
@@ -249,7 +245,6 @@
     if(!isToggled)
     {
         isToggled = TRUE;
-        
     }
     else 
     {
