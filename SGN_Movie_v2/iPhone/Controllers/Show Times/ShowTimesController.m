@@ -17,7 +17,7 @@
 #import "AppDelegate.h"
 
 
-@interface ShowtimesController ()
+@interface ShowtimesController () 
 
 @property (strong, nonatomic) NSMutableArray *showtimesObjects;
 @property (strong, nonatomic) Cinema *cinemaObject;
@@ -138,7 +138,7 @@
     return cell;
 }
 
-#pragma mark Utils
+#pragma mark Utils 
 
 //create showtimes format to show in view 
 - (void)createShowtimes:(NSArray*)data

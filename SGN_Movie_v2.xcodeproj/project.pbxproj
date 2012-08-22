@@ -31,7 +31,6 @@
 		F38DA93C15D91CD300C40810 /* Provider.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93315D91CD300C40810 /* Provider.m */; };
 		F38DA93D15D91CD300C40810 /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93515D91CD300C40810 /* Sessiontime.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
-		F3951C1615CFC51B00BCF4D8 /* ShowtimesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */; };
 		F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */; };
 		F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C5015CFD72800BCF4D8 /* SGNComboView.m */; };
 		F3951C5315CFD73F00BCF4D8 /* SGNComboView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */; };
@@ -84,6 +83,7 @@
 		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
 		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F3EFFF2D15E4F4EB00B4A2DD /* ShowTimesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,8 +123,6 @@
 		F38DA93515D91CD300C40810 /* Sessiontime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sessiontime.m; sourceTree = "<group>"; };
 		F38DA93715D91CD300C40810 /* SGN_Movie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SGN_Movie.xcdatamodel; sourceTree = "<group>"; };
 		F38DA94215D91D2D00C40810 /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
-		F3951C1415CFC51B00BCF4D8 /* ShowtimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowtimesController.h; sourceTree = "<group>"; };
-		F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowtimesController.m; sourceTree = "<group>"; };
 		F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTimesView.xib; sourceTree = "<group>"; };
 		F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNComboView.h; sourceTree = "<group>"; };
 		F3951C5015CFD72800BCF4D8 /* SGNComboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNComboView.m; sourceTree = "<group>"; };
@@ -215,6 +213,8 @@
 		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTimesController.m; sourceTree = "<group>"; };
+		F3EFFF2E15E4F4F700B4A2DD /* ShowTimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTimesController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,8 +355,8 @@
 		F3951C1115CFC4D200BCF4D8 /* Show Times */ = {
 			isa = PBXGroup;
 			children = (
-				F3951C1415CFC51B00BCF4D8 /* ShowtimesController.h */,
-				F3951C1515CFC51B00BCF4D8 /* ShowtimesController.m */,
+				F3EFFF2E15E4F4F700B4A2DD /* ShowTimesController.h */,
+				F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */,
 			);
 			path = "Show Times";
 			sourceTree = "<group>";
@@ -734,7 +734,7 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 			};
-			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */;
+			buildConfigurationList = F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -820,7 +820,6 @@
 				F3C24E5715C8027B0077C801 /* MenuController.m in Sources */,
 				F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */,
 				F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */,
-				F3951C1615CFC51B00BCF4D8 /* ShowtimesController.m in Sources */,
 				F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */,
 				6FFFC0D515CF614B003D9326 /* LBYouTubePlayerController.m in Sources */,
 				6FFFC0D615CF614B003D9326 /* LBYouTubePlayerViewController.m in Sources */,
@@ -835,6 +834,7 @@
 				F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */,
 				F3ADF7D815DA106D00BD9854 /* Cinema.m in Sources */,
 				F3B1007C15DBA07A00F67674 /* Repository.m in Sources */,
+				F3EFFF2D15E4F4EB00B4A2DD /* ShowTimesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,7 +938,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_Movie_v2" */ = {
+		F397E66915C159A000A92874 /* Build configuration list for PBXProject "SGN_MOVIE_v2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F397E68B15C159A100A92874 /* Debug */,
