@@ -63,7 +63,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-        
+    
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
     
@@ -94,7 +94,9 @@
     [_popupView setDelegate:self];
     [[_popupView title] setText:@"SELECT CINEMA"];
     
- 
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removePopup)];
+    [tapGR setNumberOfTapsRequired:1];
+    [_maskView addGestureRecognizer:tapGR];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -124,7 +126,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - actions of buttons
+#pragma mark - actions 
 
 - (IBAction)showTrailer:(id)sender 
 {
@@ -155,6 +157,12 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Sorry, there is no cinema show this movie" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+}
+
+- (void)removePopup
+{
+    [_maskView removeFromSuperview];
+    [_popupView popDown:nil];
 }
 
 #pragma mark UITableViewDataSource
@@ -309,18 +317,18 @@
         
         [self.scrollView addSubview:asynchcImage];
         [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
-    
+        
         [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
         [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
-    
+        
         [_textView setText:[_movieInfo valueForKey:@"Title"]];
         [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
         [_textView setEditable:NO];
-         [_textView setScrollEnabled:NO];
-    
+        [_textView setScrollEnabled:NO];
+        
         [_tableView reloadData];
-
-      }
+        
+    }
     else
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
@@ -329,9 +337,9 @@
                                               cancelButtonTitle:@"OK" 
                                               otherButtonTitles: nil];
         [alert show];
-
+        
     }
-
+    
 }
 
 #pragma mark SGNRepositoryDelegate

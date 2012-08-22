@@ -56,7 +56,7 @@
     int poster_width = (frame.size.width) / POSTERS_PER_PAGE;
     int poster_height = (frame.size.height); 
     [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
-
+    
     //create poster for each movie
     for(NSInteger i = 0; i < count; i++)
     {
@@ -67,7 +67,7 @@
         frame.origin.x = 0.0f;
         frame.origin.y = 0.0f;
         NSString * urlString = [[NSString alloc] initWithString:[[data objectAtIndex:i] 
-                                                    valueForKey:@"ImageUrl"]];
+                                                                 valueForKey:@"ImageUrl"]];
         
         HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
         [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
@@ -136,16 +136,18 @@
     frame.origin.y = [self superview].bounds.size.height;
     self.frame = frame;
     [UIView commitAnimations];
-    [self SGNCustomPopupTap:self withObjectIndex:[sender tag]];
+    
+    if(sender != nil && sender != [NSNull null])
+        [self SGNCustomPopupTap:self withObjectIndex:[sender tag]];
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context 
 {
     if ([animationID isEqualToString:@"popdownView"]) 
     {
-       [self removeFromSuperview];
+        [self removeFromSuperview];
     }
 }
-     
+
 
 @end
