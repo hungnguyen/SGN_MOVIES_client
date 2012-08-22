@@ -228,7 +228,7 @@
 
 - (void) writeLastUpdated:(NSString*)lastUpdateServer
 {
-    if(lastUpdateServer == nil || [lastUpdateServer isEqualToString:@""])
+    if(lastUpdateServer == nil || lastUpdateServer == (NSString*)[NSNull null] || [lastUpdateServer isEqualToString:@""])
         return;
 
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
