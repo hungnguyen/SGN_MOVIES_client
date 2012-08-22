@@ -24,4 +24,5 @@
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 - (void)loadViewWithData:(NSArray*)data;
 - (void)popUp;
+- (void)popDown:(id)sender;
 @end

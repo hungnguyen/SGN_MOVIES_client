@@ -15,7 +15,7 @@
 #import "DataService.h"
 #import "Sessiontime.h"
 #import "AppDelegate.h"
-#define CELL_HEIGHT 91
+
 
 @interface ShowtimesController ()
 
@@ -54,7 +54,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self showLastUpdateOnNavigationBarWithTitle:@"SHOW TIMES"];
-    [_tableView setRowHeight:60];
+    [_tableView setRowHeight:90];
     
     [self setCinemaWebId:nil];
     [self setMovieWebId:nil];
@@ -134,16 +134,9 @@
     [cellDetailTextView setEditable:NO];
     [cellDetailTextView setScrollEnabled:NO];
     [cell addSubview:cellDetailTextView];
-
     
     return cell;
 }
-
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
-    
-    return CELL_HEIGHT;
-}
-
 
 #pragma mark Utils
 
@@ -185,6 +178,24 @@
     [_tableView reloadData];
     [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
 }
+
+-(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
+{
+    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 13.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
+    [self.navigationItem setTitleView:label];
+    
+}
+
 #pragma mark CoreData
 
 //get data from db, in case data was not exist in db or not map with data on view, show alert and rollback to root view
@@ -242,24 +253,6 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
-    
-}
-#pragma mark showLastUpdate
--(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
-{
-    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 2;
-    label.font = [UIFont boldSystemFontOfSize: 13.0f];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
-    [self.navigationItem setTitleView:label];
     
 }
 
