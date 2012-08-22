@@ -15,6 +15,9 @@
 #import "Sessiontime.h"
 #import "Provider.h"
 
+#define FORMAT_TIME @"dd.MM.yyyy HH.mm.ss"
+//#define FORMAT_TIME_GMT @"dd.MM.yyyy HH.mm.ss zzz"
+
 @interface Repository()
 @property (assign, nonatomic) BOOL isUpdating;
 @end
@@ -55,9 +58,22 @@
         [self setIsUpdateMovie:NO];
         [self setIsUpdateSessiontime:NO];
     }
-    urlString = [urlString stringByAppendingFormat:@"%@",[self readLastUpdated]];
-    NSLog(@"URL TO UPDATE ALL: %@",urlString);
-    NSURL *url = [[NSURL alloc] initWithString:urlString];
+
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
+    
+    //get GMT time
+    [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatter setDateFormat:FORMAT_TIME];
+    NSDate *gmtDate = [formatter dateFromString:[self readLastUpdated]];
+
+    //get UTC with GMTinput
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter setDateFormat:FORMAT_TIME];
+    NSString *utcDate = [formatter stringFromDate:gmtDate];
+
+    urlString = [[NSString stringWithFormat:urlString, utcDate, FORMAT_TIME]
+                 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request 
                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -178,7 +194,8 @@
         [self setIsUpdateProvider:YES];
     }
     //Write LastUpdated
-    [self writeLastUpdated];
+    NSString *lastUpdateServer = [[JSON objectForKey:@"Data"] objectForKey:@"LastUpdate"];
+    [self writeLastUpdated:lastUpdateServer];
     
 }
 
@@ -209,24 +226,28 @@
     return  LastUpdated;
 }
 
-- (void) writeLastUpdated
+- (void) writeLastUpdated:(NSString*)lastUpdateServer
 {
-    
-    NSDate * currentDate = [NSDate date];
+    if(lastUpdateServer == nil || [lastUpdateServer isEqualToString:@""])
+        return;
+
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        
-    //[formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    //[formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss"];
+
+    //get UTC time
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter setDateFormat:FORMAT_TIME];
+    NSDate *utcDate = [formatter dateFromString:lastUpdateServer];
     
-    //Time with GMT
-    [formatter setDateFormat:@"dd.MM.yyyy%20HH.mm.ss%20zzz"];
+    //get current GMT with UTCinput
+    [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatter setDateFormat:FORMAT_TIME];
+    NSString *gmtDate = [formatter stringFromDate:utcDate];
     
-    NSString *stringFromDate = [formatter stringFromDate:currentDate];
     NSString *error;
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
     NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
-                               [NSArray arrayWithObjects: stringFromDate, nil]
+                               [NSArray arrayWithObjects: gmtDate, nil]
                                                           forKeys:[NSArray arrayWithObjects: @"LastUpdated",nil]];
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
                                                                    format:NSPropertyListXMLFormat_v1_0
