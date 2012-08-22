@@ -49,6 +49,7 @@
     
     [self setIsToggled:FALSE];
     
+    
     // Do any additional setup after loading the view from its nib.
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
@@ -61,7 +62,9 @@
     [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
     
-    [self setTitle:@"CINEMAS"];
+    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
+    [self.navigationController setTitle:@"CINEMAS"];
+
     
     //set rowheight for custom view cell: SGNCinemaListCell
     [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
@@ -76,6 +79,7 @@
 //auto update data when re-show view
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
     [self reloadData];
 }
 
@@ -186,6 +190,7 @@
 //query data from db
 - (void) reloadData
 {
+    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     [self setListCinemas: [Cinema selectByProviderId:1 context:context]];
     [_tableView reloadData];
@@ -209,7 +214,25 @@
 {
     if([repository isUpdateCinema] == YES)
         [self reloadData];
+    
     NSLog(@"DELEGATE FINISH");
 }
-
+#pragma mark showLastUpdate
+-(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
+{
+    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 13.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
+    [self.navigationItem setTitleView:label];
+    
+}
 @end

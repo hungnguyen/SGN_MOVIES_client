@@ -35,7 +35,8 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    [self setTitle:@"NOW SHOWING"];
+        
+    [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
     [self.navigationController setTitle:@"NOW SHOWING"];
     
     isToggled = FALSE;
@@ -105,11 +106,12 @@
     
     if(page == 1)
     {
-        [self setTitle:@"COMING SOON"];
+        [self showLastUpdateOnNavigationBarWithTitle:@"COMING SOON"];
     }
     else
     {
-        [self setTitle:@"NOW SHOWING"];
+        [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
+
     }
     
     [_pageControl setCurrentPage:page];
@@ -131,8 +133,9 @@
        
         
         MovieDetailController *movieDetailController = [[MovieDetailController alloc] initWithNibName:@"MovieDetailView" bundle:nil];
-        
-        if([self title] == @"NOW SHOWING")
+        NSRange aRange = [[self title] rangeOfString:@"NOW SHOWING"];
+      
+        if(aRange.location!=NSNotFound)
          {
              [movieDetailController setMovieObjectId:sender.tag];
          }
@@ -277,6 +280,7 @@
 {
 
     NSLog(@"RELOAD VIEW");
+    [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
     CGRect parentView = self.scrollViewMain.frame;
     UIScrollView * scrollviewNoSh = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:0];
     parentView.origin.x = 320;
@@ -302,4 +306,25 @@
     
 
 }
+
+#pragma mark showLastUpdate
+-(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
+{
+    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 13.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
+    [self.navigationItem setTitleView:label];
+
+}
+
+
 @end

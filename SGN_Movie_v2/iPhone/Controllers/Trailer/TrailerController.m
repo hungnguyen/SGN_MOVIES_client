@@ -23,8 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = @"TRAILER";
-            }
+                    }
     return self;
 }
 
@@ -40,6 +39,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self showLastUpdateOnNavigationBarWithTitle:@"TRAILER"];
     
 }
 - (void ) viewWillDisappear:(BOOL)animated
@@ -71,5 +71,22 @@
 {
     
 }
-
+#pragma mark showLastUpdate
+-(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
+{
+    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 13.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
+    [self.navigationItem setTitleView:label];
+    
+}
 @end

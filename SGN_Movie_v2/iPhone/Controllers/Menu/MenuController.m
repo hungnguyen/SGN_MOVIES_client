@@ -106,6 +106,7 @@
     if(0==indexPath.row)
     {
         UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
+       
         if(navigationController.title == @"NOW SHOWING" || navigationController.title == @"COMING SOON")
         {
             MoviesController * moviesController = (MoviesController *) [navigationController.viewControllers objectAtIndex:0];
@@ -155,5 +156,12 @@
     
 }
 
+-(BOOL) IsString:(NSString *) title ContainString:(NSString *) label
+{
+    NSRange aRange = [title rangeOfString:label];
+    if (aRange.location ==NSNotFound) 
+        return NO;
+    return TRUE;
+}
 
 @end

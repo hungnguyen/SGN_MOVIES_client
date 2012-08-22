@@ -28,5 +28,5 @@
 + (Repository*)sharedInstance;
 
 - (void) updateEntityWithUrlString:(NSString*)urlString;
-
+- (NSString *) readLastUpdated;
 @end

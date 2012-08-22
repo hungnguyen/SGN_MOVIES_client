@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LBYouTubePlayerViewController.h"
-
+#import "Repository.h"
 @interface TrailerController : UIViewController <LBYouTubePlayerControllerDelegate>
 {
 }
