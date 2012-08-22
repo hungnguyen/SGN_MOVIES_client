@@ -130,7 +130,10 @@
 
 - (IBAction)showMap:(id)sender {
     MapKitDisplayController * mapKitController = [[MapKitDisplayController alloc] initWithNibName:@"MapKitDisplayView" bundle:nil];
-    [mapKitController setCinemaObject:_cinemaObject];
+    [mapKitController setCinemaName:[_cinemaObject name]];
+    [mapKitController setCinemaAddress:[_cinemaObject address]];
+    [mapKitController setLatitude:[_cinemaObject latitude]];
+    [mapKitController setLongitude:[_cinemaObject longitude]];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 

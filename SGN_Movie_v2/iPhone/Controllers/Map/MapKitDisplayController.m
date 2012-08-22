@@ -16,8 +16,10 @@
 @end
 
 @implementation MapKitDisplayController
-
-@synthesize cinemaObject = _cinemaObject;
+@synthesize cinemaName = _cinemaName;
+@synthesize latitude = _latitude;
+@synthesize longitude = _longitude;
+@synthesize cinemaAddress = _cinemaAddress;
 @synthesize mapView = _mapView;
 
 
@@ -36,7 +38,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitle:[_cinemaObject valueForKey:@"Name"]];
+    [self setTitle:_cinemaName];
     [_mapView setMapType:MKMapTypeStandard];
 	[_mapView setZoomEnabled:YES];
 	[_mapView setScrollEnabled:YES];
@@ -45,11 +47,9 @@
     //Convert from NSString to NSNumber
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber * latitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject latitude]]];
-    NSNumber * longitudeNumber = [f numberFromString:[NSString stringWithFormat:@"%@",[_cinemaObject longitude]]];
-
-    region.center.latitude = latitudeNumber.floatValue;
-	region.center.longitude = longitudeNumber.floatValue;
+    
+    region.center.latitude = _latitude.floatValue;
+	region.center.longitude = _longitude.floatValue;
     region.span.longitudeDelta = 0.01f;
 	region.span.latitudeDelta = 0.01f;
 	[_mapView setRegion:region animated:YES]; 
@@ -58,10 +58,10 @@
     
     //Add a ann to map
 	DisplayMap *ann = [[DisplayMap alloc] init]; 
-	ann.title = [_cinemaObject valueForKey:@"Name"];
-	ann.subtitle = [_cinemaObject valueForKey:@"Address"]; 
-	ann.coordinate = region.center; 
-	[_mapView addAnnotation:ann];
+	ann.title = _cinemaName;
+	ann.subtitle = _cinemaAddress; 
+	ann.coordinate = region.center;
+    [_mapView addAnnotation:ann];
     
     [self.view addSubview:_mapView];
     
@@ -91,16 +91,27 @@
 - (void)viewDidUnload
 {
     
-    [self setCinemaObject:nil];
-    [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    [self setCinemaName:nil];
+    [self setCinemaAddress:nil];
+    [self setLatitude:nil];
+    [self setLongitude:nil];
+    [self setMapView:nil];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+#pragma mark ReloadView
+-(void) reloadView
+{
+    
 }
 
 @end
