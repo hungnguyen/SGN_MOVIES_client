@@ -19,7 +19,7 @@
 @implementation SGNCustomPopup
 
 @synthesize delegate = _delegate;
-@synthesize srollView  = _scrollView;
+@synthesize srollView = _scrollView;
 @synthesize title = _title;
 
 #pragma mark Init
@@ -46,7 +46,7 @@
     return self;
 }
 
-- (void)loadViewWithData:(NSArray*)data
+- (void)loadViewWithData:(NSArray*)data IsCinema:(BOOL) isCinema
 {
     int count = [data count];
     
@@ -69,10 +69,10 @@
         NSString * urlString = [[NSString alloc] initWithString:[[data objectAtIndex:i] 
                                                                  valueForKey:@"ImageUrl"]];
         
-        HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
+        HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height - 40)];
         [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [posterImage showLoadingWheel];
-        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
+        //[posterImage setImageContentMode:UIViewContentModeScaleToFill];
         [[HJCache sharedInstance].hjObjManager manage:posterImage];        
         
         //set for button
@@ -84,7 +84,30 @@
         [poster setTag:i];
         [poster addSubview:posterImage];
         
+        _title = [[UILabel alloc] initWithFrame:CGRectMake(0, 125, frame.size.width, 50)];
+        
+        if(isCinema)
+        {
+            [self.title setText:[[NSString alloc] initWithString:[[data objectAtIndex:i] 
+                                                                  valueForKey:@"name"]]];
+
+        }
+        else
+        {
+            [self.title setText:[[NSString alloc] initWithString:[[data objectAtIndex:i] 
+                                                                  valueForKey:@"title"]]];
+
+        }
+        
+       // [self.title setText:@"Galaxy Nguyen Trai Galaxy Nguyen Trai Galaxy Nguyen Trai"];
+        [self.title setFont:[UIFont systemFontOfSize:10.0]];
+        [self.title setNumberOfLines:2];
+        [self.title setTextAlignment:UITextAlignmentCenter];
+        [poster addSubview:_title];
+        
         [_scrollView addSubview:poster];
+        
+        
     }
     if(count > 2)
         [_scrollView setContentOffset:CGPointMake(poster_width / 2, 0) animated:NO];

@@ -113,7 +113,7 @@
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
     
     //reload Data for list poster movies
-    [_popupView loadViewWithData:_movieObjects];
+    [_popupView loadViewWithData:_movieObjects IsCinema:NO];
 }
 
 #pragma mark Action

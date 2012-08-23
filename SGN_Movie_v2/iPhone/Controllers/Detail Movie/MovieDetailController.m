@@ -281,6 +281,7 @@
     Cinema *cinema = [_listCinemas objectAtIndex:ObjectIndex];
     [showtimesController setCinemaObjectId:[cinema cinemaId].intValue];
     [showtimesController setMovieObjectId:[_movieInfo movieId].intValue];
+
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
@@ -301,7 +302,8 @@
     
     NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieInfo movieId].intValue context:context];
     [self setListCinemas:[Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context]];
-    [_popupView loadViewWithData:_listCinemas];
+
+    [_popupView loadViewWithData:_listCinemas IsCinema:YES];
     if(_movieInfo != nil)
     {
         NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
