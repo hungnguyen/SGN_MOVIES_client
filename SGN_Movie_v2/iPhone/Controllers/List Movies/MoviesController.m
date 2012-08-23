@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 
 #define POSTER_HEIGHT 200
-#define POSTER_WIDTH 150
+#define POSTER_WIDTH 140
 
 @interface MoviesController ()
 {
@@ -179,8 +179,9 @@
                                                     valueForKey:@"ImageUrl"]];
         
         int Ypos = (i/2)* POSTER_HEIGHT + 15*(i/2) + 5;
-        int Xpos = (i - (i/2)*2)* POSTER_WIDTH + 10;
-        
+        int Xpos = (i - (i/2)*2)* POSTER_WIDTH + 15;
+        if(i%2==1)
+            Xpos = Xpos +10;
         //Create  a poster
         UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,POSTER_WIDTH,POSTER_HEIGHT)];
         
@@ -196,6 +197,7 @@
         HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
         [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",PROVIDER_URL,urlString]]];
         [asynchcImage showLoadingWheel];
+        [asynchcImage setImageContentMode:UIViewContentModeScaleToFill];
         [poster addSubview:asynchcImage];
         [scrollView addSubview:poster];
         

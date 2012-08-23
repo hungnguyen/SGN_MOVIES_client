@@ -22,7 +22,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *title;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
-- (void)loadViewWithData:(NSArray*)data;
+- (void)loadViewWithData:(NSArray*)data IsCinema:(BOOL) isCinema;
 - (void)popUp;
 - (void)popDown:(id)sender;
 @end
