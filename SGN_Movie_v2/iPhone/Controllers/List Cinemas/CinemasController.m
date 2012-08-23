@@ -31,6 +31,7 @@
 @synthesize listCinemas = _listCinemas;
 @synthesize tableView = _tableView;
 @synthesize isToggled = _isToggled;
+@synthesize popOverController = _popOverController;
 
 #pragma mark Init
 
@@ -51,8 +52,9 @@
     
     
     // Do any additional setup after loading the view from its nib.
-    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
+    UIButton* infoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
+    [infoButton setImage:[UIImage imageNamed:@"Provider"] forState:UIControlStateNormal];
     
     UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -176,13 +178,26 @@
 
 - (void)showInfo
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
+    /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+     initWithTitle: @"Back" 
+     style: UIBarButtonItemStyleBordered
+     target: nil action: nil];
+     [self.navigationItem setBackBarButtonItem: backButton];
+     
+     [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];*/
+    if(_popOverController)
+    {
+        [_popOverController dismissPopoverAnimated:YES];
+        [self setPopOverController:nil];
+    }
+    else
+    {
+        WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+        [contentViewController setDelegate:self];
+        _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+        [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
 
-    [[self navigationController] pushViewController:[[AboutController alloc] init] animated:YES];
 }
 
 #pragma mark CoreData
@@ -235,4 +250,14 @@
     [self.navigationItem setTitleView:label];
     
 }
+
+#pragma mark WEPopover delegate
+-(void) providerSelect:(NSString *) providerName
+{
+    [_popOverController dismissPopoverAnimated:YES];
+    [self setPopOverController:nil];
+    NSLog(@"%@",providerName);
+}
+
+
 @end
