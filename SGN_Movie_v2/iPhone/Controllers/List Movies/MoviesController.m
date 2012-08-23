@@ -29,6 +29,7 @@
 @synthesize pageControl = _pageControl;
 @synthesize nowShowingMovies = _nowShowingMovies;
 @synthesize comingSoonMovies = _comingSoonMovies;
+@synthesize popOverController = _popOverController;
 
 - (void)viewDidLoad
 {
@@ -41,8 +42,9 @@
     
     isToggled = FALSE;
     
-    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];    
+    UIButton* infoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];    
     [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
+    [infoButton setImage:[UIImage imageNamed:@"Provider"] forState:UIControlStateNormal];
     
     UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
@@ -235,13 +237,26 @@
 
 -(void) showInfo
 {
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+    /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
 
-    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];*/
+    if(_popOverController)
+    {
+        [_popOverController dismissPopoverAnimated:YES];
+        [self setPopOverController:nil];
+    }
+    else
+    {
+        WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+        [contentViewController setDelegate:self];
+        _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+        [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    
 }
 
 -(void) showMenu
@@ -328,5 +343,12 @@
 
 }
 
+#pragma mark WEPopover delegate
+-(void) providerSelect:(NSString *) providerName
+{
+    [_popOverController dismissPopoverAnimated:YES];
+    [self setPopOverController:nil];
+    NSLog(@"%@",providerName);
+}
 
 @end
