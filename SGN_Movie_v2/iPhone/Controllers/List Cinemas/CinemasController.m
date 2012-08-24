@@ -75,6 +75,13 @@
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
     
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    [contentViewController setProviders:[Provider selectAllInContext:context]];
+    [contentViewController setDelegate:self];
+    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+
+    
     [self updateData];
 }
 
@@ -177,27 +184,8 @@
 }
 
 - (void)showInfo
-{
-    /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-     initWithTitle: @"Back" 
-     style: UIBarButtonItemStyleBordered
-     target: nil action: nil];
-     [self.navigationItem setBackBarButtonItem: backButton];
-     
-     [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];*/
-    if(_popOverController)
-    {
-        [_popOverController dismissPopoverAnimated:YES];
-        [self setPopOverController:nil];
-    }
-    else
-    {
-        WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
-        [contentViewController setDelegate:self];
-        _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
-        [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    }
-
+{        
+    [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 #pragma mark CoreData
@@ -207,7 +195,12 @@
 {
     [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    [self setListCinemas: [Cinema selectByProviderId:1 context:context]];
+    int currentProviderId = [[Repository sharedInstance] currentProviderId];
+    [self setListCinemas: [Cinema selectByProviderId:currentProviderId context:context]];
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    [contentViewController setProviders:[Provider selectAllInContext:context]];
+    [contentViewController setDelegate:self];
+    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
     [_tableView reloadData];
 }
 
@@ -255,7 +248,7 @@
 -(void) providerSelect:(NSString *) providerName
 {
     [_popOverController dismissPopoverAnimated:YES];
-    [self setPopOverController:nil];
+    [self reloadData];
     NSLog(@"%@",providerName);
 }
 
