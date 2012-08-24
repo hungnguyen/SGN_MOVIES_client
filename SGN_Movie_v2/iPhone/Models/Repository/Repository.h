@@ -24,6 +24,7 @@
 @property (nonatomic, assign) BOOL isUpdateCinema;
 @property (nonatomic, assign) BOOL isUpdateMovie;
 @property (nonatomic, assign) BOOL isUpdateSessiontime;
+@property (nonatomic, assign) int currentProviderId;
 
 + (Repository*)sharedInstance;
 

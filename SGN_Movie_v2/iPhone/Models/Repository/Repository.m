@@ -31,6 +31,7 @@
 @synthesize isUpdateCinema = _isUpdateCinema;
 @synthesize isUpdateMovie = _isUpdateMovie;
 @synthesize isUpdateSessiontime = _isUpdateSessiontime;
+@synthesize currentProviderId = _currentProviderId;
 
 #pragma mark - Util
 

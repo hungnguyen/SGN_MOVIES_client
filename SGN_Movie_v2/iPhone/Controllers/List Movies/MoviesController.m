@@ -14,6 +14,11 @@
 #define POSTER_HEIGHT 200
 #define POSTER_WIDTH 140
 
+#define PopOver_WIDHT 140
+#define PopOver_HEIGHT 90
+#define PopOverX 240
+#define PopOverY -100
+
 @interface MoviesController ()
 {
 }
@@ -36,7 +41,7 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-        
+    [[Repository sharedInstance] setCurrentProviderId:1];   
     [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
     [self.navigationController setTitle:@"NOW SHOWING"];
     
@@ -77,6 +82,13 @@
 
     //modify main scrollview
     [_scrollViewMain setContentSize:CGSizeMake(parentView.size.width * 2, parentView.size.height)];
+    
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    [contentViewController setProviders:[Provider selectAllInContext:context]];
+    [contentViewController setDelegate:self];
+    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -86,12 +98,14 @@
 
 - (void)viewDidUnload
 {
-    [self setNowShowingMovies:nil];
-    [self setComingSoonMovies:nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self setNowShowingMovies:nil];
+    [self setComingSoonMovies:nil];
     [self setScrollViewMain:nil];
     [self setPageControl:nil];
+    [self setPopOverController:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -215,17 +229,17 @@
 {
        
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    
+    int currentProviderId = [[Repository sharedInstance] currentProviderId];
     if(moviesContainerindex == 0)
     {
-        NSArray *items = [Movie selectByProviderId:1 isNowShowing:YES context:context];
+        NSArray *items = [Movie selectByProviderId:currentProviderId isNowShowing:YES context:context];
         [self setNowShowingMovies:items];
         [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
         scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
     }
     if(moviesContainerindex == 1)
     {
-        NSArray *items = [Movie selectByProviderId:1 isNowShowing:NO context:context];
+        NSArray *items = [Movie selectByProviderId:currentProviderId isNowShowing:NO context:context];
         [self setComingSoonMovies:items];
         [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
         scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
@@ -237,26 +251,7 @@
 
 -(void) showInfo
 {
-    /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
-
-    [self.navigationController pushViewController:[[AboutController alloc] init] animated:YES];*/
-    if(_popOverController)
-    {
-        [_popOverController dismissPopoverAnimated:YES];
-        [self setPopOverController:nil];
-    }
-    else
-    {
-        WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
-        [contentViewController setDelegate:self];
-        _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
-        [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-    }
-    
+    [_popOverController presentPopoverFromRect:CGRectMake(PopOverX, PopOverY,PopOver_WIDHT , PopOver_HEIGHT) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void) showMenu
@@ -297,7 +292,7 @@
 {
 
     NSLog(@"RELOAD VIEW");
-    [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
+    [self showLastUpdateOnNavigationBarWithTitle:self.navigationController.title];
     CGRect parentView = self.scrollViewMain.frame;
     UIScrollView * scrollviewNoSh = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:0];
     parentView.origin.x = 320;
@@ -321,12 +316,19 @@
     [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
                                                      scrollView:scrollviewCoSo];
     
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    [contentViewController setProviders:[Provider selectAllInContext:context]];
+    [contentViewController setDelegate:self];
+    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+
 
 }
 
 #pragma mark showLastUpdate
 -(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
 {
+    [self.navigationController setTitle:title];
     NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
     lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
     lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
@@ -347,8 +349,8 @@
 -(void) providerSelect:(NSString *) providerName
 {
     [_popOverController dismissPopoverAnimated:YES];
-    [self setPopOverController:nil];
     NSLog(@"%@",providerName);
+    [self reloadView];
 }
 
 @end
