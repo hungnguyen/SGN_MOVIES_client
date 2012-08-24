@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Repository.h"
+#import "Provider.h"
+#import "DataService.h"
 @protocol WEPopoverContentDelegate <NSObject>
 -(void) providerSelect:(NSString *) providerName;
 @end
@@ -14,6 +17,6 @@
 @interface WEPopoverContentViewController : UITableViewController {
 
 }
-@property (retain, nonatomic) NSMutableArray * providers;
+@property (strong, nonatomic) NSArray * providers;
 @property (assign, nonatomic) id <WEPopoverContentDelegate> delegate;
 @end

@@ -33,20 +33,22 @@
 	self.tableView.rowHeight = 44.0;
 	self.view.backgroundColor = [UIColor clearColor];
     [self.tableView setScrollEnabled:NO];
-    
-    _providers = [NSMutableArray array];
-    [_providers addObject:@"Galaxy"];
-    [_providers addObject:@"Megastar"]; 
+    [self.tableView setDelegate:self];
+   
+   /* NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    _providers = [Provider selectAllInContext:context];
+    NSLog(@"%@",_providers);
+    [self.tableView reloadData];*/
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-/*
+
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+      [self.tableView reloadData];
 }
-*/
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -82,7 +84,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
+    if(_providers && [_providers count])
+    {
+//        NSLog(@"TATA:%d",_providers.count);
+//        Provider * temp = [_providers objectAtIndex:0];
+//        NSLog(@"%@",temp.name);
+        return [_providers count];
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 
@@ -92,24 +104,24 @@
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    //if (cell == nil) 
+    {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
-
-
-
-    if(0 == indexPath.row)
-    {
-        cell.textLabel.text = @"Galaxy";
-    }
-    else
-    {
-        cell.textLabel.text = @"Megastar";
-    }
-	cell.textLabel.textColor = [UIColor whiteColor];
+    
+    Provider * provider = [_providers objectAtIndex:indexPath.row]; 
+    [cell.textLabel setText:[provider name]];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
    
+    if([[Repository sharedInstance] currentProviderId] == (indexPath.row+1))
+    {
+        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 0, 30, 30)];
+        [imageView setImage:[UIImage imageNamed:@"CheckIcon.png"]];
+        [cell addSubview:imageView];
+        
+    }
     return cell;
 }
 
@@ -120,17 +132,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
     
-
-    if(0 == indexPath.row)
-    {
-        [_delegate providerSelect:@"Galaxy"];
-    }
-    else
-    {
-        [_delegate providerSelect:@"Megastar"];
-
-    }
-	
+    Provider * provider = [_providers objectAtIndex:indexPath.row];
+    [[Repository sharedInstance] setCurrentProviderId:[provider providerId].intValue];
+    [_delegate providerSelect:[provider name]];
 }
 
 
@@ -153,7 +157,6 @@
 - (void)dealloc {
     [super dealloc];
 }
-
 
 @end
 
