@@ -15,6 +15,7 @@
 #import "Movie.h"
 #import "WEPopoverContentViewController.h"
 #import "WEPopoverController.h"
+#import "Provider.h"
 #define PROVIDER_URL @"http://www.galaxycine.vn/"
 
 @interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate , WEPopoverContentDelegate>
