@@ -103,6 +103,7 @@
     // Release any retained subviews of the main view.
     [self setTableView:nil];
     [self setIsToggled:nil];
+    [self setPopOverController:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

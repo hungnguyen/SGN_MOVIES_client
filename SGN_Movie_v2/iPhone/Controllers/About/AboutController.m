@@ -13,6 +13,7 @@
 @end
 
 @implementation AboutController
+@synthesize isToggled = _isToggled;
 
 #pragma mark - Init
 
@@ -32,7 +33,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setTitle:@"ABOUT"];
-     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"about.png"]]];   
+    [self.navigationController setTitle:@"ABOUT"];
+    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"about.png"]]];
+    
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+    
+    UINavigationItem *navigationItem = [self navigationItem];
+    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
+
+
 }
 
 - (void)viewDidUnload
@@ -42,9 +53,39 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if(!_isToggled)
+    {
+        
+    }
+    else
+    {
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        [self setIsToggled:FALSE];
+
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+#pragma mark Action
+
+- (void)showMenu
+{
+    [[AppDelegate currentDelegate].deckController toggleLeftView];
+    if(!_isToggled)
+    {
+        [self setIsToggled:TRUE];
+    }
+    else 
+    {
+        [self setIsToggled:FALSE];
+    }
 }
 
 @end

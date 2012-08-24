@@ -59,7 +59,7 @@
 {
     
     // Return the number of rows in the section.
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,10 +82,15 @@
         [cell.imageView setImage:[UIImage imageNamed:@"movie"]];
         [cell.textLabel setText:@"MOVIES"];
     }
-    else 
+    else if(1==indexPath.row)
     {
         [cell.imageView setImage:[UIImage imageNamed:@"widescreen"]];
         [cell.textLabel setText:@"CINEMAS"];
+    }
+    else
+    {
+        [cell.imageView setImage:[UIImage imageNamed:@"AboutIcon"]];
+        [cell.textLabel setText:@"ABOUT"];
     }
     
     
@@ -128,7 +133,7 @@
         }
         
     }
-    else
+    else if(1==indexPath.row)
     {
         UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
         if(navigationController.title == @"CINEMAS")
@@ -151,6 +156,29 @@
             [navigationController setViewControllers:[NSArray arrayWithObjects:cinemaController, nil]];
         }
         
+    }
+    else
+    {
+        UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;;
+        if(navigationController.title == @"ABOUT")
+        {
+            AboutController * aboutController = (AboutController *) [navigationController.viewControllers objectAtIndex:0];
+            if(![aboutController isToggled])
+            {
+                [aboutController setIsToggled:TRUE];
+            }
+            else
+            {
+                [aboutController setIsToggled:FALSE];
+            }
+            [[AppDelegate currentDelegate].deckController toggleLeftView];
+        }
+        else
+        {
+            [[AppDelegate currentDelegate].deckController toggleLeftView];
+            AboutController * aboutController = [[AboutController alloc] init];
+            [navigationController setViewControllers:[NSArray arrayWithObjects:aboutController, nil]];
+        }
     }
     
     

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface AboutController : UIViewController
-
+@property (assign, nonatomic) bool isToggled;
 @end
