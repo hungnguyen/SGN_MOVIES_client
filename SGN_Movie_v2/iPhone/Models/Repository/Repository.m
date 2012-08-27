@@ -14,6 +14,7 @@
 #import "Movie.h"
 #import "Sessiontime.h"
 #import "Provider.h"
+#import "SGNManagedObject.h"
 
 #define FORMAT_TIME @"dd.MM.yyyy HH.mm.ss"
 //#define FORMAT_TIME_GMT @"dd.MM.yyyy HH.mm.ss zzz"
@@ -152,7 +153,7 @@
     {
         NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name 
                                                                 inManagedObjectContext:context];
-        [object setValuesForKeysWithDictionary:dict];
+        [object safeSetValuesForKeysWithDictionary:dict];
     }
     // NSLog(@"DONE INSERT");
 }

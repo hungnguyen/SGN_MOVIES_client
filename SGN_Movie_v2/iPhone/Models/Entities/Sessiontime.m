@@ -2,11 +2,12 @@
 //  Sessiontime.m
 //  SGN_MOVIE_v2
 //
-//  Created by TPL2806 on 8/13/12.
+//  Created by TPL2806 on 8/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Sessiontime.h"
+
 
 @implementation Sessiontime
 
@@ -15,7 +16,6 @@
 @dynamic movieId;
 @dynamic providerId;
 @dynamic sessiontimeId;
-@dynamic time;
 
 + (NSString*)entityName
 {
@@ -69,8 +69,7 @@
                                                    inManagedObjectContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(movieId = %i) AND (cinemaId = %i)", _movieId, _cinemaId];
     NSSortDescriptor *sortDate = [[NSSortDescriptor alloc]initWithKey:@"date" ascending:YES];
-    NSSortDescriptor *sortTime = [[NSSortDescriptor alloc]initWithKey:@"time" ascending:YES];
-    NSArray *sort = [NSArray arrayWithObjects:sortDate, sortTime, nil];
+    NSArray *sort = [NSArray arrayWithObjects:sortDate, nil];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:description];

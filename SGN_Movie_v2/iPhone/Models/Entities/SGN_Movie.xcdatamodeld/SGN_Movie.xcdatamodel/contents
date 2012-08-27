@@ -7,7 +7,6 @@
         <attribute name="imageUrl" attributeType="String" syncable="YES"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="mapUrl" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="phone" attributeType="String" syncable="YES"/>
         <attribute name="providerId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -24,7 +23,6 @@
         <attribute name="movieDescription" attributeType="String" syncable="YES"/>
         <attribute name="movieId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="movieWebId" attributeType="String" syncable="YES"/>
-        <attribute name="producer" attributeType="String" syncable="YES"/>
         <attribute name="providerId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="trailerUrl" attributeType="String" syncable="YES"/>
@@ -36,12 +34,11 @@
         <attribute name="providerId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Sessiontime" representedClassName="Sessiontime" syncable="YES">
-        <attribute name="cinemaId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cinemaId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" attributeType="Date" syncable="YES"/>
         <attribute name="movieId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="providerId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="providerId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sessiontimeId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="Cinema" positionX="-29" positionY="-351" width="128" height="195"/>

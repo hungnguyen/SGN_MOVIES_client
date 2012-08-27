@@ -2,7 +2,7 @@
 //  Movie.h
 //  SGN_MOVIE_v2
 //
-//  Created by TPL2806 on 8/13/12.
+//  Created by TPL2806 on 8/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -23,7 +23,6 @@
 @property (nonatomic, retain) NSString * movieDescription;
 @property (nonatomic, retain) NSNumber * movieId;
 @property (nonatomic, retain) NSString * movieWebId;
-@property (nonatomic, retain) NSString * producer;
 @property (nonatomic, retain) NSNumber * providerId;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * trailerUrl;
