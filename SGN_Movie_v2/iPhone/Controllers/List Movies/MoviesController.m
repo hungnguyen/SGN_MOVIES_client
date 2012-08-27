@@ -15,9 +15,9 @@
 #define POSTER_WIDTH 140
 
 #define PopOver_WIDHT 140
-#define PopOver_HEIGHT 90
+#define PopOver_HEIGHT 45
 #define PopOverX 240
-#define PopOverY -100
+#define PopOverY -55
 
 @interface MoviesController ()
 {
@@ -41,7 +41,7 @@
     [super viewDidLoad];
     
 	// Do any additional setup after loading the view, typically from a nib.
-    [[Repository sharedInstance] setCurrentProviderId:1];   
+       
     [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
     [self.navigationController setTitle:@"NOW SHOWING"];
     
@@ -83,8 +83,9 @@
     //modify main scrollview
     [_scrollViewMain setContentSize:CGSizeMake(parentView.size.width * 2, parentView.size.height)];
     
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
     NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    NSArray * providerList = [Provider selectAllInContext:context];
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
     [contentViewController setProviders:[Provider selectAllInContext:context]];
     [contentViewController setDelegate:self];
     _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
@@ -251,7 +252,7 @@
 
 -(void) showInfo
 {
-    [_popOverController presentPopoverFromRect:CGRectMake(PopOverX, PopOverY,PopOver_WIDHT , PopOver_HEIGHT) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [_popOverController presentPopoverFromRect:CGRectMake(PopOverX, PopOverY,PopOver_WIDHT ,PopOver_HEIGHT) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 -(void) showMenu
@@ -316,8 +317,10 @@
     [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
                                                      scrollView:scrollviewCoSo];
     
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    
     NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    NSArray * providerList = [Provider selectAllInContext:context];
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
     [contentViewController setProviders:[Provider selectAllInContext:context]];
     [contentViewController setDelegate:self];
     _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];

@@ -19,9 +19,20 @@
 - (id)initWithStyle:(UITableViewStyle)style {
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     if ((self = [super initWithStyle:style])) {
-		self.contentSizeForViewInPopover = CGSizeMake(140, 2 * 44 - 1);
+    
     }
     return self;
+}
+
+- (id) initwithStyle:(UITableViewStyle)style andCount:(int)count
+{
+    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+    if ((self = [super initWithStyle:style])) 
+    {
+        self.contentSizeForViewInPopover = CGSizeMake(140, count * 44 + 1);
+    }
+    return self;
+
 }
 
 #pragma mark -
@@ -29,8 +40,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //self.contentSizeForViewInPopover = CGSizeMake(10, 50);
 
-	self.tableView.rowHeight = 44.0;
+    self.tableView.rowHeight = 44.0;
 	self.view.backgroundColor = [UIColor clearColor];
     [self.tableView setScrollEnabled:NO];
     [self.tableView setDelegate:self];
@@ -86,7 +98,7 @@
     // Return the number of rows in the section.
     if(_providers && [_providers count])
     {
-//        NSLog(@"TATA:%d",_providers.count);
+        
 //        Provider * temp = [_providers objectAtIndex:0];
 //        NSLog(@"%@",temp.name);
         return [_providers count];

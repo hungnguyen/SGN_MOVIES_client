@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "MenuController.h"
 #import <CoreData/CoreData.h>
+#import "Repository.h"
 
 #define PROVIDER_URL @"http://www.galaxycine.vn/"
 

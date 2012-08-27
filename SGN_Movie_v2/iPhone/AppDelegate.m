@@ -26,7 +26,7 @@ static AppDelegate * appDelegate;
     
     //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: 0.5];
     //[NSThread sleepUntilDate:future];
-    
+    [[Repository sharedInstance] setCurrentProviderId:1];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIImage *backgroundImage = [UIImage imageNamed:@"Background8.jpg"];
     [self.window setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];      
