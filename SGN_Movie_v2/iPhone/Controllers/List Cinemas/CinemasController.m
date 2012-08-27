@@ -75,12 +75,12 @@
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
     
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
     NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
+    NSArray * providerList = [Provider selectAllInContext:context];
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
     [contentViewController setProviders:[Provider selectAllInContext:context]];
     [contentViewController setDelegate:self];
     _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
-
     
     [self updateData];
 }
@@ -198,10 +198,13 @@
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
     int currentProviderId = [[Repository sharedInstance] currentProviderId];
     [self setListCinemas: [Cinema selectByProviderId:currentProviderId context:context]];
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initWithStyle:UITableViewStylePlain];
+    
+    NSArray * providerList = [Provider selectAllInContext:context];
+    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
     [contentViewController setProviders:[Provider selectAllInContext:context]];
     [contentViewController setDelegate:self];
     _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
+    
     [_tableView reloadData];
 }
 

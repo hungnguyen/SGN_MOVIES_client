@@ -17,6 +17,7 @@
 @interface WEPopoverContentViewController : UITableViewController {
 
 }
+- (id) initwithStyle:(UITableViewStyle)style andCount:(int)count;
 @property (strong, nonatomic) NSArray * providers;
 @property (assign, nonatomic) id <WEPopoverContentDelegate> delegate;
 @end
