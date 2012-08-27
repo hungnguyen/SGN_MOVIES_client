@@ -144,21 +144,33 @@
 - (void)createShowtimes:(NSArray*)data
 {
     self.showtimesObjects = [[NSMutableArray alloc]init];
+    
+    //format for getting Date
+    NSDateFormatter *formatterDate = [[NSDateFormatter alloc] init];    
+    [formatterDate setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatterDate setDateFormat:@"dd.MM.yyyy"];
+    
+    //format for getting Time
+    NSDateFormatter *formatterTime = [[NSDateFormatter alloc] init];    
+    [formatterTime setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatterTime setDateFormat:@"HH.mm"];
+    
     NSString *date = @"";
     NSString *time = @"";
-    NSString *curDate = @"";
+    NSString *curDate = @""; 
     for (NSInteger i = 0; i < [data count]; ++i) 
     {
         Sessiontime *item = [data objectAtIndex:i];
-        curDate = [item date];
+        
+        curDate = [formatterDate stringFromDate:[item date]];
         if([date isEqualToString: @""] == YES)
         {
             date = curDate;
-            time = [item time];
+            time = [formatterTime stringFromDate:[item date]];
         }
         else if([date isEqualToString:curDate] == YES)
         {
-            time  = [NSString stringWithFormat:@"%@ | %@", time,[item time]];
+            time  = [NSString stringWithFormat:@"%@ | %@", time,[formatterTime stringFromDate:[item date]]];
         }
         else
         {

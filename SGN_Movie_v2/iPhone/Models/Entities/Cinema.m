@@ -2,11 +2,12 @@
 //  Cinema.m
 //  SGN_MOVIE_v2
 //
-//  Created by TPL2806 on 8/14/12.
+//  Created by TPL2806 on 8/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Cinema.h"
+
 
 @implementation Cinema
 
@@ -16,7 +17,6 @@
 @dynamic imageUrl;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic mapUrl;
 @dynamic name;
 @dynamic phone;
 @dynamic providerId;
@@ -41,7 +41,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"providerId = %i", _providerId];
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"cinemaId" ascending:YES];
     NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
-
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];
@@ -73,7 +73,7 @@
     NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
                                                    inManagedObjectContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cinemaId = %i", _cinemaId];
-
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];

@@ -2,11 +2,12 @@
 //  Movie.m
 //  SGN_MOVIE_v2
 //
-//  Created by TPL2806 on 8/13/12.
+//  Created by TPL2806 on 8/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Movie.h"
+
 
 @implementation Movie
 
@@ -21,7 +22,6 @@
 @dynamic movieDescription;
 @dynamic movieId;
 @dynamic movieWebId;
-@dynamic producer;
 @dynamic providerId;
 @dynamic title;
 @dynamic trailerUrl;
@@ -51,7 +51,7 @@
     [fetchRequest setEntity:description];
     [fetchRequest setPredicate:predicate];
     [fetchRequest setSortDescriptors:sort];
-
+    
     NSError *error;
     return [context executeFetchRequest:fetchRequest error:&error];
 }
