@@ -15,6 +15,7 @@ static AppDelegate * appDelegate;
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 @synthesize deckController = _deckController;
+@synthesize rightMenuController = _rightMenuController;
 
 + (AppDelegate*)currentDelegate
 {
@@ -43,8 +44,11 @@ static AppDelegate * appDelegate;
     //Make Menu View
     MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuView" bundle:nil];
     
+    //Make Right Menu
+    [self setRightMenuController:[[RightMenuController alloc] initWithNibName:@"RightMenuView" bundle:nil]];
+    
     //Make View Deck
-    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_navigationController leftViewController:menuController]];
+    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_navigationController leftViewController:menuController rightViewController:_rightMenuController]];
     [_deckController setRightLedge:40];
     [_deckController setEnabled:FALSE];
     

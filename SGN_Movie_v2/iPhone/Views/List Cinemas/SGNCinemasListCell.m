@@ -9,6 +9,7 @@
 #import "SGNCinemasListCell.h"
 #import <QuartzCore/QuartzCore.h> 
 #import "Cinema.h"
+#import "AppDelegate.h"
 
 @implementation SGNCinemasListCell
 
@@ -36,7 +37,8 @@
 
 - (void)fillWithData:(Cinema*)cinema
 {
-    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", cinema.imageUrl];
+    NSString *urlHost = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
+    NSString *image_url = [urlHost stringByAppendingString:[cinema imageUrl]];
     
     [_cinemaName setText:cinema.name];
     [_cinemaPhone setText:cinema.phone];

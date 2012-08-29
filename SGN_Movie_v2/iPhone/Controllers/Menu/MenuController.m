@@ -100,87 +100,54 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-    
+    //get top view controller
+    UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
+    UIViewController *controller = [navigationController topViewController];
+
     if(0==indexPath.row)
     {
-        UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
-       
-        if(navigationController.title == @"NOW SHOWING" || navigationController.title == @"COMING SOON")
+        //choose movie again
+        if([controller isMemberOfClass:[MoviesController class]])
         {
-            MoviesController * moviesController = (MoviesController *) [navigationController.viewControllers objectAtIndex:0];
-            if(!moviesController->isToggled)
-            {
-                moviesController->isToggled = TRUE;
-            }
-            else 
-            {
-                moviesController->isToggled = FALSE;
-            }
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
+            MoviesController * moviesController = (MoviesController *) controller;
+            [moviesController setIsToggled:0];
         }
+        //new choose movie
         else 
         {
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
             MoviesController *movieController = [[MoviesController alloc] initWithNibName:@"MoviesView" bundle:nil];
             [navigationController setViewControllers:[NSArray arrayWithObjects:movieController, nil]];
         }
-        
     }
     else if(1==indexPath.row)
     {
-        UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
-        if(navigationController.title == @"CINEMAS")
+        if([controller isMemberOfClass:[CinemasController class]])
         {
-            CinemasController * cinemasController = (CinemasController *) [navigationController.viewControllers objectAtIndex:0];
-            if(![cinemasController isToggled])
-            {
-                [cinemasController setIsToggled:TRUE];
-            }
-            else 
-            {
-                [cinemasController setIsToggled:FALSE];
-            }
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
+            CinemasController * cinemasController = (CinemasController *) controller;
+            [cinemasController setIsToggled:0];
         }
         else 
         {
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
-            CinemasController *cinemaController = [[CinemasController alloc] initWithNibName:@"CinemasView" bundle:nil];
+            CinemasController *cinemaController = [[CinemasController alloc] initWithNibName:@"CinemasView" 
+                                                                                      bundle:nil];
             [navigationController setViewControllers:[NSArray arrayWithObjects:cinemaController, nil]];
         }
         
     }
     else
     {
-        UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;;
-        if(navigationController.title == @"ABOUT")
+        if([controller isMemberOfClass:[AboutController class]])
         {
-            AboutController * aboutController = (AboutController *) [navigationController.viewControllers objectAtIndex:0];
-            if(![aboutController isToggled])
-            {
-                [aboutController setIsToggled:TRUE];
-            }
-            else
-            {
-                [aboutController setIsToggled:FALSE];
-            }
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
+            AboutController * aboutController = (AboutController *) controller;        
+            [aboutController setIsToggled:0];
         }
         else
         {
-            [[AppDelegate currentDelegate].deckController toggleLeftView];
             AboutController * aboutController = [[AboutController alloc] init];
             [navigationController setViewControllers:[NSArray arrayWithObjects:aboutController, nil]];
         }
     }
-    
+    [[AppDelegate currentDelegate].deckController toggleLeftView];
     
 }
 
