@@ -99,6 +99,7 @@
 {
     id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
     
+    //create loadding wheel
     [_loadingWheel removeFromSuperview];
 	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
 	_loadingWheel.hidesWhenStopped=YES;
@@ -121,7 +122,13 @@
     [_loadingWheel stopAnimating];
     [_loadingWheel removeFromSuperview];
     
+    //save context after update all data
     [[DataService sharedInstance] saveContext];
+    
+    //reload data for right menu
+    if(_isUpdateProvider == YES)
+        [[[AppDelegate currentDelegate] rightMenuController] reloadData];
+    
     if(delegate != nil && [delegate respondsToSelector:@selector(RepositoryFinishUpdate:)])
     {
         [delegate RepositoryFinishUpdate:repository];

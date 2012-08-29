@@ -19,11 +19,7 @@
 #define HEIGHT_CINEMAS_LIST_CELL 130
 
 @interface CinemasController ()
-
 @property (strong, nonatomic) NSArray *listCinemas;
--(void) showMenu;
--(void) showInfo;
-
 @end
 
 @implementation CinemasController
@@ -31,7 +27,6 @@
 @synthesize listCinemas = _listCinemas;
 @synthesize tableView = _tableView;
 @synthesize isToggled = _isToggled;
-@synthesize popOverController = _popOverController;
 
 #pragma mark Init
 
@@ -48,20 +43,18 @@
 {
     [super viewDidLoad];
     
-    [self setIsToggled:FALSE];
-    
-    
-    // Do any additional setup after loading the view from its nib.
-    UIButton* infoButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];    
-    [infoButton addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
-    [infoButton setImage:[UIImage imageNamed:@"Provider"] forState:UIControlStateNormal];
-    
     UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [menuButton addTarget:self action:@selector(showMenu) forControlEvents:UIControlEventTouchUpInside];
+    [menuButton setTag:1];
+    [menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
     
+    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [rightMenuButton setTag:2];
+    [rightMenuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
+    [rightMenuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+
     UINavigationItem *navigationItem = [self navigationItem];
-    [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:infoButton]];
+    [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:rightMenuButton]];
     [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
     
     [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
@@ -74,14 +67,7 @@
     //for problem in iOS4.3: when choose UITableGroupView
     //table still has 4 black rectangle corner instead of round one's
     [_tableView setBackgroundColor:[UIColor clearColor]];
-    
-    NSManagedObjectContext * context = [[DataService sharedInstance] managedObjectContext];
-    NSArray * providerList = [Provider selectAllInContext:context];
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
-    [contentViewController setProviders:[Provider selectAllInContext:context]];
-    [contentViewController setDelegate:self];
-    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
-    
+
     [self updateData];
 }
 
@@ -102,8 +88,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self setTableView:nil];
-    [self setIsToggled:nil];
-    [self setPopOverController:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -165,28 +149,28 @@
     else
     {
         [[AppDelegate currentDelegate].deckController toggleLeftView];
-        [self setIsToggled:FALSE];
+        [self setIsToggled:0];
     }
 }
 
 #pragma mark Action
 
-- (void)showMenu
+- (void)showMenu:(id)sender
 {
-    [[AppDelegate currentDelegate].deckController toggleLeftView];
-    if(!_isToggled)
+    if([sender tag] == 1)
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+    else if([sender tag] == 2)
+        [[AppDelegate currentDelegate].deckController toggleRightView];
+    
+    if(_isToggled != 0)
     {
-        [self setIsToggled:TRUE];
+        [self setIsToggled:0];
     }
     else 
     {
-        [self setIsToggled:FALSE];
-    }
-}
+        [self setIsToggled:[sender tag]];
 
-- (void)showInfo
-{        
-    [_popOverController presentPopoverFromRect:CGRectMake(240, -100,140 , 90) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
 }
 
 #pragma mark CoreData
@@ -196,15 +180,9 @@
 {
     [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    int currentProviderId = [[Repository sharedInstance] currentProviderId];
-    [self setListCinemas: [Cinema selectByProviderId:currentProviderId context:context]];
-    
-    NSArray * providerList = [Provider selectAllInContext:context];
-    WEPopoverContentViewController * contentViewController = [[WEPopoverContentViewController alloc] initwithStyle:UITableViewStylePlain andCount:[providerList count]];
-    [contentViewController setProviders:[Provider selectAllInContext:context]];
-    [contentViewController setDelegate:self];
-    _popOverController = [[WEPopoverController alloc] initWithContentViewController:contentViewController];
-    
+    Provider *provider = [[[AppDelegate currentDelegate]rightMenuController]provider];
+    [self setListCinemas: [Cinema selectByProviderId:[provider.providerId intValue] context:context]];
+
     [_tableView reloadData];
 }
 
@@ -226,7 +204,6 @@
 {
     if([repository isUpdateCinema] == YES)
         [self reloadData];
-    
     NSLog(@"DELEGATE FINISH");
 }
 #pragma mark showLastUpdate
@@ -247,14 +224,5 @@
     [self.navigationItem setTitleView:label];
     
 }
-
-#pragma mark WEPopover delegate
--(void) providerSelect:(NSString *) providerName
-{
-    [_popOverController dismissPopoverAnimated:YES];
-    [self reloadData];
-    NSLog(@"%@",providerName);
-}
-
 
 @end

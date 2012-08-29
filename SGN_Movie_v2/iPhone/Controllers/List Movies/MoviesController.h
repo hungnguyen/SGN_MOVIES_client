@@ -13,17 +13,11 @@
 #import "Repository.h"
 #import "DataService.h"
 #import "Movie.h"
-#import "WEPopoverContentViewController.h"
-#import "WEPopoverController.h"
 #import "Provider.h"
-#define PROVIDER_URL @"http://www.galaxycine.vn/"
 
-@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate , WEPopoverContentDelegate>
-{
-    @public
-    bool isToggled;
-}
+@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate>
+
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) WEPopoverController *popOverController;
+@property (assign, nonatomic) int isToggled;
 @end

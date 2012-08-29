@@ -10,5 +10,5 @@
 #import "AppDelegate.h"
 
 @interface AboutController : UIViewController
-@property (assign, nonatomic) bool isToggled;
+@property (assign, nonatomic) int isToggled;
 @end

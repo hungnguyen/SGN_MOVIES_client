@@ -103,7 +103,8 @@
 
 - (void)reloadView
 {
-    NSString *image_url = [NSString stringWithFormat:@"http://www.galaxycine.vn%@", [_cinemaObject imageUrl]];
+    NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
+    NSString *image_url = [hostUrl stringByAppendingString:[_cinemaObject imageUrl]];
     [_cinemaName setText:[_cinemaObject name]];
     [_cinemaPhone setText:[_cinemaObject phone]];
     [_cinemaAddress setText:[_cinemaObject address]];

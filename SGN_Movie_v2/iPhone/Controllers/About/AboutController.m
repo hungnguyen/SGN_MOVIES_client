@@ -55,16 +55,9 @@
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(!_isToggled)
-    {
-        
-    }
-    else
-    {
-        [[AppDelegate currentDelegate].deckController toggleLeftView];
-        [self setIsToggled:FALSE];
+    [[AppDelegate currentDelegate].deckController toggleLeftView];
+    [self setIsToggled:0];
 
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -78,13 +71,13 @@
 - (void)showMenu
 {
     [[AppDelegate currentDelegate].deckController toggleLeftView];
-    if(!_isToggled)
+    if(_isToggled == 0)
     {
-        [self setIsToggled:TRUE];
+        [self setIsToggled:1];
     }
     else 
     {
-        [self setIsToggled:FALSE];
+        [self setIsToggled:0];
     }
 }
 

@@ -14,5 +14,4 @@
     #import <CoreData/CoreData.h>
 #endif
 
-#define PROVIDER_URL @"http://www.galaxycine.vn/"
 #define UPDATE_ALL_URL @"http://sgnm-test.apphb.com/update/all?lasttime=%@&format=%@"
