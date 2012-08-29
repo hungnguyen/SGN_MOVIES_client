@@ -23,10 +23,8 @@
 		6FFFC0D515CF614B003D9326 /* LBYouTubePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0D215CF614B003D9326 /* LBYouTubePlayerController.m */; };
 		6FFFC0D615CF614B003D9326 /* LBYouTubePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0D415CF614B003D9326 /* LBYouTubePlayerViewController.m */; };
 		6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0DA15CF669E003D9326 /* TrailerController.m */; };
-		6FFFC0DD15CF669E003D9326 /* TrailerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FFFC0DB15CF669E003D9326 /* TrailerView.xib */; };
 		6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFFC0FE15CF9E71003D9326 /* MapKit.framework */; };
 		6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC11B15CFA73C003D9326 /* DisplayMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FFFC11D15CFA7A1003D9326 /* MapKitDisplayView.xib */; };
 		F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38DA8F315D8F05300C40810 /* CoreData.framework */; };
 		F38DA93915D91CD300C40810 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* DataService.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
@@ -84,10 +82,12 @@
 		F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4915C8027B0077C801 /* MovieDetailView.xib */; };
 		F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */; };
 		F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */; };
-		F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5015C8027B0077C801 /* MoviesView.xib */; };
 		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
 		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F3E1866415EDCF2C002742F5 /* MapKitDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866315EDCF2C002742F5 /* MapKitDisplayView.xib */; };
+		F3E1866615EDCF60002742F5 /* TrailerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866515EDCF60002742F5 /* TrailerView.xib */; };
+		F3E1866915EDCF87002742F5 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866815EDCF87002742F5 /* MoviesView.xib */; };
 		F3EFFF2D15E4F4EB00B4A2DD /* ShowTimesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */; };
 /* End PBXBuildFile section */
 
@@ -114,11 +114,9 @@
 		6FFFC0D415CF614B003D9326 /* LBYouTubePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBYouTubePlayerViewController.m; sourceTree = "<group>"; };
 		6FFFC0D915CF669E003D9326 /* TrailerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrailerController.h; path = ../../../SGN_Movie_v2/iPhone/Controllers/Trailer/TrailerController.h; sourceTree = "<group>"; };
 		6FFFC0DA15CF669E003D9326 /* TrailerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrailerController.m; path = ../../../SGN_Movie_v2/iPhone/Controllers/Trailer/TrailerController.m; sourceTree = "<group>"; };
-		6FFFC0DB15CF669E003D9326 /* TrailerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TrailerView.xib; path = ../../../SGN_Movie_v2/iPhone/Controllers/Trailer/TrailerView.xib; sourceTree = "<group>"; };
 		6FFFC0FE15CF9E71003D9326 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6FFFC11A15CFA73C003D9326 /* DisplayMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayMap.h; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.h; sourceTree = SOURCE_ROOT; };
 		6FFFC11B15CFA73C003D9326 /* DisplayMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayMap.m; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.m; sourceTree = SOURCE_ROOT; };
-		6FFFC11D15CFA7A1003D9326 /* MapKitDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapKitDisplayView.xib; sourceTree = "<group>"; };
 		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F38DA92B15D91CD300C40810 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		F38DA92C15D91CD300C40810 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
@@ -220,11 +218,13 @@
 		F3C24E4C15C8027B0077C801 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
 		F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
 		F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
-		F3C24E5015C8027B0077C801 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F3C24E5215C8027B0077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		F3E1866315EDCF2C002742F5 /* MapKitDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapKitDisplayView.xib; path = Map/MapKitDisplayView.xib; sourceTree = "<group>"; };
+		F3E1866515EDCF60002742F5 /* TrailerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrailerView.xib; sourceTree = "<group>"; };
+		F3E1866815EDCF87002742F5 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTimesController.m; sourceTree = "<group>"; };
 		F3EFFF2E15E4F4F700B4A2DD /* ShowTimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTimesController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,14 +270,6 @@
 			path = LBYouTubePlayerController;
 			sourceTree = "<group>";
 		};
-		6FFFC0D815CF665D003D9326 /* Trailer */ = {
-			isa = PBXGroup;
-			children = (
-				6FFFC0DB15CF669E003D9326 /* TrailerView.xib */,
-			);
-			name = Trailer;
-			sourceTree = "<group>";
-		};
 		6FFFC0DE15CF66C1003D9326 /* Trailer */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,7 +282,7 @@
 		6FFFC0F815CF9DC6003D9326 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				6FFFC11D15CFA7A1003D9326 /* MapKitDisplayView.xib */,
+				F3E1866315EDCF2C002742F5 /* MapKitDisplayView.xib */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -682,15 +674,15 @@
 		F3C24E4715C8027B0077C801 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3E1866715EDCF87002742F5 /* List Movies */,
+				F3E1866015EDCEE7002742F5 /* Trailer */,
 				F35E733815CA40A30030D161 /* Detail Cinema */,
 				F3C24E4815C8027B0077C801 /* Detail Movie */,
 				F3C24E4A15C8027B0077C801 /* List Cinemas */,
-				F3C24E4F15C8027B0077C801 /* List Movies  */,
 				6FFFC0F815CF9DC6003D9326 /* Map */,
 				F3C24E5115C8027B0077C801 /* Menu */,
 				F39FAE5615ECC3E800FB7979 /* Right Menu */,
 				F3951C1315CFC4DF00BCF4D8 /* Show Times */,
-				6FFFC0D815CF665D003D9326 /* Trailer */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -712,14 +704,6 @@
 				F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */,
 			);
 			path = "List Cinemas";
-			sourceTree = "<group>";
-		};
-		F3C24E4F15C8027B0077C801 /* List Movies  */ = {
-			isa = PBXGroup;
-			children = (
-				F3C24E5015C8027B0077C801 /* MoviesView.xib */,
-			);
-			path = "List Movies ";
 			sourceTree = "<group>";
 		};
 		F3C24E5115C8027B0077C801 /* Menu */ = {
@@ -747,6 +731,22 @@
 				F3DDF9A415C2753500A47C57 /* JSONKit.m */,
 			);
 			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		F3E1866015EDCEE7002742F5 /* Trailer */ = {
+			isa = PBXGroup;
+			children = (
+				F3E1866515EDCF60002742F5 /* TrailerView.xib */,
+			);
+			path = Trailer;
+			sourceTree = "<group>";
+		};
+		F3E1866715EDCF87002742F5 /* List Movies */ = {
+			isa = PBXGroup;
+			children = (
+				F3E1866815EDCF87002742F5 /* MoviesView.xib */,
+			);
+			path = "List Movies";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -809,14 +809,11 @@
 				6F420D0015C68F5500319B83 /* about.png in Resources */,
 				F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */,
 				F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */,
-				F3C24E5C15C8027B0077C801 /* MoviesView.xib in Resources */,
 				F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */,
 				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
 				F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */,
 				F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */,
 				F3951C5315CFD73F00BCF4D8 /* SGNComboView.xib in Resources */,
-				6FFFC0DD15CF669E003D9326 /* TrailerView.xib in Resources */,
-				6FFFC11E15CFA7A1003D9326 /* MapKitDisplayView.xib in Resources */,
 				F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */,
 				6FA3253615DCE8F600C1CD32 /* Data.plist in Resources */,
 				6FFEEE9C15E3953800322710 /* Icon.png in Resources */,
@@ -824,6 +821,9 @@
 				6F01FA0715E63F9100EE321E /* Provider.png in Resources */,
 				6FFA717015E733D6000A214D /* CheckIcon.png in Resources */,
 				F39FAE5815ECC3E800FB7979 /* RightMenuView.xib in Resources */,
+				F3E1866415EDCF2C002742F5 /* MapKitDisplayView.xib in Resources */,
+				F3E1866615EDCF60002742F5 /* TrailerView.xib in Resources */,
+				F3E1866915EDCF87002742F5 /* MoviesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
