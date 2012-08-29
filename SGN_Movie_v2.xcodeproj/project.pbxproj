@@ -87,7 +87,7 @@
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F3E1866415EDCF2C002742F5 /* MapKitDisplayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866315EDCF2C002742F5 /* MapKitDisplayView.xib */; };
 		F3E1866615EDCF60002742F5 /* TrailerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866515EDCF60002742F5 /* TrailerView.xib */; };
-		F3E1866915EDCF87002742F5 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1866815EDCF87002742F5 /* MoviesView.xib */; };
+		F3E1868C15EDD52E002742F5 /* MoviesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3E1868B15EDD52E002742F5 /* MoviesView.xib */; };
 		F3EFFF2D15E4F4EB00B4A2DD /* ShowTimesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */; };
 /* End PBXBuildFile section */
 
@@ -224,7 +224,7 @@
 		F3DDF9A415C2753500A47C57 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		F3E1866315EDCF2C002742F5 /* MapKitDisplayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapKitDisplayView.xib; path = Map/MapKitDisplayView.xib; sourceTree = "<group>"; };
 		F3E1866515EDCF60002742F5 /* TrailerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrailerView.xib; sourceTree = "<group>"; };
-		F3E1866815EDCF87002742F5 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
+		F3E1868B15EDD52E002742F5 /* MoviesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviesView.xib; sourceTree = "<group>"; };
 		F3EFFF2C15E4F4EB00B4A2DD /* ShowTimesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTimesController.m; sourceTree = "<group>"; };
 		F3EFFF2E15E4F4F700B4A2DD /* ShowTimesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTimesController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -674,7 +674,7 @@
 		F3C24E4715C8027B0077C801 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3E1866715EDCF87002742F5 /* List Movies */,
+				F3E1868A15EDD52E002742F5 /* List Movies */,
 				F3E1866015EDCEE7002742F5 /* Trailer */,
 				F35E733815CA40A30030D161 /* Detail Cinema */,
 				F3C24E4815C8027B0077C801 /* Detail Movie */,
@@ -741,10 +741,10 @@
 			path = Trailer;
 			sourceTree = "<group>";
 		};
-		F3E1866715EDCF87002742F5 /* List Movies */ = {
+		F3E1868A15EDD52E002742F5 /* List Movies */ = {
 			isa = PBXGroup;
 			children = (
-				F3E1866815EDCF87002742F5 /* MoviesView.xib */,
+				F3E1868B15EDD52E002742F5 /* MoviesView.xib */,
 			);
 			path = "List Movies";
 			sourceTree = "<group>";
@@ -823,7 +823,7 @@
 				F39FAE5815ECC3E800FB7979 /* RightMenuView.xib in Resources */,
 				F3E1866415EDCF2C002742F5 /* MapKitDisplayView.xib in Resources */,
 				F3E1866615EDCF60002742F5 /* TrailerView.xib in Resources */,
-				F3E1866915EDCF87002742F5 /* MoviesView.xib in Resources */,
+				F3E1868C15EDD52E002742F5 /* MoviesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
