@@ -66,7 +66,8 @@
     {
         _provider = [_listProviders objectAtIndex:_currentRow];
     }
-    else 
+    //exist data but total less than current row
+    else if([_listProviders count] > 0)
     {
         _currentRow = 0;
         _provider = [_listProviders objectAtIndex:_currentRow];
