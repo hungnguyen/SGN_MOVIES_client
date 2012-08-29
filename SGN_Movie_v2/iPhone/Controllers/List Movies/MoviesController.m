@@ -138,8 +138,6 @@
 {
     if(_isToggled == 0)
     {
-       
-        
         MovieDetailController *movieDetailController = [[MovieDetailController alloc] initWithNibName:@"MovieDetailView" bundle:nil];
         NSRange aRange = [[self title] rangeOfString:@"NOW SHOWING"];
       
@@ -215,14 +213,15 @@
                                             context:context];
         [self setNowShowingMovies:items];
         [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
-        scrollView.contentSize = CGSizeMake( 320, (((_nowShowingMovies.count/2)+(_nowShowingMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+        NSLog(@"count: %i", (_nowShowingMovies.count + 1) / 2 * (POSTER_WIDTH + 15));
+        scrollView.contentSize = CGSizeMake( 320, (_nowShowingMovies.count + 1) / 2 * (POSTER_HEIGHT + 15));
     }
     if(moviesContainerindex == 1)
     {
         NSArray *items = [Movie selectByProviderId:[[provider providerId] intValue] isNowShowing:NO context:context];
         [self setComingSoonMovies:items];
         [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
-        scrollView.contentSize = CGSizeMake( 320, (((_comingSoonMovies.count/2)+(_comingSoonMovies.count%2))*POSTER_WIDTH)+POSTER_HEIGHT+200);
+        scrollView.contentSize = CGSizeMake( 320, (_comingSoonMovies.count + 1) / 2 * (POSTER_HEIGHT + 15));
     }
 
 }
