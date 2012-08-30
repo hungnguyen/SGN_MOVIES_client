@@ -115,6 +115,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{10, 70}, {174, 21}}</string>
 										<reference key="NSSuperview" ref="635922169"/>
+										<reference key="NSNextKeyView" ref="39057357"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -134,6 +135,7 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{204, 41}, {89, 80}}</string>
 										<reference key="NSSuperview" ref="635922169"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">3</int>
@@ -295,7 +297,7 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="22.CustomClassName">HJManagedImageV</string>
+				<string key="22.CustomClassName">SGNManagedImage</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.CustomClassName">SGNCinemasListCell</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

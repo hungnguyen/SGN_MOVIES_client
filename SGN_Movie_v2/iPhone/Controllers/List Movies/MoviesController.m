@@ -183,7 +183,7 @@
         [poster setTag :[[movie movieId] intValue]];
         [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
         
-        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
+        SGNManagedImage * asynchcImage = [[SGNManagedImage alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
         
         NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
         NSString * urlString = [hostUrl stringByAppendingString:[movie imageUrl]];
@@ -213,7 +213,6 @@
                                             context:context];
         [self setNowShowingMovies:items];
         [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
-        NSLog(@"count: %i", (_nowShowingMovies.count + 1) / 2 * (POSTER_WIDTH + 15));
         scrollView.contentSize = CGSizeMake( 320, (_nowShowingMovies.count + 1) / 2 * (POSTER_HEIGHT + 15));
     }
     if(moviesContainerindex == 1)

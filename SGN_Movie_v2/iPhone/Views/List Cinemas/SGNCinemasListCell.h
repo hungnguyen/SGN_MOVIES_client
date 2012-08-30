@@ -13,7 +13,7 @@
 @interface SGNCinemasListCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UIView *mainView;
-@property (nonatomic, strong) IBOutlet HJManagedImageV *cinemaImage;
+@property (nonatomic, strong) IBOutlet SGNManagedImage *cinemaImage;
 @property (nonatomic, strong) IBOutlet UILabel *cinemaName;
 @property (nonatomic, strong) IBOutlet UILabel *cinemaAddress;
 @property (nonatomic, strong) IBOutlet UILabel *cinemaPhone;

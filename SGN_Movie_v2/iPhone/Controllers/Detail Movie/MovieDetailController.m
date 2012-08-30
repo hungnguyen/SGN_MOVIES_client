@@ -33,6 +33,7 @@
 @property (assign, nonatomic) int fontSize;
 @property (strong, nonatomic) NSString *fontName;
 @property (strong, nonatomic) Movie * movieInfo;
+@property (assign, nonatomic) int countCinemas;
 @end
 
 @implementation MovieDetailController
@@ -42,12 +43,12 @@
 @synthesize movieInfo = _movieInfo;
 @synthesize textView = _textView;
 @synthesize tableView = _tableView;
-@synthesize listCinemas = _listCinemas;
 @synthesize fontName = _fontName;
 @synthesize fontSize = _fontSize;
 @synthesize popupView = _popupView;
 @synthesize maskView = _maskView;
 @synthesize movieObjectId = _movieObjectId;
+@synthesize countCinemas = _countCinemas;
 
 #pragma mark - Init
 
@@ -93,6 +94,7 @@
 - (void) viewWillDisappear:(BOOL)animated
 {
     [self setMovieInfo:nil];
+    [_popupView loadViewWithData:nil];
 }
 
 - (void)viewDidUnload
@@ -105,6 +107,7 @@
     [self setScrollView:nil];
     [self setTextView:nil];
     [self setTableView:nil];
+    [self setPopupView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -132,7 +135,7 @@
 
 - (IBAction)showShowTime:(id)sender 
 {
-    if([_listCinemas count] >0)
+    if(_countCinemas > 0)
     {
         [[self view] addSubview:_maskView];
         [[self view] addSubview:_popupView];
@@ -259,12 +262,12 @@
 
 #pragma mark SGNCustomPopupDelegate
 
-- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObject:(id)object
 {
     [_maskView removeFromSuperview];
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
-    Cinema *cinema = [_listCinemas objectAtIndex:ObjectIndex];
+    Cinema *cinema = (Cinema*)object;
     [showtimesController setCinemaObjectId:[cinema cinemaId].intValue];
     [showtimesController setMovieObjectId:[_movieInfo movieId].intValue];
     
@@ -286,14 +289,16 @@
     _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
     
     NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieInfo movieId].intValue context:context];
-    [self setListCinemas:[Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context]];
-    [_popupView loadViewWithData:_listCinemas];
+    NSArray *cinemaObjects = [Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context];
+    [self setCountCinemas:[cinemaIds count]];
+    [_popupView loadViewWithData:cinemaObjects];
     if(_movieInfo != nil)
     {
         NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
         NSString *urlString = [hostUrl stringByAppendingString:[_movieInfo imageUrl]];
-        HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(ImageX,ImageY,ImageWidth,ImageHeight)];
+        SGNManagedImage * asynchcImage = [[SGNManagedImage alloc] initWithFrame:CGRectMake(ImageX,ImageY,ImageWidth,ImageHeight)];
         [asynchcImage setUrl:[NSURL URLWithString:urlString]];
+        [asynchcImage setImageContentMode:UIViewContentModeScaleToFill];
         [asynchcImage showLoadingWheel];
         
         //Remove old HJManageImageV

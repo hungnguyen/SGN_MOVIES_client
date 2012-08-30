@@ -14,14 +14,16 @@
 #define POSTERS_PER_PAGE 2
 
 @interface SGNCustomPopup ()
+@property (nonatomic, strong) NSArray *data;
 - (void)popDown:(id)sender;
 @end
 
 @implementation SGNCustomPopup
 
 @synthesize delegate = _delegate;
-@synthesize srollView  = _scrollView;
 @synthesize title = _title;
+@synthesize data = _data;
+@synthesize carousel = _carousel;
 
 #pragma mark Init
 - (id)initWithFrame:(CGRect)frame
@@ -43,72 +45,66 @@
     if(self)
     {
         //Init
+        _carousel.type = iCarouselTypeCoverFlow;
+        
     }
     return self;
 }
 
 - (void)loadViewWithData:(NSArray*)data
 {
-    int count = [data count];
-    
-    //create content size for scroll view
-    CGRect frame = _scrollView.frame;
-    
-    int poster_width = (frame.size.width) / POSTERS_PER_PAGE;
-    int poster_height = (frame.size.height); 
-    [_scrollView setContentSize:CGSizeMake(poster_width * count, poster_height)];
-    
-    //create poster for each movie
-    for(NSInteger i = 0; i < count; i++)
-    {
-        frame.size.width = poster_width - POSTER_OFFSET_WIDTH * 2;
-        frame.size.height = poster_height;
-        
-        //set for image
-        frame.origin.x = 0.0f;
-        frame.origin.y = 0.0f;
-        
-        NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-        NSString * urlString = [hostUrl stringByAppendingString:[[data objectAtIndex:i] 
-                                                                 valueForKey:@"imageUrl"]];
-        HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
-        [posterImage setUrl:[NSURL URLWithString:urlString]];
-        [posterImage showLoadingWheel];
-        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
-        [[HJCache sharedInstance].hjObjManager manage:posterImage];        
-        
-        //set for button
-        frame.origin.x = poster_width * i + POSTER_OFFSET_WIDTH;
-        frame.origin.y = 0.0f;
-
-        UIButton *poster = [[UIButton alloc] initWithFrame:frame];
-        [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
-        [poster setTag:i];
-        [poster addSubview:posterImage];
-        
-        [_scrollView addSubview:poster];
-    }
-    if(count > 2)
-        [_scrollView setContentOffset:CGPointMake(poster_width / 2, 0) animated:NO];
+    [self setData:data];
+    [_carousel reloadData];
 }
+
+#pragma mark iCarousel methods
+
+- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
+{
+    return [_data count];
+}
+
+- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
+{ 
+    CGRect frame = CGRectMake(0, 0, 150, 180);
+    
+    NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
+    NSString * urlString = [hostUrl stringByAppendingString:[[_data objectAtIndex:index] 
+                                                             valueForKey:@"imageUrl"]];
+    SGNManagedImage *posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+    [posterImage setUrl:[NSURL URLWithString:urlString]];
+    [posterImage showLoadingWheel];
+    [posterImage setImageContentMode:UIViewContentModeScaleAspectFill];
+    
+    //scale image to show reflection
+    posterImage.reflectionScale = 0.25f;
+    //opaque of reflection image
+    posterImage.reflectionAlpha = 0.25f;
+    //gap between image and its reflection
+    posterImage.reflectionGap = 10.0f;
+    //shadow behind image
+    posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
+    posterImage.shadowBlur = 5.0f;
+    posterImage.shadowColor = [UIColor blackColor];
+    
+    [[HJCache sharedInstance].hjObjManager manage:posterImage];        
+    
+    UIButton *poster = [[UIButton alloc] initWithFrame:frame];
+    [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
+    [poster setTag:index];
+    [poster addSubview:posterImage];
+    
+    return poster;
+}
+
 
 #pragma Ultil Methods
 
-//return scrollView when hit on view self
-- (UIView*)hitTest:(CGPoint)point withEvent:(UIEvent*)event {
-    UIView *view = [super hitTest:point withEvent:event];
-    if (view == self) {
-        return _scrollView;
-    }
-    return view;
-}
-
-- (void)SGNCustomPopupTap:(SGNCustomPopup*)customView withObjectIndex:(int)objectIndex
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customView withObject:(id)object
 {
-    
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNCustomPopupTap:withObjectIndex:)])
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(SGNCustomPopupTap:withObject:)])
     {
-        [_delegate SGNCustomPopupTap:self withObjectIndex:objectIndex];
+        [_delegate SGNCustomPopupTap:self withObject:object];
     }
 }
 
@@ -140,7 +136,10 @@
     [UIView commitAnimations];
     
     if(sender != nil && sender != [NSNull null])
-        [self SGNCustomPopupTap:self withObjectIndex:[sender tag]];
+    {
+        id object  = [_data objectAtIndex:[sender tag]];
+        [self SGNCustomPopupTap:self withObject:object];
+    }
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context 

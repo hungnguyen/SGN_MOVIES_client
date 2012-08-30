@@ -31,6 +31,7 @@
 		F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */; };
 		F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C5015CFD72800BCF4D8 /* SGNComboView.m */; };
 		F3951C5315CFD73F00BCF4D8 /* SGNComboView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */; };
+		F396398015EE2B1B00EEEFFF /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F396397F15EE2B1B00EEEFFF /* iCarousel.m */; };
 		F397E67415C159A100A92874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67315C159A100A92874 /* UIKit.framework */; };
 		F397E67615C159A100A92874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67515C159A100A92874 /* Foundation.framework */; };
 		F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67715C159A100A92874 /* CoreGraphics.framework */; };
@@ -72,6 +73,8 @@
 		F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */; };
 		F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */; };
 		F3B1007C15DBA07A00F67674 /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1007B15DBA07A00F67674 /* Repository.m */; };
+		F3B648B315EF3B0400DD354E /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B648B115EF3B0400DD354E /* UIImage+FX.m */; };
+		F3B648B715EF3BFA00DD354E /* SGNManagedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B648B615EF3BFA00DD354E /* SGNManagedImage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7529215D240E800D29207 /* SGNCustomPopup.m */; };
 		F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B7529315D240E800D29207 /* SGNCustomPopup.xib */; };
 		F3C24E5315C8027B0077C801 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E3A15C8027B0077C801 /* AboutController.m */; };
@@ -126,6 +129,8 @@
 		F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNComboView.h; sourceTree = "<group>"; };
 		F3951C5015CFD72800BCF4D8 /* SGNComboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNComboView.m; sourceTree = "<group>"; };
 		F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNComboView.xib; sourceTree = "<group>"; };
+		F396397E15EE2B1B00EEEFFF /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		F396397F15EE2B1B00EEEFFF /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F397E67315C159A100A92874 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F397E67515C159A100A92874 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -201,6 +206,10 @@
 		F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
 		F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
 		F3B1007B15DBA07A00F67674 /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
+		F3B648B015EF3B0400DD354E /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
+		F3B648B115EF3B0400DD354E /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
+		F3B648B515EF3BFA00DD354E /* SGNManagedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNManagedImage.h; sourceTree = "<group>"; };
+		F3B648B615EF3BFA00DD354E /* SGNManagedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNManagedImage.m; sourceTree = "<group>"; };
 		F3B7529115D240E800D29207 /* SGNCustomPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCustomPopup.h; sourceTree = "<group>"; };
 		F3B7529215D240E800D29207 /* SGNCustomPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCustomPopup.m; sourceTree = "<group>"; };
 		F3B7529315D240E800D29207 /* SGNCustomPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCustomPopup.xib; sourceTree = "<group>"; };
@@ -376,6 +385,15 @@
 			path = "Show Times";
 			sourceTree = "<group>";
 		};
+		F396397D15EE2B1B00EEEFFF /* iCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				F396397E15EE2B1B00EEEFFF /* iCarousel.h */,
+				F396397F15EE2B1B00EEEFFF /* iCarousel.m */,
+			);
+			path = iCarousel;
+			sourceTree = "<group>";
+		};
 		F397E66415C159A000A92874 = {
 			isa = PBXGroup;
 			children = (
@@ -497,6 +515,8 @@
 		F397E6B415C15C5700A92874 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F3B648AD15EF3B0400DD354E /* FXImageView */,
+				F396397D15EE2B1B00EEEFFF /* iCarousel */,
 				F39FDF8715EB8D1C004A3A59 /* SGNManageObjectJSON */,
 				6FFFC11915CFA6A5003D9326 /* DisplayMap */,
 				6FFFC0D015CF614B003D9326 /* LBYouTubePlayerController */,
@@ -539,6 +559,8 @@
 		F397E6F715C15D3600A92874 /* HJCache */ = {
 			isa = PBXGroup;
 			children = (
+				F3B648B515EF3BFA00DD354E /* SGNManagedImage.h */,
+				F3B648B615EF3BFA00DD354E /* SGNManagedImage.m */,
 				F397E71F15C1604400A92874 /* HJCache.h */,
 				F397E72015C1604400A92874 /* HJCache.m */,
 				F397E6F815C15D3600A92874 /* HJCircularBuffer.h */,
@@ -589,6 +611,15 @@
 				F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */,
 			);
 			path = SGNManageObjectJSON;
+			sourceTree = "<group>";
+		};
+		F3B648AD15EF3B0400DD354E /* FXImageView */ = {
+			isa = PBXGroup;
+			children = (
+				F3B648B015EF3B0400DD354E /* UIImage+FX.h */,
+				F3B648B115EF3B0400DD354E /* UIImage+FX.m */,
+			);
+			path = FXImageView;
 			sourceTree = "<group>";
 		};
 		F3B7528F15D240E800D29207 /* Views */ = {
@@ -883,6 +914,9 @@
 				F39FDF8615EB8415004A3A59 /* Movie.m in Sources */,
 				F39FDF8A15EB8D1C004A3A59 /* SGNManagedObject.m in Sources */,
 				F39FAE5415ECC3D400FB7979 /* RightMenuController.m in Sources */,
+				F396398015EE2B1B00EEEFFF /* iCarousel.m in Sources */,
+				F3B648B315EF3B0400DD354E /* UIImage+FX.m in Sources */,
+				F3B648B715EF3BFA00DD354E /* SGNManagedImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

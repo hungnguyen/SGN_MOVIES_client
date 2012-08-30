@@ -17,7 +17,6 @@
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource,
                                                         SGNCustomPopupDelegate,RepositoryDelegate>
 
-@property (strong, nonatomic) NSArray *listCinemas;
 @property (assign, nonatomic) int movieObjectId;
 @property (strong, nonatomic)  SGNCustomPopup *popupView;
 @property (strong, nonatomic) IBOutlet UIView *maskView;
