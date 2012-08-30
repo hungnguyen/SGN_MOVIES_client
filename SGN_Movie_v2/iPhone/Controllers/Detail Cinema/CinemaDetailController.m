@@ -19,7 +19,6 @@
 #import "AppDelegate.h"
 
 @interface CinemaDetailController ()
-@property (strong, nonatomic) NSArray *movieObjects;
 @property (strong, nonatomic) Cinema *cinemaObject;
 @property (strong, nonatomic) NSString *cinemaWebId;
 @end
@@ -30,7 +29,6 @@
 @synthesize popupView = _popupView;
 @synthesize cinemaObjectId = _cinemaObjectId;
 @synthesize cinemaWebId = _cinemaWebId;
-@synthesize movieObjects = _movieObjects;
 @synthesize cinemaObject = _cinemaObject;
 @synthesize cinemaImage = _cinemaImage;
 @synthesize cinemaName =_cinemaName;
@@ -54,7 +52,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self showLastUpdateOnNavigationBarWithTitle:@"CINEMA DETAIL"];
-
+    
     //set round border
     [[_cinemaView layer] setMasksToBounds:YES];
     [[_cinemaView layer] setCornerRadius:10.0f];
@@ -77,7 +75,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [self setMovieObjects:nil];
+    [_popupView loadViewWithData:nil];
     [self setCinemaObject:nil];
     [self setCinemaWebId:nil];
 }
@@ -92,6 +90,7 @@
     [self setCinemaAddress:nil];
     [self setScrollView:nil];
     [self setCinemaView:nil];
+    [self setPopupView:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -112,9 +111,6 @@
     [_cinemaImage setUrl:[NSURL URLWithString:image_url]];
     [_cinemaImage showLoadingWheel];
     [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
-    
-    //reload Data for list poster movies
-    [_popupView loadViewWithData:_movieObjects];
 }
 
 #pragma mark Action
@@ -153,7 +149,7 @@
     NSLog(@"RELOAD DATA");
     [self showLastUpdateOnNavigationBarWithTitle:@"CINEMA DETAIL"];
     NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-
+    
     [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
     if(_cinemaObject == nil 
        || (_cinemaWebId != nil && ![_cinemaWebId isEqualToString:[_cinemaObject cinemaWebId]]))
@@ -168,7 +164,11 @@
     }
     
     NSArray *movieIds = [Sessiontime selectMovieIdsByCinemaId:[_cinemaObject cinemaId].intValue context:context];
-    [self setMovieObjects:[Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context]];
+    NSArray *movieObject = [Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context];
+    
+    //reload Data for list poster movies
+    [_popupView loadViewWithData:movieObject];
+    [_popupView carousel].type = iCarouselTypeRotary;
     [self reloadView];
 }
 
@@ -197,12 +197,12 @@
 
 #pragma mark SGNCustomPopupDelegate
 
-- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObject:(id)object
 {
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
     [showtimesController setCinemaObjectId:[_cinemaObject cinemaId].intValue];
-    Movie *movie = [_movieObjects objectAtIndex:ObjectIndex];
+    Movie *movie = (Movie*)object;
     [showtimesController setMovieObjectId:[movie movieId].intValue];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 

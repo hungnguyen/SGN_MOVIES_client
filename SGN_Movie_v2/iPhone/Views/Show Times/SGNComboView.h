@@ -15,8 +15,8 @@
 @interface SGNComboView : UIView
 
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (strong, nonatomic) IBOutlet HJManagedImageV *cinemaImage;
-@property (strong, nonatomic) IBOutlet HJManagedImageV *movieImage;
+@property (strong, nonatomic) IBOutlet SGNManagedImage *cinemaImage;
+@property (strong, nonatomic) IBOutlet SGNManagedImage *movieImage;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;
 @property (strong, nonatomic) IBOutlet UILabel *movieTitle;
 

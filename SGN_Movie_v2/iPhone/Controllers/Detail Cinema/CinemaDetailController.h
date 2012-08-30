@@ -15,7 +15,7 @@
                                                         SGNCustomPopupDelegate>
 
 @property (assign, nonatomic) int cinemaObjectId;
-@property (strong, nonatomic) IBOutlet HJManagedImageV *cinemaImage;
+@property (strong, nonatomic) IBOutlet SGNManagedImage *cinemaImage;
 @property (strong, nonatomic)  SGNCustomPopup *popupView;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaName;
 @property (strong, nonatomic) IBOutlet UILabel *cinemaPhone;

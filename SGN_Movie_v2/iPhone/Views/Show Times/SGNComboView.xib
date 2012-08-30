@@ -32,7 +32,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="74201009">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUILabel" id="508333331">
@@ -78,6 +78,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{225, 2}, {94, 69}}</string>
 						<reference key="NSSuperview" ref="74201009"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -125,6 +126,7 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 75}</string>
+				<reference key="NSSuperview"/>
 				<reference key="NSNextKeyView" ref="508333331"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -202,8 +204,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="508333331"/>
 							<reference ref="25102412"/>
-							<reference ref="814699465"/>
 							<reference ref="923210668"/>
+							<reference ref="814699465"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -235,9 +237,9 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="13.CustomClassName">HJManagedImageV</string>
+				<string key="13.CustomClassName">SGNManagedImage</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="15.CustomClassName">HJManagedImageV</string>
+				<string key="15.CustomClassName">SGNManagedImage</string>
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

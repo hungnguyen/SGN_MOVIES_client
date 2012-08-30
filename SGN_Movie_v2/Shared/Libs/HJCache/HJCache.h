@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HJManagedImageV.h"
+#import "SGNManagedImage.h"
 #import "HJObjManager.h"
 
 

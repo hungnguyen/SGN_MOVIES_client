@@ -7,19 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iCarousel.h"
 
 @class SGNCustomPopup;
 
 @protocol SGNCustomPopupDelegate <NSObject>
 @optional
-- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObjectIndex:(int)ObjectIndex;
+- (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObject:(id)object;
 @end
 
-@interface SGNCustomPopup : UIView
+@interface SGNCustomPopup : UIView <iCarouselDataSource, iCarouselDelegate>
 
 @property (nonatomic, assign) id<SGNCustomPopupDelegate> delegate;
-@property (nonatomic, strong) IBOutlet UIScrollView *srollView;
 @property (nonatomic, strong) IBOutlet UILabel *title;
+@property (nonatomic, strong) IBOutlet iCarousel *carousel;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 - (void)loadViewWithData:(NSArray*)data;
