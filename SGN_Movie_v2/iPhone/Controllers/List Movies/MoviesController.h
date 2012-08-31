@@ -13,11 +13,17 @@
 #import "Repository.h"
 #import "DataService.h"
 #import "Movie.h"
+#import "WEPopoverContentViewController.h"
+#import "WEPopoverController.h"
 #import "Provider.h"
 
-@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate>
 
+@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate , WEPopoverContentDelegate>
+{
+    @public
+    bool isToggled;
+}
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (assign, nonatomic) int isToggled;
+@property (strong, nonatomic) WEPopoverController *popOverController;
 @end

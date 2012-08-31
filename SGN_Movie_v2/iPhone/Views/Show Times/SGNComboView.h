@@ -10,6 +10,7 @@
 #import "HJCache.h"
 #import "Cinema.h"
 #import "Movie.h"
+#import "Repository.h"
 
 @class SGNComboView;
 @interface SGNComboView : UIView

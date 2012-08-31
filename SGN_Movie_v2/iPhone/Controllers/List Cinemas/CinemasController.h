@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Repository.h"
+#import "WEPopoverContentViewController.h"
+#import "WEPopoverController.h"
 
-@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource, RepositoryDelegate>
+@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource, RepositoryDelegate,WEPopoverContentDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (assign, nonatomic) int isToggled;
+@property (assign, nonatomic) bool isToggled;
+@property (strong, nonatomic) WEPopoverController * popOverController;
 
 @end

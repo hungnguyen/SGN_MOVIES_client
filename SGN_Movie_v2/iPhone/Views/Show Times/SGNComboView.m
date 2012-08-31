@@ -7,7 +7,6 @@
 //
 
 #import "SGNComboView.h"
-#import "AppDelegate.h"
 
 @implementation SGNComboView
 
@@ -52,9 +51,8 @@
 
 - (void)fillWithCinema:(Cinema*)cinemaObj andMovie:(Movie*)movieObj
 {
-    NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController]provider]hostUrl];
-    NSString *cinemaImage_url = [hostUrl stringByAppendingString:[cinemaObj imageUrl]];
-    NSString *movieImage_url = [hostUrl stringByAppendingString:[movieObj imageUrl]];
+    NSString *cinemaImage_url = [NSString stringWithFormat:@"%@%@",[[Repository sharedInstance] currentURL], [cinemaObj imageUrl]];
+    NSString *movieImage_url = [NSString stringWithFormat:@"%@%@",[[Repository sharedInstance] currentURL], [movieObj imageUrl]];
     
     [_cinemaName setText:[cinemaObj name]];
     [_movieTitle setText:[movieObj title]];

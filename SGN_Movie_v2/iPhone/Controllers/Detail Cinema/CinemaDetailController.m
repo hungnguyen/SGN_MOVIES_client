@@ -103,8 +103,7 @@
 
 - (void)reloadView
 {
-    NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-    NSString *image_url = [hostUrl stringByAppendingString:[_cinemaObject imageUrl]];
+    NSString *image_url = [NSString stringWithFormat:@"%@%@",[[Repository sharedInstance] currentURL], [_cinemaObject imageUrl]];
     [_cinemaName setText:[_cinemaObject name]];
     [_cinemaPhone setText:[_cinemaObject phone]];
     [_cinemaAddress setText:[_cinemaObject address]];

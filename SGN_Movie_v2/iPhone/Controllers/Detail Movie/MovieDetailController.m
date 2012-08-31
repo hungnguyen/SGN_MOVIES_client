@@ -64,13 +64,27 @@
 {
     [super viewDidLoad];
     
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
+    
     [self showLastUpdateOnNavigationBarWithTitle:@"MOVIE DETAIL"];
     [self setFontSize:14];
     [self setFontName:@"Arial-BoldMT"];
     
+    NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
+    HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(-39,43,200,190)];
+    [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",[[Repository sharedInstance] currentURL],urlString]]];
+    [asynchcImage showLoadingWheel];
+    [self.scrollView addSubview:asynchcImage];
+    [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
+    
     [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
     [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
     
+    [_textView setText:[_movieInfo valueForKey:@"Title"]];
+    [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
+    [_textView setEditable:NO];
+    [_textView setScrollEnabled:NO];
     
     [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 300)];
     [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 300))];
@@ -290,10 +304,9 @@
     [_popupView loadViewWithData:_listCinemas];
     if(_movieInfo != nil)
     {
-        NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-        NSString *urlString = [hostUrl stringByAppendingString:[_movieInfo imageUrl]];
+        NSString * urlString = [[NSString alloc] initWithString:[_movieInfo imageUrl]];
         HJManagedImageV * asynchcImage = [[HJManagedImageV alloc] initWithFrame:CGRectMake(ImageX,ImageY,ImageWidth,ImageHeight)];
-        [asynchcImage setUrl:[NSURL URLWithString:urlString]];
+        [asynchcImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",[[Repository sharedInstance] currentURL],urlString]]];
         [asynchcImage showLoadingWheel];
         
         //Remove old HJManageImageV

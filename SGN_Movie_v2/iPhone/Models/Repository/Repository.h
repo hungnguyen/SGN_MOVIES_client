@@ -25,6 +25,7 @@
 @property (nonatomic, assign) BOOL isUpdateMovie;
 @property (nonatomic, assign) BOOL isUpdateSessiontime;
 @property (nonatomic, assign) int currentProviderId;
+@property (nonatomic, assign) NSString * currentURL;
 
 + (Repository*)sharedInstance;
 

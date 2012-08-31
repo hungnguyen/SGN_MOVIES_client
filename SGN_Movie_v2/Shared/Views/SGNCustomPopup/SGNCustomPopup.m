@@ -8,7 +8,7 @@
 
 #import "SGNCustomPopup.h"
 #import "HJCache.h"
-#import "AppDelegate.h"
+#import "Repository.h"
 
 #define POSTER_OFFSET_WIDTH 10
 #define POSTERS_PER_PAGE 2
@@ -67,12 +67,11 @@
         //set for image
         frame.origin.x = 0.0f;
         frame.origin.y = 0.0f;
+        NSString * urlString = [[NSString alloc] initWithString:[[data objectAtIndex:i] 
+                                                                 valueForKey:@"ImageUrl"]];
         
-        NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-        NSString * urlString = [hostUrl stringByAppendingString:[[data objectAtIndex:i] 
-                                                                 valueForKey:@"imageUrl"]];
         HJManagedImageV *posterImage = [[HJManagedImageV alloc]initWithFrame:frame];
-        [posterImage setUrl:[NSURL URLWithString:urlString]];
+        [posterImage setUrl:[NSURL URLWithString:[[NSString alloc] initWithFormat:@"%@%@",[[Repository sharedInstance] currentURL] ,urlString]]];
         [posterImage showLoadingWheel];
         [posterImage setImageContentMode:UIViewContentModeScaleToFill];
         [[HJCache sharedInstance].hjObjManager manage:posterImage];        
@@ -80,7 +79,7 @@
         //set for button
         frame.origin.x = poster_width * i + POSTER_OFFSET_WIDTH;
         frame.origin.y = 0.0f;
-
+        //int movieId = (int)[[_movieObjects objectAtIndex:i] valueForKey:@"Id"];
         UIButton *poster = [[UIButton alloc] initWithFrame:frame];
         [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
         [poster setTag:i];

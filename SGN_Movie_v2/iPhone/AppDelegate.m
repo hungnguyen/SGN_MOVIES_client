@@ -15,7 +15,6 @@ static AppDelegate * appDelegate;
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 @synthesize deckController = _deckController;
-@synthesize rightMenuController = _rightMenuController;
 
 + (AppDelegate*)currentDelegate
 {
@@ -28,6 +27,7 @@ static AppDelegate * appDelegate;
     //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: 0.5];
     //[NSThread sleepUntilDate:future];
     [[Repository sharedInstance] setCurrentProviderId:1];
+    [[Repository sharedInstance] setCurrentURL:@"http://www.galaxycine.vn"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIImage *backgroundImage = [UIImage imageNamed:@"Background8.jpg"];
     [self.window setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];      
@@ -44,11 +44,8 @@ static AppDelegate * appDelegate;
     //Make Menu View
     MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuView" bundle:nil];
     
-    //Make Right Menu
-    [self setRightMenuController:[[RightMenuController alloc] initWithNibName:@"RightMenuView" bundle:nil]];
-    
     //Make View Deck
-    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_navigationController leftViewController:menuController rightViewController:_rightMenuController]];
+    [self setDeckController:[[IIViewDeckController alloc] initWithCenterViewController:_navigationController leftViewController:menuController]];
     [_deckController setRightLedge:40];
     [_deckController setEnabled:FALSE];
     

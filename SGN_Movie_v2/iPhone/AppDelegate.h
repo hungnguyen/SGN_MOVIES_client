@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 #import "IIViewDeckController.h"
 #import "MoviesController.h"
 #import "CinemasController.h"
 #import "AFNetworking.h"
 #import "MenuController.h"
+#import <CoreData/CoreData.h>
 #import "Repository.h"
-#import "RightMenuController.h"
+
 
 @class MoviesController;
 
@@ -24,7 +24,6 @@
 
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) IIViewDeckController *deckController;
-@property (strong, nonatomic) RightMenuController *rightMenuController;
 
 +(AppDelegate *) currentDelegate;
 - (NSURL *)applicationDocumentsDirectory;
