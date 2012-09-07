@@ -70,6 +70,12 @@
 		F39FDF8315EB8414004A3A59 /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8215EB8414004A3A59 /* Sessiontime.m */; };
 		F39FDF8615EB8415004A3A59 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8515EB8415004A3A59 /* Movie.m */; };
 		F39FDF8A15EB8D1C004A3A59 /* SGNManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */; };
+		F3A148B315F99EF10025AADF /* MovieGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148B215F99EF10025AADF /* MovieGallery.m */; };
+		F3A148B615F99EF20025AADF /* CinemaGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148B515F99EF20025AADF /* CinemaGallery.m */; };
+		F3A148CD15F9A3D30025AADF /* CinemaGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148CB15F9A3D30025AADF /* CinemaGalleryController.m */; };
+		F3A148D215F9A3E10025AADF /* MovieGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148D015F9A3E10025AADF /* MovieGalleryController.m */; };
+		F3A148D815F9A44B0025AADF /* CinemaGalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A148D515F9A44B0025AADF /* CinemaGalleryView.xib */; };
+		F3A148D915F9A44B0025AADF /* MovieGalleryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A148D715F9A44B0025AADF /* MovieGalleryView.xib */; };
 		F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */; };
 		F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */; };
 		F3B1007C15DBA07A00F67674 /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1007B15DBA07A00F67674 /* Repository.m */; };
@@ -202,6 +208,16 @@
 		F39FDF8515EB8415004A3A59 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		F39FDF8815EB8D1C004A3A59 /* SGNManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNManagedObject.h; sourceTree = "<group>"; };
 		F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNManagedObject.m; sourceTree = "<group>"; };
+		F3A148B115F99EF10025AADF /* MovieGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieGallery.h; sourceTree = "<group>"; };
+		F3A148B215F99EF10025AADF /* MovieGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieGallery.m; sourceTree = "<group>"; };
+		F3A148B415F99EF20025AADF /* CinemaGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaGallery.h; sourceTree = "<group>"; };
+		F3A148B515F99EF20025AADF /* CinemaGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaGallery.m; sourceTree = "<group>"; };
+		F3A148CA15F9A3D30025AADF /* CinemaGalleryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaGalleryController.h; sourceTree = "<group>"; };
+		F3A148CB15F9A3D30025AADF /* CinemaGalleryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaGalleryController.m; sourceTree = "<group>"; };
+		F3A148CF15F9A3E10025AADF /* MovieGalleryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieGalleryController.h; sourceTree = "<group>"; };
+		F3A148D015F9A3E10025AADF /* MovieGalleryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieGalleryController.m; sourceTree = "<group>"; };
+		F3A148D515F9A44B0025AADF /* CinemaGalleryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemaGalleryView.xib; sourceTree = "<group>"; };
+		F3A148D715F9A44B0025AADF /* MovieGalleryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieGalleryView.xib; sourceTree = "<group>"; };
 		F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemaDetailView.xib; sourceTree = "<group>"; };
 		F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
 		F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
@@ -352,6 +368,10 @@
 				F39FDF8115EB8414004A3A59 /* Sessiontime.h */,
 				F39FDF8215EB8414004A3A59 /* Sessiontime.m */,
 				F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */,
+				F3A148B415F99EF20025AADF /* CinemaGallery.h */,
+				F3A148B515F99EF20025AADF /* CinemaGallery.m */,
+				F3A148B115F99EF10025AADF /* MovieGallery.h */,
+				F3A148B215F99EF10025AADF /* MovieGallery.m */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -613,6 +633,40 @@
 			path = SGNManageObjectJSON;
 			sourceTree = "<group>";
 		};
+		F3A148C715F9A3AC0025AADF /* Gallery Cinema */ = {
+			isa = PBXGroup;
+			children = (
+				F3A148CA15F9A3D30025AADF /* CinemaGalleryController.h */,
+				F3A148CB15F9A3D30025AADF /* CinemaGalleryController.m */,
+			);
+			path = "Gallery Cinema";
+			sourceTree = "<group>";
+		};
+		F3A148C815F9A3AC0025AADF /* Gallery Movie */ = {
+			isa = PBXGroup;
+			children = (
+				F3A148CF15F9A3E10025AADF /* MovieGalleryController.h */,
+				F3A148D015F9A3E10025AADF /* MovieGalleryController.m */,
+			);
+			path = "Gallery Movie";
+			sourceTree = "<group>";
+		};
+		F3A148D415F9A44B0025AADF /* Gallery Cinema */ = {
+			isa = PBXGroup;
+			children = (
+				F3A148D515F9A44B0025AADF /* CinemaGalleryView.xib */,
+			);
+			path = "Gallery Cinema";
+			sourceTree = "<group>";
+		};
+		F3A148D615F9A44B0025AADF /* Gallery Movie */ = {
+			isa = PBXGroup;
+			children = (
+				F3A148D715F9A44B0025AADF /* MovieGalleryView.xib */,
+			);
+			path = "Gallery Movie";
+			sourceTree = "<group>";
+		};
 		F3B648AD15EF3B0400DD354E /* FXImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +697,8 @@
 		F3C24E3715C8027B0077C801 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F3A148C715F9A3AC0025AADF /* Gallery Cinema */,
+				F3A148C815F9A3AC0025AADF /* Gallery Movie */,
 				F3C24E3815C8027B0077C801 /* About */,
 				F35E733315CA40910030D161 /* Detail Cinema */,
 				F3C24E3B15C8027B0077C801 /* Detail Movie */,
@@ -705,6 +761,8 @@
 		F3C24E4715C8027B0077C801 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F3A148D415F9A44B0025AADF /* Gallery Cinema */,
+				F3A148D615F9A44B0025AADF /* Gallery Movie */,
 				F3E1868A15EDD52E002742F5 /* List Movies */,
 				F3E1866015EDCEE7002742F5 /* Trailer */,
 				F35E733815CA40A30030D161 /* Detail Cinema */,
@@ -855,6 +913,8 @@
 				F3E1866415EDCF2C002742F5 /* MapKitDisplayView.xib in Resources */,
 				F3E1866615EDCF60002742F5 /* TrailerView.xib in Resources */,
 				F3E1868C15EDD52E002742F5 /* MoviesView.xib in Resources */,
+				F3A148D815F9A44B0025AADF /* CinemaGalleryView.xib in Resources */,
+				F3A148D915F9A44B0025AADF /* MovieGalleryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +977,10 @@
 				F396398015EE2B1B00EEEFFF /* iCarousel.m in Sources */,
 				F3B648B315EF3B0400DD354E /* UIImage+FX.m in Sources */,
 				F3B648B715EF3BFA00DD354E /* SGNManagedImage.m in Sources */,
+				F3A148B315F99EF10025AADF /* MovieGallery.m in Sources */,
+				F3A148B615F99EF20025AADF /* CinemaGallery.m in Sources */,
+				F3A148CD15F9A3D30025AADF /* CinemaGalleryController.m in Sources */,
+				F3A148D215F9A3E10025AADF /* MovieGalleryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

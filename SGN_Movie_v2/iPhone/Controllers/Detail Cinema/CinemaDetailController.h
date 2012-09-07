@@ -25,5 +25,6 @@
 
 - (IBAction)showMap:(id)sender;
 - (IBAction)showTicket:(id)sender;
+- (IBAction)showGallery:(id)sender;
 
 @end
