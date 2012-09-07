@@ -13,6 +13,7 @@
 #import "MapKitDisplayController.h"
 #import "Cinema.h"
 #import "Movie.h"
+#import "CinemaGalleryController.h"
 #import "Sessiontime.h"
 #import "DataService.h"
 #import "Repository.h"
@@ -139,6 +140,21 @@
     [self.navigationItem setBackBarButtonItem: backButton];
     
     [[self navigationController] pushViewController:mapKitController animated:YES];
+}
+
+- (IBAction)showGallery:(id)sender
+{
+    
+    CinemaGalleryController *cinemaGalleryController = [[CinemaGalleryController alloc] initWithNibName:@"CinemaGalleryView" 
+                                                                                              bundle:nil];
+    cinemaGalleryController.cinemaObjectId = _cinemaObjectId;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [self.navigationController pushViewController:cinemaGalleryController animated:YES];
 }
 
 #pragma mark CoreData

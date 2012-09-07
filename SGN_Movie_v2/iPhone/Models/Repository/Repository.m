@@ -14,6 +14,8 @@
 #import "Movie.h"
 #import "Sessiontime.h"
 #import "Provider.h"
+#import "MovieGallery.h"
+#import "CinemaGallery.h"
 #import "SGNManagedObject.h"
 
 #define FORMAT_TIME @"dd.MM.yyyy HH.mm.ss"
@@ -173,17 +175,35 @@
     if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] != [NSNull null])
     {
         NSLog(@"Update Cinemas");
+        //update cinema
         NSEntityDescription *cinemaEntity = [Cinema entityInManagedObjectContext:context];
         [self deleteDataInEntity:cinemaEntity];
-        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]  InEntity:cinemaEntity];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Cinema"]  
+                InEntity:cinemaEntity];
+        
+        //update cinema gallery
+        NSEntityDescription *cinemaGalleryEntity = [CinemaGallery entityInManagedObjectContext:context];
+        [self deleteDataInEntity:cinemaGalleryEntity];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"CinemaGallery"]  
+                InEntity:cinemaGalleryEntity];
+        
         [self setIsUpdateCinema:YES];
     }
     if([[JSON objectForKey:@"Data"] objectForKey:@"Movie"] != [NSNull null])
     {
         NSLog(@"Update Movies");
+        //update movie
         NSEntityDescription *movieEntity = [Movie entityInManagedObjectContext:context];
         [self deleteDataInEntity:movieEntity];
-        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"]  InEntity:movieEntity];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"Movie"]  
+                InEntity:movieEntity];
+        
+        //update movie gallery
+        NSEntityDescription *movieGalleryEntity = [MovieGallery entityInManagedObjectContext:context];
+        [self deleteDataInEntity:movieGalleryEntity];
+        [self insertData:(NSArray *)[[JSON objectForKey:@"Data"] objectForKey:@"MovieGallery"]  
+                InEntity:movieGalleryEntity];
+        
         [self setIsUpdateMovie:YES];
     }
     if([[JSON objectForKey:@"Data"] objectForKey:@"Sessiontime"] != [NSNull null])

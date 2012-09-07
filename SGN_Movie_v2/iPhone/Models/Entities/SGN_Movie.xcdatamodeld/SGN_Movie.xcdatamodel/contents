@@ -11,6 +11,10 @@
         <attribute name="phone" attributeType="String" syncable="YES"/>
         <attribute name="providerId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="CinemaGallery" representedClassName="CinemaGallery" syncable="YES">
+        <attribute name="cinemaId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="imageUrl" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Movie" representedClassName="Movie" syncable="YES">
         <attribute name="cast" attributeType="String" syncable="YES"/>
         <attribute name="director" attributeType="String" syncable="YES"/>
@@ -27,6 +31,10 @@
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="trailerUrl" attributeType="String" syncable="YES"/>
         <attribute name="version" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MovieGallery" representedClassName="MovieGallery" syncable="YES">
+        <attribute name="imageUrl" attributeType="String" syncable="YES"/>
+        <attribute name="movieId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Provider" representedClassName="Provider" syncable="YES">
         <attribute name="hostUrl" attributeType="String" syncable="YES"/>
@@ -45,5 +53,7 @@
         <element name="Movie" positionX="-207" positionY="-222" width="128" height="285"/>
         <element name="Provider" positionX="-207" positionY="-342" width="128" height="90"/>
         <element name="Sessiontime" positionX="-27" positionY="-135" width="128" height="135"/>
+        <element name="CinemaGallery" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="MovieGallery" positionX="160" positionY="192" width="128" height="75"/>
     </elements>
 </model>

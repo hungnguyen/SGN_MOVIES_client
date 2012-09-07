@@ -16,6 +16,7 @@
 #import "LBYouTubePlayerViewController.h"
 #import "AFNetworking.h"
 #import "ShowtimesController.h"
+#import "MovieGalleryController.h"
 #import "Sessiontime.h"
 
 #define CELL_WIDTH 320
@@ -146,6 +147,21 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"Sorry, there is no cinema show this movie" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
     }
+}
+
+- (IBAction)showGallery:(id)sender
+{
+    
+    MovieGalleryController *movieGalleryController = [[MovieGalleryController alloc] initWithNibName:@"MovieGalleryView" 
+                                                                                             bundle:nil];
+    movieGalleryController.movieObjectId = _movieObjectId;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
+                                  initWithTitle: @"Back" 
+                                  style: UIBarButtonItemStyleBordered
+                                  target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
+    [self.navigationController pushViewController:movieGalleryController animated:YES];
 }
 
 - (void)removePopup

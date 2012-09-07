@@ -27,5 +27,6 @@
 
 - (IBAction)showTrailer:(id)sender;
 - (IBAction)showShowTime:(id)sender;
+- (IBAction)showGallery:(id)sender;
 
 @end
