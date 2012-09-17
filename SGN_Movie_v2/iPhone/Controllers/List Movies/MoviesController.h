@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Repository.h"
+#import "SGNRepository.h"
 #import "PSCollectionView.h"
 
 @interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate,

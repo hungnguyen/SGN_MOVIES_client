@@ -10,7 +10,7 @@
 #import "AboutController.h"
 #import "MoviesController.h"
 #import "CinemasController.h"
-#import "Repository.h"
+#import "SGNRepository.h"
 
 @interface MenuController ()
 
@@ -166,7 +166,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
     [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
     [formatter setDateFormat:@"HH:mm - dd/MM/yyyy"];
-    NSString *lastUpdate = [formatter stringFromDate:[[Repository sharedInstance] readLastUpdated]];
+    NSString *lastUpdate = [formatter stringFromDate:[[SGNRepository sharedInstance] readLastUpdated]];
     _lastUpdateLabel.text = [NSString stringWithFormat:@"Last update:%@",lastUpdate];
 }
 

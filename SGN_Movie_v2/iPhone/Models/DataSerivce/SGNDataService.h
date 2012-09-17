@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataService : NSObject
+@interface SGNDataService : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
-+ (DataService*) sharedInstance;
++ (SGNDataService*) sharedInstance;
 + (NSManagedObjectContext*) defaultContext;
 - (void) saveContext;
 

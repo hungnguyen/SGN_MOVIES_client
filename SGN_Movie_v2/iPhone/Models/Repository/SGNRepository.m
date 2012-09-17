@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Repository.h"
+#import "SGNRepository.h"
 #import "AFNetworking.h"
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "AppDelegate.h"
 #import "Cinema.h"
 #import "Movie.h"
@@ -21,11 +21,11 @@
 #define FORMAT_TIME @"dd.MM.yyyy HH.mm.ss"
 //#define FORMAT_TIME_GMT @"dd.MM.yyyy HH.mm.ss zzz"
 
-@interface Repository()
+@interface SGNRepository()
 @property (assign, nonatomic) BOOL isUpdating;
 @end
 
-@implementation Repository
+@implementation SGNRepository
 
 //@synthesize delegate = _delegate;
 @synthesize isUpdating = _isUpdating;
@@ -37,12 +37,12 @@
 
 #pragma mark - Util
 
-+ (Repository *) sharedInstance
++ (SGNRepository *) sharedInstance
 {
-    static Repository *sharedRepository;
+    static SGNRepository *sharedRepository;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedRepository = [[Repository alloc] init];
+        sharedRepository = [[SGNRepository alloc] init];
     });
     return sharedRepository;
 }
@@ -92,7 +92,7 @@
 #pragma mark Self Delegate
 
 //raise before update new data 
-- (void)RepositoryStartUpdate:(Repository*)repository
+- (void)RepositoryStartUpdate:(SGNRepository*)repository
 {
     id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
     
@@ -103,12 +103,12 @@
 }
 
 //raise after update new data
-- (void)RepositoryFinishUpdate:(Repository*)repository
+- (void)RepositoryFinishUpdate:(SGNRepository*)repository
 {
     id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
     
     //save context after update all data
-    [[DataService sharedInstance] saveContext];
+    [[SGNDataService sharedInstance] saveContext];
     
     //reload data for right menu
     if(_isUpdateProvider == YES)
@@ -125,7 +125,7 @@
 //delete 
 - (void)deleteDataInEntity:(NSEntityDescription*)entity 
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
     
@@ -140,7 +140,7 @@
 
 - (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     for(NSDictionary *dict in JSON)
     {
         NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name 
@@ -154,7 +154,7 @@
 
 -(void) checkNeedToUpdateFromJSON:(id) JSON
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] != [NSNull null])
     {
         NSLog(@"Update Cinemas");

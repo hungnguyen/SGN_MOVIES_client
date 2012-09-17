@@ -10,7 +10,7 @@
 #import "CinemasController.h"
 #import "MoviesController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "AppDelegate.h"
 
 @interface RightMenuController ()
@@ -60,7 +60,7 @@
 //query data from db
 - (void) reloadData
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     [self setListProviders: [Provider selectAllInContext:context]];
     
     //exist data in list provider, based on current row

@@ -10,7 +10,7 @@
 #import "SGNManagedImage.h"
 #import "AppDelegate.h"
 #import "MovieGallery.h"
-#import "DataService.h"
+#import "SGNDataService.h"
 
 @interface MovieGalleryController ()
 @property (nonatomic, strong) NSArray *data;
@@ -60,7 +60,7 @@
 - (void)reloadData
 {
     NSLog(@"RELOAD DATA");
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     self.data = [MovieGallery selectByMovieId:_movieObjectId context:context];
     [_carousel reloadData];
 }

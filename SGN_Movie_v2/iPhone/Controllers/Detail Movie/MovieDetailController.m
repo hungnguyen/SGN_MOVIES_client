@@ -12,7 +12,7 @@
 #import "ShowtimesController.h"
 #import "MovieGalleryController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "MovieGallery.h"
 #import "Sessiontime.h"
 
@@ -66,7 +66,7 @@
     [_maskView addGestureRecognizer:tapGR];
     
     //update data
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -94,7 +94,7 @@
 - (void)reloadInputViews
 {
     NSLog(@"DETAIL MOVIE  - RELOAD DATA");
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     self.movieObject = [Movie selectByMovieId:_movieObjectId context:context];
     
     if(_movieObject != nil)
@@ -132,7 +132,7 @@
 
 - (void)showShowTime
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieObject movieId].intValue context:context];
     NSArray *cinemaObjects = [Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context];
     self.countCinemas = [cinemaIds count];
@@ -399,12 +399,12 @@
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
     NSLog(@"DETAIL MOVIE - DELEGATE START");
 }
 
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
     if(repository.isUpdateMovie == YES)
     {

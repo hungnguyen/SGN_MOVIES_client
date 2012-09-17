@@ -6,22 +6,22 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import <CoreData/CoreData.h>
 
-@implementation DataService
+@implementation SGNDataService
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 #pragma mark - Util
-+ (DataService *) sharedInstance
++ (SGNDataService *) sharedInstance
 {
-    static DataService *sharedDataService;
+    static SGNDataService *sharedDataService;
     static dispatch_once_t onceToken;
       dispatch_once(&onceToken, ^{
-            sharedDataService = [[DataService alloc] init];
+            sharedDataService = [[SGNDataService alloc] init];
         
     });
     return sharedDataService;
@@ -31,7 +31,7 @@
 {
     @synchronized (self)
     {
-        return [[DataService sharedInstance] managedObjectContext];
+        return [[SGNDataService sharedInstance] managedObjectContext];
     }
 }
 

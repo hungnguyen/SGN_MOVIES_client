@@ -8,7 +8,7 @@
 #import "AppDelegate.h"
 #import "ShowtimesController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "Sessiontime.h"
 #import "Cinema.h"
 #import "Movie.h"
@@ -61,7 +61,7 @@
     _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
     _tableView.sectionHeaderHeight = TABLE_SECTION_HEADER_HEIGHT;
     
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -92,7 +92,7 @@
 {
     NSLog(@"SHOWTIME - TABLE RELOAD");
     
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
     [self setMovieObject:[Movie selectByMovieId:_movieObjectId context:context]];
     
@@ -246,12 +246,12 @@
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
     NSLog(@"SHOWTIME - DELEGATE START");
 }
 
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
     if([repository isUpdateCinema] == YES || [repository isUpdateMovie] == YES || [repository isUpdateSessiontime] == YES)
     {

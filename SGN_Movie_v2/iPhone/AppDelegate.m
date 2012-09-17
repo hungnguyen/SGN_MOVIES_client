@@ -30,7 +30,7 @@ static AppDelegate * appDelegate;
     
     //NSDate *future = [NSDate dateWithTimeIntervalSinceNow: 0.5];
     //[NSThread sleepUntilDate:future];
-    [[Repository sharedInstance] setCurrentProviderId:1];
+    [[SGNRepository sharedInstance] setCurrentProviderId:1];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _window.backgroundColor = [UIColor lightGrayColor];
     // Override point for customization after application launch.

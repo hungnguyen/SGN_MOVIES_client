@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SGNCustomPopup.h"
-#import "Repository.h"
+#import "SGNRepository.h"
 
 @interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate,
                                                         RepositoryDelegate, SGNCustomPopupDelegate>

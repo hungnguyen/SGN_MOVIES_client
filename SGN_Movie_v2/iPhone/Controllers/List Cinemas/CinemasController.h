@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Repository.h"
+#import "SGNRepository.h"
 
 @interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource,
 RepositoryDelegate, UIScrollViewDelegate>

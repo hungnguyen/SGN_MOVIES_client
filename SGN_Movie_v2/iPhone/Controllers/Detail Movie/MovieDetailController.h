@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Repository.h"
+#import "SGNRepository.h"
 #import "SGNCustomPopup.h"
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource,

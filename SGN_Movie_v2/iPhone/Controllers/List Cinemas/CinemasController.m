@@ -10,7 +10,7 @@
 #import "CinemasController.h"
 #import "CinemaDetailController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "Cinema.h"
 
 #import "SGNTableViewCellStyleDefault.h"
@@ -63,7 +63,7 @@
     //[_tableView setRowHeight: TABLE_CELLDEFAULT_HEIGHT];
     
     //update Data
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 //auto update data when re-show view
@@ -88,7 +88,7 @@
 
 - (void) reloadInputViews
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     Provider *provider = [[[AppDelegate currentDelegate]rightMenuController]provider];
     [self setListCinemas: [Cinema selectByProviderId:[provider.providerId intValue] context:context]];
     
@@ -204,18 +204,18 @@
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
     NSLog(@"LIST CINEMAS - DELEGATE START");
 }
 
 //check if has new data of cinemas
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
     if([repository isUpdateCinema] == YES)
     {
         [self reloadInputViews];    
-        [Repository sharedInstance].isUpdateCinema = NO;
+        [SGNRepository sharedInstance].isUpdateCinema = NO;
     }
     NSLog(@"LIST CINEMAS - DELEGATE FINISH");
 }

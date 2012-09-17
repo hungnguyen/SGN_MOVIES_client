@@ -12,7 +12,7 @@
 #import "CinemaGalleryController.h"
 #import "MapKitDisplayController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "Cinema.h"
 #import "Movie.h"
 #import "Sessiontime.h"
@@ -69,7 +69,7 @@
     _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
     
     //update data
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -96,7 +96,7 @@
 
 - (void)reloadInputViews
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     
     [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
     if(_cinemaObject == nil)
@@ -131,7 +131,7 @@
 
 - (void)showPopup
 {
-    NSManagedObjectContext *context = [DataService defaultContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     NSArray *movieIds = [Sessiontime selectMovieIdsByCinemaId:[_cinemaObject cinemaId].intValue context:context];
     NSArray *movieObject = [Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context];
     
@@ -333,12 +333,12 @@
 }
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
     NSLog(@"DETAIL CINEMA - DELEGATE START");
 }
 
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
     if([repository isUpdateMovie] == YES || [repository isUpdateCinema] == YES)
     {

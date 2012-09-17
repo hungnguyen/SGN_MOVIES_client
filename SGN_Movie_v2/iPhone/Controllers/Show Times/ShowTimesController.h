@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SGNComboView.h"
-#import "Repository.h"
+#import "SGNRepository.h"
 
 @interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate,
 RepositoryDelegate, UIAlertViewDelegate>
