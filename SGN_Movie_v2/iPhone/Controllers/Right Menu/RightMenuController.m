@@ -7,8 +7,10 @@
 //
 
 #import "RightMenuController.h"
+#import "CinemasController.h"
+#import "MoviesController.h"
+
 #import "DataService.h"
-#import "Provider.h"
 #import "AppDelegate.h"
 
 @interface RightMenuController ()
@@ -58,9 +60,9 @@
 //query data from db
 - (void) reloadData
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     [self setListProviders: [Provider selectAllInContext:context]];
-
+    
     //exist data in list provider, based on current row
     if([_listProviders count] > 0 && [_listProviders count] >= _currentRow)
     {
@@ -138,7 +140,7 @@
         _provider = [_listProviders objectAtIndex:_currentRow];
         
         //reload data when change provider
-        [controller viewWillAppear:YES];
+        [controller reloadInputViews];
     }
 }
 

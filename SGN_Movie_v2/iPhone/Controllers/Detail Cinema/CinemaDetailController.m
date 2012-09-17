@@ -96,7 +96,7 @@
 
 - (void)reloadInputViews
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     
     [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
     if(_cinemaObject == nil)
@@ -131,7 +131,7 @@
 
 - (void)showPopup
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     NSArray *movieIds = [Sessiontime selectMovieIdsByCinemaId:[_cinemaObject cinemaId].intValue context:context];
     NSArray *movieObject = [Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context];
     
@@ -233,7 +233,7 @@
             {
                 cell = [[SGNTableViewCellStyleBasic alloc] initWithNibName:cellStyleBasic];
                 UIFont *font = cell.contentLabel.font;
-                cell.contentLabel.font = [UIFont fontWithName:font.fontName size:15];
+                cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
             }
             cell.contentLabel.textAlignment = UITextAlignmentCenter;
             cell.contentLabel.textColor = cell.contentColor;

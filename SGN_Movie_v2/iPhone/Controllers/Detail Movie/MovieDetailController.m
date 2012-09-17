@@ -94,7 +94,7 @@
 - (void)reloadInputViews
 {
     NSLog(@"DETAIL MOVIE  - RELOAD DATA");
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     self.movieObject = [Movie selectByMovieId:_movieObjectId context:context];
     
     if(_movieObject != nil)
@@ -132,7 +132,7 @@
 
 - (void)showShowTime
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieObject movieId].intValue context:context];
     NSArray *cinemaObjects = [Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context];
     self.countCinemas = [cinemaIds count];

@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "MoviesController.h"
+#import "CinemasController.h"
+#import "MenuController.h"
 
 static AppDelegate * appDelegate;
 

@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @implementation DataService
+
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;

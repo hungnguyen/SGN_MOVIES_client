@@ -10,8 +10,8 @@
 #import "SGNComboView.h"
 #import "Repository.h"
 
-@interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate, RepositoryDelegate,
-                                                        UIAlertViewDelegate>
+@interface ShowtimesController : UIViewController <UITableViewDataSource, UITableViewDelegate,
+RepositoryDelegate, UIAlertViewDelegate>
 
 @property (assign, nonatomic) int cinemaObjectId;
 @property (assign, nonatomic) int movieObjectId;

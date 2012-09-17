@@ -111,7 +111,7 @@
 
 - (void)reloadInputViews
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     Provider *provider = [AppDelegate currentDelegate].rightMenuController.provider;
     self.nowShowingMovies = [Movie selectByProviderId:provider.providerId.intValue 
                                          isNowShowing:YES

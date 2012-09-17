@@ -88,7 +88,7 @@
 
 - (void) reloadInputViews
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     Provider *provider = [[[AppDelegate currentDelegate]rightMenuController]provider];
     [self setListCinemas: [Cinema selectByProviderId:[provider.providerId intValue] context:context]];
     

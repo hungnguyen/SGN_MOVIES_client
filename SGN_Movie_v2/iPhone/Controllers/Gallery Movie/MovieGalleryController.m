@@ -7,11 +7,10 @@
 //
 
 #import "MovieGalleryController.h"
-#import "DataService.h"
-#import "MovieGallery.h"
-#import "AppDelegate.h"
 #import "SGNManagedImage.h"
-#import "HJCache.h"
+#import "AppDelegate.h"
+#import "MovieGallery.h"
+#import "DataService.h"
 
 @interface MovieGalleryController ()
 @property (nonatomic, strong) NSArray *data;
@@ -45,7 +44,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
+    
     // Release any retained subviews of the main view.
     self.data = nil;
     self.carousel = nil;
@@ -61,7 +60,7 @@
 - (void)reloadData
 {
     NSLog(@"RELOAD DATA");
-    NSManagedObjectContext *context = [DataService sharedInstance].managedObjectContext;
+    NSManagedObjectContext *context = [DataService defaultContext];
     self.data = [MovieGallery selectByMovieId:_movieObjectId context:context];
     [_carousel reloadData];
 }
@@ -85,24 +84,23 @@
     SGNManagedImage *posterImage = (SGNManagedImage*)view;
     if(posterImage == nil)
     {
-         posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+        posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+        [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
+        
+        //apply configs below
+        posterImage.isConfigImage =  true;
+        //scale image to show reflection
+        posterImage.reflectionScale = 0.25f;
+        //opaque of reflection image
+        posterImage.reflectionAlpha = 0.25f;
+        //gap between image and its reflection
+        posterImage.reflectionGap = 10.0f;
+        //shadow behind image
+        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        posterImage.shadowBlur = 5.0f;
+        posterImage.shadowColor = [UIColor blackColor]; 
     }
-    [posterImage clear];
-    [posterImage setUrl:[NSURL URLWithString:urlString]];
-    [posterImage showLoadingWheel];
-    [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
-    
-    //scale image to show reflection
-    posterImage.reflectionScale = 0.25f;
-    //opaque of reflection image
-    posterImage.reflectionAlpha = 0.25f;
-    //gap between image and its reflection
-    posterImage.reflectionGap = 10.0f;
-    //shadow behind image
-    posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
-    posterImage.shadowBlur = 5.0f;
-    posterImage.shadowColor = [UIColor blackColor];
-    [[HJCache sharedInstance].hjObjManager manage:posterImage];        
+    [posterImage setImageFromURL:urlString];
     
     return posterImage;
 }

@@ -8,6 +8,9 @@
 
 #import "MenuController.h"
 #import "AboutController.h"
+#import "MoviesController.h"
+#import "CinemasController.h"
+#import "Repository.h"
 
 @interface MenuController ()
 
@@ -15,6 +18,7 @@
 
 @implementation MenuController
 @synthesize tableView = _tableView;
+@synthesize lastUpdateLabel = _lastUpdateLabel;
 
 #pragma mark - Init
 
@@ -40,6 +44,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self showLastUpdate];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -104,7 +113,7 @@
     //get top view controller
     UINavigationController * navigationController = (UINavigationController *) AppDelegate.currentDelegate.deckController.centerController;
     UIViewController *controller = [navigationController topViewController];
-
+    
     if(0==indexPath.row)
     {
         //choose movie again
@@ -152,12 +161,13 @@
     
 }
 
--(BOOL) IsString:(NSString *) title ContainString:(NSString *) label
+-(void) showLastUpdate
 {
-    NSRange aRange = [title rangeOfString:label];
-    if (aRange.location ==NSNotFound) 
-        return NO;
-    return TRUE;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
+    [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
+    [formatter setDateFormat:@"HH:mm - dd/MM/yyyy"];
+    NSString *lastUpdate = [formatter stringFromDate:[[Repository sharedInstance] readLastUpdated]];
+    _lastUpdateLabel.text = [NSString stringWithFormat:@"Last update:%@",lastUpdate];
 }
 
 @end

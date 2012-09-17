@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class Repository;
 
 @protocol RepositoryDelegate <NSObject>
@@ -17,9 +16,8 @@
 - (void)RepositoryFinishUpdate:(Repository *)repository;
 @end
 
-@interface Repository : NSObject <UIAlertViewDelegate>
+@interface Repository : NSObject
 
-@property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 @property (nonatomic, assign) BOOL isUpdateProvider;
 @property (nonatomic, assign) BOOL isUpdateCinema;
 @property (nonatomic, assign) BOOL isUpdateMovie;
@@ -28,6 +26,7 @@
 
 + (Repository*)sharedInstance;
 
-- (void) updateEntityWithUrlString:(NSString*)urlString;
-- (NSString *) readLastUpdated;
+- (void)updateEntityWithUrlString:(NSString*)urlString;
+- (NSDate*)readLastUpdated;
+
 @end

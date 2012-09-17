@@ -28,7 +28,6 @@
 @implementation Repository
 
 //@synthesize delegate = _delegate;
-@synthesize loadingWheel = _loadingWheel;
 @synthesize isUpdating = _isUpdating;
 @synthesize isUpdateProvider = _isUpdateProvider;
 @synthesize isUpdateCinema = _isUpdateCinema;
@@ -62,20 +61,16 @@
         [self setIsUpdateMovie:NO];
         [self setIsUpdateSessiontime:NO];
     }
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
     
-    //get GMT time
-    [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
-    [formatter setDateFormat:FORMAT_TIME];
-    NSDate *gmtDate = [formatter dateFromString:[self readLastUpdated]];
-
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
+    NSDate *utcDate = [self readLastUpdated];
+    
     //get UTC with GMTinput
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     [formatter setDateFormat:FORMAT_TIME];
-    NSString *utcDate = [formatter stringFromDate:gmtDate];
-
-    urlString = [[NSString stringWithFormat:urlString, utcDate, FORMAT_TIME]
+    NSString *utcDateString = [formatter stringFromDate:utcDate];
+    
+    urlString = [[NSString stringWithFormat:urlString, utcDateString, FORMAT_TIME]
                  stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
@@ -101,15 +96,6 @@
 {
     id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
     
-    //create loadding wheel
-    [_loadingWheel removeFromSuperview];
-	[self setLoadingWheel:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge]];
-	_loadingWheel.hidesWhenStopped=YES;
-    UIView *superView = [(UIViewController*)delegate view];
-    _loadingWheel.center = superView.center;
-	[superView addSubview:_loadingWheel];
-	[_loadingWheel startAnimating];
-
     if(delegate != nil && [delegate respondsToSelector:@selector(RepositoryStartUpdate:)])
     {
         [delegate RepositoryStartUpdate:repository];
@@ -120,9 +106,6 @@
 - (void)RepositoryFinishUpdate:(Repository*)repository
 {
     id<RepositoryDelegate> delegate = (id<RepositoryDelegate>)[[AppDelegate currentDelegate] navigationController].topViewController;
-    
-    [_loadingWheel stopAnimating];
-    [_loadingWheel removeFromSuperview];
     
     //save context after update all data
     [[DataService sharedInstance] saveContext];
@@ -142,10 +125,10 @@
 //delete 
 - (void)deleteDataInEntity:(NSEntityDescription*)entity 
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:entity];
-
+    
     NSError *error;
     NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
     for (NSManagedObject *managedObject in items) 
@@ -157,7 +140,7 @@
 
 - (void)insertData:(NSArray*)JSON InEntity:(NSEntityDescription*)entity
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     for(NSDictionary *dict in JSON)
     {
         NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:entity.name 
@@ -171,7 +154,7 @@
 
 -(void) checkNeedToUpdateFromJSON:(id) JSON
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [DataService defaultContext];
     if([[JSON objectForKey:@"Data"] objectForKey:@"Cinema"] != [NSNull null])
     {
         NSLog(@"Update Cinemas");
@@ -229,7 +212,7 @@
 }
 
 #pragma mark Read & Write LastUpdate 
-- (NSString *) readLastUpdated
+- (NSDate *) readLastUpdated
 {
     
     NSString *errorDesc = nil;
@@ -251,32 +234,24 @@
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
     
-    NSString * LastUpdated = [[NSString alloc] initWithFormat:@"%@",[temp objectForKey:@"LastUpdated"]];
-    return  LastUpdated;
+    //get UTC time
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];    
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter setDateFormat:FORMAT_TIME];
+    NSDate *gmtDate = [formatter dateFromString:[temp objectForKey:@"LastUpdated"]];
+    return  gmtDate;
 }
 
 - (void) writeLastUpdated:(NSString*)lastUpdateServer
 {
     if(lastUpdateServer == nil || lastUpdateServer == (NSString*)[NSNull null] || [lastUpdateServer isEqualToString:@""])
         return;
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-
-    //get UTC time
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [formatter setDateFormat:FORMAT_TIME];
-    NSDate *utcDate = [formatter dateFromString:lastUpdateServer];
-    
-    //get current GMT with UTCinput
-    [formatter setTimeZone:[NSTimeZone defaultTimeZone]];
-    [formatter setDateFormat:FORMAT_TIME];
-    NSString *gmtDate = [formatter stringFromDate:utcDate];
     
     NSString *error;
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"Data.plist"];
     NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
-                               [NSArray arrayWithObjects: gmtDate, nil]
+                               [NSArray arrayWithObjects: lastUpdateServer, nil]
                                                           forKeys:[NSArray arrayWithObjects: @"LastUpdated",nil]];
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
                                                                    format:NSPropertyListXMLFormat_v1_0
