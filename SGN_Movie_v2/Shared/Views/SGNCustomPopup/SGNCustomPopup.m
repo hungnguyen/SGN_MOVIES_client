@@ -22,6 +22,7 @@
 @synthesize data = _data;
 @synthesize carousel = _carousel;
 @synthesize isMovie = _isMovie;
+@synthesize pageControl = _pageControl;
 
 #pragma mark Init
 - (id)initWithFrame:(CGRect)frame
@@ -43,7 +44,7 @@
     if(self)
     {
         //Init
-        _carousel.type = iCarouselTypeCoverFlow;
+        _carousel.type = iCarouselTypeRotary;
         
     }
     return self;
@@ -60,6 +61,7 @@
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
+    _pageControl.numberOfPages = _data.count;
     return [_data count];
 }
 
@@ -73,36 +75,37 @@
     if(posterImage == nil)
     {
         NSLog(@"Carousel");
-        CGRect frame = CGRectMake(0, 0, 150, 200);
+        CGRect frame = CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
         posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
-        [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
+        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
+        posterImage.backgroundColor = [UIColor redColor];
         
-        //apply configs below
-        posterImage.isConfigImage =  true;
-        //scale image to show reflection
-        posterImage.reflectionScale = 0.25f;
-        //opaque of reflection image
-        posterImage.reflectionAlpha = 0.25f;
-        //gap between image and its reflection
-        posterImage.reflectionGap = 10.0f;
-        //shadow behind image
-        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
-        posterImage.shadowBlur = 5.0f;
-        posterImage.shadowColor = [UIColor blackColor]; 
+//        //apply configs below
+//        posterImage.isConfigImage =  true;
+//        //scale image to show reflection
+//        posterImage.reflectionScale = 0.25f;
+//        //opaque of reflection image
+//        posterImage.reflectionAlpha = 0.25f;
+//        //gap between image and its reflection
+//        posterImage.reflectionGap = 10.0f;
+//        //shadow behind image
+//        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
+//        posterImage.shadowBlur = 5.0f;
+//        posterImage.shadowColor = [UIColor blackColor]; 
         
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popDown:)];
         [tapGR setNumberOfTapsRequired:1];
         [posterImage addGestureRecognizer:tapGR];
         
-        frame = CGRectMake(0, 0, 320, 20);
+        frame = CGRectMake(0, 0, 100, 20);
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:frame];
         titleLabel.tag = 999;
         titleLabel.textAlignment = UITextAlignmentCenter;
-        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.backgroundColor = [UIColor blueColor];
         [posterImage addSubview:titleLabel];
+        [posterImage bringSubviewToFront:titleLabel];
     }
     [posterImage clear];
-    posterImage.frame = _carousel.bounds;
     posterImage.tag = index;
     [posterImage setImageFromURL:urlString];
     UILabel *titleLabel = (UILabel*)[posterImage viewWithTag:999];
@@ -110,9 +113,15 @@
     {
         titleLabel.text = [[_data objectAtIndex:index] valueForKey:@"name"];
     }
+    
+    _pageControl.currentPage = _carousel.currentItemIndex;
     return posterImage;
 }
 
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
+{
+        _pageControl.currentPage = _carousel.currentItemIndex;
+}
 
 #pragma Ultil Methods
 
@@ -122,6 +131,12 @@
     {
         [_delegate SGNCustomPopupTap:self withObject:object];
     }
+}
+
+- (IBAction)pageChange:(id)sender
+{
+    NSLog(@"page: %i", _pageControl.currentPage);
+    [_carousel scrollToItemAtIndex:_pageControl.currentPage animated:YES];
 }
 
 #pragma mark Popup-down Methods

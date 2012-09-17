@@ -57,7 +57,6 @@
     //create pop up view
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
     _popupView.delegate = self;
-    _popupView.carousel.type = iCarouselTypeRotary;
     
     //add gesture for mask view
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removePopup)];

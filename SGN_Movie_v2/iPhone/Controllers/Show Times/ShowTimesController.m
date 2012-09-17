@@ -152,7 +152,7 @@
     else
     {
         //normal cell
-        return TABLE_CELLDEFAULT_HEIGHT;
+        return TABLE_CELLSUBTITLE_HEIGHT;
     }
 }
 

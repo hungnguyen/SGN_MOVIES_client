@@ -20,10 +20,12 @@
 
 @property (nonatomic, assign) id<SGNCustomPopupDelegate> delegate;
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
+@property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 - (void)loadViewWithData:(NSArray*)data isMovie:(bool)isMovie;
 - (void)popUp;
 - (void)popDown:(id)sender;
+- (IBAction)pageChange:(id)sender;
 
 @end

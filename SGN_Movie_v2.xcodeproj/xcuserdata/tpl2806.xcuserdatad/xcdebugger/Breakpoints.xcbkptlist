@@ -63,8 +63,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "59"
          endingLineNumber = "59"
-         landmarkName = "-loadViewWithData:"
-         landmarkType = "5">
+         landmarkName = "@implementation SGNCustomPopup"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -77,45 +77,6 @@
          startingLineNumber = "136"
          endingLineNumber = "136"
          landmarkName = "-setImage:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SGN_MOVIE_v2/Shared/Views/SGNCustomPopup/SGNCustomPopup.m"
-         timestampString = "367900934.984561"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "86"
-         endingLineNumber = "86"
-         landmarkName = "-loadViewWithData:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SGN_MOVIE_v2/Shared/Views/SGNCustomPopup/SGNCustomPopup.m"
-         timestampString = "367900934.984561"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "85"
-         endingLineNumber = "85"
-         landmarkName = "-loadViewWithData:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "SGN_MOVIE_v2/Shared/Views/SGNCustomPopup/SGNCustomPopup.m"
-         timestampString = "367900934.984561"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "87"
-         endingLineNumber = "87"
-         landmarkName = "-loadViewWithData:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -154,8 +115,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "95"
          endingLineNumber = "95"
-         landmarkName = "@implementation SGNCustomPopup"
-         landmarkType = "3">
+         landmarkName = "-carousel:viewForItemAtIndex:reusingView:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"

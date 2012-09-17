@@ -243,6 +243,7 @@
 
 - (IBAction)pageChange:(id)sender
 {
+    NSLog(@"%i", _pageControl.currentPage);
     CGRect frame = _scrollViewMain.frame;
     frame.origin.x = frame.size.width * _pageControl.currentPage;
     frame.origin.y = 0;

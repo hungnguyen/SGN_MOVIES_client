@@ -8,7 +8,6 @@
 
 #import "SGNComboView.h"
 #import "AppDelegate.h"
-#import "HJCache.h"
 
 @implementation SGNComboView
 
@@ -60,24 +59,17 @@
     [_cinemaName setText:[cinemaObj name]];
     [_movieTitle setText:[movieObj title]];
     
-    [_cinemaImage clear];
-    [_cinemaImage setUrl:[NSURL URLWithString:cinemaImage_url]];
-    [_cinemaImage showLoadingWheel];
-    [[HJCache sharedInstance].hjObjManager manage:_cinemaImage];
-    
-    [_movieImage clear];
-    [_movieImage setUrl:[NSURL URLWithString:movieImage_url]];
-    [_movieImage showLoadingWheel];
-    [[HJCache sharedInstance].hjObjManager manage:_movieImage];
+    [_cinemaImage setImageFromURL:cinemaImage_url];
+    [_movieImage setImageFromURL:movieImage_url];
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

@@ -541,6 +541,7 @@
 		F396397D15EE2B1B00EEEFFF /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
+				F39FAE5115ECC3D400FB7979 /* Right Menu */,
 				F396397E15EE2B1B00EEEFFF /* iCarousel.h */,
 				F396397F15EE2B1B00EEEFFF /* iCarousel.m */,
 			);
@@ -726,7 +727,8 @@
 				F39FAE5215ECC3D400FB7979 /* RightMenuController.h */,
 				F39FAE5315ECC3D400FB7979 /* RightMenuController.m */,
 			);
-			path = "Right Menu";
+			name = "Right Menu";
+			path = "../../../iPhone/Controllers/Right Menu";
 			sourceTree = "<group>";
 		};
 		F39FAE5615ECC3E800FB7979 /* Right Menu */ = {
@@ -893,7 +895,6 @@
 				F3C24E4115C8027B0077C801 /* List Movies */,
 				6FFFC11415CFA550003D9326 /* Map */,
 				F3C24E4415C8027B0077C801 /* Menu */,
-				F39FAE5115ECC3D400FB7979 /* Right Menu */,
 				F3951C1115CFC4D200BCF4D8 /* Show Times */,
 				6FFFC0DE15CF66C1003D9326 /* Trailer */,
 			);
@@ -1214,8 +1215,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1242,8 +1243,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1262,7 +1263,7 @@
 		F397E68E15C159A100A92874 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";
@@ -1279,7 +1280,7 @@
 		F397E68F15C159A100A92874 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";
