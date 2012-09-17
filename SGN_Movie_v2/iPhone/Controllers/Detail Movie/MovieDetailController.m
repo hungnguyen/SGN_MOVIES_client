@@ -6,52 +6,36 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "MovieDetailController.h"
-#import <QuartzCore/QuartzCore.h>
-#import <MediaPlayer/MediaPlayer.h>  
-#import <AVFoundation/AVBase.h>
-#import <AVFoundation/AVAnimation.h>
-#import <AVFoundation/AVPlayer.h>
-#import <AVFoundation/AVPlayerLayer.h>
-#import "LBYouTubePlayerViewController.h"
-#import "AFNetworking.h"
+#import "TrailerController.h"
 #import "ShowtimesController.h"
 #import "MovieGalleryController.h"
-#import "Sessiontime.h"
+
 #import "DataService.h"
-#import "SGNManagedImage.h"
+#import "MovieGallery.h"
+#import "Sessiontime.h"
 
-#define CELL_WIDTH 320
-#define CELL_HEIGHT 60
-#define TABLEVIEW_Ypos 293
-
-#define ImageX -39
-#define ImageY 43
-#define ImageWidth 200
-#define ImageHeight  190
+#import "SGNTableViewCellStyleBasic.h"
+#import "SGNTableViewCellStyleDefault.h"
+#import "SGNTableViewCellStyleValue2.h"
+#import "SGNTableViewCellStyleImage.h"
 
 @interface MovieDetailController ()
-
-@property (strong, nonatomic) UITableView *tableView;
-@property (assign, nonatomic) int fontSize;
-@property (strong, nonatomic) NSString *fontName;
-@property (strong, nonatomic) Movie * movieInfo;
+@property (strong, nonatomic) Movie *movieObject;
+@property (assign, nonatomic) bool isFirstLoad;
 @property (assign, nonatomic) int countCinemas;
 @end
 
 @implementation MovieDetailController
-@synthesize scrollView = _scrollView;
-@synthesize showTimeButton = _showTimeButton;
-@synthesize trailerButton = _trailerButton;
-@synthesize movieInfo = _movieInfo;
-@synthesize textView = _textView;
+
 @synthesize tableView = _tableView;
-@synthesize fontName = _fontName;
-@synthesize fontSize = _fontSize;
 @synthesize popupView = _popupView;
 @synthesize maskView = _maskView;
+@synthesize movieObject = _movieObject;
 @synthesize movieObjectId = _movieObjectId;
 @synthesize countCinemas = _countCinemas;
+@synthesize isFirstLoad = _isFirstLoad;
 
 #pragma mark - Init
 
@@ -68,49 +52,38 @@
 {
     [super viewDidLoad];
     
-    [self showLastUpdateOnNavigationBarWithTitle:@"MOVIE DETAIL"];
-    [self setFontSize:14];
-    [self setFontName:@"Arial-BoldMT"];
+    self.title = @"DETAIL MOVIE";
+    self.isFirstLoad = true;
     
-    [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
-    [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
+    //create popup view
+    self.popupView = [[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"];
+    _popupView.delegate = self;
+    _popupView.carousel.type = iCarouselTypeRotary;
     
-    
-    [_tableView setFrame:CGRectMake(0, TABLEVIEW_Ypos, CELL_WIDTH, CELL_HEIGHT*5 + 300)];
-    [_scrollView setContentSize:CGSizeMake(320, TABLEVIEW_Ypos + (CELL_HEIGHT*5 + 300))];
-    [_scrollView setBounces:NO];
-    
-    [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
-    [_popupView setDelegate:self];
-    [[_popupView title] setText:@"SELECT CINEMA"];
-    
+    //add gesture for mask view
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removePopup)];
-    [tapGR setNumberOfTapsRequired:1];
+    tapGR.numberOfTapsRequired = 1;
     [_maskView addGestureRecognizer:tapGR];
+    
+    //update data
+    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    [self reloadView];
-}
-
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [self setMovieInfo:nil];
-    [_popupView loadViewWithData:nil];
+    if(_isFirstLoad)
+        [self reloadInputViews];
+    _isFirstLoad = false;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    [self setTrailerButton:nil];
-    [self setShowTimeButton:nil];
-    [self setScrollView:nil];
-    [self setTextView:nil];
-    [self setTableView:nil];
-    [self setPopupView:nil];
+    self.tableView = nil;
+    [self.popupView loadViewWithData:nil isMovie:false];
+    self.popupView = nil;
+    self.maskView = nil;
+    self.movieObject = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -118,28 +91,55 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - actions 
+- (void)reloadInputViews
+{
+    NSLog(@"DETAIL MOVIE  - RELOAD DATA");
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    self.movieObject = [Movie selectByMovieId:_movieObjectId context:context];
+    
+    if(_movieObject != nil)
+    {
+        [_tableView reloadData];
+        NSLog(@"DETAIL MOVIE - TABLE - RELOAD DATA");
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        [alert show];
+    }
+}
 
-- (IBAction)showTrailer:(id)sender 
+#pragma mark Actions 
+
+- (void)showTrailer
 {
     //Create a view to play trailer    
     TrailerController * trailerController = [[TrailerController alloc] initWithNibName:@"TrailerView" bundle:nil];
-    NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieInfo trailerUrl]];
+    NSString * trailerUrl = [[NSString alloc] initWithFormat:@"%@",[_movieObject trailerUrl]];
     [trailerController createYouTubePlayer:[NSURL URLWithString:trailerUrl]];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
-    
+    self.navigationItem.backBarButtonItem = backButton;
     [self.navigationController pushViewController:trailerController animated:YES];
 }
 
-- (IBAction)showShowTime:(id)sender 
+- (void)showShowTime
 {
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieObject movieId].intValue context:context];
+    NSArray *cinemaObjects = [Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context];
+    self.countCinemas = [cinemaIds count];
+    
     if(_countCinemas > 0)
     {
+        [_popupView loadViewWithData:cinemaObjects isMovie:false];
         [[self view] addSubview:_maskView];
         [[self view] addSubview:_popupView];
         [_popupView popUp];
@@ -151,19 +151,19 @@
     }
 }
 
-- (IBAction)showGallery:(id)sender
+- (void)showGallery
 {
-    
     MovieGalleryController *movieGalleryController = [[MovieGalleryController alloc] initWithNibName:@"MovieGalleryView" 
-                                                                                             bundle:nil];
+                                                                                              bundle:nil];
     movieGalleryController.movieObjectId = _movieObjectId;
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                  initWithTitle: @"Back" 
-                                  style: UIBarButtonItemStyleBordered
-                                  target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
+                                   initWithTitle: @"Back" 
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    self.navigationItem.BackBarButtonItem = backButton;
     [self.navigationController pushViewController:movieGalleryController animated:YES];
+    
 }
 
 - (void)removePopup
@@ -176,106 +176,205 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 6;
+    return 14;
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath{
-    
-    if(5 == indexPath.row)
-        return 300.0f;
-    return CELL_HEIGHT;
-}
-
--(UITextView *) modifyTextViewOfACell:(UITextView *) cellTextView withText:(NSString *) text
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
 {
-    [cellTextView setText:text];
-    [cellTextView setFont:[UIFont fontWithName:_fontName size:_fontSize]];
-    [cellTextView setEditable:NO];
-    [cellTextView setBackgroundColor:[UIColor clearColor]];
-    [cellTextView setScrollEnabled:NO];
+    int row = indexPath.row;
     
-    return cellTextView;
+    if(row == 1 || row == 3 || row == 7 || row == 12)
+    {
+        //cell uses like 'section'
+        return TABLE_SECTION_FOOTER_HEIGHT;
+    }
+    else if(row == 0)
+    {
+        //image cell
+        return TABLE_CELLIMAGE_HEIGHT;
+    }
+    else if(row == 13)
+    {
+        //description cell
+        CGSize size = CGSizeMake(_tableView.bounds.size.width, 9999);
+        //increase font to 2point to get bigger label size
+        UIFont *font = [UIFont fontWithName:TABLE_CELL_FONTNAME size:TABLE_CELL_FONTSIZE + 2];
+        
+        CGSize expectedLabelSize = [_movieObject.movieDescription sizeWithFont:font
+                                                             constrainedToSize:size
+                                                                 lineBreakMode:UILineBreakModeWordWrap];  
+        return expectedLabelSize.height; 
+    }
+    else 
+    {
+        //normal cell
+        return TABLE_CELLDEFAULT_HEIGHT;
+    }
 }
 
 #pragma mark UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(_movieObject == nil)
+        return nil;
     
-    if(cell == nil)
-    {
-        cell = [[UITableViewCell alloc] 
-                initWithStyle:UITableViewCellStyleDefault
-                reuseIdentifier:CellIdentifier];
-    }
+    static NSString *cellStyle2 = @"SGNTableViewCellStyleValue2";
+    static NSString *cellStyleImage = @"SGNTableViewCellStyleImage";
+    static NSString *cellStyleBasic = @"SGNTableViewCellStyleBasic";
+    static NSString *cellStyleDefault = @"SGNTableViewCellStyleDefault";
+    static NSString *cellStyleSection = @"UITableViewCell";
     
-    
-    // Configure the cell...
-    if(0 == indexPath.row)
+    switch (indexPath.row) 
     {
-        NSString * genreStr = [[NSString alloc] initWithFormat:@"GENRE: %@",[_movieInfo genre]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:genreStr]];
-        
+        case 0:
+        {
+            SGNTableViewCellStyleImage *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleImage];
+            if(cell == nil)
+            {
+                cell = [[SGNTableViewCellStyleImage alloc] initWithNibName:cellStyleImage];
+                cell.movieImage.imageContentMode = UIViewContentModeScaleAspectFill;
+            }
+            
+            NSString *hostUrl = [AppDelegate currentDelegate].rightMenuController.provider.hostUrl;
+            NSString *image_url = [hostUrl stringByAppendingString:_movieObject.imageUrl];
+            [cell.movieImage setImageFromURL:image_url];
+            return cell;
+            break;
+        }
+        case 2:
+        {
+            SGNTableViewCellStyleBasic *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleBasic];
+            if(cell == nil)
+            {
+                cell = [[SGNTableViewCellStyleBasic alloc] initWithNibName:cellStyleBasic];
+            }
+            
+            UIFont *font = cell.contentLabel.font;
+            cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
+            cell.contentLabel.textAlignment = UITextAlignmentCenter;
+            cell.contentLabel.textColor = cell.contentColor;
+            NSLog(@"%@", cell.contentColor);
+            cell.contentLabel.text = [_movieObject.title uppercaseString];
+            return cell;
+            break;
+        }
+        case 4: case 5: case 6:
+        {
+            SGNTableViewCellStyleDefault *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleDefault];
+            if(cell == nil)
+            {
+                cell = [[SGNTableViewCellStyleDefault alloc] initWithNibName:cellStyleDefault];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.iconImageView.imageContentMode = UIViewContentModeScaleAspectFit;
+                UIFont *font = cell.contentLabel.font;
+                cell.contentLabel.font = [UIFont fontWithName:font.fontName size:15];
+            }
+            
+            if(indexPath.row == 4)
+            {   
+                [cell.iconImageView setImageFromURL:@"trailer.png"];
+                cell.contentLabel.text = @"TRAILER";
+            }
+            else if(indexPath.row == 5)
+            {
+                [cell.iconImageView setImageFromURL:@"gallery.png"];
+                cell.contentLabel.text = @"GALLERY";
+            }
+            else if(indexPath.row == 6)
+            {
+                [cell.iconImageView setImageFromURL:@"showtimes.png"];
+                cell.contentLabel.text = @"SHOWTIMES";
+            }
+            return cell;
+            break;
+        }
+        case 8: case 9: case 10: case 11:
+        {
+            SGNTableViewCellStyleValue2 *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyle2];
+            if(cell == nil)
+            {
+                cell = [[SGNTableViewCellStyleValue2 alloc] initWithNibName:cellStyle2];
+            }
+            
+            if(indexPath.row == 8)
+            {
+                cell.titleLabel.text = @"The loai";
+                cell.contentLabel.text = _movieObject.genre;
+            }
+            else if(indexPath.row == 9)
+            {
+                cell.titleLabel.text = @"Phien ban";
+                cell.contentLabel.text = _movieObject.version;
+            }
+            
+            if(indexPath.row == 10)
+            {
+                cell.titleLabel.text = @"Dien vien";
+                cell.contentLabel.text = _movieObject.cast;
+            }
+            else if(indexPath.row == 11)
+            {
+                cell.titleLabel.text = @"Dao dien";
+                cell.contentLabel.text = _movieObject.director;
+            }
+            return cell;
+            break;
+        }
+        case 13:
+        {
+            SGNTableViewCellStyleBasic *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleBasic];
+            if(cell == nil)
+            {
+                cell = [[SGNTableViewCellStyleBasic alloc] initWithNibName:cellStyleBasic];
+            }
+            UIFont *font = cell.contentLabel.font;
+            cell.contentLabel.font = [UIFont fontWithName:font.fontName size:13];
+            cell.contentLabel.textAlignment = UITextAlignmentLeft;
+            cell.contentLabel.textColor = cell.titleColor;
+            NSLog(@"%@", cell.titleColor);
+            cell.contentLabel.text = _movieObject.movieDescription;
+            return cell;
+            break;
+        }
+        default:
+        {
+            UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleSection];
+            if(cell == nil)
+            {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStyleSection];
+                cell.contentView.backgroundColor = [UIColor blackColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            return cell;
+        }
     }
-    if(1 == indexPath.row)
-    {
-        NSString * castStr = [[NSString alloc] initWithFormat:@"DIRECTOR: %@",[_movieInfo director]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
-    }
-    if(2 == indexPath.row)
-    {
-        NSString * castStr = [[NSString alloc] initWithFormat:@"CAST: %@",[_movieInfo cast]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:castStr]];
-    }
-    if(3 == indexPath.row)
-    {
-        NSString * durationStr = [[NSString alloc] initWithFormat:@"DURATION: %@",[_movieInfo duration]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:durationStr]];
-    }
-    if(4 == indexPath.row)
-    {
-        NSString * versionStr = [[NSString alloc] initWithFormat:@"VERSION: %@",[_movieInfo version]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, CELL_HEIGHT)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:versionStr]];
-    }
-    if(5 == indexPath.row)
-    {
-        NSString * descriptionStr = [[NSString alloc] initWithFormat:@"%@",[_movieInfo movieDescription]];
-        UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, CELL_WIDTH, 300)];
-        
-        [cell addSubview:[self modifyTextViewOfACell:cellTextView withText:descriptionStr]];
-    }
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSInteger row = indexPath.row;
+    
+    if(row == 4)
+    {
+        [self showTrailer];
+    }
+    else if(row == 5)
+    {
+        [self showGallery];
+    }
+    else if(row == 6)
+    {
+        [self showShowTime];
+    }
 }
 
 #pragma mark SGNCustomPopupDelegate
@@ -286,84 +385,33 @@
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
     Cinema *cinema = (Cinema*)object;
-    [showtimesController setCinemaObjectId:[cinema cinemaId].intValue];
-    [showtimesController setMovieObjectId:[_movieInfo movieId].intValue];
+    showtimesController.cinemaObjectId = [cinema cinemaId].intValue;
+    showtimesController.movieObjectId = [_movieObject movieId].intValue;
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                    initWithTitle: @"Back" 
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
-    [self.navigationItem setBackBarButtonItem: backButton];
+    self.navigationItem.backBarButtonItem = backButton;
     
     [[self navigationController]pushViewController:showtimesController animated:YES];
-}
-
-#pragma mark ReloadView
--(void) reloadView
-{
-    NSLog(@"RELOAD DATA");
-    [self showLastUpdateOnNavigationBarWithTitle:@"MOVIE DETAIL"];
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    _movieInfo = [Movie selectByMovieId:_movieObjectId context:context];
-    
-    NSArray *cinemaIds = [Sessiontime selectCinemaIdsByMovieId:[_movieInfo movieId].intValue context:context];
-    NSArray *cinemaObjects = [Cinema selectByArrayIds:[cinemaIds valueForKey:@"cinemaId"] context:context];
-    [self setCountCinemas:[cinemaIds count]];
-    [_popupView loadViewWithData:cinemaObjects];
-    if(_movieInfo != nil)
-    {
-        NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-        NSString *urlString = [hostUrl stringByAppendingString:[_movieInfo imageUrl]];
-        SGNManagedImage * asynchcImage = [[SGNManagedImage alloc] initWithFrame:CGRectMake(ImageX,ImageY,ImageWidth,ImageHeight)];
-        [asynchcImage setUrl:[NSURL URLWithString:urlString]];
-        [asynchcImage setImageContentMode:UIViewContentModeScaleToFill];
-        [asynchcImage showLoadingWheel];
-        
-        //Remove old HJManageImageV
-        UIView * subview = [[_scrollView subviews] objectAtIndex:4];
-        {
-            [subview removeFromSuperview];
-        }
-        
-        [self.scrollView addSubview:asynchcImage];
-        [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
-        
-        [_trailerButton setTitle:@"TRAILER" forState:UIControlStateNormal];
-        [_showTimeButton setTitle:@"SHOWTIME" forState:UIControlStateNormal];
-        
-        [_textView setText:[_movieInfo valueForKey:@"Title"]];
-        [_textView setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:20.f]];
-        [_textView setEditable:NO];
-        [_textView setScrollEnabled:NO];
-        
-        [_tableView reloadData];
-        
-    }
-    else
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
-                                                        message:@"New Data was updated" 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"OK" 
-                                              otherButtonTitles: nil];
-        [alert show];
-        
-    }
-    
 }
 
 #pragma mark SGNRepositoryDelegate
 
 - (void)RepositoryStartUpdate:(Repository *)repository
 {
-    NSLog(@"DELEGATE START");
+    NSLog(@"DETAIL MOVIE - DELEGATE START");
 }
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
-    if([Repository sharedInstance].isUpdateMovie == YES)
-        [self reloadView];
-    NSLog(@"DELEGATE FINISH");
+    if(repository.isUpdateMovie == YES)
+    {
+        [self reloadInputViews];
+        repository.isUpdateMovie = NO;
+    }
+    NSLog(@"DETAIL MOVIE - DELEGATE FINISH");
 }
 
 #pragma mark UIAlertViewDelegate
@@ -371,29 +419,10 @@
 //after click on alert notice "data were updated"
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if(_movieInfo == nil)
+    if(_movieObject == nil)
     {
         [[AppDelegate currentDelegate].navigationController popToRootViewControllerAnimated:YES];
     }
-    
 }
 
-#pragma mark showLastUpdate
--(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
-{
-    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 2;
-    label.font = [UIFont boldSystemFontOfSize: 13.0f];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
-    [self.navigationItem setTitleView:label];
-    
-}
 @end

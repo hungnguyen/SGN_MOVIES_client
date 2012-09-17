@@ -21,6 +21,21 @@
 		6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0DA15CF669E003D9326 /* TrailerController.m */; };
 		6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFFC0FE15CF9E71003D9326 /* MapKit.framework */; };
 		6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC11B15CFA73C003D9326 /* DisplayMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F36620251606DE06008B6E74 /* SGNCellBackGround.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620121606DE06008B6E74 /* SGNCellBackGround.m */; };
+		F36620261606DE06008B6E74 /* SGNTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620141606DE06008B6E74 /* SGNTableViewCell.m */; };
+		F36620271606DE06008B6E74 /* SGNTableViewCellStyleBasic.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620171606DE06008B6E74 /* SGNTableViewCellStyleBasic.m */; };
+		F36620281606DE06008B6E74 /* SGNTableViewCellStyleBasic.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620181606DE06008B6E74 /* SGNTableViewCellStyleBasic.xib */; };
+		F36620291606DE07008B6E74 /* SGNTableViewCellStyleDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = F366201A1606DE06008B6E74 /* SGNTableViewCellStyleDefault.m */; };
+		F366202A1606DE07008B6E74 /* SGNTableViewCellStyleDefault.xib in Resources */ = {isa = PBXBuildFile; fileRef = F366201B1606DE06008B6E74 /* SGNTableViewCellStyleDefault.xib */; };
+		F366202B1606DE07008B6E74 /* SGNTableViewCellStyleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = F366201D1606DE06008B6E74 /* SGNTableViewCellStyleImage.m */; };
+		F366202C1606DE07008B6E74 /* SGNTableViewCellStyleImage.xib in Resources */ = {isa = PBXBuildFile; fileRef = F366201E1606DE06008B6E74 /* SGNTableViewCellStyleImage.xib */; };
+		F366202D1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620201606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.m */; };
+		F366202E1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620211606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.xib */; };
+		F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620231606DE06008B6E74 /* SGNTableViewCellStyleValue2.m */; };
+		F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */; };
+		F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620341606DF80008B6E74 /* SGNCoreGraphic.m */; };
+		F36620391606E0AE008B6E74 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */; };
+		F366203A1606E0AE008B6E74 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */; };
 		F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38DA8F315D8F05300C40810 /* CoreData.framework */; };
 		F38DA93915D91CD300C40810 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* DataService.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
@@ -104,8 +119,6 @@
 		F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4315C8027B0077C801 /* MoviesController.m */; };
 		F3C24E5715C8027B0077C801 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4615C8027B0077C801 /* MenuController.m */; };
 		F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4915C8027B0077C801 /* MovieDetailView.xib */; };
-		F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */; };
-		F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */; };
 		F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5215C8027B0077C801 /* MenuView.xib */; };
 		F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3C24E5E15C802ED0077C801 /* CinemasView.xib */; };
 		F3DDF9A515C2753500A47C57 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F3DDF9A415C2753500A47C57 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -137,6 +150,30 @@
 		6FFFC0FE15CF9E71003D9326 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6FFFC11A15CFA73C003D9326 /* DisplayMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayMap.h; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.h; sourceTree = SOURCE_ROOT; };
 		6FFFC11B15CFA73C003D9326 /* DisplayMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayMap.m; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.m; sourceTree = SOURCE_ROOT; };
+		F36620111606DE06008B6E74 /* SGNCellBackGround.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCellBackGround.h; sourceTree = "<group>"; };
+		F36620121606DE06008B6E74 /* SGNCellBackGround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCellBackGround.m; sourceTree = "<group>"; };
+		F36620131606DE06008B6E74 /* SGNTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCell.h; sourceTree = "<group>"; };
+		F36620141606DE06008B6E74 /* SGNTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCell.m; sourceTree = "<group>"; };
+		F36620161606DE06008B6E74 /* SGNTableViewCellStyleBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCellStyleBasic.h; sourceTree = "<group>"; };
+		F36620171606DE06008B6E74 /* SGNTableViewCellStyleBasic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCellStyleBasic.m; sourceTree = "<group>"; };
+		F36620181606DE06008B6E74 /* SGNTableViewCellStyleBasic.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleBasic.xib; sourceTree = "<group>"; };
+		F36620191606DE06008B6E74 /* SGNTableViewCellStyleDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCellStyleDefault.h; sourceTree = "<group>"; };
+		F366201A1606DE06008B6E74 /* SGNTableViewCellStyleDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCellStyleDefault.m; sourceTree = "<group>"; };
+		F366201B1606DE06008B6E74 /* SGNTableViewCellStyleDefault.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleDefault.xib; sourceTree = "<group>"; };
+		F366201C1606DE06008B6E74 /* SGNTableViewCellStyleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCellStyleImage.h; sourceTree = "<group>"; };
+		F366201D1606DE06008B6E74 /* SGNTableViewCellStyleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCellStyleImage.m; sourceTree = "<group>"; };
+		F366201E1606DE06008B6E74 /* SGNTableViewCellStyleImage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleImage.xib; sourceTree = "<group>"; };
+		F366201F1606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCellStyleSubtitle.h; sourceTree = "<group>"; };
+		F36620201606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCellStyleSubtitle.m; sourceTree = "<group>"; };
+		F36620211606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleSubtitle.xib; sourceTree = "<group>"; };
+		F36620221606DE06008B6E74 /* SGNTableViewCellStyleValue2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCellStyleValue2.h; sourceTree = "<group>"; };
+		F36620231606DE06008B6E74 /* SGNTableViewCellStyleValue2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNTableViewCellStyleValue2.m; sourceTree = "<group>"; };
+		F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleValue2.xib; sourceTree = "<group>"; };
+		F36620331606DF80008B6E74 /* SGNCoreGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCoreGraphic.h; sourceTree = "<group>"; };
+		F36620341606DF80008B6E74 /* SGNCoreGraphic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCoreGraphic.m; sourceTree = "<group>"; };
+		F36620361606E0AE008B6E74 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
+		F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
+		F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
 		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F38DA92B15D91CD300C40810 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		F38DA92C15D91CD300C40810 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
@@ -276,9 +313,6 @@
 		F3C24E4515C8027B0077C801 /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
 		F3C24E4615C8027B0077C801 /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
 		F3C24E4915C8027B0077C801 /* MovieDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieDetailView.xib; sourceTree = "<group>"; };
-		F3C24E4C15C8027B0077C801 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
-		F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
-		F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
 		F3C24E5215C8027B0077C801 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		F3C24E5E15C802ED0077C801 /* CinemasView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CinemasView.xib; sourceTree = "<group>"; };
 		F3DDF9A315C2753500A47C57 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -381,6 +415,49 @@
 				F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */,
 			);
 			path = "Detail Cinema";
+			sourceTree = "<group>";
+		};
+		F36620101606DE06008B6E74 /* SGNTableViewCellStyle */ = {
+			isa = PBXGroup;
+			children = (
+				F36620111606DE06008B6E74 /* SGNCellBackGround.h */,
+				F36620121606DE06008B6E74 /* SGNCellBackGround.m */,
+				F36620131606DE06008B6E74 /* SGNTableViewCell.h */,
+				F36620141606DE06008B6E74 /* SGNTableViewCell.m */,
+				F36620151606DE06008B6E74 /* SGNTableViewCellCustom */,
+			);
+			path = SGNTableViewCellStyle;
+			sourceTree = "<group>";
+		};
+		F36620151606DE06008B6E74 /* SGNTableViewCellCustom */ = {
+			isa = PBXGroup;
+			children = (
+				F36620161606DE06008B6E74 /* SGNTableViewCellStyleBasic.h */,
+				F36620171606DE06008B6E74 /* SGNTableViewCellStyleBasic.m */,
+				F36620181606DE06008B6E74 /* SGNTableViewCellStyleBasic.xib */,
+				F36620191606DE06008B6E74 /* SGNTableViewCellStyleDefault.h */,
+				F366201A1606DE06008B6E74 /* SGNTableViewCellStyleDefault.m */,
+				F366201B1606DE06008B6E74 /* SGNTableViewCellStyleDefault.xib */,
+				F366201C1606DE06008B6E74 /* SGNTableViewCellStyleImage.h */,
+				F366201D1606DE06008B6E74 /* SGNTableViewCellStyleImage.m */,
+				F366201E1606DE06008B6E74 /* SGNTableViewCellStyleImage.xib */,
+				F366201F1606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.h */,
+				F36620201606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.m */,
+				F36620211606DE06008B6E74 /* SGNTableViewCellStyleSubtitle.xib */,
+				F36620221606DE06008B6E74 /* SGNTableViewCellStyleValue2.h */,
+				F36620231606DE06008B6E74 /* SGNTableViewCellStyleValue2.m */,
+				F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */,
+			);
+			path = SGNTableViewCellCustom;
+			sourceTree = "<group>";
+		};
+		F36620321606DF80008B6E74 /* CoreGraphic */ = {
+			isa = PBXGroup;
+			children = (
+				F36620331606DF80008B6E74 /* SGNCoreGraphic.h */,
+				F36620341606DF80008B6E74 /* SGNCoreGraphic.m */,
+			);
+			path = CoreGraphic;
 			sourceTree = "<group>";
 		};
 		F38DA92A15D91CD300C40810 /* DataSerivce */ = {
@@ -581,6 +658,7 @@
 		F397E6B415C15C5700A92874 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F36620321606DF80008B6E74 /* CoreGraphic */,
 				F3BA072E1606D92F004470AB /* iOSRapper */,
 				F3BA070A1606D901004470AB /* HJCache */,
 				F3BA06D81606D6CA004470AB /* PSCollectionView */,
@@ -696,6 +774,7 @@
 		F3B7528F15D240E800D29207 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F36620101606DE06008B6E74 /* SGNTableViewCellStyle */,
 				F3BA06E01606D714004470AB /* SGNCollectionViewCell */,
 				F3B7529015D240E800D29207 /* SGNCustomPopup */,
 			);
@@ -892,10 +971,10 @@
 		F3C24E4A15C8027B0077C801 /* List Cinemas */ = {
 			isa = PBXGroup;
 			children = (
+				F36620361606E0AE008B6E74 /* SGNCinemasListCell.h */,
+				F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */,
+				F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */,
 				F3C24E5E15C802ED0077C801 /* CinemasView.xib */,
-				F3C24E4C15C8027B0077C801 /* SGNCinemasListCell.h */,
-				F3C24E4D15C8027B0077C801 /* SGNCinemasListCell.m */,
-				F3C24E4E15C8027B0077C801 /* SGNCinemasListCell.xib */,
 			);
 			path = "List Cinemas";
 			sourceTree = "<group>";
@@ -995,7 +1074,6 @@
 			files = (
 				F397E67E15C159A100A92874 /* InfoPlist.strings in Resources */,
 				F3C24E5815C8027B0077C801 /* MovieDetailView.xib in Resources */,
-				F3C24E5B15C8027B0077C801 /* SGNCinemasListCell.xib in Resources */,
 				F3C24E5D15C8027B0077C801 /* MenuView.xib in Resources */,
 				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
 				F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */,
@@ -1030,6 +1108,12 @@
 				F3BA07071606D7B4004470AB /* showtimes~iphone.png in Resources */,
 				F3BA07081606D7B4004470AB /* trailer~iphone.png in Resources */,
 				F3BA07091606D7B4004470AB /* widescreen.png in Resources */,
+				F36620281606DE06008B6E74 /* SGNTableViewCellStyleBasic.xib in Resources */,
+				F366202A1606DE07008B6E74 /* SGNTableViewCellStyleDefault.xib in Resources */,
+				F366202C1606DE07008B6E74 /* SGNTableViewCellStyleImage.xib in Resources */,
+				F366202E1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.xib in Resources */,
+				F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */,
+				F366203A1606E0AE008B6E74 /* SGNCinemasListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,7 +1144,6 @@
 				F3C24E5515C8027B0077C801 /* CinemasController.m in Sources */,
 				F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */,
 				F3C24E5715C8027B0077C801 /* MenuController.m in Sources */,
-				F3C24E5A15C8027B0077C801 /* SGNCinemasListCell.m in Sources */,
 				F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */,
 				F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */,
 				6FFFC0D515CF614B003D9326 /* LBYouTubePlayerController.m in Sources */,
@@ -1101,6 +1184,15 @@
 				F3BA072D1606D901004470AB /* SGNManagedImage.m in Sources */,
 				F3BA07371606D92F004470AB /* NSString+Ext.m in Sources */,
 				F3BA07381606D92F004470AB /* Functions.m in Sources */,
+				F36620251606DE06008B6E74 /* SGNCellBackGround.m in Sources */,
+				F36620261606DE06008B6E74 /* SGNTableViewCell.m in Sources */,
+				F36620271606DE06008B6E74 /* SGNTableViewCellStyleBasic.m in Sources */,
+				F36620291606DE07008B6E74 /* SGNTableViewCellStyleDefault.m in Sources */,
+				F366202B1606DE07008B6E74 /* SGNTableViewCellStyleImage.m in Sources */,
+				F366202D1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.m in Sources */,
+				F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */,
+				F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */,
+				F36620391606E0AE008B6E74 /* SGNCinemasListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

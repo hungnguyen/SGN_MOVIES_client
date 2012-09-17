@@ -7,26 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HJCache.h"
-#import "MoviesController.h"
-#import "AppDelegate.h"
-#import "TrailerController.h"
-#import "SGNCustomPopup.h"
 #import "Repository.h"
+#import "SGNCustomPopup.h"
 
 @interface MovieDetailController : UIViewController <UITableViewDelegate,UITableViewDataSource,
-                                                        SGNCustomPopupDelegate,RepositoryDelegate>
+SGNCustomPopupDelegate,RepositoryDelegate>
 
 @property (assign, nonatomic) int movieObjectId;
-@property (strong, nonatomic)  SGNCustomPopup *popupView;
+@property (strong, nonatomic) SGNCustomPopup *popupView;
 @property (strong, nonatomic) IBOutlet UIView *maskView;
-@property (strong, nonatomic) IBOutlet UIButton *trailerButton;
-@property (strong, nonatomic) IBOutlet UIButton *showTimeButton;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UITextView *textView;
-
-- (IBAction)showTrailer:(id)sender;
-- (IBAction)showShowTime:(id)sender;
-- (IBAction)showGallery:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
+

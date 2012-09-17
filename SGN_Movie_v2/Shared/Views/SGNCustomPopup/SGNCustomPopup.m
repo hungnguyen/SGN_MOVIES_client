@@ -7,24 +7,23 @@
 //
 
 #import "SGNCustomPopup.h"
-#import "HJCache.h"
-#import "AppDelegate.h"
 #import "SGNManagedImage.h"
+#import "AppDelegate.h"
 
-#define POSTER_OFFSET_WIDTH 10
-#define POSTERS_PER_PAGE 2
+
 
 @interface SGNCustomPopup ()
 @property (nonatomic, strong) NSArray *data;
+@property (nonatomic, assign) bool isMovie;
 - (void)popDown:(id)sender;
 @end
 
 @implementation SGNCustomPopup
 
 @synthesize delegate = _delegate;
-@synthesize title = _title;
 @synthesize data = _data;
 @synthesize carousel = _carousel;
+@synthesize isMovie = _isMovie;
 
 #pragma mark Init
 - (id)initWithFrame:(CGRect)frame
@@ -52,9 +51,10 @@
     return self;
 }
 
-- (void)loadViewWithData:(NSArray*)data
+- (void)loadViewWithData:(NSArray*)data isMovie:(bool)isMovie
 {
     [self setData:data];
+    self.isMovie = isMovie;
     [_carousel reloadData];
 }
 
@@ -67,35 +67,52 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 { 
-    CGRect frame = CGRectMake(0, 0, 150, 180);
-    
     NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
     NSString * urlString = [hostUrl stringByAppendingString:[[_data objectAtIndex:index] 
                                                              valueForKey:@"imageUrl"]];
-    SGNManagedImage *posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
-    [posterImage setUrl:[NSURL URLWithString:urlString]];
-    [posterImage showLoadingWheel];
-    [posterImage setImageContentMode:UIViewContentModeScaleAspectFill];
     
-    //scale image to show reflection
-    posterImage.reflectionScale = 0.25f;
-    //opaque of reflection image
-    posterImage.reflectionAlpha = 0.25f;
-    //gap between image and its reflection
-    posterImage.reflectionGap = 10.0f;
-    //shadow behind image
-    posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
-    posterImage.shadowBlur = 5.0f;
-    posterImage.shadowColor = [UIColor blackColor];
-    
-    [[HJCache sharedInstance].hjObjManager manage:posterImage];        
-    
-    UIButton *poster = [[UIButton alloc] initWithFrame:frame];
-    [poster addTarget:self action:@selector(popDown:) forControlEvents:UIControlEventTouchUpInside];
-    [poster setTag:index];
-    [poster addSubview:posterImage];
-    
-    return poster;
+    SGNManagedImage *posterImage = (SGNManagedImage*)view;
+    if(posterImage == nil)
+    {
+        NSLog(@"Carousel");
+        CGRect frame = CGRectMake(0, 0, 150, 200);
+        posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+        [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
+        
+        //apply configs below
+        posterImage.isConfigImage =  true;
+        //scale image to show reflection
+        posterImage.reflectionScale = 0.25f;
+        //opaque of reflection image
+        posterImage.reflectionAlpha = 0.25f;
+        //gap between image and its reflection
+        posterImage.reflectionGap = 10.0f;
+        //shadow behind image
+        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        posterImage.shadowBlur = 5.0f;
+        posterImage.shadowColor = [UIColor blackColor]; 
+        
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popDown:)];
+        [tapGR setNumberOfTapsRequired:1];
+        [posterImage addGestureRecognizer:tapGR];
+        
+        frame = CGRectMake(0, 0, 320, 20);
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:frame];
+        titleLabel.tag = 999;
+        titleLabel.textAlignment = UITextAlignmentCenter;
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [posterImage addSubview:titleLabel];
+    }
+    [posterImage clear];
+    posterImage.frame = _carousel.bounds;
+    posterImage.tag = index;
+    [posterImage setImageFromURL:urlString];
+    UILabel *titleLabel = (UILabel*)[posterImage viewWithTag:999];
+    if(_isMovie == false)
+    {
+        titleLabel.text = [[_data objectAtIndex:index] valueForKey:@"name"];
+    }
+    return posterImage;
 }
 
 
@@ -114,12 +131,13 @@
 {
     //set initial location at bottom of view
     CGRect frame = self.bounds;
-    frame.origin.y = [self superview].bounds.size.height;
+    frame.origin.x = [self superview].bounds.size.width;
+    frame.origin.y = (self.superview.bounds.size.height - frame.size.height ) / 2;
     self.frame = frame;
     
     //animation to new location, dedermined by height of the view in Nib
     [UIView beginAnimations:@"popupView" context:nil];
-    frame.origin.y = [self superview].bounds.size.height - self.bounds.size.height;
+    frame.origin.x = [self superview].bounds.size.width - self.bounds.size.width;
     self.frame = frame;
     [UIView commitAnimations];
 }
@@ -132,13 +150,14 @@
     
     //move this view to bottom of superview
     CGRect frame =  self.frame;
-    frame.origin.y = [self superview].bounds.size.height;
+    frame.origin.x = [self superview].bounds.size.width;
     self.frame = frame;
     [UIView commitAnimations];
     
     if(sender != nil && sender != [NSNull null])
     {
-        id object  = [_data objectAtIndex:[sender tag]];
+        UITapGestureRecognizer *tapGR = (UITapGestureRecognizer*)sender;
+        id object  = [_data objectAtIndex:tapGR.view.tag];
         [self SGNCustomPopupTap:self withObject:object];
     }
 }
