@@ -9,6 +9,7 @@
 #import "SGNCustomPopup.h"
 #import "HJCache.h"
 #import "AppDelegate.h"
+#import "SGNManagedImage.h"
 
 #define POSTER_OFFSET_WIDTH 10
 #define POSTERS_PER_PAGE 2

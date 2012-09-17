@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HJCache.h"
-#import "AboutController.h"
-#import "MovieDetailController.h"
 #import "Repository.h"
-#import "DataService.h"
-#import "Movie.h"
-#import "Provider.h"
+#import "PSCollectionView.h"
 
-@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate>
+@interface MoviesController : UIViewController <UIScrollViewDelegate, RepositoryDelegate,
+PSCollectionViewDelegate, PSCollectionViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewMain;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (assign, nonatomic) int isToggled;
+
+- (IBAction)pageChange:(id)sender;
+
 @end

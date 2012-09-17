@@ -7,6 +7,7 @@
 //
 
 #import "MenuController.h"
+#import "AboutController.h"
 
 @interface MenuController ()
 

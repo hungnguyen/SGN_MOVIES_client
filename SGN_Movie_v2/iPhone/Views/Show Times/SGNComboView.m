@@ -8,6 +8,7 @@
 
 #import "SGNComboView.h"
 #import "AppDelegate.h"
+#import "HJCache.h"
 
 @implementation SGNComboView
 

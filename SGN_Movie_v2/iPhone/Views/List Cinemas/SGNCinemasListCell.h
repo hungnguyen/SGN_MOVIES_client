@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import"HJCache.h"
+#import "SGNManagedImage.h"
 
 @class Cinema;
 @interface SGNCinemasListCell : UITableViewCell

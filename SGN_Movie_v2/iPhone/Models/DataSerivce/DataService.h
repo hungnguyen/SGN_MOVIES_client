@@ -14,7 +14,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 + (DataService*) sharedInstance;
-//+ (NSManagedObjectContext*) defaultContext;
++ (NSManagedObjectContext*) defaultContext;
 - (void) saveContext;
 
 @end

@@ -18,6 +18,7 @@
 #import "DataService.h"
 #import "Repository.h"
 #import "AppDelegate.h"
+#import "HJCache.h"
 
 @interface CinemaDetailController ()
 @property (strong, nonatomic) Cinema *cinemaObject;

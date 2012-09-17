@@ -6,98 +6,102 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "MoviesController.h"
-#import "AFNetworking.h"
-#import "MenuController.h"
 #import "AppDelegate.h"
+#import "MoviesController.h"
+#import "MovieDetailController.h"
 
-#define POSTER_HEIGHT 200
-#define POSTER_WIDTH 140
+#import "DataService.h"
+#import "Movie.h"
 
-#define PopOver_WIDHT 140
-#define PopOver_HEIGHT 45
-#define PopOverX 240
-#define PopOverY -55
+#import "SGNCollectionViewCell.h"
 
 @interface MoviesController ()
-{
-}
-@property (strong,nonatomic)  NSArray * nowShowingMovies;
-@property (strong,nonatomic)  NSArray * comingSoonMovies;
-- (void) tapPoster:(UIButton*) sender;
-
-
+@property (assign, nonatomic) bool isFirstLoad;
+@property (strong, nonatomic)  NSArray * nowShowingMovies;
+@property (strong, nonatomic)  NSArray * comingSoonMovies;
+@property (strong, nonatomic) PSCollectionView *PSNowShowing;
+@property (strong, nonatomic) PSCollectionView *PSCommingSoon;
 @end
 
 @implementation MoviesController
+
 @synthesize scrollViewMain = _scrollViewMain;
 @synthesize pageControl = _pageControl;
 @synthesize nowShowingMovies = _nowShowingMovies;
 @synthesize comingSoonMovies = _comingSoonMovies;
+@synthesize PSNowShowing = _PSNowShowing;
+@synthesize PSCommingSoon = _PSCommingSoon;
 @synthesize isToggled = _isToggled;
+@synthesize isFirstLoad = _isFirstLoad;
+
+#pragma mark Init
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-	// Do any additional setup after loading the view, typically from a nib.
-       
-    [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
-    [self.navigationController setTitle:@"NOW SHOWING"];
+    self.title = @"NOW SHOWING";
+    self.isFirstLoad = true;
     
-    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [menuButton setTag:1];
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    menuButton.tag = 1;
     [menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];
     
-    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [rightMenuButton setTag:2];
+    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    rightMenuButton.tag = 2;
     [rightMenuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [rightMenuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+    [rightMenuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];
     
     UINavigationItem *navigationItem = [self navigationItem];
-    [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:rightMenuButton]];
-    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
-
-    CGRect parentView = self.scrollViewMain.frame;
-    UIScrollView * scrollviewNoSh = [[UIScrollView alloc]initWithFrame:parentView];
-    parentView.origin.x = 320;
-    UIScrollView * scrollviewCoSo = [[UIScrollView alloc]initWithFrame:parentView];
+    navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightMenuButton];
+    navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
-    [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background8.jpg"]]];
+    //create 2 PSCollectionView
+    CGRect mainFrame = self.scrollViewMain.bounds;
+    self.PSNowShowing = [[PSCollectionView alloc] initWithFrame:mainFrame];
+    _PSNowShowing.tag = 1;
+    _PSNowShowing.delegate = self;
+    _PSNowShowing.collectionViewDelegate = self;
+    _PSNowShowing.collectionViewDataSource = self;
+    _PSNowShowing.numColsPortrait = 2;
+    _PSNowShowing.numColsLandscape = 2;
+    
+    mainFrame.origin.x = 320;
+    self.PSCommingSoon = [[PSCollectionView alloc]initWithFrame:mainFrame];
+    _PSCommingSoon.tag = 2;
+    _PSCommingSoon.delegate = self;
+    _PSCommingSoon.collectionViewDelegate = self;
+    _PSCommingSoon.collectionViewDataSource = self;
+    _PSCommingSoon.numColsPortrait = 2;
+    _PSCommingSoon.numColsLandscape = 2;
+    
+    //modify main scrollview
+    _scrollViewMain.contentSize = CGSizeMake(mainFrame.size.width * 2, mainFrame.size.height);
+    [_scrollViewMain addSubview:_PSNowShowing];
+    [_scrollViewMain addSubview:_PSCommingSoon];
     
     //Update Data
-    [self updateData];
-   
-    //Get now showing movies
-    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:0 
-                             scrollView:scrollviewNoSh];
-    
-    //Get coming soon movies
-    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
-                                                     scrollView:scrollviewCoSo];
-    
-    [_scrollViewMain addSubview:scrollviewNoSh];
-    [_scrollViewMain addSubview:scrollviewCoSo];
-
-    //modify main scrollview
-    [_scrollViewMain setContentSize:CGSizeMake(parentView.size.width * 2, parentView.size.height)];
+    [[Repository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    [self reloadView];
+    if(_isFirstLoad)
+        [self reloadInputViews];
+    _isFirstLoad = false;
 }
 
 - (void)viewDidUnload
 {
-    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    [self setNowShowingMovies:nil];
-    [self setComingSoonMovies:nil];
-    [self setScrollViewMain:nil];
-    [self setPageControl:nil];
+    self.scrollViewMain = nil;
+    self.pageControl = nil;
+    self.nowShowingMovies = nil;
+    self.comingSoonMovies = nil;
+    self.PSNowShowing = nil;
+    self.PSCommingSoon = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -105,127 +109,127 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
-#pragma mark - Scrollview Delegate
-- (void)scrollViewDidScroll:(UIScrollView *)sender 
+- (void)reloadInputViews
 {
-    CGFloat pageWidth = _scrollViewMain.frame.size.width;
-    int page = floor((_scrollViewMain.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    Provider *provider = [AppDelegate currentDelegate].rightMenuController.provider;
+    self.nowShowingMovies = [Movie selectByProviderId:provider.providerId.intValue 
+                                         isNowShowing:YES
+                                              context:context];
+    self.comingSoonMovies = [Movie selectByProviderId:provider.providerId.intValue 
+                                         isNowShowing:NO
+                                              context:context];
     
-    if(page == 1)
-    {
-        [self showLastUpdateOnNavigationBarWithTitle:@"COMING SOON"];
-    }
+    [_PSCommingSoon reloadData];
+    [_PSNowShowing reloadData];
+    
+    NSLog(@"LIST MOVIE - RELOAD DATA");
+}
+
+#pragma mark - PSCollectionViewDataSource
+
+- (NSInteger)numberOfViewsInCollectionView:(PSCollectionView *)collectionView 
+{
+    if(collectionView.tag == 1)
+        return _nowShowingMovies.count;
+    else if(collectionView.tag == 2)
+        return _comingSoonMovies.count;
+    else 
+        return 0;
+}
+
+- (CGFloat)heightForViewAtIndex:(NSInteger)index 
+{
+    return POSTER_HEIGHT;
+}
+
+#pragma mark - PSCollectionViewDelegate
+
+- (PSCollectionViewCell *)collectionView:(PSCollectionView *)collectionView 
+                             viewAtIndex:(NSInteger)index 
+{
+    Movie *movie = nil;
+    if(collectionView.tag == 1)
+        movie = (Movie*)[_nowShowingMovies objectAtIndex:index];
+    else if (collectionView.tag == 2)
+        movie = (Movie*)[_comingSoonMovies objectAtIndex:index];
     else
-    {
-        [self showLastUpdateOnNavigationBarWithTitle:@"NOW SHOWING"];
-
-    }
+        return nil;
     
-    [_pageControl setCurrentPage:page];
+    SGNCollectionViewCell *view = (SGNCollectionViewCell*)[collectionView dequeueReusableView];
+    if(view == nil)
+    {
+        view = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
+    }
+    [view fillViewWithObject:movie];
+    return view;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-}
-
-
-#pragma mark - actions of buttons
-- (void) tapPoster:(UIButton*) sender
+- (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index 
 {
+    //check if menu is toggled
     if(_isToggled == 0)
     {
         MovieDetailController *movieDetailController = [[MovieDetailController alloc] initWithNibName:@"MovieDetailView" bundle:nil];
-        NSRange aRange = [[self title] rangeOfString:@"NOW SHOWING"];
-      
-        if(aRange.location!=NSNotFound)
-         {
-             [movieDetailController setMovieObjectId:sender.tag];
-         }
-         else
-         {
-             [movieDetailController setMovieObjectId:sender.tag];
-         }
+        
+        Movie *movie = nil;
+        if(collectionView.tag == 1)
+            movie = (Movie*)[_nowShowingMovies objectAtIndex:index];
+        else if (collectionView.tag == 2)
+            movie = (Movie*)[_comingSoonMovies objectAtIndex:index];           
+        
+        movieDetailController.movieObjectId = movie.movieId.intValue;
         
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
                                        initWithTitle: @"Back" 
                                        style: UIBarButtonItemStyleBordered
                                        target: nil action: nil];
         
-        [self.navigationItem setBackBarButtonItem: backButton];
+        self.navigationItem.backBarButtonItem = backButton;
         [self.navigationController pushViewController:movieDetailController animated:YES];        
     }
-    else
+    else if(_isToggled == 1)
     {
         [[AppDelegate currentDelegate].deckController toggleLeftView];
-        [self setIsToggled:0];
+        self.isToggled = 0;
+    }
+    else if(_isToggled == 2)
+    {
+        [[AppDelegate currentDelegate].deckController toggleRightView];
+        self.isToggled = 0;
     }
 }
 
-#pragma mark - Create posters
-- (void)CreatePosters:(UIScrollView *)scrollView moviesContainer:(NSArray *)moviesContainer
+#pragma mark - Scrollview Delegate
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView*)scrollView
 {
-    //Add posters to Scrollview
-    for (int i = 0; i<moviesContainer.count; i++)
+    if(_isToggled == 0)
     {
-        int Ypos = (i/2)* POSTER_HEIGHT + 15*(i/2) + 5;
-        int Xpos = (i - (i/2)*2)* POSTER_WIDTH + 15;
-        if(i%2==1)
-            Xpos = Xpos +10;
-        //Create  a poster
-        UIButton *poster = [[UIButton alloc] initWithFrame:CGRectMake(Xpos,Ypos,POSTER_WIDTH,POSTER_HEIGHT)];
-     
-        Movie *movie = [moviesContainer objectAtIndex:i];
-        
-        [poster setTag :[[movie movieId] intValue]];
-        [poster addTarget:self action:@selector(tapPoster:) forControlEvents:UIControlEventTouchUpInside];
-        
-        SGNManagedImage * asynchcImage = [[SGNManagedImage alloc] initWithFrame:CGRectMake(0,0,POSTER_WIDTH,POSTER_HEIGHT)];
-        
-        NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-        NSString * urlString = [hostUrl stringByAppendingString:[movie imageUrl]];
-        [asynchcImage setUrl:[NSURL URLWithString:urlString]];
-        [asynchcImage showLoadingWheel];
-        [asynchcImage setImageContentMode:UIViewContentModeScaleToFill];
-        [poster addSubview:asynchcImage];
-        [scrollView addSubview:poster];
-        
-        [[HJCache sharedInstance].hjObjManager manage:asynchcImage];
+        return;
+    }
+    else if(_isToggled == 1)
+    {
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        self.isToggled = 0;
+    }
+    else if(_isToggled == 2)
+    {
+        [[AppDelegate currentDelegate].deckController toggleRightView];
+        self.isToggled = 0;
     }
 }
 
-
-#pragma mark - get movies from JSON
-
-- (void) getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:(int) moviesContainerindex 
-                            scrollView:(UIScrollView *) scrollView 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView 
 {
-       
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    Provider *provider = [[[AppDelegate currentDelegate] rightMenuController] provider];
-    if(moviesContainerindex == 0)
-    {
-        NSArray *items = [Movie selectByProviderId:[[provider providerId] intValue] 
-                                       isNowShowing:YES 
-                                            context:context];
-        [self setNowShowingMovies:items];
-        [self CreatePosters:scrollView moviesContainer:_nowShowingMovies];
-        scrollView.contentSize = CGSizeMake( 320, (_nowShowingMovies.count + 1) / 2 * (POSTER_HEIGHT + 15));
-    }
-    if(moviesContainerindex == 1)
-    {
-        NSArray *items = [Movie selectByProviderId:[[provider providerId] intValue] isNowShowing:NO context:context];
-        [self setComingSoonMovies:items];
-        [self CreatePosters:scrollView moviesContainer:_comingSoonMovies];
-        scrollView.contentSize = CGSizeMake( 320, (_comingSoonMovies.count + 1) / 2 * (POSTER_HEIGHT + 15));
-    }
+    CGFloat pageWidth = _scrollViewMain.frame.size.width;
+    int page = _scrollViewMain.contentOffset.x / pageWidth;
+    _pageControl.currentPage = page;
+    
+    self.title = (page == 0) ? @"NOW SHOWING" : @"COMING SOON";
+}    
 
-}
-
-#pragma mark - action of navigation bar 's buttons
+#pragma mark - Action 
 
 -(void) showMenu:(id)sender
 {
@@ -234,84 +238,32 @@
     else if([sender tag] == 2)
         [[AppDelegate currentDelegate].deckController toggleRightView];
     
-    if(_isToggled == 0)
-    {
-        [self setIsToggled:[sender tag]];
-    }
-    else 
-    {
-        [self setIsToggled:0];
-    }
+    self.isToggled = (_isToggled == 0) ? [sender tag] : 0;
+}
+
+- (IBAction)pageChange:(id)sender
+{
+    CGRect frame = _scrollViewMain.frame;
+    frame.origin.x = frame.size.width * _pageControl.currentPage;
+    frame.origin.y = 0;
+    [_scrollViewMain scrollRectToVisible:frame animated:YES];
 }
 
 #pragma mark SGNRepositoryDelegate
 
 - (void)RepositoryStartUpdate:(Repository *)repository
 {
-    NSLog(@"DELEGATE START");
+    NSLog(@"LIST MOVIE - DELEGATE START");
 }
 
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
     if([Repository sharedInstance].isUpdateMovie == YES)
-        [self reloadView];
-    NSLog(@"DELEGATE FINISH");
-}
-
-#pragma mark Update Data
-- (void) updateData
-{
-    [[Repository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
-}
-
-#pragma mark ReloadView
--(void) reloadView
-{
-
-    NSLog(@"RELOAD VIEW");
-    [self showLastUpdateOnNavigationBarWithTitle:self.navigationController.title];
-    CGRect parentView = self.scrollViewMain.frame;
-    UIScrollView * scrollviewNoSh = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:0];
-    parentView.origin.x = 320;
-    UIScrollView * scrollviewCoSo = (UIScrollView*)[[_scrollViewMain subviews] objectAtIndex:1];
-    
-    for(UIView * subview in [scrollviewNoSh subviews])
-    {
-        [subview removeFromSuperview]; 
+    {   
+        [self reloadInputViews];   
+        [Repository sharedInstance].isUpdateMovie = NO;
     }
-    for(UIView * subview in [scrollviewCoSo subviews])
-    {
-        [subview removeFromSuperview]; 
-    }
-    
-    
-    //Get now showing movies
-    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:0 
-                                                     scrollView:scrollviewNoSh];
-    
-    //Get coming soon movies
-    [self getSpecifiedMoviesAndShowThemWithmoviesContainerIndex:1 
-                                                     scrollView:scrollviewCoSo];
-}
-
-#pragma mark showLastUpdate
--(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
-{
-    [self.navigationController setTitle:title];
-    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 2;
-    label.font = [UIFont boldSystemFontOfSize: 13.0f];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
-    [self.navigationItem setTitleView:label];
-
+    NSLog(@"LIST MOVIE - DELEGATE FINISH");
 }
 
 @end

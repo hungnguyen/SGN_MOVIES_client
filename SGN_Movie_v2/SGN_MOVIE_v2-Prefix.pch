@@ -12,6 +12,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import "Define.h"
 #endif
 
 #define UPDATE_ALL_URL @"http://sgnm-test.apphb.com/update/all?lasttime=%@&format=%@"
+
+#define POSTER_HEIGHT 200
+#define POSTER_WIDTH 150
+#define POSTER_MARGIN 5.0
