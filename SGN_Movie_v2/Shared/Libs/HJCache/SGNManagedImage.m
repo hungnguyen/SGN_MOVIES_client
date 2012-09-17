@@ -8,7 +8,7 @@
 //  See http://www.markj.net/hjcache-iphone-image-cache/
 
 #import "SGNManagedImage.h"
-#import "UIImage+FX.h"
+#import "HJCache.h"
 
 @implementation SGNManagedImage
 
@@ -20,13 +20,108 @@
 @synthesize shadowBlur = _shadowBlur;
 @synthesize cornerRadius = _cornerRadius;
 @synthesize imageContentMode = _imageContentMode;
+@synthesize isConfigImage = _isConfigImage;
+
+#pragma mark Init
+
+- (id) init {
+    self = [super init];
+    if (self) 
+    {
+        //defaultImage = [UIImage imageNamed:@"no_image.png"];
+        //self.image = defaultImage;
+        self.backgroundColor = [UIColor clearColor];
+        self.imageContentMode = UIViewContentModeScaleAspectFit;
+    }
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) 
+    {
+        //defaultImage = [UIImage imageNamed:@"no_image.png"];
+        //self.image = defaultImage;
+        self.backgroundColor = [UIColor clearColor];
+        self.imageContentMode = UIViewContentModeScaleAspectFit;
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) 
+    {
+        //self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+#pragma mark Methods
+
+- (void)managedObjFailed
+{
+    [loadingWheel stopAnimating];
+}
+
+- (void) setImageFromURL:(NSString *)imageUrl 
+{
+    [self setImageFromURL:imageUrl 
+              showloading:YES];
+}
+
+- (void) setImageFromURL:(NSString *)imageUrl 
+             showloading:(BOOL)showloading
+{
+    if(!imageUrl || [imageUrl isEqual:[NSNull null]])
+        return;
+    
+    UIImage *localImage = [UIImage imageWithContentsOfFile:imageUrl];
+    if (localImage) 
+    {
+        self.image = localImage;
+        return;
+    }
+#if DEBUG
+    //    NSLog(@"-----imageUrl:  %@",imageUrl);
+#endif
+    if (imageUrl && ![imageUrl isEqual:[NSNull null]] && [imageUrl length] > 0) 
+    {        
+        [self clear];
+        if([imageUrl hasPrefix:@"http"])
+        {
+            self.url = [NSURL URLWithString:imageUrl];		
+            if (showloading) [self showLoadingWheel];
+            [[HJCache sharedInstance].hjObjManager manage:self];
+        }
+        else 
+        {
+            self.image = [UIImage imageNamed:imageUrl];
+        }
+    } 
+    else 
+    {
+        self.image = [UIImage imageNamed:@"no-image"];
+    }
+}
+
+#pragma mark Extend of HJManagedImageV method
 
 -(void) setImage:(UIImage*)theImage 
 {
-    UIImage *theNewImage = [self imageWithConfig:theImage];
-    [super setImage:theNewImage];
+    //config ImageFX
+    if(_isConfigImage == true)
+    {
+        theImage = [self imageWithConfig:theImage];
+    }
+    
+    [super setImage:theImage];
     [imageView setContentMode:_imageContentMode];
 }
+
+#pragma mark Config Image
 
 - (UIImage*)imageWithConfig:(UIImage*)theImage
 {
@@ -63,4 +158,5 @@
     }
     return theImage;
 }
+
 @end

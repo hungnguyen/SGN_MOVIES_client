@@ -29,18 +29,16 @@ static AppDelegate * appDelegate;
     //[NSThread sleepUntilDate:future];
     [[Repository sharedInstance] setCurrentProviderId:1];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UIImage *backgroundImage = [UIImage imageNamed:@"Background8.jpg"];
-    [self.window setBackgroundColor:[UIColor colorWithPatternImage:backgroundImage]];      
-   
+    _window.backgroundColor = [UIColor lightGrayColor];
     // Override point for customization after application launch.
-      appDelegate = self;
+    appDelegate = self;
     
     //Make Movies Screen
     [self setNavigationController:[[UINavigationController alloc] init]];
     MoviesController *moviesController = [[MoviesController alloc] initWithNibName:@"MoviesView"
-                                                                           bundle:nil];
+                                                                            bundle:nil];
     [_navigationController setViewControllers:[NSArray arrayWithObjects:moviesController, nil]];
-     
+    
     //Make Menu View
     MenuController *menuController = [[MenuController alloc] initWithNibName:@"MenuView" bundle:nil];
     

@@ -26,13 +26,13 @@
     return sharedDataService;
 }
 
-//+ (NSManagedObjectContext *) defaultContext
-//{
-//    @synchronized (self)
-//    {
-//        return [[DataService sharedInstance] managedObjectContext];
-//    }
-//}
++ (NSManagedObjectContext *) defaultContext
+{
+    @synchronized (self)
+    {
+        return [[DataService sharedInstance] managedObjectContext];
+    }
+}
 
 - (void) saveContext
 {

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HJCache.h"
+#import "SGNManagedImage.h"
 #import "SGNCustomPopup.h"
 #import "Repository.h"
 

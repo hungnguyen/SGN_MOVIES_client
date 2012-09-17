@@ -10,7 +10,6 @@
 #import <Foundation/Foundation.h>
 #import "HJManagedImageV.h"
 
-
 /* 
  The managed image view is a UIView subclass that can be used just like any other view, 
  and it contains a UIImage object thats a managed object, and hence 
@@ -36,6 +35,12 @@
 @property (nonatomic, assign) CGSize shadowOffset;
 @property (nonatomic, assign) CGFloat shadowBlur;
 @property (nonatomic, assign) CGFloat cornerRadius;
+//check if config ImageFX
+@property (nonatomic, assign) bool isConfigImage;
+
+//set imageUrl and add to Cache
+- (void) setImageFromURL:(NSString *)imageUrl;
+- (void) setImageFromURL:(NSString *)imageUrl showloading:(BOOL)showloading;
 
 @end
 

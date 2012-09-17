@@ -18,6 +18,8 @@
 #import "ShowtimesController.h"
 #import "MovieGalleryController.h"
 #import "Sessiontime.h"
+#import "DataService.h"
+#import "SGNManagedImage.h"
 
 #define CELL_WIDTH 320
 #define CELL_HEIGHT 60

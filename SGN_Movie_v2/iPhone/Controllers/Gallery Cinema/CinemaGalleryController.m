@@ -10,6 +10,8 @@
 #import "CinemaGallery.h"
 #import "AppDelegate.h"
 #import "DataService.h"
+#import "SGNManagedImage.h"
+#import "HJCache.h"
 
 @interface CinemaGalleryController ()
 @property (nonatomic, strong) NSArray *data;
