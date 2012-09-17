@@ -39,7 +39,7 @@
     NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
                                                    inManagedObjectContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"providerId = %i", _providerId];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"cinemaId" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *sort =  [NSArray arrayWithObjects:sortDescriptor, nil];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -56,7 +56,7 @@
     NSEntityDescription *description = [NSEntityDescription entityForName:[Cinema entityName]
                                                    inManagedObjectContext:context];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"cinemaId IN %@", _cinemaIds];
-    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:@"cinemaId" ascending:YES];
+    NSSortDescriptor *sortDecriptor = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
     NSArray *sort = [NSArray arrayWithObjects:sortDecriptor, nil];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     

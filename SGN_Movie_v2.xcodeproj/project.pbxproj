@@ -34,8 +34,6 @@
 		F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620231606DE06008B6E74 /* SGNTableViewCellStyleValue2.m */; };
 		F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */; };
 		F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620341606DF80008B6E74 /* SGNCoreGraphic.m */; };
-		F36620391606E0AE008B6E74 /* SGNCinemasListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */; };
-		F366203A1606E0AE008B6E74 /* SGNCinemasListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */; };
 		F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38DA8F315D8F05300C40810 /* CoreData.framework */; };
 		F38DA93915D91CD300C40810 /* DataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* DataService.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
@@ -171,9 +169,6 @@
 		F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleValue2.xib; sourceTree = "<group>"; };
 		F36620331606DF80008B6E74 /* SGNCoreGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCoreGraphic.h; sourceTree = "<group>"; };
 		F36620341606DF80008B6E74 /* SGNCoreGraphic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCoreGraphic.m; sourceTree = "<group>"; };
-		F36620361606E0AE008B6E74 /* SGNCinemasListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCinemasListCell.h; sourceTree = "<group>"; };
-		F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCinemasListCell.m; sourceTree = "<group>"; };
-		F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCinemasListCell.xib; sourceTree = "<group>"; };
 		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F38DA92B15D91CD300C40810 /* DataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataService.h; sourceTree = "<group>"; };
 		F38DA92C15D91CD300C40810 /* DataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataService.m; sourceTree = "<group>"; };
@@ -971,9 +966,6 @@
 		F3C24E4A15C8027B0077C801 /* List Cinemas */ = {
 			isa = PBXGroup;
 			children = (
-				F36620361606E0AE008B6E74 /* SGNCinemasListCell.h */,
-				F36620371606E0AE008B6E74 /* SGNCinemasListCell.m */,
-				F36620381606E0AE008B6E74 /* SGNCinemasListCell.xib */,
 				F3C24E5E15C802ED0077C801 /* CinemasView.xib */,
 			);
 			path = "List Cinemas";
@@ -1113,7 +1105,6 @@
 				F366202C1606DE07008B6E74 /* SGNTableViewCellStyleImage.xib in Resources */,
 				F366202E1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.xib in Resources */,
 				F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */,
-				F366203A1606E0AE008B6E74 /* SGNCinemasListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1192,7 +1183,6 @@
 				F366202D1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.m in Sources */,
 				F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */,
 				F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */,
-				F36620391606E0AE008B6E74 /* SGNCinemasListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
