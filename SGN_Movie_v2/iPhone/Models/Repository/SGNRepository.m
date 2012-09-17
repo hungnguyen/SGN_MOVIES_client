@@ -16,7 +16,6 @@
 #import "Provider.h"
 #import "MovieGallery.h"
 #import "CinemaGallery.h"
-#import "SGNManagedObject.h"
 
 #define FORMAT_TIME @"dd.MM.yyyy HH.mm.ss"
 //#define FORMAT_TIME_GMT @"dd.MM.yyyy HH.mm.ss zzz"
