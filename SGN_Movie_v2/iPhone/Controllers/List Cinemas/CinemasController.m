@@ -6,19 +6,17 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "AppDelegate.h"
 #import "CinemasController.h"
 #import "CinemaDetailController.h"
-#import "AppDelegate.h"
-#import "HJCache.h"
-#import "SGNCinemasListCell.h"
-#import "AFNetworking.h"
-#import "Cinema.h"
-#import "DataService.h"
 
-//define height of cell in view List Cinemas
-#define HEIGHT_CINEMAS_LIST_CELL 130
+#import "DataService.h"
+#import "Cinema.h"
+
+#import "SGNTableViewCellStyleDefault.h"
 
 @interface CinemasController ()
+@property (assign, nonatomic) bool isFirstLoad;
 @property (strong, nonatomic) NSArray *listCinemas;
 @end
 
@@ -27,6 +25,7 @@
 @synthesize listCinemas = _listCinemas;
 @synthesize tableView = _tableView;
 @synthesize isToggled = _isToggled;
+@synthesize isFirstLoad = _isFirstLoad;
 
 #pragma mark Init
 
@@ -43,51 +42,43 @@
 {
     [super viewDidLoad];
     
-    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [menuButton setTag:1];
+    self.title = @"LIST CINEMAS";
+    self.isFirstLoad = true;
+    
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    menuButton.tag = 1;
     [menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [menuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
+    [menuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];
     
-    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [rightMenuButton setTag:2];
+    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    rightMenuButton.tag = 2;
     [rightMenuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
-    [rightMenuButton setImage:[UIImage imageNamed:@"Menu.png"] forState:UIControlStateNormal];
-
-    UINavigationItem *navigationItem = [self navigationItem];
-    [navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:rightMenuButton]];
-    [navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:menuButton]];
+    [rightMenuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];
     
-    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
-    [self.navigationController setTitle:@"CINEMAS"];
-
+    UINavigationItem *navigationItem = [self navigationItem];
+    navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightMenuButton];
+    navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuButton];
     
     //set rowheight for custom view cell: SGNCinemaListCell
-    [_tableView setRowHeight: HEIGHT_CINEMAS_LIST_CELL];
+    //[_tableView setRowHeight: TABLE_CELLDEFAULT_HEIGHT];
     
-    //for problem in iOS4.3: when choose UITableGroupView
-    //table still has 4 black rectangle corner instead of round one's
-    [_tableView setBackgroundColor:[UIColor clearColor]];
-
-    [self updateData];
+    //update Data
+    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 //auto update data when re-show view
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
-    [self reloadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self setListCinemas:nil];
+    if(_isFirstLoad)
+        [self reloadInputViews];
+    _isFirstLoad = false;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    [self setTableView:nil];
+    self.tableView = nil;
+    self.listCinemas = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -95,11 +86,26 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void) reloadInputViews
+{
+    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    Provider *provider = [[[AppDelegate currentDelegate]rightMenuController]provider];
+    [self setListCinemas: [Cinema selectByProviderId:[provider.providerId intValue] context:context]];
+    
+    [_tableView reloadData];
+    NSLog(@"LIST CINEMA - TABLE RELOAD");
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-	if (_listCinemas && [_listCinemas count]) 
+    return 1;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_listCinemas && [_listCinemas count]) 
     {
         return [_listCinemas count];
     }
@@ -109,47 +115,78 @@
     }
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
 #pragma mark UITableViewDelegate
 
-- (SGNCinemasListCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    SGNCinemasListCell *cell= [objTableView dequeueReusableCellWithIdentifier:@"cell"];
+- (UITableViewCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{      
+    static NSString *cellIndentifier = @"SGNTableViewCellStyleDefault";
+    
+    SGNTableViewCellStyleDefault *cell= [objTableView dequeueReusableCellWithIdentifier:cellIndentifier];
     if(cell == nil)
     {
-        cell = [[SGNCinemasListCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                         reuseIdentifier:@"cell"];
+        cell = [[SGNTableViewCellStyleDefault alloc] initWithNibName:cellIndentifier];
+        cell.iconImageView.imageContentMode = UIViewContentModeScaleAspectFill;
+        cell.iconImageView.frame = CGRectInset(cell.iconImageView.frame, 2, 2);        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
-    [cell fillWithData:cinema];
+    
+    Cinema *cinema = [_listCinemas objectAtIndex:[indexPath row]];
+    NSString *urlHost = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
+    NSString *image_url = [urlHost stringByAppendingString:[cinema imageUrl]];
+    
+    cell.contentLabel.text = cinema.name;
+    [cell.iconImageView setImageFromURL:image_url];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(!_isToggled)
+    if(_isToggled == 0)
     {
         CinemaDetailController *cinemaDetailController = [[CinemaDetailController alloc]initWithNibName:@"CinemaDetailView"
-                                                                                             bundle:nil];
-        Cinema *cinema = [_listCinemas objectAtIndex:[indexPath section]];
+                                                                                                 bundle:nil];
+        Cinema *cinema = [_listCinemas objectAtIndex:[indexPath row]];
         [cinemaDetailController setCinemaObjectId:[cinema cinemaId].intValue];
-    
+        
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc] 
-                                   initWithTitle: @"Back" 
-                                   style: UIBarButtonItemStyleBordered
-                                   target: nil action: nil];
+                                       initWithTitle: @"Back" 
+                                       style: UIBarButtonItemStyleBordered
+                                       target: nil action: nil];
         [self.navigationItem setBackBarButtonItem: backButton];
-    
+        
         [[self navigationController] pushViewController:cinemaDetailController animated:YES];
     }
-    else
+    else if(_isToggled == 1)
     {
         [[AppDelegate currentDelegate].deckController toggleLeftView];
-        [self setIsToggled:0];
+        self.isToggled = 0;
+    }
+    else if(_isToggled == 2)
+    {
+        [[AppDelegate currentDelegate].deckController toggleRightView];
+        self.isToggled = 0;
+    }
+}
+
+#pragma mark - Scrollview Delegate
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView*)scrollView
+{
+    if(_isToggled == 0)
+    {
+        return;
+    }
+    else if(_isToggled == 1)
+    {
+        [[AppDelegate currentDelegate].deckController toggleLeftView];
+        self.isToggled = 0;
+    }
+    else if(_isToggled == 2)
+    {
+        [[AppDelegate currentDelegate].deckController toggleRightView];
+        self.isToggled = 0;
+        
     }
 }
 
@@ -162,67 +199,25 @@
     else if([sender tag] == 2)
         [[AppDelegate currentDelegate].deckController toggleRightView];
     
-    if(_isToggled != 0)
-    {
-        [self setIsToggled:0];
-    }
-    else 
-    {
-        [self setIsToggled:[sender tag]];
-
-    }
-}
-
-#pragma mark CoreData
-
-//query data from db
-- (void) reloadData
-{
-    [self showLastUpdateOnNavigationBarWithTitle:@"CINEMAS"];
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    Provider *provider = [[[AppDelegate currentDelegate]rightMenuController]provider];
-    [self setListCinemas: [Cinema selectByProviderId:[provider.providerId intValue] context:context]];
-
-    [_tableView reloadData];
-}
-
-//get new data from sever
-- (void) updateData
-{
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    self.isToggled = (_isToggled == 0) ? [sender tag] : 0;
 }
 
 #pragma mark SGNRepositoryDelegate
 
 - (void)RepositoryStartUpdate:(Repository *)repository
 {
-    NSLog(@"DELEGATE START");
+    NSLog(@"LIST CINEMAS - DELEGATE START");
 }
 
 //check if has new data of cinemas
 - (void)RepositoryFinishUpdate:(Repository *)repository
 {
     if([repository isUpdateCinema] == YES)
-        [self reloadData];
-    NSLog(@"DELEGATE FINISH");
-}
-#pragma mark showLastUpdate
--(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
-{
-    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 2;
-    label.font = [UIFont boldSystemFontOfSize: 13.0f];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
-    [self.navigationItem setTitleView:label];
-    
+    {
+        [self reloadInputViews];    
+        [Repository sharedInstance].isUpdateCinema = NO;
+    }
+    NSLog(@"LIST CINEMAS - DELEGATE FINISH");
 }
 
 @end

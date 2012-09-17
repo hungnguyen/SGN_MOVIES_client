@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Repository.h"
 
-@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource, RepositoryDelegate>
+@interface CinemasController : UIViewController <UITableViewDelegate, UITableViewDataSource,
+RepositoryDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (assign, nonatomic) int isToggled;
