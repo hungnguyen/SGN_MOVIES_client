@@ -9,9 +9,8 @@
 #import "CinemaGalleryController.h"
 #import "CinemaGallery.h"
 #import "AppDelegate.h"
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "SGNManagedImage.h"
-#import "HJCache.h"
 
 @interface CinemaGalleryController ()
 @property (nonatomic, strong) NSArray *data;
@@ -60,7 +59,7 @@
 - (void)reloadData
 {
     NSLog(@"RELOAD DATA");
-    NSManagedObjectContext *context = [DataService sharedInstance].managedObjectContext;
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     self.data = [CinemaGallery selectByCinemaId:_cinemaObjectId context:context];
     [_carousel reloadData];
 }
@@ -85,23 +84,22 @@
     if(posterImage == nil)
     {
         posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+        [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
+        
+        //apply configs below
+        posterImage.isConfigImage =  true;
+        //scale image to show reflection
+        posterImage.reflectionScale = 0.25f;
+        //opaque of reflection image
+        posterImage.reflectionAlpha = 0.25f;
+        //gap between image and its reflection
+        posterImage.reflectionGap = 10.0f;
+        //shadow behind image
+        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
+        posterImage.shadowBlur = 5.0f;
+        posterImage.shadowColor = [UIColor blackColor]; 
     }
-    [posterImage clear];
-    [posterImage setUrl:[NSURL URLWithString:urlString]];
-    [posterImage showLoadingWheel];
-    [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
-    
-    //scale image to show reflection
-    posterImage.reflectionScale = 0.25f;
-    //opaque of reflection image
-    posterImage.reflectionAlpha = 0.25f;
-    //gap between image and its reflection
-    posterImage.reflectionGap = 10.0f;
-    //shadow behind image
-    posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
-    posterImage.shadowBlur = 5.0f;
-    posterImage.shadowColor = [UIColor blackColor];
-    [[HJCache sharedInstance].hjObjManager manage:posterImage];        
+    [posterImage setImageFromURL:urlString];
     
     return posterImage;
 }

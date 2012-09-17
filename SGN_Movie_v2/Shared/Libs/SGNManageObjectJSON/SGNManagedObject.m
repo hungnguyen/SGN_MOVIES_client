@@ -21,11 +21,14 @@
         NSAttributeType attributeType = [[attributes objectForKey:attribute] attributeType];
 //        if ((attributeType == NSStringAttributeType) && ([value isKindOfClass:[NSNumber class]])) {
 //            value = [value stringValue];
-//        } else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) && ([value isKindOfClass:[NSString class]])) {
+//        } 
+//        else if (((attributeType == NSInteger16AttributeType) || (attributeType == NSInteger32AttributeType) || (attributeType == NSInteger64AttributeType) || (attributeType == NSBooleanAttributeType)) && ([value isKindOfClass:[NSString class]])) {
 //            value = [NSNumber numberWithInteger:[value integerValue]];
-//        } else if ((attributeType == NSFloatAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
+//        } 
+//        else if ((attributeType == NSFloatAttributeType) &&  ([value isKindOfClass:[NSString class]])) {
 //            value = [NSNumber numberWithDouble:[value doubleValue]];
-//        } else 
+//        } 
+//        else 
         if ((attributeType == NSDateAttributeType) && ([value isKindOfClass:[NSString class]])) {
             int startPos = [value rangeOfString:@"("].location+1;
             int endPos = [value rangeOfString:@")"].location;

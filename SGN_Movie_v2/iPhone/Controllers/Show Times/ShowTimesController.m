@@ -5,17 +5,15 @@
 //  Created by TPL2806 on 8/6/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
-#import <QuartzCore/QuartzCore.h> 
+#import "AppDelegate.h"
 #import "ShowtimesController.h"
-#import "HJCache.h"
-#import "AFNetworking.h"
+
+#import "SGNDataService.h"
+#import "Sessiontime.h"
 #import "Cinema.h"
 #import "Movie.h"
-#import "DataService.h"
-#import "Sessiontime.h"
-#import "AppDelegate.h"
 
+#import "SGNTableViewCellStyleSubtitle.h"
 
 @interface ShowtimesController () 
 
@@ -24,6 +22,7 @@
 @property (strong, nonatomic) Movie *movieObject;
 @property (strong, nonatomic) NSString *cinemaWebId;
 @property (strong, nonatomic) NSString *movieWebId;
+@property (nonatomic, assign) bool isFirstLoad;
 
 @end
 
@@ -38,8 +37,10 @@
 @synthesize cinemaWebId = _cinemaWebId;
 @synthesize tableView = _tableView;
 @synthesize showtimesObjects = _showtimesObjects;
+@synthesize isFirstLoad = _isFirstLoad;
 
 #pragma mark Init
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -53,34 +54,33 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self showLastUpdateOnNavigationBarWithTitle:@"SHOW TIMES"];
-    [_tableView setRowHeight:90];
+    self.isFirstLoad = true;
+    self.cinemaWebId = nil;
+    self.movieWebId = nil;
     
-    [self setCinemaWebId:nil];
-    [self setMovieWebId:nil];
-    [self updateData];
+    _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
+    _tableView.sectionHeaderHeight = TABLE_SECTION_HEADER_HEIGHT;
+    
+    [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
 {
-    [self reloadData];
-}
-
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [self setMovieObject:nil];
-    [self setCinemaObject:nil];
-    [self setShowtimesObjects:nil];
-    [self setCinemaWebId:nil];
-    [self setMovieWebId:nil];
+    if(_isFirstLoad == true)
+    {
+        [self reloadInputViews];
+        self.isFirstLoad = false;
+    }
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    [self setTableView:nil];
-    [self setComboView:nil];
+    self.comboView = nil;
+    self.movieObject = nil;
+    self.cinemaObject = nil;
+    self.tableView = nil;
+    self.showtimesObjects = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -88,10 +88,45 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)reloadInputViews
+{
+    NSLog(@"SHOWTIME - TABLE RELOAD");
+    
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
+    [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
+    [self setMovieObject:[Movie selectByMovieId:_movieObjectId context:context]];
+    
+    //check if has new data
+    if(_cinemaObject == nil || _movieObject == nil 
+       || (_cinemaWebId != nil && ![_cinemaWebId isEqualToString:[_cinemaObject cinemaWebId]])
+       || (_movieWebId != nil && ![_movieWebId isEqualToString:[_movieObject movieWebId]]))
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
+                                                        message:@"New Data was updated" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    //add webid to compare in next time reload
+    [self setCinemaWebId:[_cinemaObject cinemaWebId]];
+    [self setMovieWebId:[_movieObject movieWebId]];
+    
+    NSArray *items = [Sessiontime selectByMovieId:_movieObjectId cinemaId:_cinemaObjectId context:context];
+    [self createShowtimes:items];
+    
+    [_tableView reloadData];
+    [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
+}
+
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
+    
     return 1;
 }
 
@@ -99,7 +134,7 @@
 {
     if (_showtimesObjects && [_showtimesObjects count]) 
     {
-        return [_showtimesObjects count];
+        return [_showtimesObjects count] * 2;
     }
     else
     {
@@ -107,35 +142,58 @@
     }
 }
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath
+{
+    if(indexPath.row % 2 != 0)
+    {
+        //cell uses like 'section'
+        return TABLE_SECTION_FOOTER_HEIGHT;
+    }
+    else
+    {
+        //normal cell
+        return TABLE_CELLDEFAULT_HEIGHT;
+    }
+}
+
 #pragma mark UITableViewDelegate
 
 - (UITableViewCell*)tableView:(UITableView*)objTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-        UITableViewCell *cell = [objTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) 
+    static NSString *cellIdentifier = @"SGNTableViewCellStyleSubtitle";
+    static NSString *cellStyleSection = @"UITableViewCell";
+    
+    if(indexPath.row % 2 == 0)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        SGNTableViewCellStyleSubtitle *cell = [objTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) 
+        {
+            cell = [[SGNTableViewCellStyleSubtitle alloc] initWithNibName:cellIdentifier];
+        }
+        NSArray *dateTime = [_showtimesObjects objectAtIndex:indexPath.row / 2];
+        NSString *date = [dateTime objectAtIndex:0];
+        NSString *time = [dateTime objectAtIndex:1];
+        
+        cell.titleLabel.text = date;
+        cell.contentLabel.text = time;
+        return cell;
     }
-    NSDictionary *showtime = (NSDictionary*)[_showtimesObjects objectAtIndex:[indexPath row]];
-   
-    //Add text view for Date
-    UITextView * cellTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
-    [cellTextView setText:[showtime objectForKey:@"Date"]];
-    [cellTextView setFont:[UIFont boldSystemFontOfSize:19]];
-    [cellTextView setEditable:NO];
-    [cellTextView setScrollEnabled:NO];
-    [cell addSubview:cellTextView];
-    
-    //Add text view for Time
-    UITextView * cellDetailTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 30, 320, 60)];
-    [cellDetailTextView setText:[showtime objectForKey:@"Time"]];
-    [cellDetailTextView setFont:[UIFont fontWithName:@"Times New Roman" size:19]];
-    [cellDetailTextView setEditable:NO];
-    [cellDetailTextView setScrollEnabled:NO];
-    [cell addSubview:cellDetailTextView];
-    
-    return cell;
+    else 
+    {
+        UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellStyleSection];
+        if(cell ==nil)
+        {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStyleSection];
+            cell.contentView.backgroundColor = [UIColor blackColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark Utils 
@@ -144,6 +202,7 @@
 - (void)createShowtimes:(NSArray*)data
 {
     self.showtimesObjects = [[NSMutableArray alloc]init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     //format for getting Date
     NSDateFormatter *formatterDate = [[NSDateFormatter alloc] init];    
@@ -157,106 +216,49 @@
     
     NSString *date = @"";
     NSString *time = @"";
-    NSString *curDate = @""; 
-    for (NSInteger i = 0; i < [data count]; ++i) 
+    
+    for(NSInteger i = 0; i < [data count]; i++)
     {
         Sessiontime *item = [data objectAtIndex:i];
+        date = [formatterDate stringFromDate:[item date]];
+        time = [formatterTime stringFromDate:[item date]];
         
-        curDate = [formatterDate stringFromDate:[item date]];
-        if([date isEqualToString: @""] == YES)
+        //if current date is contain in dictionary
+        if([dict objectForKey:date])
         {
-            date = curDate;
-            time = [formatterTime stringFromDate:[item date]];
+            //insert new time
+            NSString *curTime = (NSString*)[dict valueForKey:date];
+            curTime = [NSString stringWithFormat:@"%@ | %@", curTime, time];
+            [dict setValue:curTime forKey:date];
         }
-        else if([date isEqualToString:curDate] == YES)
+        else 
         {
-            time  = [NSString stringWithFormat:@"%@ | %@", time,[formatterTime stringFromDate:[item date]]];
-        }
-        else
-        {
-            NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys: date, @"Date", time, @"Time", nil];
-            [_showtimesObjects addObject:dict];
-            date = @"";
-            time = @"";
+            //insert new date + time
+            [dict setObject:time forKey:date];
         }
     }
-    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys: date, @"Date", time, @"Time", nil];
-    [_showtimesObjects addObject:dict];
-}
-
-- (void)reloadView
-{
-    [self showLastUpdateOnNavigationBarWithTitle:@"SHOW TIMES"];
-    [_tableView reloadData];
-    [_comboView fillWithCinema:_cinemaObject andMovie:_movieObject];
-}
-
--(void) showLastUpdateOnNavigationBarWithTitle:(NSString*) title
-{
-    NSString * lastUpdateStr = [[Repository sharedInstance] readLastUpdated];
-    lastUpdateStr = [lastUpdateStr stringByReplacingOccurrencesOfString:@"." withString:@":"];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 50)];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 2;
-    label.font = [UIFont boldSystemFontOfSize: 13.0f];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    label.textAlignment = UITextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%@\nlast update:%@",title,lastUpdateStr];
-    [self.navigationItem setTitleView:label];
-    
-}
-
-#pragma mark CoreData
-
-//get data from db, in case data was not exist in db or not map with data on view, show alert and rollback to root view
-- (void)reloadData
-{
-    [self showLastUpdateOnNavigationBarWithTitle:@"SHOW TIMES"];
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
-    [self setCinemaObject:[Cinema selectByCinemaId:_cinemaObjectId context:context]];
-    [self setMovieObject:[Movie selectByMovieId:_movieObjectId context:context]];
-    if(_cinemaObject == nil || _movieObject == nil 
-       || (_cinemaWebId != nil && ![_cinemaWebId isEqualToString:[_cinemaObject cinemaWebId]])
-       || (_movieWebId != nil && ![_movieWebId isEqualToString:[_movieObject movieWebId]]))
-    {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Update Data" 
-                                                        message:@"New Data was updated" 
-                                                       delegate:self 
-                                              cancelButtonTitle:@"OK" 
-                                              otherButtonTitles: nil];
-        [alert show];
-        return;
-    }
-    //add webid to compare in next time reload
-    [self setCinemaWebId:[_cinemaObject cinemaWebId]];
-    [self setMovieWebId:[_movieObject movieWebId]];
-    
-    NSArray *items = [Sessiontime selectByMovieId:_movieObjectId cinemaId:_cinemaObjectId context:context];
-    [self createShowtimes:items];
-    
-    [self reloadView];
-}
-
-//update new data from server
-- (void)updateData
-{
-    [[Repository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    //sort _showtimeObject base on date
+    NSArray *sortedKeys = [[dict allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
+    for (NSString *key in sortedKeys)
+        [_showtimesObjects addObject:[NSArray arrayWithObjects:key, [dict valueForKey:key], nil]];
 }
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
-    NSLog(@"DELEGATE START");
+    NSLog(@"SHOWTIME - DELEGATE START");
 }
 
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
     if([repository isUpdateCinema] == YES || [repository isUpdateMovie] == YES || [repository isUpdateSessiontime] == YES)
-        [self reloadData];
-    NSLog(@"DELEGATE FINISH");
+    {
+        [self reloadInputViews];
+        repository.isUpdateSessiontime = false;
+    }
+    NSLog(@"SHOWTIME - DELEGATE FINISH");
 }
 
 #pragma mark UIAlertViewDelegate

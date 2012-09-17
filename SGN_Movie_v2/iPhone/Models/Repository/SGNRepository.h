@@ -8,26 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
-
-@class Repository;
+@class SGNRepository;
 
 @protocol RepositoryDelegate <NSObject>
 @required
-- (void)RepositoryStartUpdate:(Repository*)repository;
-- (void)RepositoryFinishUpdate:(Repository *)repository;
+- (void)RepositoryStartUpdate:(SGNRepository*)repository;
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository;
 @end
 
-@interface Repository : NSObject <UIAlertViewDelegate>
+@interface SGNRepository : NSObject
 
-@property (nonatomic, retain) UIActivityIndicatorView* loadingWheel;
 @property (nonatomic, assign) BOOL isUpdateProvider;
 @property (nonatomic, assign) BOOL isUpdateCinema;
 @property (nonatomic, assign) BOOL isUpdateMovie;
 @property (nonatomic, assign) BOOL isUpdateSessiontime;
 @property (nonatomic, assign) int currentProviderId;
 
-+ (Repository*)sharedInstance;
++ (SGNRepository*)sharedInstance;
 
-- (void) updateEntityWithUrlString:(NSString*)urlString;
-- (NSString *) readLastUpdated;
+- (void)updateEntityWithUrlString:(NSString*)urlString;
+- (NSDate*)readLastUpdated;
+
 @end

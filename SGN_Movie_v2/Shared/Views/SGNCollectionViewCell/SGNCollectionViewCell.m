@@ -75,8 +75,8 @@
     //add version
     if([movie.version contains:@"3d"])
         _versionView.image = [UIImage imageNamed:@"3d.png"];
-    else if([movie.version contains:@"2d"])
-        _versionView.image = [UIImage imageNamed:@"2d.png"];
+//    else if([movie.version contains:@"2d"])
+//        _versionView.image = [UIImage imageNamed:@"2d.png"];
     else 
         _versionView.image = [UIImage imageNamed:@""];
 }

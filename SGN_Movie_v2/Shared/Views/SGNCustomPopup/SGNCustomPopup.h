@@ -25,4 +25,5 @@
 - (void)loadViewWithData:(NSArray*)data isMovie:(bool)isMovie;
 - (void)popUp;
 - (void)popDown:(id)sender;
+
 @end

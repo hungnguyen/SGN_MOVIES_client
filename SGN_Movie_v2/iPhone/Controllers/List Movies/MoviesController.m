@@ -10,7 +10,7 @@
 #import "MoviesController.h"
 #import "MovieDetailController.h"
 
-#import "DataService.h"
+#import "SGNDataService.h"
 #import "Movie.h"
 
 #import "SGNCollectionViewCell.h"
@@ -82,7 +82,7 @@
     [_scrollViewMain addSubview:_PSCommingSoon];
     
     //Update Data
-    [[Repository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
+    [[SGNRepository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -111,7 +111,7 @@
 
 - (void)reloadInputViews
 {
-    NSManagedObjectContext *context = [[DataService sharedInstance] managedObjectContext];
+    NSManagedObjectContext *context = [SGNDataService defaultContext];
     Provider *provider = [AppDelegate currentDelegate].rightMenuController.provider;
     self.nowShowingMovies = [Movie selectByProviderId:provider.providerId.intValue 
                                          isNowShowing:YES
@@ -251,17 +251,17 @@
 
 #pragma mark SGNRepositoryDelegate
 
-- (void)RepositoryStartUpdate:(Repository *)repository
+- (void)RepositoryStartUpdate:(SGNRepository *)repository
 {
     NSLog(@"LIST MOVIE - DELEGATE START");
 }
 
-- (void)RepositoryFinishUpdate:(Repository *)repository
+- (void)RepositoryFinishUpdate:(SGNRepository *)repository
 {
-    if([Repository sharedInstance].isUpdateMovie == YES)
+    if([SGNRepository sharedInstance].isUpdateMovie == YES)
     {   
         [self reloadInputViews];   
-        [Repository sharedInstance].isUpdateMovie = NO;
+        [SGNRepository sharedInstance].isUpdateMovie = NO;
     }
     NSLog(@"LIST MOVIE - DELEGATE FINISH");
 }

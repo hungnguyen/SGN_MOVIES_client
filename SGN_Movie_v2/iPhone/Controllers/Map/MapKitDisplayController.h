@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "DisplayMap.h"
-#import "Cinema.h"
-#import "Repository.h"
-
 
 @interface MapKitDisplayController : UIViewController <MKMapViewDelegate>
 @property (strong, nonatomic) NSString * cinemaName;

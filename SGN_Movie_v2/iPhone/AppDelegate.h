@@ -9,11 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "IIViewDeckController.h"
-#import "MoviesController.h"
-#import "CinemasController.h"
-#import "AFNetworking.h"
-#import "MenuController.h"
-#import "Repository.h"
 #import "RightMenuController.h"
 
 @class MoviesController;

@@ -7,11 +7,10 @@
 //
 
 #import "MapKitDisplayController.h"
+#import "DisplayMap.h"
+#import "Cinema.h"
 
 @interface MapKitDisplayController ()
-{
-    
-}
 @property (strong,nonatomic) MKMapView * mapView;
 @end
 

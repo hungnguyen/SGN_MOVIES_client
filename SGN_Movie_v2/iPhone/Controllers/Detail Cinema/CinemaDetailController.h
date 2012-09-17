@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HJCache.h"
 #import "SGNCustomPopup.h"
-#import "Repository.h"
+#import "SGNRepository.h"
 
-@interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate, RepositoryDelegate,
-SGNCustomPopupDelegate>
+@interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate,
+                                                        RepositoryDelegate, SGNCustomPopupDelegate>
 
 @property (assign, nonatomic) int cinemaObjectId;
 @property (strong, nonatomic)  SGNCustomPopup *popupView;

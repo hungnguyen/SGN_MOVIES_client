@@ -10,8 +10,6 @@
 #import "SGNManagedImage.h"
 #import "AppDelegate.h"
 
-
-
 @interface SGNCustomPopup ()
 @property (nonatomic, strong) NSArray *data;
 @property (nonatomic, assign) bool isMovie;
