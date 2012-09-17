@@ -7,24 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SGNManagedImage.h"
+#import "HJCache.h"
 #import "SGNCustomPopup.h"
 #import "Repository.h"
 
 @interface CinemaDetailController : UIViewController <UIScrollViewDelegate, UIAlertViewDelegate, RepositoryDelegate,
-                                                        SGNCustomPopupDelegate>
+SGNCustomPopupDelegate>
 
 @property (assign, nonatomic) int cinemaObjectId;
-@property (strong, nonatomic) IBOutlet SGNManagedImage *cinemaImage;
 @property (strong, nonatomic)  SGNCustomPopup *popupView;
-@property (strong, nonatomic) IBOutlet UILabel *cinemaName;
-@property (strong, nonatomic) IBOutlet UILabel *cinemaPhone;
-@property (strong, nonatomic) IBOutlet UILabel *cinemaAddress;
-@property (strong, nonatomic) IBOutlet UIView *cinemaView;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-
-- (IBAction)showMap:(id)sender;
-- (IBAction)showTicket:(id)sender;
-- (IBAction)showGallery:(id)sender;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *maskView;
 
 @end
