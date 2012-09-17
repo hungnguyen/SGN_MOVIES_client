@@ -64,7 +64,7 @@
     [self setCinemaWebId:nil];
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
     [_popupView setDelegate:self];
-    [[_popupView title] setText:@"SELECT MOVIES"];
+    //[[_popupView title] setText:@"SELECT MOVIES"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -77,7 +77,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [_popupView loadViewWithData:nil];
+    //[_popupView loadViewWithData:nil];
     [self setCinemaObject:nil];
     [self setCinemaWebId:nil];
 }
@@ -184,7 +184,7 @@
     NSArray *movieObject = [Movie selectByArrayIds:[movieIds valueForKey:@"movieId"] context:context];
     
     //reload Data for list poster movies
-    [_popupView loadViewWithData:movieObject];
+   // [_popupView loadViewWithData:movieObject];
     [_popupView carousel].type = iCarouselTypeRotary;
     [self reloadView];
 }

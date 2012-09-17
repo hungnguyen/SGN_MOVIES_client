@@ -19,11 +19,10 @@
 @interface SGNCustomPopup : UIView <iCarouselDataSource, iCarouselDelegate>
 
 @property (nonatomic, assign) id<SGNCustomPopupDelegate> delegate;
-@property (nonatomic, strong) IBOutlet UILabel *title;
 @property (nonatomic, strong) IBOutlet iCarousel *carousel;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
-- (void)loadViewWithData:(NSArray*)data;
+- (void)loadViewWithData:(NSArray*)data isMovie:(bool)isMovie;
 - (void)popUp;
 - (void)popDown:(id)sender;
 @end
