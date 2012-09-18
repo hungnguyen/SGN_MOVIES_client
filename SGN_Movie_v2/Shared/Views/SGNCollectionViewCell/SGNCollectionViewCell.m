@@ -62,7 +62,8 @@
     {
         //add content label
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _contentLabel.textColor = [UIColor blackColor];
+        _contentLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+        _contentLabel.textColor = [UIColor whiteColor];
         _contentLabel.numberOfLines = 0;
         _contentLabel.font = [UIFont fontWithName:TABLE_CELL_FONTNAME size:12];
         _contentLabel.textAlignment = UITextAlignmentCenter;

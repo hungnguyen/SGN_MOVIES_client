@@ -297,6 +297,7 @@
 		F3BA07341606D92F004470AB /* Define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
 		F3BA07351606D92F004470AB /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		F3BA07361606D92F004470AB /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
+		F3C1E50116084AF800106DF6 /* SGN_MOVIE_v2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SGN_MOVIE_v2.entitlements; sourceTree = "<group>"; };
 		F3C24E3915C8027B0077C801 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
 		F3C24E3A15C8027B0077C801 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		F3C24E3C15C8027B0077C801 /* MovieDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailController.h; sourceTree = "<group>"; };
@@ -583,6 +584,7 @@
 		F397E67915C159A100A92874 /* SGN_MOVIE_v2 */ = {
 			isa = PBXGroup;
 			children = (
+				F3C1E50116084AF800106DF6 /* SGN_MOVIE_v2.entitlements */,
 				F397E69215C15B3D00A92874 /* iPhone */,
 				F397E69A15C15B3D00A92874 /* Resource */,
 				F397E69E15C15B3D00A92874 /* Shared */,
@@ -1263,6 +1265,7 @@
 		F397E68E15C159A100A92874 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SGN_MOVIE_v2/SGN_MOVIE_v2.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
@@ -1280,6 +1283,7 @@
 		F397E68F15C159A100A92874 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SGN_MOVIE_v2/SGN_MOVIE_v2.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
