@@ -38,9 +38,10 @@
 					<object class="IBUIView" id="936854007">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 264}</string>
+						<string key="NSFrameSize">{320, 220}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="797077528"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="510634033">
 							<int key="NSColorSpace">3</int>
@@ -54,9 +55,10 @@
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">1316</int>
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
-						<string key="NSFrame">{{0, 264}, {320, 36}}</string>
+						<string key="NSFrame">{{0, 220}, {320, 36}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="510634033"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -66,7 +68,7 @@
 						<int key="IBUINumberOfPages">3</int>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 300}</string>
+				<string key="NSFrameSize">{320, 256}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="936854007"/>

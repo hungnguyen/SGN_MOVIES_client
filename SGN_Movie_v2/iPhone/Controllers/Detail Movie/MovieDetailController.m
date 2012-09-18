@@ -335,7 +335,6 @@
             cell.contentLabel.font = [UIFont fontWithName:font.fontName size:13];
             cell.contentLabel.textAlignment = UITextAlignmentLeft;
             cell.contentLabel.textColor = cell.titleColor;
-            NSLog(@"%@", cell.titleColor);
             cell.contentLabel.text = _movieObject.movieDescription;
             return cell;
             break;
