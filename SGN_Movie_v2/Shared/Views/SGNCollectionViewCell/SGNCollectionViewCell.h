@@ -7,7 +7,12 @@
 //
 
 #import "PSCollectionViewCell.h"
+#import "SGNManagedImage.h"
 
 @interface SGNCollectionViewCell : PSCollectionViewCell
+
+@property (nonatomic, strong) SGNManagedImage *imageView;
+@property (nonatomic, strong) UIImageView *versionView;
+@property (nonatomic, strong) UILabel *contentLabel;
 
 @end

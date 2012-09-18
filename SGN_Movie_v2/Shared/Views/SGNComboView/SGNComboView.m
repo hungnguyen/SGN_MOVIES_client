@@ -28,6 +28,8 @@
                                                         options:nil] objectAtIndex:0];
         //add mainView as subview for self
         [self addSubview:mainView];
+        self.layer.borderWidth = 1.0;
+        self.layer.borderColor = [UIColor lightGrayColor].CGColor;
     }
     return self; 
 }

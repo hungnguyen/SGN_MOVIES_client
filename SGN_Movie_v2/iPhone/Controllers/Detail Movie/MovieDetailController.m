@@ -258,7 +258,6 @@
             cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
             cell.contentLabel.textAlignment = UITextAlignmentCenter;
             cell.contentLabel.textColor = cell.contentColor;
-            NSLog(@"%@", cell.contentColor);
             cell.contentLabel.text = [_movieObject.title uppercaseString];
             return cell;
             break;
@@ -380,7 +379,7 @@
 
 - (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObject:(id)object
 {
-    [_maskView removeFromSuperview];
+    //[_maskView removeFromSuperview];
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
     Cinema *cinema = (Cinema*)object;

@@ -156,13 +156,26 @@
     else
         return nil;
     
-    SGNCollectionViewCell *view = (SGNCollectionViewCell*)[collectionView dequeueReusableView];
-    if(view == nil)
+    SGNCollectionViewCell *cell = (SGNCollectionViewCell*)[collectionView dequeueReusableView];
+    if(cell == nil)
     {
-        view = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
+        cell = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
     }
-    [view fillViewWithObject:movie];
-    return view;
+
+    [cell prepareForReuse];
+
+    //add image
+    NSString *hostUrl = [AppDelegate currentDelegate].rightMenuController.provider.hostUrl;
+    NSString *image_url = [hostUrl stringByAppendingString:movie.imageUrl];
+    [cell.imageView setImageFromURL:image_url];
+    
+    //add version
+    if([movie.version contains:@"3d"])
+        cell.versionView.image = [UIImage imageNamed:@"3d.png"];
+    else 
+        cell.versionView.image = [UIImage imageNamed:@""];
+
+    return cell;
 }
 
 - (void)collectionView:(PSCollectionView *)collectionView didSelectView:(PSCollectionViewCell *)view atIndex:(NSInteger)index 

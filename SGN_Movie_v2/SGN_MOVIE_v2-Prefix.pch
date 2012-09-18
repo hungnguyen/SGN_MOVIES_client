@@ -11,13 +11,14 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <QuartzCore/QuartzCore.h>
     #import <CoreData/CoreData.h>
     #import "Define.h"
 #endif
 
 #define UPDATE_ALL_URL @"http://sgnm-test.apphb.com/update/all?lasttime=%@&format=%@"
 
-#define TABLE_SECTION_HEADER_HEIGHT 0
+#define TABLE_SECTION_HEADER_HEIGHT 5
 #define TABLE_SECTION_FOOTER_HEIGHT 5
 #define TABLE_CELLDEFAULT_HEIGHT 70
 #define TABLE_CELLIMAGE_HEIGHT 150

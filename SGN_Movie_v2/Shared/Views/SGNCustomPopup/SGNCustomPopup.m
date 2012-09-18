@@ -7,8 +7,8 @@
 //
 
 #import "SGNCustomPopup.h"
-#import "SGNManagedImage.h"
 #import "AppDelegate.h"
+#import "SGNCollectionViewCell.h"
 
 @interface SGNCustomPopup ()
 @property (nonatomic, strong) NSArray *data;
@@ -44,8 +44,7 @@
     if(self)
     {
         //Init
-        _carousel.type = iCarouselTypeRotary;
-        
+        _carousel.type = iCarouselTypeLinear;
     }
     return self;
 }
@@ -57,7 +56,7 @@
     [_carousel reloadData];
 }
 
-#pragma mark iCarousel methods
+#pragma mark iCarousel DataSource
 
 - (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel
 {
@@ -65,57 +64,58 @@
     return [_data count];
 }
 
+#pragma mark iCarousel Delegate
+
+- (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
+{
+    //customize carousel display
+    switch (option)
+    {
+        case iCarouselOptionSpacing:
+        {
+            //add a bit of spacing between the item views
+            return value * 1.05f;
+        }
+        default:
+        {
+            return value;
+        }
+    }
+}
+
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 { 
     NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
-    NSString * urlString = [hostUrl stringByAppendingString:[[_data objectAtIndex:index] 
+    NSString * imageUrl = [hostUrl stringByAppendingString:[[_data objectAtIndex:index] 
                                                              valueForKey:@"imageUrl"]];
     
-    SGNManagedImage *posterImage = (SGNManagedImage*)view;
-    if(posterImage == nil)
+    SGNCollectionViewCell *cell = (SGNCollectionViewCell*)view;
+    if(cell == nil)
     {
-        NSLog(@"Carousel");
-        CGRect frame = CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT);
-        posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
-        [posterImage setImageContentMode:UIViewContentModeScaleToFill];
-        posterImage.backgroundColor = [UIColor redColor];
-        
-//        //apply configs below
-//        posterImage.isConfigImage =  true;
-//        //scale image to show reflection
-//        posterImage.reflectionScale = 0.25f;
-//        //opaque of reflection image
-//        posterImage.reflectionAlpha = 0.25f;
-//        //gap between image and its reflection
-//        posterImage.reflectionGap = 10.0f;
-//        //shadow behind image
-//        posterImage.shadowOffset = CGSizeMake(0.0f, 2.0f);
-//        posterImage.shadowBlur = 5.0f;
-//        posterImage.shadowColor = [UIColor blackColor]; 
-        
-        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(popDown:)];
+        cell = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
+        UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageView:)];
         [tapGR setNumberOfTapsRequired:1];
-        [posterImage addGestureRecognizer:tapGR];
-        
-        frame = CGRectMake(0, 0, 100, 20);
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:frame];
-        titleLabel.tag = 999;
-        titleLabel.textAlignment = UITextAlignmentCenter;
-        titleLabel.backgroundColor = [UIColor blueColor];
-        [posterImage addSubview:titleLabel];
-        [posterImage bringSubviewToFront:titleLabel];
+        [cell addGestureRecognizer:tapGR];
+
     }
-    [posterImage clear];
-    posterImage.tag = index;
-    [posterImage setImageFromURL:urlString];
-    UILabel *titleLabel = (UILabel*)[posterImage viewWithTag:999];
+    else 
+    {
+        [cell prepareForReuse];
+    } 
+        
+    cell.tag = index;
+    [cell.imageView setImageFromURL:imageUrl];
     if(_isMovie == false)
     {
-        titleLabel.text = [[_data objectAtIndex:index] valueForKey:@"name"];
+        cell.contentLabel.text = [[_data objectAtIndex:index] valueForKey:@"name"];
+    }
+    else
+    {
+        cell.contentLabel.text = [[_data objectAtIndex:index] valueForKey:@"title"];
     }
     
     _pageControl.currentPage = _carousel.currentItemIndex;
-    return posterImage;
+    return cell;
 }
 
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel
@@ -166,7 +166,10 @@
     frame.origin.x = [self superview].bounds.size.width;
     self.frame = frame;
     [UIView commitAnimations];
-    
+}
+
+- (void)tapImageView:(id)sender
+{
     if(sender != nil && sender != [NSNull null])
     {
         UITapGestureRecognizer *tapGR = (UITapGestureRecognizer*)sender;

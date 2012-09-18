@@ -63,10 +63,6 @@
     [tapGR setNumberOfTapsRequired:1];
     [_maskView addGestureRecognizer:tapGR];
     
-    //config table view
-    _tableView.sectionHeaderHeight = TABLE_SECTION_HEADER_HEIGHT;
-    _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
-    
     //update data
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
