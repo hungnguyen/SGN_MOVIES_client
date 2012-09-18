@@ -57,16 +57,11 @@
     //create pop up view
     [self setPopupView:[[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"]];
     _popupView.delegate = self;
-    _popupView.carousel.type = iCarouselTypeRotary;
     
     //add gesture for mask view
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removePopup)];
     [tapGR setNumberOfTapsRequired:1];
     [_maskView addGestureRecognizer:tapGR];
-    
-    //config table view
-    _tableView.sectionHeaderHeight = TABLE_SECTION_HEADER_HEIGHT;
-    _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
     
     //update data
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];

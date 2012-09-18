@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SGNManagedObject.h"
+#import "NSManagedObject+Json.h"
 
-@implementation NSManagedObject (safeSetValuesKeysWithDictionary)
+@implementation NSManagedObject (Json)
 
 - (void)safeSetValuesForKeysWithDictionary:(NSDictionary *)keyedValues
 {

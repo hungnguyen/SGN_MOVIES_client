@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSManagedObject (safeSetValuesKeysWithDictionary)
+@interface NSManagedObject (Json)
 
 - (void)safeSetValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
 

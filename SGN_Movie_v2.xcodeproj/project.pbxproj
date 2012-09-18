@@ -21,6 +21,10 @@
 		6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC0DA15CF669E003D9326 /* TrailerController.m */; };
 		6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFFC0FE15CF9E71003D9326 /* MapKit.framework */; };
 		6FFFC11C15CFA73C003D9326 /* DisplayMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFC11B15CFA73C003D9326 /* DisplayMap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F32597C61606F81800F6F4AE /* SGNComboView.m in Sources */ = {isa = PBXBuildFile; fileRef = F32597C41606F81800F6F4AE /* SGNComboView.m */; };
+		F32597C71606F81800F6F4AE /* SGNComboView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F32597C51606F81800F6F4AE /* SGNComboView.xib */; };
+		F32597CB1606F96700F6F4AE /* NSManagedObject+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = F32597CA1606F96700F6F4AE /* NSManagedObject+Json.m */; };
+		F32597CF1606FA0700F6F4AE /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = F32597CE1606FA0700F6F4AE /* UIImage+FX.m */; };
 		F36620251606DE06008B6E74 /* SGNCellBackGround.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620121606DE06008B6E74 /* SGNCellBackGround.m */; };
 		F36620261606DE06008B6E74 /* SGNTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620141606DE06008B6E74 /* SGNTableViewCell.m */; };
 		F36620271606DE06008B6E74 /* SGNTableViewCellStyleBasic.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620171606DE06008B6E74 /* SGNTableViewCellStyleBasic.m */; };
@@ -38,8 +42,6 @@
 		F38DA93915D91CD300C40810 /* SGNDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* SGNDataService.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
 		F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */; };
-		F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3951C5015CFD72800BCF4D8 /* SGNComboView.m */; };
-		F3951C5315CFD73F00BCF4D8 /* SGNComboView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */; };
 		F396398015EE2B1B00EEEFFF /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F396397F15EE2B1B00EEEFFF /* iCarousel.m */; };
 		F397E67415C159A100A92874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67315C159A100A92874 /* UIKit.framework */; };
 		F397E67615C159A100A92874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F397E67515C159A100A92874 /* Foundation.framework */; };
@@ -63,7 +65,6 @@
 		F39FDF8015EB8414004A3A59 /* Provider.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF7F15EB8414004A3A59 /* Provider.m */; };
 		F39FDF8315EB8414004A3A59 /* Sessiontime.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8215EB8414004A3A59 /* Sessiontime.m */; };
 		F39FDF8615EB8415004A3A59 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8515EB8415004A3A59 /* Movie.m */; };
-		F39FDF8A15EB8D1C004A3A59 /* SGNManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */; };
 		F3A148B315F99EF10025AADF /* MovieGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148B215F99EF10025AADF /* MovieGallery.m */; };
 		F3A148B615F99EF20025AADF /* CinemaGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148B515F99EF20025AADF /* CinemaGallery.m */; };
 		F3A148CD15F9A3D30025AADF /* CinemaGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A148CB15F9A3D30025AADF /* CinemaGalleryController.m */; };
@@ -73,7 +74,6 @@
 		F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3A7EB6E15CBAC73006876BC /* CinemaDetailView.xib */; };
 		F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */; };
 		F3B1007C15DBA07A00F67674 /* SGNRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B1007B15DBA07A00F67674 /* SGNRepository.m */; };
-		F3B648B315EF3B0400DD354E /* UIImage+FX.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B648B115EF3B0400DD354E /* UIImage+FX.m */; };
 		F3B7529415D240E800D29207 /* SGNCustomPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = F3B7529215D240E800D29207 /* SGNCustomPopup.m */; };
 		F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = F3B7529315D240E800D29207 /* SGNCustomPopup.xib */; };
 		F3BA06DD1606D6CA004470AB /* PSCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3BA06DA1606D6CA004470AB /* PSCollectionView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -148,6 +148,13 @@
 		6FFFC0FE15CF9E71003D9326 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6FFFC11A15CFA73C003D9326 /* DisplayMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayMap.h; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.h; sourceTree = SOURCE_ROOT; };
 		6FFFC11B15CFA73C003D9326 /* DisplayMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DisplayMap.m; path = SGN_Movie_v2/Shared/Libs/DisplayMap/DisplayMap.m; sourceTree = SOURCE_ROOT; };
+		F32597C31606F81800F6F4AE /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNComboView.h; sourceTree = "<group>"; };
+		F32597C41606F81800F6F4AE /* SGNComboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNComboView.m; sourceTree = "<group>"; };
+		F32597C51606F81800F6F4AE /* SGNComboView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNComboView.xib; sourceTree = "<group>"; };
+		F32597C91606F96700F6F4AE /* NSManagedObject+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Json.h"; sourceTree = "<group>"; };
+		F32597CA1606F96700F6F4AE /* NSManagedObject+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Json.m"; sourceTree = "<group>"; };
+		F32597CD1606FA0700F6F4AE /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
+		F32597CE1606FA0700F6F4AE /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
 		F36620111606DE06008B6E74 /* SGNCellBackGround.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCellBackGround.h; sourceTree = "<group>"; };
 		F36620121606DE06008B6E74 /* SGNCellBackGround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCellBackGround.m; sourceTree = "<group>"; };
 		F36620131606DE06008B6E74 /* SGNTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNTableViewCell.h; sourceTree = "<group>"; };
@@ -170,14 +177,11 @@
 		F36620331606DF80008B6E74 /* SGNCoreGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCoreGraphic.h; sourceTree = "<group>"; };
 		F36620341606DF80008B6E74 /* SGNCoreGraphic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCoreGraphic.m; sourceTree = "<group>"; };
 		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		F38DA92B15D91CD300C40810 /* SGNDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SGNDataService.h; sourceTree = "<group>"; };
+		F38DA92B15D91CD300C40810 /* SGNDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNDataService.h; sourceTree = "<group>"; };
 		F38DA92C15D91CD300C40810 /* SGNDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNDataService.m; sourceTree = "<group>"; };
 		F38DA93715D91CD300C40810 /* SGN_Movie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SGN_Movie.xcdatamodel; sourceTree = "<group>"; };
-		F38DA94215D91D2D00C40810 /* SGNRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SGNRepository.h; sourceTree = "<group>"; };
+		F38DA94215D91D2D00C40810 /* SGNRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNRepository.h; sourceTree = "<group>"; };
 		F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShowTimesView.xib; sourceTree = "<group>"; };
-		F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNComboView.h; sourceTree = "<group>"; };
-		F3951C5015CFD72800BCF4D8 /* SGNComboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNComboView.m; sourceTree = "<group>"; };
-		F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNComboView.xib; sourceTree = "<group>"; };
 		F396397E15EE2B1B00EEEFFF /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		F396397F15EE2B1B00EEEFFF /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		F397E66F15C159A100A92874 /* SGN_MOVIE_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGN_MOVIE_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,8 +226,6 @@
 		F39FDF8215EB8414004A3A59 /* Sessiontime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sessiontime.m; sourceTree = "<group>"; };
 		F39FDF8415EB8415004A3A59 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		F39FDF8515EB8415004A3A59 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
-		F39FDF8815EB8D1C004A3A59 /* SGNManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNManagedObject.h; sourceTree = "<group>"; };
-		F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNManagedObject.m; sourceTree = "<group>"; };
 		F3A148B115F99EF10025AADF /* MovieGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieGallery.h; sourceTree = "<group>"; };
 		F3A148B215F99EF10025AADF /* MovieGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieGallery.m; sourceTree = "<group>"; };
 		F3A148B415F99EF20025AADF /* CinemaGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaGallery.h; sourceTree = "<group>"; };
@@ -238,8 +240,6 @@
 		F3A7EB7015CBAC84006876BC /* CinemaDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailController.h; sourceTree = "<group>"; };
 		F3A7EB7115CBAC84006876BC /* CinemaDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailController.m; sourceTree = "<group>"; };
 		F3B1007B15DBA07A00F67674 /* SGNRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNRepository.m; sourceTree = "<group>"; };
-		F3B648B015EF3B0400DD354E /* UIImage+FX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FX.h"; sourceTree = "<group>"; };
-		F3B648B115EF3B0400DD354E /* UIImage+FX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FX.m"; sourceTree = "<group>"; };
 		F3B7529115D240E800D29207 /* SGNCustomPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCustomPopup.h; sourceTree = "<group>"; };
 		F3B7529215D240E800D29207 /* SGNCustomPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCustomPopup.m; sourceTree = "<group>"; };
 		F3B7529315D240E800D29207 /* SGNCustomPopup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNCustomPopup.xib; sourceTree = "<group>"; };
@@ -395,6 +395,34 @@
 			name = DisplayMap;
 			sourceTree = "<group>";
 		};
+		F32597C21606F81800F6F4AE /* SGNComboView */ = {
+			isa = PBXGroup;
+			children = (
+				F32597C31606F81800F6F4AE /* SGNComboView.h */,
+				F32597C41606F81800F6F4AE /* SGNComboView.m */,
+				F32597C51606F81800F6F4AE /* SGNComboView.xib */,
+			);
+			path = SGNComboView;
+			sourceTree = "<group>";
+		};
+		F32597C81606F96700F6F4AE /* NSManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				F32597C91606F96700F6F4AE /* NSManagedObject+Json.h */,
+				F32597CA1606F96700F6F4AE /* NSManagedObject+Json.m */,
+			);
+			path = NSManagedObject;
+			sourceTree = "<group>";
+		};
+		F32597CC1606FA0700F6F4AE /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				F32597CD1606FA0700F6F4AE /* UIImage+FX.h */,
+				F32597CE1606FA0700F6F4AE /* UIImage+FX.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
 		F35E733315CA40910030D161 /* Detail Cinema */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,9 +534,6 @@
 			isa = PBXGroup;
 			children = (
 				F3951C1715CFC52C00BCF4D8 /* ShowTimesView.xib */,
-				F3951C4F15CFD72800BCF4D8 /* SGNComboView.h */,
-				F3951C5015CFD72800BCF4D8 /* SGNComboView.m */,
-				F3951C5215CFD73F00BCF4D8 /* SGNComboView.xib */,
 			);
 			path = "Show Times";
 			sourceTree = "<group>";
@@ -516,6 +541,7 @@
 		F396397D15EE2B1B00EEEFFF /* iCarousel */ = {
 			isa = PBXGroup;
 			children = (
+				F39FAE5115ECC3D400FB7979 /* Right Menu */,
 				F396397E15EE2B1B00EEEFFF /* iCarousel.h */,
 				F396397F15EE2B1B00EEEFFF /* iCarousel.m */,
 			);
@@ -657,9 +683,7 @@
 				F3BA072E1606D92F004470AB /* iOSRapper */,
 				F3BA070A1606D901004470AB /* HJCache */,
 				F3BA06D81606D6CA004470AB /* PSCollectionView */,
-				F3B648AD15EF3B0400DD354E /* FXImageView */,
 				F396397D15EE2B1B00EEEFFF /* iCarousel */,
-				F39FDF8715EB8D1C004A3A59 /* SGNManageObjectJSON */,
 				6FFFC11915CFA6A5003D9326 /* DisplayMap */,
 				6FFFC0D015CF614B003D9326 /* LBYouTubePlayerController */,
 				6FC7847915C27AA300A18A34 /* ViewDeck */,
@@ -703,7 +727,8 @@
 				F39FAE5215ECC3D400FB7979 /* RightMenuController.h */,
 				F39FAE5315ECC3D400FB7979 /* RightMenuController.m */,
 			);
-			path = "Right Menu";
+			name = "Right Menu";
+			path = "../../../iPhone/Controllers/Right Menu";
 			sourceTree = "<group>";
 		};
 		F39FAE5615ECC3E800FB7979 /* Right Menu */ = {
@@ -712,15 +737,6 @@
 				F39FAE5715ECC3E800FB7979 /* RightMenuView.xib */,
 			);
 			path = "Right Menu";
-			sourceTree = "<group>";
-		};
-		F39FDF8715EB8D1C004A3A59 /* SGNManageObjectJSON */ = {
-			isa = PBXGroup;
-			children = (
-				F39FDF8815EB8D1C004A3A59 /* SGNManagedObject.h */,
-				F39FDF8915EB8D1C004A3A59 /* SGNManagedObject.m */,
-			);
-			path = SGNManageObjectJSON;
 			sourceTree = "<group>";
 		};
 		F3A148C715F9A3AC0025AADF /* Gallery Cinema */ = {
@@ -757,18 +773,10 @@
 			path = "Gallery Movie";
 			sourceTree = "<group>";
 		};
-		F3B648AD15EF3B0400DD354E /* FXImageView */ = {
-			isa = PBXGroup;
-			children = (
-				F3B648B015EF3B0400DD354E /* UIImage+FX.h */,
-				F3B648B115EF3B0400DD354E /* UIImage+FX.m */,
-			);
-			path = FXImageView;
-			sourceTree = "<group>";
-		};
 		F3B7528F15D240E800D29207 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F32597C21606F81800F6F4AE /* SGNComboView */,
 				F36620101606DE06008B6E74 /* SGNTableViewCellStyle */,
 				F3BA06E01606D714004470AB /* SGNCollectionViewCell */,
 				F3B7529015D240E800D29207 /* SGNCustomPopup */,
@@ -849,6 +857,8 @@
 		F3BA072F1606D92F004470AB /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				F32597CC1606FA0700F6F4AE /* UIImage */,
+				F32597C81606F96700F6F4AE /* NSManagedObject */,
 				F3BA07301606D92F004470AB /* NSString */,
 			);
 			path = Category;
@@ -885,7 +895,6 @@
 				F3C24E4115C8027B0077C801 /* List Movies */,
 				6FFFC11415CFA550003D9326 /* Map */,
 				F3C24E4415C8027B0077C801 /* Menu */,
-				F39FAE5115ECC3D400FB7979 /* Right Menu */,
 				F3951C1115CFC4D200BCF4D8 /* Show Times */,
 				6FFFC0DE15CF66C1003D9326 /* Trailer */,
 			);
@@ -1070,7 +1079,6 @@
 				F3C24E5F15C802ED0077C801 /* CinemasView.xib in Resources */,
 				F3A7EB6F15CBAC73006876BC /* CinemaDetailView.xib in Resources */,
 				F3951C1815CFC52C00BCF4D8 /* ShowTimesView.xib in Resources */,
-				F3951C5315CFD73F00BCF4D8 /* SGNComboView.xib in Resources */,
 				F3B7529515D240E800D29207 /* SGNCustomPopup.xib in Resources */,
 				6FA3253615DCE8F600C1CD32 /* Data.plist in Resources */,
 				6FFEEE9C15E3953800322710 /* Icon.png in Resources */,
@@ -1105,6 +1113,7 @@
 				F366202C1606DE07008B6E74 /* SGNTableViewCellStyleImage.xib in Resources */,
 				F366202E1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.xib in Resources */,
 				F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */,
+				F32597C71606F81800F6F4AE /* SGNComboView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,7 +1145,6 @@
 				F3C24E5615C8027B0077C801 /* MoviesController.m in Sources */,
 				F3C24E5715C8027B0077C801 /* MenuController.m in Sources */,
 				F3A7EB7215CBAC84006876BC /* CinemaDetailController.m in Sources */,
-				F3951C5115CFD72800BCF4D8 /* SGNComboView.m in Sources */,
 				6FFFC0D515CF614B003D9326 /* LBYouTubePlayerController.m in Sources */,
 				6FFFC0D615CF614B003D9326 /* LBYouTubePlayerViewController.m in Sources */,
 				6FFFC0DC15CF669E003D9326 /* TrailerController.m in Sources */,
@@ -1151,10 +1159,8 @@
 				F39FDF8015EB8414004A3A59 /* Provider.m in Sources */,
 				F39FDF8315EB8414004A3A59 /* Sessiontime.m in Sources */,
 				F39FDF8615EB8415004A3A59 /* Movie.m in Sources */,
-				F39FDF8A15EB8D1C004A3A59 /* SGNManagedObject.m in Sources */,
 				F39FAE5415ECC3D400FB7979 /* RightMenuController.m in Sources */,
 				F396398015EE2B1B00EEEFFF /* iCarousel.m in Sources */,
-				F3B648B315EF3B0400DD354E /* UIImage+FX.m in Sources */,
 				F3A148B315F99EF10025AADF /* MovieGallery.m in Sources */,
 				F3A148B615F99EF20025AADF /* CinemaGallery.m in Sources */,
 				F3A148CD15F9A3D30025AADF /* CinemaGalleryController.m in Sources */,
@@ -1183,6 +1189,9 @@
 				F366202D1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.m in Sources */,
 				F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */,
 				F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */,
+				F32597C61606F81800F6F4AE /* SGNComboView.m in Sources */,
+				F32597CB1606F96700F6F4AE /* NSManagedObject+Json.m in Sources */,
+				F32597CF1606FA0700F6F4AE /* UIImage+FX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,8 +1215,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1234,8 +1243,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1254,7 +1263,7 @@
 		F397E68E15C159A100A92874 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";
@@ -1271,7 +1280,7 @@
 		F397E68F15C159A100A92874 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Huy Nguyen (ND3XK3X6E2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hung Anh (M6UZA42TXN)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";

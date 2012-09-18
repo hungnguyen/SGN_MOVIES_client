@@ -58,7 +58,6 @@
     //create popup view
     self.popupView = [[SGNCustomPopup alloc] initWithNibName:@"SGNCustomPopup"];
     _popupView.delegate = self;
-    _popupView.carousel.type = iCarouselTypeRotary;
     
     //add gesture for mask view
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removePopup)];
@@ -259,7 +258,6 @@
             cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
             cell.contentLabel.textAlignment = UITextAlignmentCenter;
             cell.contentLabel.textColor = cell.contentColor;
-            NSLog(@"%@", cell.contentColor);
             cell.contentLabel.text = [_movieObject.title uppercaseString];
             return cell;
             break;
@@ -381,7 +379,7 @@
 
 - (void)SGNCustomPopupTap:(SGNCustomPopup*)customPopup withObject:(id)object
 {
-    [_maskView removeFromSuperview];
+    //[_maskView removeFromSuperview];
     ShowtimesController *showtimesController = [[ShowtimesController alloc] initWithNibName:@"ShowTimesView" 
                                                                                      bundle:nil];
     Cinema *cinema = (Cinema*)object;

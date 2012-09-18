@@ -92,6 +92,7 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "NSString+Ext.h"
+#import "NSManagedObject+Json.h"
 #import "UIImage+FX.h"
 #import "Functions.h"
 #endif

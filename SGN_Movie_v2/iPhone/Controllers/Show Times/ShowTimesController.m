@@ -58,8 +58,8 @@
     self.cinemaWebId = nil;
     self.movieWebId = nil;
     
+    _tableView.sectionHeaderHeight = 0;
     _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
-    _tableView.sectionHeaderHeight = TABLE_SECTION_HEADER_HEIGHT;
     
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
 }
@@ -152,7 +152,7 @@
     else
     {
         //normal cell
-        return TABLE_CELLDEFAULT_HEIGHT;
+        return TABLE_CELLSUBTITLE_HEIGHT;
     }
 }
 

@@ -1,3 +1,4 @@
+
 //
 //  PSBroView.m
 //  BroBoard
@@ -11,21 +12,15 @@
  */
 
 #import "SGNCollectionViewCell.h"
-#import "SGNManagedImage.h"
-#import "Movie.h"
-#import "AppDelegate.h"
-
-
 
 @interface SGNCollectionViewCell ()
-@property (nonatomic, retain) SGNManagedImage *imageView;
-@property (nonatomic, retain) UIImageView *versionView;
 @end
 
 @implementation SGNCollectionViewCell
 
 @synthesize imageView = _imageView;
 @synthesize versionView = _versionView;
+@synthesize contentLabel = _contentLabel;
 
 - (id)initWithFrame:(CGRect)frame 
 {
@@ -33,52 +28,72 @@
     if (self) 
     {
         self.backgroundColor = [UIColor whiteColor];
-        
-        //add image view
-        self.imageView = [[SGNManagedImage alloc] initWithFrame:CGRectZero];
-        _imageView.imageContentMode = UIViewContentModeScaleToFill;
-        [self addSubview:_imageView];
-        
-        //add version view
-        self.versionView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _versionView.contentMode = UIViewContentModeScaleToFill;
-        [self addSubview:_versionView];
     }
     return self;
 }
 
+- (SGNManagedImage*)imageView
+{
+    if(!_imageView)
+    {
+        //add image view
+        _imageView = [[SGNManagedImage alloc] initWithFrame:CGRectZero];
+        _imageView.imageContentMode = UIViewContentModeScaleToFill;
+        [self addSubview:_imageView];
+    }
+    return _imageView;
+}
+
+- (UIImageView*)versionView
+{
+    if(!_versionView)
+    {
+        //add version view
+        _versionView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _versionView.contentMode = UIViewContentModeScaleToFill;
+        [self addSubview:_versionView];
+    }
+    return _versionView;
+}
+
+- (UILabel*)contentLabel
+{
+    if(!_contentLabel)
+    {
+        //add content label
+        _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _contentLabel.textColor = [UIColor blackColor];
+        _contentLabel.numberOfLines = 0;
+        _contentLabel.font = [UIFont fontWithName:TABLE_CELL_FONTNAME size:12];
+        _contentLabel.textAlignment = UITextAlignmentCenter;
+        [self addSubview:_contentLabel];
+    }
+    return _contentLabel;
+}
+
 - (void)layoutSubviews 
 {
-    _imageView.frame = CGRectInset(self.bounds, POSTER_MARGIN, POSTER_MARGIN);
-    
-    _versionView.frame = CGRectMake(self.bounds.size.width - 32, 2, 30, 30);
-//    _versionView.frame = CGRectMake(5, self.bounds.size.height - 20 - POSTER_MARGIN,
-//                                    self.bounds.size.width - 2 * POSTER_MARGIN, 20);
+    if(_imageView)
+    {
+        _imageView.frame = CGRectInset(self.bounds, POSTER_MARGIN, POSTER_MARGIN);
+    }
+    if(_versionView)
+    {
+        _versionView.frame = CGRectMake(self.bounds.size.width - 32, 2, 30, 30);
+        //    _versionView.frame = CGRectMake(5, self.bounds.size.height - 20 - POSTER_MARGIN,
+        //                                    self.bounds.size.width - 2 * POSTER_MARGIN, 20);        
+    }
+    if(_contentLabel)
+    {
+        _contentLabel.frame = CGRectMake(0, self.bounds.size.height - 30, self.bounds.size.width, 30);
+    }
+
 }
 
 - (void)prepareForReuse 
 {
     [super prepareForReuse];
     [_imageView clear];
-}
-
-- (void)fillViewWithObject:(id)object 
-{
-    [self prepareForReuse];
-    Movie *movie = (Movie*)object;
-    
-    //add image
-    NSString *hostUrl = [AppDelegate currentDelegate].rightMenuController.provider.hostUrl;
-    NSString *image_url = [hostUrl stringByAppendingString:movie.imageUrl];
-    [_imageView setImageFromURL:image_url];
-
-    //add version
-    if([movie.version contains:@"3d"])
-        _versionView.image = [UIImage imageNamed:@"3d.png"];
-//    else if([movie.version contains:@"2d"])
-//        _versionView.image = [UIImage imageNamed:@"2d.png"];
-    else 
-        _versionView.image = [UIImage imageNamed:@""];
 }
 
 @end
