@@ -13,6 +13,7 @@
 #import "SGNDataService.h"
 #import "Cinema.h"
 
+#import "SGNBannerView.h"
 #import "SGNTableViewCellStyleDefault.h"
 
 @interface CinemasController ()
@@ -64,6 +65,11 @@
     
     //update Data
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 //auto update data when re-show view

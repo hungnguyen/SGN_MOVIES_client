@@ -13,6 +13,7 @@
 #import "Cinema.h"
 #import "Movie.h"
 
+#import "SGNBannerView.h"
 #import "SGNTableViewCellStyleSubtitle.h"
 
 @interface ShowtimesController () 
@@ -62,6 +63,11 @@
     _tableView.sectionFooterHeight = TABLE_SECTION_FOOTER_HEIGHT;
     
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 - (void) viewWillAppear:(BOOL)animated
