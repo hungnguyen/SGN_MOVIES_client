@@ -82,15 +82,13 @@
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view
 { 
-    CGRect frame = _carousel.frame;
-    
     NSString *hostUrl = [[[[AppDelegate currentDelegate] rightMenuController] provider] hostUrl];
     NSString * urlString = [hostUrl stringByAppendingString:[[_data objectAtIndex:index] 
                                                              valueForKey:@"imageUrl"]];
     SGNManagedImage *posterImage = (SGNManagedImage*)view;
     if(posterImage == nil)
     {
-        posterImage = [[SGNManagedImage alloc]initWithFrame:frame];
+        posterImage = [[SGNManagedImage alloc]initWithFrame:_carousel.frame];
         [posterImage setImageContentMode:UIViewContentModeScaleAspectFit];
         
         //apply configs below

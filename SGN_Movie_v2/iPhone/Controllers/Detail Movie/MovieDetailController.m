@@ -208,7 +208,7 @@
         //description cell
         CGSize size = CGSizeMake(_tableView.bounds.size.width, 9999);
         //increase font to 2point to get bigger label size
-        UIFont *font = [UIFont fontWithName:TABLE_CELL_FONTNAME size:TABLE_CELL_FONTSIZE + 2];
+        UIFont *font = [UIFont fontWithName:FONTNAME size:FONTSIZE + 2];
         
         CGSize expectedLabelSize = [_movieObject.movieDescription sizeWithFont:font
                                                              constrainedToSize:size
@@ -263,7 +263,7 @@
             UIFont *font = cell.contentLabel.font;
             cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
             cell.contentLabel.textAlignment = UITextAlignmentCenter;
-            cell.contentLabel.textColor = cell.contentColor;
+            cell.contentLabel.textColor = COLOR_CONTENT;
             cell.contentLabel.text = [_movieObject.title uppercaseString];
             return cell;
             break;
@@ -340,7 +340,7 @@
             UIFont *font = cell.contentLabel.font;
             cell.contentLabel.font = [UIFont fontWithName:font.fontName size:13];
             cell.contentLabel.textAlignment = UITextAlignmentLeft;
-            cell.contentLabel.textColor = cell.titleColor;
+            cell.contentLabel.textColor = COLOR_TITLE;
             cell.contentLabel.text = _movieObject.movieDescription;
             return cell;
             break;
