@@ -12,6 +12,8 @@
 #import "SGNDataService.h"
 #import "SGNManagedImage.h"
 
+#import "SGNBannerView.h"
+
 @interface CinemaGalleryController ()
 @property (nonatomic, strong) NSArray *data;
 @end
@@ -39,6 +41,11 @@
     
     _carousel.type = iCarouselTypeRotary;
     [self reloadData];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 - (void)viewDidUnload

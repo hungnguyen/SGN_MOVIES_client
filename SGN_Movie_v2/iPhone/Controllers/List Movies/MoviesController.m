@@ -13,6 +13,7 @@
 #import "SGNDataService.h"
 #import "Movie.h"
 
+#import "SGNBannerView.h"
 #import "SGNCollectionViewCell.h"
 
 @interface MoviesController ()
@@ -83,6 +84,11 @@
     
     //Update Data
     [[SGNRepository sharedInstance] updateEntityWithUrlString:UPDATE_ALL_URL];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -155,7 +161,7 @@
         movie = (Movie*)[_comingSoonMovies objectAtIndex:index];
     else
         return nil;
-    
+
     SGNCollectionViewCell *cell = (SGNCollectionViewCell*)[collectionView dequeueReusableView];
     if(cell == nil)
     {
@@ -256,7 +262,6 @@
 
 - (IBAction)pageChange:(id)sender
 {
-    NSLog(@"%i", _pageControl.currentPage);
     CGRect frame = _scrollViewMain.frame;
     frame.origin.x = frame.size.width * _pageControl.currentPage;
     frame.origin.y = 0;

@@ -135,7 +135,6 @@
 
 - (IBAction)pageChange:(id)sender
 {
-    NSLog(@"page: %i", _pageControl.currentPage);
     [_carousel scrollToItemAtIndex:_pageControl.currentPage animated:YES];
 }
 

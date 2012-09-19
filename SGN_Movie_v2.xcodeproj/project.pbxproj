@@ -38,6 +38,14 @@
 		F366202F1606DE07008B6E74 /* SGNTableViewCellStyleValue2.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620231606DE06008B6E74 /* SGNTableViewCellStyleValue2.m */; };
 		F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */ = {isa = PBXBuildFile; fileRef = F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */; };
 		F36620351606DF80008B6E74 /* SGNCoreGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = F36620341606DF80008B6E74 /* SGNCoreGraphic.m */; };
+		F37BEF8716098D9D004DA35A /* SGNBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F37BEF8516098D9D004DA35A /* SGNBannerView.m */; };
+		F37BEF8816098D9D004DA35A /* SGNBannerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F37BEF8616098D9D004DA35A /* SGNBannerView.xib */; };
+		F37BEF8B16098DD1004DA35A /* default_banner~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F37BEF8A16098DD1004DA35A /* default_banner~iphone.png */; };
+		F37BEF8D16098DEE004DA35A /* btn_close~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = F37BEF8C16098DEE004DA35A /* btn_close~iphone.png */; };
+		F37BEF9916098F14004DA35A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F37BEF9816098F14004DA35A /* libGoogleAdMobAds.a */; };
+		F37BEF9B16098F37004DA35A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37BEF9A16098F37004DA35A /* AudioToolbox.framework */; };
+		F37BEF9D16098F3F004DA35A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37BEF9C16098F3F004DA35A /* MessageUI.framework */; };
+		F37BEF9F16098F49004DA35A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F37BEF9E16098F49004DA35A /* SystemConfiguration.framework */; };
 		F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F38DA8F315D8F05300C40810 /* CoreData.framework */; };
 		F38DA93915D91CD300C40810 /* SGNDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = F38DA92C15D91CD300C40810 /* SGNDataService.m */; };
 		F38DA93E15D91CD300C40810 /* SGN_Movie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F38DA93615D91CD300C40810 /* SGN_Movie.xcdatamodeld */; };
@@ -176,6 +184,24 @@
 		F36620241606DE06008B6E74 /* SGNTableViewCellStyleValue2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNTableViewCellStyleValue2.xib; sourceTree = "<group>"; };
 		F36620331606DF80008B6E74 /* SGNCoreGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNCoreGraphic.h; sourceTree = "<group>"; };
 		F36620341606DF80008B6E74 /* SGNCoreGraphic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNCoreGraphic.m; sourceTree = "<group>"; };
+		F37BEF8416098D9D004DA35A /* SGNBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNBannerView.h; sourceTree = "<group>"; };
+		F37BEF8516098D9D004DA35A /* SGNBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNBannerView.m; sourceTree = "<group>"; };
+		F37BEF8616098D9D004DA35A /* SGNBannerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SGNBannerView.xib; sourceTree = "<group>"; };
+		F37BEF8A16098DD1004DA35A /* default_banner~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_banner~iphone.png"; sourceTree = "<group>"; };
+		F37BEF8C16098DEE004DA35A /* btn_close~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close~iphone.png"; sourceTree = "<group>"; };
+		F37BEF8F16098F14004DA35A /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
+		F37BEF9016098F14004DA35A /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
+		F37BEF9116098F14004DA35A /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
+		F37BEF9216098F14004DA35A /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
+		F37BEF9316098F14004DA35A /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
+		F37BEF9416098F14004DA35A /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
+		F37BEF9516098F14004DA35A /* GADInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitialDelegate.h; sourceTree = "<group>"; };
+		F37BEF9616098F14004DA35A /* GADRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequest.h; sourceTree = "<group>"; };
+		F37BEF9716098F14004DA35A /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
+		F37BEF9816098F14004DA35A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
+		F37BEF9A16098F37004DA35A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F37BEF9C16098F3F004DA35A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		F37BEF9E16098F49004DA35A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F38DA8F315D8F05300C40810 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F38DA92B15D91CD300C40810 /* SGNDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGNDataService.h; sourceTree = "<group>"; };
 		F38DA92C15D91CD300C40810 /* SGNDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGNDataService.m; sourceTree = "<group>"; };
@@ -325,6 +351,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */,
+				F37BEF9F16098F49004DA35A /* SystemConfiguration.framework in Frameworks */,
+				F37BEF9D16098F3F004DA35A /* MessageUI.framework in Frameworks */,
+				F37BEF9B16098F37004DA35A /* AudioToolbox.framework in Frameworks */,
 				F38DA8F415D8F05400C40810 /* CoreData.framework in Frameworks */,
 				6FFFC0FF15CF9E71003D9326 /* MapKit.framework in Frameworks */,
 				6FE28E8115C7BD0D00BB7A4E /* AVFoundation.framework in Frameworks */,
@@ -332,7 +362,7 @@
 				6FE28E6515C78A6F00BB7A4E /* QuartzCore.framework in Frameworks */,
 				F397E67415C159A100A92874 /* UIKit.framework in Frameworks */,
 				F397E67615C159A100A92874 /* Foundation.framework in Frameworks */,
-				F397E67815C159A100A92874 /* CoreGraphics.framework in Frameworks */,
+				F37BEF9916098F14004DA35A /* libGoogleAdMobAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +514,33 @@
 			path = CoreGraphic;
 			sourceTree = "<group>";
 		};
+		F37BEF8316098D9D004DA35A /* SGNBanner */ = {
+			isa = PBXGroup;
+			children = (
+				F37BEF8416098D9D004DA35A /* SGNBannerView.h */,
+				F37BEF8516098D9D004DA35A /* SGNBannerView.m */,
+				F37BEF8616098D9D004DA35A /* SGNBannerView.xib */,
+			);
+			path = SGNBanner;
+			sourceTree = "<group>";
+		};
+		F37BEF8E16098F14004DA35A /* Google AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				F37BEF8F16098F14004DA35A /* GADAdMobExtras.h */,
+				F37BEF9016098F14004DA35A /* GADAdNetworkExtras.h */,
+				F37BEF9116098F14004DA35A /* GADAdSize.h */,
+				F37BEF9216098F14004DA35A /* GADBannerView.h */,
+				F37BEF9316098F14004DA35A /* GADBannerViewDelegate.h */,
+				F37BEF9416098F14004DA35A /* GADInterstitial.h */,
+				F37BEF9516098F14004DA35A /* GADInterstitialDelegate.h */,
+				F37BEF9616098F14004DA35A /* GADRequest.h */,
+				F37BEF9716098F14004DA35A /* GADRequestError.h */,
+				F37BEF9816098F14004DA35A /* libGoogleAdMobAds.a */,
+			);
+			path = "Google AdMob";
+			sourceTree = "<group>";
+		};
 		F38DA92A15D91CD300C40810 /* DataSerivce */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,7 +609,6 @@
 		F397E66415C159A000A92874 = {
 			isa = PBXGroup;
 			children = (
-				F38DA8F315D8F05300C40810 /* CoreData.framework */,
 				F397E67915C159A100A92874 /* SGN_MOVIE_v2 */,
 				F397E67215C159A100A92874 /* Frameworks */,
 				F397E67015C159A100A92874 /* Products */,
@@ -570,6 +626,10 @@
 		F397E67215C159A100A92874 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F37BEF9E16098F49004DA35A /* SystemConfiguration.framework */,
+				F37BEF9C16098F3F004DA35A /* MessageUI.framework */,
+				F37BEF9A16098F37004DA35A /* AudioToolbox.framework */,
+				F38DA8F315D8F05300C40810 /* CoreData.framework */,
 				6FFFC0FE15CF9E71003D9326 /* MapKit.framework */,
 				6FE28E8015C7BD0D00BB7A4E /* AVFoundation.framework */,
 				6FE28E6715C7B38100BB7A4E /* MediaPlayer.framework */,
@@ -640,7 +700,9 @@
 				F3BA06E91606D7B4004470AB /* Background7.jpg */,
 				F3BA06EA1606D7B4004470AB /* Background8.jpg */,
 				F3BA06EB1606D7B4004470AB /* btn_nav_press~iphone.png */,
+				F37BEF8A16098DD1004DA35A /* default_banner~iphone.png */,
 				F3BA06EC1606D7B4004470AB /* btn_nav~iphone.png */,
+				F37BEF8C16098DEE004DA35A /* btn_close~iphone.png */,
 				F3BA06ED1606D7B4004470AB /* CheckIcon.png */,
 				F3BA06EE1606D7B4004470AB /* Default.png */,
 				F3BA06EF1606D7B4004470AB /* gallery~iphone.png */,
@@ -681,6 +743,7 @@
 		F397E6B415C15C5700A92874 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				F37BEF8E16098F14004DA35A /* Google AdMob */,
 				F36620321606DF80008B6E74 /* CoreGraphic */,
 				F3BA072E1606D92F004470AB /* iOSRapper */,
 				F3BA070A1606D901004470AB /* HJCache */,
@@ -778,6 +841,7 @@
 		F3B7528F15D240E800D29207 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F37BEF8316098D9D004DA35A /* SGNBanner */,
 				F32597C21606F81800F6F4AE /* SGNComboView */,
 				F36620101606DE06008B6E74 /* SGNTableViewCellStyle */,
 				F3BA06E01606D714004470AB /* SGNCollectionViewCell */,
@@ -1116,6 +1180,9 @@
 				F366202E1606DE07008B6E74 /* SGNTableViewCellStyleSubtitle.xib in Resources */,
 				F36620301606DE07008B6E74 /* SGNTableViewCellStyleValue2.xib in Resources */,
 				F32597C71606F81800F6F4AE /* SGNComboView.xib in Resources */,
+				F37BEF8816098D9D004DA35A /* SGNBannerView.xib in Resources */,
+				F37BEF8B16098DD1004DA35A /* default_banner~iphone.png in Resources */,
+				F37BEF8D16098DEE004DA35A /* btn_close~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1261,7 @@
 				F32597C61606F81800F6F4AE /* SGNComboView.m in Sources */,
 				F32597CB1606F96700F6F4AE /* NSManagedObject+Json.m in Sources */,
 				F32597CF1606FA0700F6F4AE /* UIImage+FX.m in Sources */,
+				F37BEF8716098D9D004DA35A /* SGNBannerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1271,8 +1339,13 @@
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SGN_MOVIE_v2/Shared/Libs/Google AdMob\"",
+				);
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "A40368E4-846A-4B88-8AF7-E11D2D185769";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1289,8 +1362,13 @@
 				GCC_PREFIX_HEADER = "SGN_MOVIE_v2/SGN_MOVIE_v2-Prefix.pch";
 				INFOPLIST_FILE = "SGN_MOVIE_v2/SGN_MOVIE_v2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SGN_MOVIE_v2/Shared/Libs/Google AdMob\"",
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_CPLUSPLUSFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "A40368E4-846A-4B88-8AF7-E11D2D185769";
 				TARGETED_DEVICE_FAMILY = 1;

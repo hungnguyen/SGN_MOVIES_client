@@ -10,6 +10,8 @@
 #import "DisplayMap.h"
 #import "Cinema.h"
 
+#import "SGNBannerView.h"
+
 @interface MapKitDisplayController ()
 @property (strong,nonatomic) MKMapView * mapView;
 @end
@@ -63,6 +65,11 @@
     [_mapView addAnnotation:ann];
     
     [self.view addSubview:_mapView];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
     
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:

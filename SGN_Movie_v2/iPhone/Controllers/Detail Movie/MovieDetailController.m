@@ -16,6 +16,7 @@
 #import "MovieGallery.h"
 #import "Sessiontime.h"
 
+#import "SGNBannerView.h"
 #import "SGNTableViewCellStyleBasic.h"
 #import "SGNTableViewCellStyleDefault.h"
 #import "SGNTableViewCellStyleValue2.h"
@@ -66,6 +67,11 @@
     
     //update data
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 - (void) viewWillAppear:(BOOL)animated
