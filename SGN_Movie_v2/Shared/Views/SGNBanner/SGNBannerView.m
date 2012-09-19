@@ -37,6 +37,7 @@
     
     if(self)
     {
+        _gAdBannerView.hidden = true;
         _gAdBannerView.adUnitID = @"a15057e082959c2";
         _gAdBannerView.delegate = self;
         _gAdBannerView.rootViewController = [AppDelegate currentDelegate].navigationController;
@@ -89,10 +90,13 @@
 
 - (void) adViewDidReceiveAd:(GADBannerView *)banner
 {
-    [UIView beginAnimations:@"addOn" context:NULL];
-    _gAdBannerView.frame = CGRectOffset(_gAdBannerView.frame, -_gAdBannerView.frame.size.width, 0);
-    [UIView commitAnimations];
-
+    if(_gAdBannerView.hidden)
+    {
+        [UIView beginAnimations:@"addOn" context:NULL];
+        _gAdBannerView.frame = CGRectOffset(_gAdBannerView.frame, -_gAdBannerView.frame.size.width, 0);
+        [UIView commitAnimations];
+        _gAdBannerView.hidden = false;
+    }
 }
 
 - (void) adView:(GADBannerView *)banner didFailToReceiveAdWithError:(GADRequestError *)error
