@@ -31,7 +31,7 @@
     [self setTitle:@"ABOUT"];
     [[self view] setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"about.png"]]];
     
-    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:MENU_BUTTON_RECT];
     menuButton.tag = 1;
     [menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     [menuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];

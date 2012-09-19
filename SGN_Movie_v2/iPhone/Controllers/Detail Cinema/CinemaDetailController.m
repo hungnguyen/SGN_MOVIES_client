@@ -231,7 +231,7 @@
                 cell.contentLabel.font = [UIFont fontWithName:font.fontName size:17];
             }
             cell.contentLabel.textAlignment = UITextAlignmentCenter;
-            cell.contentLabel.textColor = cell.contentColor;
+            cell.contentLabel.textColor = COLOR_CONTENT;
             cell.contentLabel.text = [_cinemaObject.name uppercaseString];
             return cell;
             break;        

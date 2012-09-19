@@ -12,7 +12,4 @@
 
 - (id)initWithNibName:(NSString*)nibNameOrNil;
 
-@property (strong, nonatomic) UIColor *contentColor;
-@property (strong, nonatomic) UIColor *titleColor;
-
 @end

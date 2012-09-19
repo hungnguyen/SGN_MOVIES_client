@@ -37,7 +37,7 @@
     
     if(self)
     {
-        _gAdBannerView.adUnitID = @"/6253334/dfp_example_ad";
+        _gAdBannerView.adUnitID = @"a15057e082959c2";
         _gAdBannerView.delegate = self;
         _gAdBannerView.rootViewController = [AppDelegate currentDelegate].navigationController;
         
@@ -47,7 +47,7 @@
         [_closeImageView addGestureRecognizer:tapGR];
 
         CGRect frame =  self.frame;
-        frame.origin.y = 416;
+        frame.origin.y = HEIGHT_OF_VIEW;
         self.frame = frame;
     }
     return self;

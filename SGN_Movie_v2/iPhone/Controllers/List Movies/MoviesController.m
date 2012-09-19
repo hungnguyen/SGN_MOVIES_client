@@ -44,12 +44,12 @@
     self.title = @"NOW SHOWING";
     self.isFirstLoad = true;
     
-    UIButton* menuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    UIButton* menuButton = [[UIButton alloc]initWithFrame:MENU_BUTTON_RECT];
     menuButton.tag = 1;
     [menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     [menuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];
     
-    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 45, 30)];
+    UIButton* rightMenuButton = [[UIButton alloc]initWithFrame:MENU_BUTTON_RECT];
     rightMenuButton.tag = 2;
     [rightMenuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
     [rightMenuButton setImage:[UIImage imageNamed:@"btn_nav.png"] forState:UIControlStateNormal];

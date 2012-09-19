@@ -18,6 +18,8 @@
 
 #define UPDATE_ALL_URL @"http://sgnm-test.apphb.com/update/all?lasttime=%@&format=%@"
 
+#define HEIGHT_OF_VIEW 416
+
 #define TABLE_SECTION_HEADER_HEIGHT 5
 #define TABLE_SECTION_FOOTER_HEIGHT 5
 #define TABLE_CELLDEFAULT_HEIGHT 70
@@ -25,15 +27,14 @@
 #define TABLE_CELLCOMPLEX_HEIGHT 119
 #define TABLE_CELLSUBTITLE_HEIGHT 86
 
-#define TABLE_CELL_FONTSIZE 13
-#define TABLE_CELL_FONTNAME @"Arial-BoldMT"
-#define TABLE_CELL_TITLECOLOR_RED 0.33
-#define TABLE_CELL_TITLECOLOR_GREEN 0.33
-#define TABLE_CELL_TITLECOLOR_BLUE 0.33
-#define TABLE_CELL_CONTENTCOLOR_RED 0.24
-#define TABLE_CELL_CONTENTCOLOR_GREEN 0.32
-#define TABLE_CELL_CONTENTCOLOR_BLUE 0.53
+#define FONTSIZE 13
+#define FONTNAME @"Arial-BoldMT"
+#define COLOR_TITLE [UIColor colorWithRed:0.33 green:0.33 blue:0.33 alpha:1]
+#define COLOR_CONTENT [UIColor colorWithRed:0.24 green:0.33 blue:0.53 alpha:1]
 
 #define POSTER_HEIGHT 200
 #define POSTER_WIDTH 150
-#define POSTER_MARGIN 5.0
+#define POSTER_MARGIN 5
+
+#define MENU_BUTTON_RECT CGRectMake(0, 0, 45, 30)
+#define POSTER_RECT CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)
