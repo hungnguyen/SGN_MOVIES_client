@@ -92,7 +92,7 @@
     SGNCollectionViewCell *cell = (SGNCollectionViewCell*)view;
     if(cell == nil)
     {
-        cell = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
+        cell = [[SGNCollectionViewCell alloc] initWithFrame:POSTER_RECT];
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageView:)];
         [tapGR setNumberOfTapsRequired:1];
         [cell addGestureRecognizer:tapGR];
