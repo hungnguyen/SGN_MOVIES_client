@@ -22,6 +22,8 @@
 #import "SGNTableViewCellStyleValue2.h"
 #import "SGNTableViewCellStyleBasic.h"
 
+#import "SGNBannerView.h"
+
 @interface CinemaDetailController ()
 @property (strong, nonatomic) Cinema *cinemaObject;
 @property (assign, nonatomic) bool isFirstLoad;
@@ -65,6 +67,11 @@
     
     //update data
     [[SGNRepository sharedInstance]updateEntityWithUrlString:UPDATE_ALL_URL];
+    
+    //Google AdMob
+    SGNBannerView *bannerView = [[SGNBannerView alloc] initWithNibName:@"SGNBannerView"];
+    [self.view addSubview:bannerView];
+    [bannerView start];
 }
 
 - (void) viewWillAppear:(BOOL)animated
