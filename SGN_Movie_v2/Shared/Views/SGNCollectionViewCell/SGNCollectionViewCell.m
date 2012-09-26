@@ -28,38 +28,16 @@
     if (self) 
     {
         self.backgroundColor = [UIColor whiteColor];
-    }
-    return self;
-}
-
-- (SGNManagedImage*)imageView
-{
-    if(!_imageView)
-    {
         //add image view
         _imageView = [[SGNManagedImage alloc] initWithFrame:CGRectZero];
         _imageView.imageContentMode = UIViewContentModeScaleToFill;
         [self addSubview:_imageView];
-    }
-    return _imageView;
-}
-
-- (UIImageView*)versionView
-{
-    if(!_versionView)
-    {
+        
         //add version view
         _versionView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _versionView.contentMode = UIViewContentModeScaleToFill;
         [self addSubview:_versionView];
-    }
-    return _versionView;
-}
 
-- (UILabel*)contentLabel
-{
-    if(!_contentLabel)
-    {
         //add content label
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _contentLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
@@ -69,26 +47,22 @@
         _contentLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:_contentLabel];
     }
-    return _contentLabel;
+    return self;
 }
 
-- (void)layoutSubviews 
+- (id)initWithNibName:(NSString*)nibNameOrNil
 {
-    if(_imageView)
+    //load default NibName if does not have
+    if(nibNameOrNil == nil || [nibNameOrNil isEqualToString:@""])
+        nibNameOrNil = @"SGNCustomPopup";
+    self = [[[NSBundle mainBundle] loadNibNamed:nibNameOrNil owner:self options:nil] objectAtIndex:0];
+    
+    if(self)
     {
-        _imageView.frame = CGRectInset(self.bounds, POSTER_MARGIN, POSTER_MARGIN);
+        //Init
+        _imageView.imageContentMode = UIViewContentModeScaleToFill;
     }
-    if(_versionView)
-    {
-        _versionView.frame = CGRectMake(self.bounds.size.width - 32, 2, 30, 30);
-        //    _versionView.frame = CGRectMake(5, self.bounds.size.height - 20 - POSTER_MARGIN,
-        //                                    self.bounds.size.width - 2 * POSTER_MARGIN, 20);        
-    }
-    if(_contentLabel)
-    {
-        _contentLabel.frame = CGRectMake(0, self.bounds.size.height - 30, self.bounds.size.width, 30);
-    }
-
+    return self;
 }
 
 - (void)prepareForReuse 

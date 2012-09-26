@@ -67,6 +67,7 @@
     _PSNowShowing.collectionViewDataSource = self;
     _PSNowShowing.numColsPortrait = 2;
     _PSNowShowing.numColsLandscape = 2;
+    _PSNowShowing.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     mainFrame.origin.x = 320;
     self.PSCommingSoon = [[PSCollectionView alloc]initWithFrame:mainFrame];
@@ -76,6 +77,7 @@
     _PSCommingSoon.collectionViewDataSource = self;
     _PSCommingSoon.numColsPortrait = 2;
     _PSCommingSoon.numColsLandscape = 2;
+    _PSCommingSoon.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     
     //modify main scrollview
     _scrollViewMain.contentSize = CGSizeMake(mainFrame.size.width * 2, mainFrame.size.height);
@@ -165,7 +167,8 @@
     SGNCollectionViewCell *cell = (SGNCollectionViewCell*)[collectionView dequeueReusableView];
     if(cell == nil)
     {
-        cell = [[SGNCollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, POSTER_WIDTH, POSTER_HEIGHT)];
+        cell = [[SGNCollectionViewCell alloc] initWithNibName:@"SGNCollectionViewCell"];
+        [cell.contentLabel removeFromSuperview];
     }
 
     [cell prepareForReuse];

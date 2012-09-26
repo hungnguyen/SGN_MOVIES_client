@@ -92,7 +92,7 @@
     SGNCollectionViewCell *cell = (SGNCollectionViewCell*)view;
     if(cell == nil)
     {
-        cell = [[SGNCollectionViewCell alloc] initWithFrame:POSTER_RECT];
+        cell = [[SGNCollectionViewCell alloc] initWithNibName:@"SGNCollectionViewCell"];
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageView:)];
         [tapGR setNumberOfTapsRequired:1];
         [cell addGestureRecognizer:tapGR];
@@ -112,6 +112,11 @@
     else
     {
         cell.contentLabel.text = [[_data objectAtIndex:index] valueForKey:@"title"];
+        //add version
+        if([[[_data objectAtIndex:index] valueForKey:@"version"] contains:@"3d"])
+            cell.versionView.image = [UIImage imageNamed:@"3d.png"];
+        else 
+            cell.versionView.image = [UIImage imageNamed:@""];
     }
     
     _pageControl.currentPage = _carousel.currentItemIndex;

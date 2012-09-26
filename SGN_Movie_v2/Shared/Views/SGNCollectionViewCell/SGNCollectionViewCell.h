@@ -11,8 +11,10 @@
 
 @interface SGNCollectionViewCell : PSCollectionViewCell
 
-@property (nonatomic, strong) SGNManagedImage *imageView;
-@property (nonatomic, strong) UIImageView *versionView;
-@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) IBOutlet SGNManagedImage *imageView;
+@property (nonatomic, strong) IBOutlet UIImageView *versionView;
+@property (nonatomic, strong) IBOutlet UILabel *contentLabel;
+
+- (id)initWithNibName:(NSString*)nibNameOrNil;
 
 @end
