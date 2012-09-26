@@ -433,7 +433,7 @@ indexToRectMap = _indexToRectMap;
     if ([view respondsToSelector:@selector(prepareForReuse)]) {
         [view performSelector:@selector(prepareForReuse)];
     }
-    view.frame = CGRectZero;
+    //view.frame = CGRectZero;
     [self.reuseableViews addObject:view];
     [view removeFromSuperview];
 }

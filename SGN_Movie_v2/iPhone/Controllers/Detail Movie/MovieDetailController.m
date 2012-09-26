@@ -208,12 +208,12 @@
         //description cell
         CGSize size = CGSizeMake(_tableView.bounds.size.width, 9999);
         //increase font to 2point to get bigger label size
-        UIFont *font = [UIFont fontWithName:FONTNAME size:FONTSIZE + 2];
+        UIFont *font = [UIFont fontWithName:FONTNAME size:FONTSIZE];
         
         CGSize expectedLabelSize = [_movieObject.movieDescription sizeWithFont:font
                                                              constrainedToSize:size
                                                                  lineBreakMode:UILineBreakModeWordWrap];  
-        return expectedLabelSize.height; 
+        return expectedLabelSize.height + 20; 
     }
     else 
     {
