@@ -16,7 +16,7 @@
     #import "Define.h"
 #endif
 
-#define UPDATE_ALL_URL @"http://sgnm-test.apphb.com/update/all?lasttime=%@&format=%@"
+#define UPDATE_ALL_URL @"http://sgnm-release200.apphb.com/update/all?lasttime=%@&format=%@"
 
 #define HEIGHT_OF_VIEW 416
 
